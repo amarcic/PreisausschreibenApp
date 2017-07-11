@@ -1,2 +1,3 @@
 # PreisausschreibenApp
-React application for DFG Project on musical price competitions
+React application for DFG funded project on musical price competitions in the timframe between 1800 and 1871.
+
