@@ -1,0 +1,25 @@
+{
+  "name": "(preisausschreibenapp)",
+  "version": "0.0.1",
+  "description": "React app for DFG project on musical price competitions: Musikalische Preisausschreiben 1800 bis 1870: Grundriss, Datenbank und Bibliographie auf der Grundlage von Musikperiodika",
+  "main": "./src/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amarcic/PreisausschreibenApp.git"
+  },
+  "author": "aleksander marcic <aleksander.marcic@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/amarcic/PreisausschreibenApp/issues"
+  },
+  "homepage": "https://github.com/amarcic/PreisausschreibenApp#readme",
+  "devDependencies": {
+    "babel-core": "^6.25.0",
+    "babel-loader": "^7.1.1",
+    "babel-preset-env": "^1.6.0",
+    "webpack": "^3.1.0"
+  }
+}
