@@ -4,7 +4,8 @@
   "description": "React app for DFG project on musical price competitions: Musikalische Preisausschreiben 1800 bis 1870: Grundriss, Datenbank und Bibliographie auf der Grundlage von Musikperiodika",
   "main": "./src/app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
   },
   "repository": {
     "type": "git",
