@@ -6,9 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack",
-    "dev": "webpack-dev-server",
+    "dev": "webpack-dev-server --inline --hot",
     "production": "cross-env NODE_ENV=production webpack",
-    "start": "webpack-dev-server --open"
+    "start": "webpack-dev-server --open --inline --hot"
   },
   "repository": {
     "type": "git",

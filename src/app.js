@@ -2,9 +2,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import Layout from "./Layout";
+
 console.log("it works!");
+const app = document.getElementById('mount');
 
 ReactDOM.render(
-    <h1>Hello, world!</h1>,
-    document.getElementById('mount')
+    <Layout/>,
+    app
 );
