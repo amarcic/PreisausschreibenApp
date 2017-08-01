@@ -1,13 +1,25 @@
 //React Component for the application layout
 import React from 'react';
-import Nav_Main from './nav-main';
+
+import Body from './Body';
+import Header from './Header';
+import Footer from './Footer';
 
 export default class Layout extends React.Component {
+    constructor() {
+        super();
+        this.state = {
+            title: "Musikalische Preisausschreiben 1825 bis 1826",
+            subtitle: "Grundriss, Datenbank und Bibiografie auf Grundlage von Musikperiodika"
+        };
+    }
+
     render() {
         return(
             <div>
-                <Nav_Main/>
-                <h2>It works, indeed, does it not</h2>
+                <Header title={this.state.title} subtitle={this.state.subtitle} />
+                <Body/>
+                <Footer/>
             </div>
         );
     }

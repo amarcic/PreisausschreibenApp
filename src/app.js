@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom';
 import Layout from "./Layout";
 
 console.log("it works!");
-const app = document.getElementById('mount');
+const app = document.getElementById('root');
 
 ReactDOM.render(
     <Layout/>,
