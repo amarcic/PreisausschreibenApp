@@ -3,18 +3,11 @@ import React from "react";
 import Nav_Main from './nav-main';
 import Title from './Title';
 
-export default class Header extends React.Component {
-    handleChange( e ) {
-            const title = e.target.value;
-            this.props.changeTitle( title );
-    }
-    render() {
+export default function Header( props ) {
         return(
             <div>
-                <Title title={this.props.title} subtitle={this.props.subtitle} />
+                <Title title={props.text.title} subtitle={props.text.subtitle} />
                 <Nav_Main/>
-                <input value={this.props.title} onChange={this.handleChange.bind(this)} />
             </div>
         );
-    }
 }
