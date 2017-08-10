@@ -10,7 +10,7 @@ export default class Nav_Main extends React.Component {
     render() {
         return (
             <div>
-                <span><button>{this.btn1text}</button><button>{this.btn2text}</button></span>
+                <span><Nav-Button btn_label={this.btn1text}/><button>{this.btn2text}</button></span>
             </div>
         );
     }

@@ -6,7 +6,7 @@ import Title from './Title';
 export default function Header( props ) {
         return(
             <div>
-                <Title title={props.text.title} subtitle={props.text.subtitle} />
+                <Title title={props.title.main_title} subtitle={props.title.subtitle} />
                 <Nav_Main/>
             </div>
         );
