@@ -1,12 +1,17 @@
 import React from "react";
 
 export default function Sidebar( props ) {
+    const navItems = props.navItems;
+    /*const listNavItems = navItems.map(
+        (navItem) => <li key={navItem}>{navItem}</li>
+    );*/
+
         return(
             <div>
-                there<br />
-                will<br />
-                be<br />
-                stuff<br />
+                <h3>side navigation</h3>
+                <ul>{navItems.map(
+        (navItem) => <li key={navItem}>{navItem}</li>
+    )}</ul>
             </div>
         );
 }

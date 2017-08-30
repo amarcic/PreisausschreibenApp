@@ -5,7 +5,7 @@ import React from 'react';
 import Body from './Body';
 import Header_Container from './Header-Container';
 import Footer from './Footer';
-
+import Sidebar from './Sidebar';
 
 export default class Layout extends React.Component {
     constructor() {
@@ -29,6 +29,7 @@ export default class Layout extends React.Component {
             <div>
                 <Header_Container getTitle={this.getTitle.bind(this)} />
                 <Body/>
+                <Sidebar navItems={["first", "second", "third"]} />
                 <Footer/>
             </div>
         );
