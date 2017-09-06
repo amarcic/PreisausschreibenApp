@@ -1,5 +1,5 @@
 import React from "react";
-import { DatePicker, message, Button } from 'antd';
+import { DatePicker, message } from 'antd';
 
 
 export default class Body extends React.Component {
@@ -20,8 +20,7 @@ export default class Body extends React.Component {
             <div>
                 this is my beautiful body <br/>
                 it's rather spectral at this point in time:
-                <DatePicker />
-                <Button>hello</Button>
+                <DatePicker onChange={value => this.handleChange(value)} />
             </div>
         );
         

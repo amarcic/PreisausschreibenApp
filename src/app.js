@@ -4,8 +4,6 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter, Route, Link } from 'react-router-dom';
 import { LocaleProvider } from 'antd';
 import deDE from 'antd/lib/locale-provider/de_DE';
-//import 'antd/dist/antd.css';
-
 
 import Layout from "./Layout";
 

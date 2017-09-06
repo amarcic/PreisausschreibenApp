@@ -8,7 +8,7 @@
     "build": "webpack",
     "dev": "webpack-dev-server --inline --hot",
     "production": "cross-env NODE_ENV=production webpack",
-    "start": "webpack-dev-server --content-base src --hot --inline"
+    "start": "webpack-dev-server --hot --inline --open"
   },
   "repository": {
     "type": "git",
@@ -29,8 +29,6 @@
     "compression-webpack-plugin": "^1.0.0",
     "cross-env": "^5.0.1",
     "css-loader": "^0.28.7",
-    "less": "^2.7.2",
-    "less-loader": "^4.0.5",
     "style-loader": "^0.18.2",
     "webpack": "^3.1.0",
     "webpack-dev-server": "^2.5.1"
