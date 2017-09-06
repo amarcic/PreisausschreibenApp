@@ -1,5 +1,5 @@
 {
-  "name": "(preisausschreibenapp)",
+  "name": "preisausschreibenapp",
   "version": "0.0.1",
   "description": "React app for DFG project on musical price competitions: Musikalische Preisausschreiben 1800 bis 1870: Grundriss, Datenbank und Bibliographie auf der Grundlage von Musikperiodika",
   "main": "./src/app.js",
@@ -8,7 +8,7 @@
     "build": "webpack",
     "dev": "webpack-dev-server --inline --hot",
     "production": "cross-env NODE_ENV=production webpack",
-    "start": "webpack-dev-server --open --inline --hot"
+    "start": "webpack-dev-server --content-base src --hot --inline"
   },
   "repository": {
     "type": "git",
@@ -23,10 +23,15 @@
   "devDependencies": {
     "babel-core": "^6.25.0",
     "babel-loader": "^7.1.1",
+    "babel-plugin-import": "^1.4.0",
     "babel-preset-env": "^1.6.0",
     "babel-preset-react": "^6.24.1",
     "compression-webpack-plugin": "^1.0.0",
     "cross-env": "^5.0.1",
+    "css-loader": "^0.28.7",
+    "less": "^2.7.2",
+    "less-loader": "^4.0.5",
+    "style-loader": "^0.18.2",
     "webpack": "^3.1.0",
     "webpack-dev-server": "^2.5.1"
   },
@@ -34,6 +39,7 @@
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-router-dom": "^4.1.2",
-    "w3-css": "^4.0.4"
+    "w3-css": "^4.0.4",
+    "antd": "^2.13.0"
   }
 }

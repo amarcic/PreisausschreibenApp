@@ -9,9 +9,9 @@ export default function Sidebar( props ) {
         return(
             <div>
                 <h3>side navigation</h3>
-                <ul>{navItems.map(
-        (navItem) => <li key={navItem}>{navItem}</li>
-    )}</ul>
+                <div>{navItems.map(
+        (navItem) => <span key={navItem}><a href="#">{navItem}</a><br /></span>
+    )}</div>
             </div>
         );
 }

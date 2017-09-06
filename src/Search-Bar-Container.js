@@ -17,6 +17,7 @@ export default class Search_Bar_Containter extends React.Component {
     handleSubmit(event) {
         alert('searching for ' + this.state.searchString + "...");
         event.preventDefault();
+        this.setState({searchString: ""});
     }
 
     render() {

@@ -7,8 +7,7 @@ module.exports = {
     entry: "./src/app.js",
     output: {
         path: path.resolve(__dirname, "dist"),
-        filename: "bundle.js",
-        publicPath: "/assets/"
+        filename: "bundle.js"
     },
     resolve: {
         extensions: [ '*', '.js', '.jsx', '.json' ]
@@ -24,10 +23,16 @@ module.exports = {
         })
     ],
     module: {
-        loaders: [{
+        loaders: [
+        {
             test: /\.jsx?$/,
             exclude: /node_modules/,
             loader: "babel-loader"
-        }]
+        },
+        {
+            test: /\.css$/,
+            loader: "style-loader!css-loader"
+        }
+    ]
     }
 };
