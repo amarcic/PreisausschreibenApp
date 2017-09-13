@@ -12,7 +12,7 @@ module.exports = {
     resolve: {
         extensions: [ '*', '.js', '.jsx', '.json' ]
     },
-    devtool: debug ? "inline-sourcemap": false,
+    devtool: debug ? false : false,
     context: __dirname,
     devServer: {
         contentBase: path.join( __dirname, "dist")
@@ -23,7 +23,7 @@ module.exports = {
         })
     ],
     module: {
-        loaders: [
+        rules: [
         {
             test: /\.jsx?$/,
             exclude: /node_modules/,

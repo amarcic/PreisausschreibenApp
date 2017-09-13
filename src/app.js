@@ -5,7 +5,7 @@ import { BrowserRouter, Route, Link } from 'react-router-dom';
 import { LocaleProvider } from 'antd';
 import deDE from 'antd/lib/locale-provider/de_DE';
 
-import Layout from "./Layout";
+import Layout_Container from "./Layout-Container";
 
 console.log("it works!");
 const app = document.getElementById('root');
@@ -13,7 +13,7 @@ const app = document.getElementById('root');
 ReactDOM.render(
     <BrowserRouter>
         <LocaleProvider locale={deDE}>
-            <Layout/>
+            <Layout_Container/>
         </ LocaleProvider>
     </BrowserRouter>,
     app
