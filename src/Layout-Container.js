@@ -1,11 +1,15 @@
 //React Component for the application layout
 import React from 'react';
+import { Route, Link } from 'react-router-dom';
 //import 'w3-css/w3.css';
 
 import { Layout, Menu, Row, Col, Breadcrumb } from 'antd';
 const { SubMenu } = Menu;
 const { Header, Content, Sider, Footer } = Layout;
 
+import LandingPage from './LandingPage';
+import SearchPage from './SearchPage';
+import HeroSearch from './HeroSearch';
 /*
 import Body from './Body';
 import Header_Container from './Header-Container';
@@ -34,13 +38,10 @@ export default class Layout_Container extends React.Component {
         return(
             <Layout>
                 <Header>
-                    <Row gutter={16}>
-                        <Col span={5}>
+                    <Row gutter={10}>
+                        <Col span={3}>
                             <div className="header--title">
-                                Musikalische Preisausschreiben 1825 bis 1826
-                            </div>
-                            <div className="header--title__subtitle">
-                                Grundriss und Datenbank
+                                <Link to="/">Musikalische Preisausschreiben</Link>
                             </div>
                         </Col>
                         <Col span={17}>
@@ -55,11 +56,13 @@ export default class Layout_Container extends React.Component {
                         </Col>
                     </Row>
                 </Header>
+                
+                <Route path="/" exact component={HeroSearch} />
 
                 <Content>
                     <Breadcrumb>
-                        <Breadcrumb.Item>Home</Breadcrumb.Item>
-                        <Breadcrumb.Item>Suchergebnisse</Breadcrumb.Item>
+                        <Breadcrumb.Item><Link to="/">Home</Link></Breadcrumb.Item>
+                        <Breadcrumb.Item><Link to="/search">Suchergebnisse</Link></Breadcrumb.Item>
                     </Breadcrumb>
                 </Content>
 
@@ -78,7 +81,8 @@ export default class Layout_Container extends React.Component {
                         </Menu>
                     </Sider>
                     <Content>
-                        here is some content
+                        <Route path="/" exact component={LandingPage} />
+                        <Route path="/search" component={SearchPage} />
                     </Content>
                 </Layout>
                 <Footer style={{testAlign: 'center'}}>
