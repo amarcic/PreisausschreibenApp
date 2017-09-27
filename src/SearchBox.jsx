@@ -14,7 +14,15 @@ export default function SearchBar( props ) {
     );
 
     return(
-        <div>
+        <div style={{ 
+                textAlign: "center",
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)"
+            }}>
+            <h1 style={{fontSize:50}}>Musikalische Preisausschreiben</h1>
+            <h2>Grundriss und Datenbank auf Grundlage musikalischer Periodika</h2>
             <Input.Search 
                 addonBefore={selectBefore}
                 style={{ width: 500 }}

@@ -9,7 +9,7 @@ const { Header, Content, Sider, Footer } = Layout;
 
 import LandingPage from './LandingPage';
 import SearchPage from './SearchPage';
-import HeroSearch from './HeroSearch';
+import Banner from './Banner';
 /*
 import Body from './Body';
 import Header_Container from './Header-Container';
@@ -57,7 +57,7 @@ export default class Layout_Container extends React.Component {
                     </Row>
                 </Header>
                 
-                <Route path="/" exact component={HeroSearch} />
+                <Route path="/" exact component={Banner} />
 
                 <Content>
                     <Breadcrumb>
