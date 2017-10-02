@@ -21,7 +21,18 @@ export default function Banner( props ) {
             backgroundPosition: "center",
             backgroundSize: "cover" 
         }}>
-            <SearchBox />
+            <div style={{ 
+                textAlign: "center",
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)"
+            }}>
+                <h1 style={{fontSize:50}}>Musikalische Preisausschreiben</h1>
+                <h2>Grundriss, Datenbank und Bibliografie auf Grundlage von Musikperiodika</h2>
+
+                <SearchBox />
+            </div>
         </Layout>
     );
 }

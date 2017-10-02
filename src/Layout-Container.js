@@ -21,13 +21,11 @@ export default class Layout_Container extends React.Component {
     constructor() {
         super();
         this.state = {
-            header: {
-                header_title: {
-                    main_title: "Musikalische Preisausschreiben 1825 bis 1826",
-                    subtitle: "Grundriss, Datenbank und Bibliografie auf Grundlage von Musikperiodika"
-                },
-                headerStyle: { w3class: "w3-container w3-black" }
-            }
+            data: {
+                name: "horst",
+                other_name: "dieter"
+            },
+            messages: []
         };
     }
     getTitle() {
