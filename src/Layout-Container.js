@@ -7,6 +7,8 @@ import { Layout, Menu, Row, Col, Breadcrumb } from 'antd';
 const { SubMenu } = Menu;
 const { Header, Content, Sider, Footer } = Layout;
 
+import CouchDataStore from './CouchDataStore';
+
 import LandingPage from './LandingPage';
 import SearchPage from './SearchPage';
 import Banner from './Banner';
@@ -21,16 +23,33 @@ export default class Layout_Container extends React.Component {
     constructor() {
         super();
         this.state = {
-            data: {
-                name: "horst",
-                other_name: "dieter"
-            },
-            messages: []
+            data: CouchDataStore.getResults(),
+            messages: [],
+            searchInput: "suche..."
         };
     }
+
+    componentWillMount() {
+        CouchDataStore.subscribe( this.updateData );
+    }
+
+    updateData() {
+        this.setState( {
+            data: CouchDataStore.getResults()
+        } );
+    }
+
     getTitle() {
         return this.state.header.header_title;
     }
+
+    updateInput( event ) {
+        this.setState( {
+            searchInput: event.target.value
+        } );
+    }
+
+
 
     render() {
         return(
