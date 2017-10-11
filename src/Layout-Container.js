@@ -11,7 +11,8 @@ import CouchDataStore from './CouchDataStore';
 
 import LandingPage from './LandingPage';
 import SearchPage from './SearchPage';
-import Banner from './Banner';
+import SearchBanner from './SearchBanner';
+import SearchRow from './SearchRow';
 /*
 import Body from './Body';
 import Header_Container from './Header-Container';
@@ -73,19 +74,15 @@ export default class Layout_Container extends React.Component {
                         </Col>
                     </Row>
                 </Header>
-                
-                <Route path="/" exact component={Banner} />
 
-                <Content>
-                    <Breadcrumb>
-                        <Breadcrumb.Item><Link to="/">Home</Link></Breadcrumb.Item>
-                        <Breadcrumb.Item><Link to="/search">Suchergebnisse</Link></Breadcrumb.Item>
-                    </Breadcrumb>
-                </Content>
+                <Row>
+                            <Route path="/" exact component={SearchBanner} />
+                            <Route path="/search" component={SearchRow} />
+                </Row>
 
-                <Layout>
-                    <Sider>
-                        <Menu mode="inline">
+                <Layout style={{ backgroundColor: "#ffffff" }}>
+                    <Sider style={{backgroundColor: "#ffffff"}}>
+                        <Menu theme="dark" mode="inline">
                             <SubMenu key="sub1" title="Dokumenttypen">
                                 <Menu.Item key="1">Preisausschreiben</Menu.Item>
                                 <Menu.Item key="2">Personen</Menu.Item>
@@ -93,17 +90,19 @@ export default class Layout_Container extends React.Component {
                             </SubMenu>
                             <SubMenu key="sub2" title="Schlagworte">
                                 <Menu.Item key="1">Verein</Menu.Item>
-
+                                <Menu.Item key="2">Eisenbahn</Menu.Item>
+                                <Menu.Item key="3">Gemeindefest</Menu.Item>
+                                <Menu.Item key="4">Bergbau</Menu.Item>
                             </SubMenu>
                         </Menu>
                     </Sider>
-                    <Content>
+                    <Content style={{ marginLeft: "50px" }}>
                         <Route path="/" exact component={LandingPage} />
                         <Route path="/search" component={SearchPage} />
                     </Content>
                 </Layout>
-                <Footer style={{testAlign: 'center'}}>
-                    Musikalische Preisausschreiben
+                <Footer style={{textAlign: 'center'}}>
+                    Musikalische Preisausschreiben ©2017 {console.log(this.state.data)}
                 </Footer>
 
             </Layout>

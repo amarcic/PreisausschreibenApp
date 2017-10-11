@@ -2,22 +2,23 @@ import events from 'events';
 
 let emitter = new events.EventEmitter();
 
-let queryResults = [];
+let queryResults = [ 'achim' ];
 
-fetch('http://134.95.80.232:5984/preisausschreiben/_design/preisausschreiben/_view/all_keywords?group_level=1&&reduce=true', {
+/*
+let promise1 = fetch('http://134.95.80.232:5984/preisausschreiben/_design/preisausschreiben/_view/all_keywords?group_level=1&&reduce=true', {
     method: 'GET',
     headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
     },
     mode: 'cors'
-})
-    .then( response => response.json() )
-    .then( data => { queryResults = data.rows; } )
+})*/
+  //  .then( response => response.json() )
+   // .then( data => { console.log( data.rows); } )
 ;
 
 export default {
-    getResults: function( callback ) {
+    getResults: function( callback ) {                   
         return queryResults.concat();
     },
 
