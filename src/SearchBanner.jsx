@@ -17,7 +17,7 @@ export default function SearchBanner( props ) {
     return(
         <Layout style={{ 
             backgroundImage: 'url("./CollageA_Farbe1.jpg")', 
-            height: "50vH", 
+            height: "90vH", 
             backgroundPosition: "center",
             backgroundSize: "cover" 
         }}>

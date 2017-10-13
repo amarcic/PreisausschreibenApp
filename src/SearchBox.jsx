@@ -15,9 +15,15 @@ export default function SearchBar( props ) {
 
     return(
         <Input.Search 
+            size="large"
+            placeholder="suche..."
             addonBefore={selectBefore}
             style={{ width: 500 }}
-            onSearch={ value => console.log(value) } 
+            onSearch={ value => {
+                        //this.context.router.transitionTo('/search');
+                        return console.log(value)
+                        } 
+                    }
         />
     );
 }

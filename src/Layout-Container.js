@@ -13,6 +13,7 @@ import LandingPage from './LandingPage';
 import SearchPage from './SearchPage';
 import SearchBanner from './SearchBanner';
 import SearchRow from './SearchRow';
+import SideMenu from './SideMenu';
 /*
 import Body from './Body';
 import Header_Container from './Header-Container';
@@ -20,14 +21,26 @@ import Footer from './Footer';
 import Sidebar from './Sidebar';
 */
 
+let prom = fetch( 'http://www.mocky.io/v2/59de81851000003e0042a9a6', {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        mode: 'cors'
+        });
+
 export default class Layout_Container extends React.Component {
     constructor() {
         super();
         this.state = {
             data: CouchDataStore.getResults(),
             messages: [],
-            searchInput: "suche..."
+            searchInput: "suche...",
+            fromProm: null
         };
+        prom.then( response => response.json() )
+        .then( data => { this.setState( { fromProm: data } ) } )
     }
 
     componentWillMount() {
@@ -64,7 +77,7 @@ export default class Layout_Container extends React.Component {
                         </Col>
                         <Col span={17}>
                         <div>
-                            <Menu mode="horizontal" theme="dark">
+                            <Menu mode="horizontal" theme="dark" style={{ lineHeight: '64px' }}>
                                 <Menu.Item key="1">Über das Projekt</Menu.Item>
                                 <Menu.Item key="2">Publikationen</Menu.Item>
                                 <Menu.Item key="3">Bibliographie</Menu.Item>
@@ -81,28 +94,14 @@ export default class Layout_Container extends React.Component {
                 </Row>
 
                 <Layout style={{ backgroundColor: "#ffffff" }}>
-                    <Sider style={{backgroundColor: "#ffffff"}}>
-                        <Menu theme="dark" mode="inline">
-                            <SubMenu key="sub1" title="Dokumenttypen">
-                                <Menu.Item key="1">Preisausschreiben</Menu.Item>
-                                <Menu.Item key="2">Personen</Menu.Item>
-                                <Menu.Item key="3">Körperschaften</Menu.Item>
-                            </SubMenu>
-                            <SubMenu key="sub2" title="Schlagworte">
-                                <Menu.Item key="1">Verein</Menu.Item>
-                                <Menu.Item key="2">Eisenbahn</Menu.Item>
-                                <Menu.Item key="3">Gemeindefest</Menu.Item>
-                                <Menu.Item key="4">Bergbau</Menu.Item>
-                            </SubMenu>
-                        </Menu>
-                    </Sider>
+                    <Route path="/search" component={SideMenu} />
                     <Content style={{ marginLeft: "50px" }}>
                         <Route path="/" exact component={LandingPage} />
                         <Route path="/search" component={SearchPage} />
                     </Content>
                 </Layout>
                 <Footer style={{textAlign: 'center'}}>
-                    Musikalische Preisausschreiben ©2017 {console.log(this.state.data)}
+                    Musikalische Preisausschreiben ©2017
                 </Footer>
 
             </Layout>
