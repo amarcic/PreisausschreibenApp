@@ -13,8 +13,9 @@ import LandingPage from './LandingPage';
 import SearchPage from './SearchPage';
 import SearchBanner from './SearchBanner';
 import SearchRow from './SearchRow';
-import SideMenu from './SideMenu';
+
 /*
+import SideMenu from './SideMenu';
 import Body from './Body';
 import Header_Container from './Header-Container';
 import Footer from './Footer';
@@ -78,10 +79,13 @@ export default class Layout_Container extends React.Component {
                         <Col span={17}>
                         <div>
                             <Menu mode="horizontal" theme="dark" style={{ lineHeight: '64px' }}>
-                                <Menu.Item key="1">Über das Projekt</Menu.Item>
-                                <Menu.Item key="2">Publikationen</Menu.Item>
-                                <Menu.Item key="3">Bibliographie</Menu.Item>
-                                <Menu.Item key="4">Visualisierungen</Menu.Item>
+                                <SubMenu title={<span>Über das Projekt</span>}>
+                                    <Menu.Item key="1">Forschungsvorhaben</Menu.Item>
+                                    <Menu.Item key="2">Mitarbeiter</Menu.Item>
+                                </SubMenu>
+                                <Menu.Item key="3">Publikationen</Menu.Item>
+                                <Menu.Item key="4">Bibliographie</Menu.Item>
+                                <Menu.Item key="5">Visualisierungen</Menu.Item>
                             </Menu>
                         </div>
                         </Col>
@@ -93,13 +97,9 @@ export default class Layout_Container extends React.Component {
                             <Route path="/search" component={SearchRow} />
                 </Row>
 
-                <Layout style={{ backgroundColor: "#ffffff" }}>
-                    <Route path="/search" component={SideMenu} />
-                    <Content style={{ marginLeft: "50px" }}>
-                        <Route path="/" exact component={LandingPage} />
-                        <Route path="/search" component={SearchPage} />
-                    </Content>
-                </Layout>
+                <Route path="/" exact component={LandingPage} />
+                <Route path="/search" component={SearchPage} />
+
                 <Footer style={{textAlign: 'center'}}>
                     Musikalische Preisausschreiben ©2017
                 </Footer>
