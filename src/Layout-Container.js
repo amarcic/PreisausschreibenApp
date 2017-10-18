@@ -1,9 +1,8 @@
 //React Component for the application layout
 import React from 'react';
 import { Route, Link } from 'react-router-dom';
-//import 'w3-css/w3.css';
 
-import { Layout, Menu, Row, Col, Breadcrumb } from 'antd';
+import { Layout, Menu, Row, Col, Breadcrumb, Table, Icon } from 'antd';
 const { SubMenu } = Menu;
 const { Header, Content, Sider, Footer } = Layout;
 
@@ -14,14 +13,36 @@ import SearchPage from './SearchPage';
 import SearchBanner from './SearchBanner';
 import SearchRow from './SearchRow';
 
-/*
-import SideMenu from './SideMenu';
-import Body from './Body';
-import Header_Container from './Header-Container';
-import Footer from './Footer';
-import Sidebar from './Sidebar';
-*/
+const apiUrl = 'http://www.mocky.io/v2/59e752d10f00003107ee99e7';
+const requestOptions = {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        mode: 'cors'
+    };
 
+    /*
+    const columns = [
+        {
+            title: 'Nachname',
+            dataIndex: 'value.nachname',
+            key: 'nachname'
+        },
+        {
+            title: 'Vorname',
+            dataIndex: 'value.vorname',
+            key: 'vorname'
+        },
+        {
+            title: 'Alias',
+            dataIndex: 'value.alias',
+            key: 'namenszusatz'
+        }
+    ]
+    */
+/*
 let prom = fetch( 'http://www.mocky.io/v2/59de81851000003e0042a9a6', {
         method: 'GET',
         headers: {
@@ -30,6 +51,7 @@ let prom = fetch( 'http://www.mocky.io/v2/59de81851000003e0042a9a6', {
         },
         mode: 'cors'
         });
+*/
 
 export default class Layout_Container extends React.Component {
     constructor() {
@@ -38,14 +60,25 @@ export default class Layout_Container extends React.Component {
             data: CouchDataStore.getResults(),
             messages: [],
             searchInput: "suche...",
-            fromProm: null
+            fromProm: null,
+            requestData: [{"id":"4e01325f487dfba0bb454f4f050460f8","key":"4e01325f487dfba0bb454f4f050460f8","value":{"vorname":"Jean","nachname":"Harzé","namenszusatz":" "}},
+            {"id":"4e01325f487dfba0bb454f4f05046a59","key":"4e01325f487dfba0bb454f4f05046a59","value":{"vorname":"Henri","nachname":"Hanlet","namenszusatz":" "}}]
         };
+
+        /*
         prom.then( response => response.json() )
         .then( data => { this.setState( { fromProm: data } ) } )
+        */
     }
 
     componentWillMount() {
         CouchDataStore.subscribe( this.updateData );
+    }
+
+    componentDidMount() {
+        fetch( apiUrl, requestOptions )
+            .then( response => response.json() )
+            .then( data => this.setState( { requestData: data.rows } ) )
     }
 
     updateData() {
@@ -98,7 +131,7 @@ export default class Layout_Container extends React.Component {
                 </Row>
 
                 <Route path="/" exact component={LandingPage} />
-                <Route path="/search" component={SearchPage} />
+                <Route path="/search" render={ (props) => <SearchPage requestData={this.state.requestData} {...props} /> } />
 
                 <Footer style={{textAlign: 'center'}}>
                     Musikalische Preisausschreiben ©2017

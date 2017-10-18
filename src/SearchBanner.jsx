@@ -5,14 +5,6 @@ import { Layout } from 'antd';
 import SearchBox from './SearchBox';
 
 export default function SearchBanner( props ) {
-    /*const bannerStyle = {
-        imageStyle: {
-            background-image: url(./CollageA_Farbe1.jpg);
-            height: 50%
-        },
-        textStyle: {},
-        buttonStyle: {}
-    }*/
 
     return(
         <Layout style={{ 
