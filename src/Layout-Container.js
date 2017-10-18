@@ -2,7 +2,7 @@
 import React from 'react';
 import { Route, Link } from 'react-router-dom';
 
-import { Layout, Menu, Row, Col, Breadcrumb, Table, Icon } from 'antd';
+import { Layout, Menu, Row, Col, Breadcrumb } from 'antd';
 const { SubMenu } = Menu;
 const { Header, Content, Sider, Footer } = Layout;
 
@@ -23,36 +23,6 @@ const requestOptions = {
         mode: 'cors'
     };
 
-    /*
-    const columns = [
-        {
-            title: 'Nachname',
-            dataIndex: 'value.nachname',
-            key: 'nachname'
-        },
-        {
-            title: 'Vorname',
-            dataIndex: 'value.vorname',
-            key: 'vorname'
-        },
-        {
-            title: 'Alias',
-            dataIndex: 'value.alias',
-            key: 'namenszusatz'
-        }
-    ]
-    */
-/*
-let prom = fetch( 'http://www.mocky.io/v2/59de81851000003e0042a9a6', {
-        method: 'GET',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        mode: 'cors'
-        });
-*/
-
 export default class Layout_Container extends React.Component {
     constructor() {
         super();
@@ -64,11 +34,6 @@ export default class Layout_Container extends React.Component {
             requestData: [{"id":"4e01325f487dfba0bb454f4f050460f8","key":"4e01325f487dfba0bb454f4f050460f8","value":{"vorname":"Jean","nachname":"Harzé","namenszusatz":" "}},
             {"id":"4e01325f487dfba0bb454f4f05046a59","key":"4e01325f487dfba0bb454f4f05046a59","value":{"vorname":"Henri","nachname":"Hanlet","namenszusatz":" "}}]
         };
-
-        /*
-        prom.then( response => response.json() )
-        .then( data => { this.setState( { fromProm: data } ) } )
-        */
     }
 
     componentWillMount() {
@@ -76,6 +41,7 @@ export default class Layout_Container extends React.Component {
     }
 
     componentDidMount() {
+        //not using the data store yet
         fetch( apiUrl, requestOptions )
             .then( response => response.json() )
             .then( data => this.setState( { requestData: data.rows } ) )

@@ -37,10 +37,10 @@ export default function SearchPage( props ) {
                         <Menu.Item key="3">Körperschaften</Menu.Item>
                     </SubMenu>
                     <SubMenu key="sub2" title="Schlagworte">
-                        <Menu.Item key="1">Verein</Menu.Item>
-                        <Menu.Item key="2">Eisenbahn</Menu.Item>
-                        <Menu.Item key="3">Gemeindefest</Menu.Item>
-                        <Menu.Item key="4">Bergbau</Menu.Item>
+                        <Menu.Item key="4">Verein</Menu.Item>
+                        <Menu.Item key="5">Eisenbahn</Menu.Item>
+                        <Menu.Item key="6">Gemeindefest</Menu.Item>
+                        <Menu.Item key="7">Bergbau</Menu.Item>
                     </SubMenu>
                 </Menu>
             </Sider>
