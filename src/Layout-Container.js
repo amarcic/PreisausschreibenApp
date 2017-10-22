@@ -69,26 +69,21 @@ export default class Layout_Container extends React.Component {
         return(
             <Layout>
                 <Header>
-                    <Row gutter={10}>
-                        <Col span={3}>
-                            <div className="header--title">
-                                <Link to="/">Musikalische Preisausschreiben</Link>
-                            </div>
-                        </Col>
-                        <Col span={17}>
-                        <div>
-                            <Menu mode="horizontal" theme="dark" style={{ lineHeight: '64px' }}>
-                                <SubMenu title={<span>Über das Projekt</span>}>
-                                    <Menu.Item key="1">Forschungsvorhaben</Menu.Item>
-                                    <Menu.Item key="2">Mitarbeiter</Menu.Item>
-                                </SubMenu>
-                                <Menu.Item key="3">Publikationen</Menu.Item>
-                                <Menu.Item key="4">Bibliographie</Menu.Item>
-                                <Menu.Item key="5">Visualisierungen</Menu.Item>
-                            </Menu>
-                        </div>
-                        </Col>
-                    </Row>
+                    <div className="header--title" style={{
+                                                        width: '200px',
+                                                        float: 'left'
+                                                    }}>
+                        <Link to="/">Musikalische Preisausschreiben</Link>
+                    </div>              
+                    <Menu mode="horizontal" theme="dark" style={{ lineHeight: '64px' }}>
+                        <SubMenu title={<span>Über das Projekt</span>}>
+                            <Menu.Item key="1">Forschungsvorhaben</Menu.Item>
+                            <Menu.Item key="2">Mitarbeiter</Menu.Item>
+                        </SubMenu>
+                        <Menu.Item key="3">Publikationen</Menu.Item>
+                        <Menu.Item key="4">Bibliographie</Menu.Item>
+                        <Menu.Item key="5">Visualisierungen</Menu.Item>
+                    </Menu>
                 </Header>
 
                 <Row>
