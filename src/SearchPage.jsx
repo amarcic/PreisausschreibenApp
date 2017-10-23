@@ -50,7 +50,21 @@ export default function SearchPage( props ) {
                     <Breadcrumb.Item><Link to="/search">Suchergebnisse</Link></Breadcrumb.Item>
                 </Breadcrumb>
                 <Layout>
-                    <Table columns={columns} dataSource={props.requestData} />
+                    {
+                        props.isLoading
+                            ? <p>your request is being fetched at this very moment</p>
+                            : <Table columns={columns} dataSource={props.requestData} />
+                        /*
+                        (() => {
+                        if(props.isLoading) {
+                            return( <p>your request is being fetched</p> );
+                        } else {
+                            return( <Table columns={columns} dataSource={props.requestData} /> );
+                        }
+                    })() 
+                    */
+                    }
+                    
                 </Layout>
             </Content>
         </Layout>

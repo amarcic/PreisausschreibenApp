@@ -9,12 +9,12 @@ export default function SearchBanner( props ) {
     return(
         <Layout style={{ 
             backgroundImage: 'url("./CollageA_Farbe1.jpg")', 
-            height: "80vH", 
+            height: "75vH", 
             backgroundPosition: "center",
             backgroundSize: "cover" 
         }}>
             <div style={{
-                backgroundColor: "#ffffff",
+                backgroundColor: "#d4dff3",
                 padding: "20px",
                 textAlign: "center",
                 position: "absolute",

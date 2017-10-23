@@ -11,13 +11,14 @@ function SearchBar( props ) {
             <Option value="personen">Personen</Option>
             <Option value="koerperschaften">Köperschaften</Option>
             <Option value="serien">Serien</Option>
+            <Option value="unspezifisch">Alle Daten</Option>
         </Select>
     );
 
     return(
         <Input.Search 
             size="large"
-            placeholder="suche..."
+            placeholder="deine suche..."
             addonBefore={selectBefore}
             style={{ width: 500 }}
             onSearch={ value => {

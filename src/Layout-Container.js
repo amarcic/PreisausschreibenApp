@@ -30,9 +30,8 @@ export default class Layout_Container extends React.Component {
             data: CouchDataStore.getResults(),
             messages: [],
             searchInput: "suche...",
-            fromProm: null,
-            requestData: [{"id":"4e01325f487dfba0bb454f4f050460f8","key":"4e01325f487dfba0bb454f4f050460f8","value":{"vorname":"Jean","nachname":"Harzé","namenszusatz":" "}},
-            {"id":"4e01325f487dfba0bb454f4f05046a59","key":"4e01325f487dfba0bb454f4f05046a59","value":{"vorname":"Henri","nachname":"Hanlet","namenszusatz":" "}}]
+            isFetching: false,
+            requestData: null
         };
     }
 
@@ -41,10 +40,11 @@ export default class Layout_Container extends React.Component {
     }
 
     componentDidMount() {
+        this.setState( {isFetching: true} );
         //not using the data store yet
         fetch( apiUrl, requestOptions )
             .then( response => response.json() )
-            .then( data => this.setState( { requestData: data.rows } ) )
+            .then( data => this.setState( { requestData: data.rows, isFetching: false } ) )
     }
 
     updateData() {
@@ -92,7 +92,7 @@ export default class Layout_Container extends React.Component {
                 </Row>
 
                 <Route path="/" exact component={LandingPage} />
-                <Route path="/search" render={ (props) => <SearchPage requestData={this.state.requestData} {...props} /> } />
+                <Route path="/search" render={ (props) => <SearchPage requestData={this.state.requestData} isLoading={this.state.isFetching} {...props} /> } />
 
                 <Footer style={{textAlign: 'center'}}>
                     Musikalische Preisausschreiben ©2017
