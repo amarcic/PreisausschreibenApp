@@ -13,6 +13,8 @@ import SearchPage from './SearchPage';
 import SearchBanner from './SearchBanner';
 import SearchRow from './SearchRow';
 
+import withPromise from './withPromise';
+
 const apiUrl = 'http://www.mocky.io/v2/59e752d10f00003107ee99e7';
 const requestOptions = {
         method: 'GET',
@@ -22,6 +24,9 @@ const requestOptions = {
         },
         mode: 'cors'
     };
+// Bug in HOC withPromise
+//const SearchPageWithPromise = withPromise( fetch(apiUrl, requestOptions), SearchPage );
+const SearchPageWithPromise = withPromise( SearchPage );
 
 export default class Layout_Container extends React.Component {
     constructor() {
@@ -41,10 +46,12 @@ export default class Layout_Container extends React.Component {
 
     componentDidMount() {
         this.setState( {isFetching: true} );
+
         //not using the data store yet
+        /*
         fetch( apiUrl, requestOptions )
             .then( response => response.json() )
-            .then( data => this.setState( { requestData: data.rows, isFetching: false } ) )
+            .then( data => this.setState( { requestData: data.rows, isFetching: false } ) )*/
     }
 
     updateData() {
@@ -90,10 +97,12 @@ export default class Layout_Container extends React.Component {
                             <Route path="/" exact component={SearchBanner} />
                             <Route path="/search" component={SearchRow} />
                 </Row>
-
+                
                 <Route path="/" exact component={LandingPage} />
-                <Route path="/search" render={ (props) => <SearchPage requestData={this.state.requestData} isLoading={this.state.isFetching} {...props} /> } />
-
+                <Route path="/search" render={ (props) => <SearchPageWithPromise {...props} /> } />
+                {/*<Route path="/search" render={ (props) => <SearchPage requestData={this.state.requestData} isLoading={this.state.isFetching} {...props} /> } />
+                there is a bug in the usage of the higher order component
+                <Route path="/search" render={ (props) => <SearchPageWithPromise {...props} /> } />*/}
                 <Footer style={{textAlign: 'center'}}>
                     Musikalische Preisausschreiben ©2017
                 </Footer>

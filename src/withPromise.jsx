@@ -1,35 +1,43 @@
-//planing hoc for data fetching
-// arguments component; source/api; query
-//extra funtionality of enhanced component: loading, Error
-// should isLoading, Error be optional?
 import React from 'react';
 
-export default function withPromise( promProp, WrappedComponent ) { 
+const apiUrl = 'http://www.mocky.io/v2/59e752d10f00003107ee99e7';
+const requestOptions = {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        mode: 'cors'
+    };
+
+export default function withPromise( WrappedComponent ) {
+
     return(
         class extends React.Component {
             constructor( props ) {
-                super(props);
+                super( props );
                 this.state = {
                     loading: true,
-                    error: null,
-                    value: null
+                    data: null
                 }
             }
-
+        
             componentDidMount() {
-                this.props[promProp].then(
-                    response => response.json()
-                )
-                .then(
-                    json => this.setState( { value: json.rows, loading: false } )
-                )
+                fetch( apiUrl, requestOptions )
+                    .then( response => response.json() )
+                    .then( data => this.setState( { data: data.rows, loading: false } ) )
             }
 
-            render() {
-                this.state.loading
-                    ? <p>this application is currently fetching the data you have requested. let's hope for the best...</p>
-                    : <WrappedComponent {...this.props} />;
+           render() {
+               const { hocProp, ...passthroughProps } = this.props;
+               const fetchedData = this.state.data;
+               const isLoading = this.state.loading;
+
+               return(
+                   <WrappedComponent requestData={fetchedData} isLoading={this.state.loading} {...passthroughProps} />
+               );
             }
+        
         }
-    )
+    );
 }
