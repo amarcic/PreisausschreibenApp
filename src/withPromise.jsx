@@ -23,7 +23,11 @@ export default function withPromise( WrappedComponent ) {
             }
         
             componentDidMount() {
-                const Url = props.query? apiUrl + '?key= ' + props.query
+                const query = this.props.query;
+                //example for couchdb query: db.view( 'preisausschreiben/fulltext?startkey="' + inpt + '"&&endkey="' + inpt + '\ufff0"&&reduce=false',
+                const url = this.props.query? apiUrl + '?startkey="' + query + '"&&endkey="' + query + '\ufff0"&&reduce=false' : apiUrl;
+                //if I do it like this, the component is no rerendered when a new input is submitted. fix
+                console.log(url);
                 fetch( apiUrl, requestOptions )
                     .then( response => response.json() )
                     .then( data => this.setState( { data: data.rows, loading: false } ) )

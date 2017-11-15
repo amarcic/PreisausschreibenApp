@@ -113,7 +113,7 @@ export default class Layout_Container extends React.Component {
                 </Row>
                 
                 <Route path="/" exact component={LandingPage} />
-                <Route path="/search" render={ (props) => <SearchPageWithPromise queryString={this.state.searchInput} {...props} /> } />
+                <Route path="/search" render={ (props) => <SearchPageWithPromise query={this.state.searchInput} {...props} /> } />
                 {/*<Route path="/search" render={ (props) => <SearchPage requestData={this.state.requestData} isLoading={this.state.isFetching} {...props} /> } />
                 there is a bug in the usage of the higher order component
                 <Route path="/search" render={ (props) => <SearchPageWithPromise {...props} /> } />*/}
