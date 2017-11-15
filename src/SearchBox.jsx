@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { Select, Icon, Input } from 'antd';
 const Option = Select.Option;
 
-function SearchBar( props ) {
+function SearchBox( props ) {
     const selectBefore = (
         <Select defaultValue="preisausschreiben" style={{ width: 140}}>
             <Option value="preisausschreiben">Preisausschreiben</Option>
@@ -24,11 +24,13 @@ function SearchBar( props ) {
             onSearch={ value => {
                         //if component is changed to a stateful component extending React.Component, use this.props.history.push(...)
                         props.history.push('/search');
-                        return console.log(value)
+                        props.updateInput(value);
+                        //props.updateInput(value);
+                        //return console.log(value);
                         } 
                     }
         />
     );
 }
 
-export default withRouter( SearchBar );
+export default withRouter( SearchBox );

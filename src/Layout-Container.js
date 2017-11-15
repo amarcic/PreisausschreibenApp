@@ -9,6 +9,7 @@ const { Header, Content, Sider, Footer } = Layout;
 import CouchDataStore from './CouchDataStore';
 
 import LandingPage from './LandingPage';
+import AboutPage from './AboutPage';
 import SearchPage from './SearchPage';
 import SearchBanner from './SearchBanner';
 import SearchRow from './SearchRow';
@@ -35,9 +36,11 @@ export default class Layout_Container extends React.Component {
             data: CouchDataStore.getResults(),
             messages: [],
             searchInput: "suche...",
-            isFetching: false,
+        //    isFetching: false,
             requestData: null
         };
+
+        this.updateInput = this.updateInput.bind(this);
     }
 
     componentWillMount() {
@@ -45,7 +48,7 @@ export default class Layout_Container extends React.Component {
     }
 
     componentDidMount() {
-        this.setState( {isFetching: true} );
+        //this.setState( {isFetching: true} );
 
         //not using the data store yet
         /*
@@ -63,16 +66,24 @@ export default class Layout_Container extends React.Component {
     getTitle() {
         return this.state.header.header_title;
     }
-
+    
+    updateInput( value ) {
+        this.setState(
+            { searchInput: value }
+        );
+    }
+    /*
     updateInput( event ) {
         this.setState( {
             searchInput: event.target.value
         } );
     }
+    */
 
 
 
     render() {
+        //console.log(this.state.searchInput);
         return(
             <Layout>
                 <Header>
@@ -84,7 +95,9 @@ export default class Layout_Container extends React.Component {
                     </div>              
                     <Menu mode="horizontal" theme="dark" style={{ lineHeight: '64px' }}>
                         <SubMenu title={<span>Über das Projekt</span>}>
-                            <Menu.Item key="1">Forschungsvorhaben</Menu.Item>
+                            <Menu.Item key="1">
+                                <Link to="/about">Forschungsvorhaben</Link>
+                            </Menu.Item>
                             <Menu.Item key="2">Mitarbeiter</Menu.Item>
                         </SubMenu>
                         <Menu.Item key="3">Publikationen</Menu.Item>
@@ -94,12 +107,13 @@ export default class Layout_Container extends React.Component {
                 </Header>
 
                 <Row>
-                            <Route path="/" exact component={SearchBanner} />
-                            <Route path="/search" component={SearchRow} />
+                            <Route path="/" exact render={ (props) => <SearchBanner updateInput={this.updateInput} {...props} />  } />
+                            <Route path="/search" render={ (props) => <SearchRow updateInput={this.updateInput} {...props} /> } />
+                            <Route path="/about" component={AboutPage} />
                 </Row>
                 
                 <Route path="/" exact component={LandingPage} />
-                <Route path="/search" render={ (props) => <SearchPageWithPromise {...props} /> } />
+                <Route path="/search" render={ (props) => <SearchPageWithPromise queryString={this.state.searchInput} {...props} /> } />
                 {/*<Route path="/search" render={ (props) => <SearchPage requestData={this.state.requestData} isLoading={this.state.isFetching} {...props} /> } />
                 there is a bug in the usage of the higher order component
                 <Route path="/search" render={ (props) => <SearchPageWithPromise {...props} /> } />*/}

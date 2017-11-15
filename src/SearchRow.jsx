@@ -19,7 +19,7 @@ export default function SearchRow( props ) {
                 left: "50%",
                 transform: "translate(-50%, -50%)"
             }}>
-                <SearchBox />
+                <SearchBox updateInput={props.updateInput} />
             </div>
         </Layout>
     );

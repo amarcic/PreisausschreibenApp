@@ -23,6 +23,7 @@ export default function withPromise( WrappedComponent ) {
             }
         
             componentDidMount() {
+                const Url = props.query? apiUrl + '?key= ' + props.query
                 fetch( apiUrl, requestOptions )
                     .then( response => response.json() )
                     .then( data => this.setState( { data: data.rows, loading: false } ) )
@@ -33,9 +34,13 @@ export default function withPromise( WrappedComponent ) {
                const fetchedData = this.state.data;
                const isLoading = this.state.loading;
 
-               return(
-                   <WrappedComponent requestData={fetchedData} isLoading={this.state.loading} {...passthroughProps} />
-               );
+               if (this.state.loading) {
+                   return (<p>your request is being fetched at this very moment</p>);
+               } else {
+                    return(
+                        <WrappedComponent requestData={fetchedData} {...passthroughProps} />
+                    );
+               }
             }
         
         }

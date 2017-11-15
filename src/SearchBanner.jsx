@@ -25,7 +25,7 @@ export default function SearchBanner( props ) {
                 <h1 style={{fontSize:40}}>Musikalische Preisausschreiben 1820 bis 1870</h1>
                 <h2>Grundriss, Datenbank und Bibliografie auf Grundlage von Musikperiodika</h2>
 
-                <SearchBox />
+                <SearchBox updateInput={props.updateInput} />
             </div>
         </Layout>
     );
