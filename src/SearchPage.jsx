@@ -5,7 +5,7 @@ import { Layout, Breadcrumb, Menu, Table } from 'antd';
 const { Content, Sider } = Layout;
 const { SubMenu } = Menu;
 
-// is this the right place for the columns definition? should it be inside the SearchPage funtion?
+// is this the right place for the columns definition? should it be inside the SearchPage function?
 const columns = [
     {
         title: 'Nachname',
@@ -50,6 +50,7 @@ export default function SearchPage( props ) {
                     <Breadcrumb.Item><Link to="/search">Suchergebnisse</Link></Breadcrumb.Item>
                 </Breadcrumb>
                 <Layout>
+                    <p>Du suchst nach {props.query}</p>
                     {
                         <Table columns={columns} dataSource={props.requestData} />
                     }

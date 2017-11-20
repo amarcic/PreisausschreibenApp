@@ -18,22 +18,25 @@ export default function withPromise( WrappedComponent ) {
                 super( props );
                 this.state = {
                     loading: true,
-                    data: null
+                    data: null,
+                    query: this.props.query
                 }
             }
         
             componentDidMount() {
-                const query = this.props.query;
+                console.log("hello from withPromise componentDidMount()");
+                const query = this.state.query;
                 //example for couchdb query: db.view( 'preisausschreiben/fulltext?startkey="' + inpt + '"&&endkey="' + inpt + '\ufff0"&&reduce=false',
-                const url = this.props.query? apiUrl + '?startkey="' + query + '"&&endkey="' + query + '\ufff0"&&reduce=false' : apiUrl;
-                //if I do it like this, the component is no rerendered when a new input is submitted. fix
+                const url = query? apiUrl + '?startkey="' + query + '"&&endkey="' + query + '\ufff0"&&reduce=false' : apiUrl;
+                //not a good place for data fetching, since it only renders when the component first mounts. but I want to rerender when prop value changes
                 console.log(url);
-                fetch( apiUrl, requestOptions )
+                fetch( url, requestOptions )
                     .then( response => response.json() )
                     .then( data => this.setState( { data: data.rows, loading: false } ) )
             }
 
            render() {
+            console.log("hello from withPromise render()");
                const { hocProp, ...passthroughProps } = this.props;
                const fetchedData = this.state.data;
                const isLoading = this.state.loading;
