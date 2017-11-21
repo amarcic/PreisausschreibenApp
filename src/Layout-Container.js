@@ -36,7 +36,7 @@ export default class Layout_Container extends React.Component {
             data: CouchDataStore.getResults(),
             messages: [],
             searchInput: "suche...",
-        //    isFetching: false,
+            searchCollection: "unspezifisch",
             requestData: null
         };
 
@@ -69,18 +69,9 @@ export default class Layout_Container extends React.Component {
     
     updateInput( value ) {
         this.setState(
-            { searchInput: value }
+            { searchInput: value.input, searchCollection: value.collection }
         );
     }
-    /*
-    updateInput( event ) {
-        this.setState( {
-            searchInput: event.target.value
-        } );
-    }
-    */
-
-
 
     render() {
         //console.log(this.state.searchInput);
@@ -113,7 +104,7 @@ export default class Layout_Container extends React.Component {
                 </Row>
                 
                 <Route path="/" exact component={LandingPage} />
-                <Route path="/search" render={ (props) => <SearchPageWithPromise query={this.state.searchInput} {...props} /> } />
+                <Route path="/search" render={ (props) => <SearchPageWithPromise query={this.state.searchInput} collection={this.state.searchCollection} {...props} /> } />
                 {/*<Route path="/search" render={ (props) => <SearchPage requestData={this.state.requestData} isLoading={this.state.isFetching} {...props} /> } />
                 there is a bug in the usage of the higher order component
                 <Route path="/search" render={ (props) => <SearchPageWithPromise {...props} /> } />*/}

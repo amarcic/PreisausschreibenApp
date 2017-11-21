@@ -3,10 +3,14 @@ import { withRouter } from 'react-router-dom';
 
 import { Select, Icon, Input } from 'antd';
 const Option = Select.Option;
+let selectValue = "preisausschreiben";
 
 function SearchBox( props ) {
+
     const selectBefore = (
-        <Select defaultValue="preisausschreiben" style={{ width: 140}}>
+        <Select defaultValue="preisausschreiben" style={{ width: 140}}
+            onChange={ value => selectValue = value }
+            >
             <Option value="preisausschreiben">Preisausschreiben</Option>
             <Option value="personen">Personen</Option>
             <Option value="koerperschaften">Köperschaften</Option>
@@ -24,7 +28,7 @@ function SearchBox( props ) {
             onSearch={ value => {
                         //if component is changed to a stateful component extending React.Component, use this.props.history.push(...)
                         props.history.push('/search');
-                        props.updateInput(value);
+                        props.updateInput({ input: value, collection: selectValue});
                         //props.updateInput(value);
                         //return console.log(value);
                         } 

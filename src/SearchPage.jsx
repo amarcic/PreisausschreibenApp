@@ -50,7 +50,7 @@ export default function SearchPage( props ) {
                     <Breadcrumb.Item><Link to="/search">Suchergebnisse</Link></Breadcrumb.Item>
                 </Breadcrumb>
                 <Layout>
-                    <p>Du suchst nach {props.query}</p>
+                    <p>Du suchst nach {props.query} im {props.collection}stapel</p>
                     {
                         <Table columns={columns} dataSource={props.requestData} />
                     }
