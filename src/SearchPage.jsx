@@ -52,7 +52,11 @@ export default function SearchPage( props ) {
                 <Layout>
                     <p>Du suchst nach {props.query} im {props.collection}stapel</p>
                     {
-                        <Table columns={columns} dataSource={props.requestData} />
+                        /* as it is the id can be repeated, since results can be repeated in the view
+                        right now I use it as a cheap filter... but really shouldn't
+                        I keep it for now since elastic search should be able to filter results before sending the response object
+                        */
+                        <Table columns={columns} dataSource={props.requestData} rowKey="id" />
                     }
                     
                 </Layout>
