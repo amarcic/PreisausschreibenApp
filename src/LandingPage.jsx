@@ -12,9 +12,9 @@ export default function LandingPage( props ) {
                     <Breadcrumb.Item><Link to="/">Home</Link></Breadcrumb.Item>
                 </Breadcrumb>
                 <div style={{ padding: "30px", backgroundColor: "#fff4d9" }}>
-                    <Row gutter={16}>
+                    <Row gutter={24}>
                         <Col span={8}>
-                            <Card title="Preisausschreiben" bordered={false} style={{ backgroundColor: "#ffe3d1 " }} >992 Preisausschreiben</Card>
+                            <Card title="Preisausschreiben" bordered={false} style={{ backgroundColor: "#ffe3d1" }} >992 Preisausschreiben</Card>
                         </Col>
                         <Col span={8}>
                             <Card title="Personen" bordered={false} style={{ backgroundColor: "#fff1b5" }}>2282 Personen</Card>
@@ -22,6 +22,9 @@ export default function LandingPage( props ) {
                         <Col span={8}>
                             <Card title="Körperschaften" bordered={false} style={{ backgroundColor: "#dbf3d0" }}>828 Vereine, Institutionen, etc</Card>
                         </Col>
+                    </Row>
+                    
+                    <Row gutter={24} style={{marginTop: "24px"}}>
                         <Col span={8}>
                             <Card title="Themen und Schlagworte" bordered={false} style={{ backgroundColor: "#fff1b5" }} > 457 Themen und 372 Schlagworte </Card>
                         </Col>
