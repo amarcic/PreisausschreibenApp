@@ -22,6 +22,15 @@ export default function LandingPage( props ) {
                         <Col span={8}>
                             <Card title="Körperschaften" bordered={false} style={{ backgroundColor: "#dbf3d0" }}>828 Vereine, Institutionen, etc</Card>
                         </Col>
+                        <Col span={8}>
+                            <Card title="Themen und Schlagworte" bordered={false} style={{ backgroundColor: "#fff1b5" }} > 457 Themen und 372 Schlagworte </Card>
+                        </Col>
+                        <Col span={8}>
+                            <Card title="zufälliger Vorschlag:" bordered={false} style={{ backgroundColor: "#dbf3d0" }} > Académie royale des Sciences, des Lettres et des Beaux-Arts de Belgique (Classe des Beaux-Arts), 1857-02-07 bis 1857-09-00, Verfassen eines Kantatentextes und Komposition der Kantate *La Mort d'Abel* mit Orchester. </Card>
+                        </Col>
+                        <Col span={8}>
+                            <Card title="Visualisierungen und Analysen" bordered={false} style={{ backgroundColor: "#ffe3d1" }} > Personennetzwerke, Regionale Verteilung, Temporale Verteilung, etc. </Card>
+                        </Col>
                     </Row>
                 </div>
                 <Layout style={{ backgroundColor: "#fff4d9" }}>

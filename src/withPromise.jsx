@@ -1,6 +1,8 @@
 import React from 'react';
 
+/* mock api
 const apiUrl = 'http://www.mocky.io/v2/59e752d10f00003107ee99e7';
+*/
 const requestOptions = {
         method: 'GET',
         headers: {
@@ -24,9 +26,21 @@ export default function withPromise( WrappedComponent ) {
         
             componentDidMount() {
                 console.log("hello from withPromise componentDidMount()");
+
                 const query = this.props.query;
+                let selectView = "";
+
+                switch( this.props.collection ) {
+                    case "preisausschreiben": selectView = "fulltext"; break;
+                    case "koerperschaften": selectView = "all_corporations"; break;
+                    case "personen": selectView = "all_persons"; break;
+                    case "serien": selectView = "all_series"; break;
+                }
+
+                const api = "http://134.95.80.232:5984/preisausschreiben/_design/preisausschreiben/_view/" + selectView;
+
                 //example for couchdb query: db.view( 'preisausschreiben/fulltext?startkey="' + inpt + '"&&endkey="' + inpt + '\ufff0"&&reduce=false',
-                const url = query? apiUrl + '?startkey="' + query + '"&&endkey="' + query + '\ufff0"&&reduce=false' : apiUrl;
+                const url = query? api + '?startkey="' + query + '"&&endkey="' + query + '\ufff0"&&reduce=false' : apiUrl;
                 //not a good place for data fetching, since it only renders when the component first mounts. but I want to rerender when prop value changes
                 console.log(url);
                 fetch( url, requestOptions )

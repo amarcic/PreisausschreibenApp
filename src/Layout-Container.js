@@ -93,7 +93,7 @@ export default class Layout_Container extends React.Component {
                         </SubMenu>
                         <Menu.Item key="3">Publikationen</Menu.Item>
                         <Menu.Item key="4">Bibliographie</Menu.Item>
-                        <Menu.Item key="5">Visualisierungen</Menu.Item>
+                        <Menu.Item key="5">Sonstiges</Menu.Item>
                     </Menu>
                 </Header>
 
