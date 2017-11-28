@@ -6,7 +6,7 @@ const { Content, Sider } = Layout;
 const { SubMenu } = Menu;
 
 // is this the right place for the columns definition? should it be inside the SearchPage function?
-const columns = [
+const columnsPersonen = [
     {
         title: 'Nachname',
         dataIndex: 'value.nachname',
@@ -24,9 +24,64 @@ const columns = [
     }
 ]
 
+const columnsPreisausschreiben = [
+    {
+        title: 'Ausschreibung',
+        dataIndex: 'value.ausschreibung',
+        key: 'ausschreibung'
+    },
+    /* ereignisse is an array of deeply nested objects unfit for table display
+    {
+        title: 'Ereignisse',
+        dataIndex: 'value.ereignisse',
+        key: "ereignisse"
+    },*/
+    {
+        title: 'Aufgaben',
+        dataIndex: 'value.aufgaben',
+        key: 'aufgaben'
+    }
+]
+
+const columnsKoerperschaften = [
+    {
+        title: 'Bezeichnung',
+        dataIndex: 'value.bezeichnung[0]',
+        key: 'bezeichnung'
+    },
+    {
+        title: 'Ort',
+        dataIndex: 'value.ort',
+        key: "ort" 
+    },
+    {
+        title: 'Art',
+        dataIndex: 'value.art',
+        key: 'art'
+    }
+]
+
+const columnsSerien = [
+    {
+        title: 'Bezeichnung der Serie',
+        dataIndex: 'value',
+        key: "serienbezeichnung"
+    }
+]
+
 // if the sider is added with a custom component the surrounding ant Layout component will be
 // missing the ant-layout-has-sider class and not render sider and content correctly 
 export default function SearchPage( props ) {
+
+    let columns;
+
+    switch( props.collection ) {
+        case "preisausschreiben": columns = columnsPreisausschreiben; break;
+        case "personen": columns = columnsPersonen; break;
+        case "koerperschaften": columns = columnsKoerperschaften; break;
+        case "serien": columns = columnsSerien; break;
+    }
+
     return(
         <Layout style={{ backgroundColor: "#ffffff" }}>
             <Sider style={{backgroundColor: "#ffffff"}}>

@@ -91,9 +91,13 @@ export default class Layout_Container extends React.Component {
                             </Menu.Item>
                             <Menu.Item key="2">Mitarbeiter</Menu.Item>
                         </SubMenu>
-                        <Menu.Item key="3">Publikationen</Menu.Item>
-                        <Menu.Item key="4">Bibliographie</Menu.Item>
-                        <Menu.Item key="5">Sonstiges</Menu.Item>
+                        <SubMenu title={<span>Forschung</span>} >
+                            <Menu.Item key="3">Grundriss</Menu.Item>
+                            <Menu.Item key="4">Methodik</Menu.Item>
+                            <Menu.Item key="5">Bibliographie</Menu.Item>
+                        </SubMenu>
+                        <Menu.Item key="6">Publikationen</Menu.Item>
+                        <Menu.Item key="7">Sonstiges</Menu.Item>
                     </Menu>
                 </Header>
 
