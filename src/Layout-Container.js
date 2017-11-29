@@ -6,7 +6,7 @@ import { Layout, Menu, Row, Col, Breadcrumb } from 'antd';
 const { SubMenu } = Menu;
 const { Header, Content, Sider, Footer } = Layout;
 
-import CouchDataStore from './CouchDataStore';
+//import CouchDataStore from './CouchDataStore';
 
 import LandingPage from './LandingPage';
 import AboutPage from './AboutPage';
@@ -33,7 +33,7 @@ export default class Layout_Container extends React.Component {
     constructor() {
         super();
         this.state = {
-            data: CouchDataStore.getResults(),
+        //    data: CouchDataStore.getResults(),
             messages: [],
             searchInput: "suche...",
             searchCollection: "unspezifisch",
@@ -44,24 +44,19 @@ export default class Layout_Container extends React.Component {
     }
 
     componentWillMount() {
-        CouchDataStore.subscribe( this.updateData );
+    //    CouchDataStore.subscribe( this.updateData );
     }
 
     componentDidMount() {
-        //this.setState( {isFetching: true} );
-
-        //not using the data store yet
-        /*
-        fetch( apiUrl, requestOptions )
-            .then( response => response.json() )
-            .then( data => this.setState( { requestData: data.rows, isFetching: false } ) )*/
     }
 
+    /*
     updateData() {
         this.setState( {
             data: CouchDataStore.getResults()
         } );
     }
+    */
 
     getTitle() {
         return this.state.header.header_title;
@@ -109,25 +104,12 @@ export default class Layout_Container extends React.Component {
                 
                 <Route path="/" exact component={LandingPage} />
                 <Route path="/search" render={ (props) => <SearchPageWithPromise query={this.state.searchInput} collection={this.state.searchCollection} {...props} /> } />
-                {/*<Route path="/search" render={ (props) => <SearchPage requestData={this.state.requestData} isLoading={this.state.isFetching} {...props} /> } />
-                there is a bug in the usage of the higher order component
-                <Route path="/search" render={ (props) => <SearchPageWithPromise {...props} /> } />*/}
                 <Footer style={{textAlign: 'center'}}>
                     Musikalische Preisausschreiben ©2017
                 </Footer>
 
             </Layout>
         );
-        /*
-        return(
-            <div>
-                <Header_Container getTitle={this.getTitle.bind(this)} />
-                <Body/>
-                <Sidebar navItems={["first", "second", "third"]} />
-                <Footer/>
-            </div>
-        );
-        */
     }
 }
 
