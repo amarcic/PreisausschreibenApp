@@ -10,7 +10,8 @@ const columnsPersonen = [
     {
         title: 'Nachname',
         dataIndex: 'value.nachname',
-        key: 'nachname'
+        key: 'nachname',
+        render: (text, record) => <Link to={"/person/" + record.id}> {text} </Link>
     },
     {
         title: 'Vorname',
@@ -28,7 +29,8 @@ const columnsPreisausschreiben = [
     {
         title: 'Ausschreibung',
         dataIndex: 'value.ausschreibung',
-        key: 'ausschreibung'
+        key: 'ausschreibung',
+        render: (text, record ) => <Link to={"/preisausschreiben/" + record.id}> {text} </Link>
     },
     /* ereignisse is an array of deeply nested objects unfit for table display
     {
@@ -47,7 +49,8 @@ const columnsKoerperschaften = [
     {
         title: 'Bezeichnung',
         dataIndex: 'value.bezeichnung[0]',
-        key: 'bezeichnung'
+        key: 'bezeichnung',
+        render: (text, record ) => <Link to={"/koerperschaft/" + record.id}> {text} </Link>
     },
     {
         title: 'Ort',
@@ -65,7 +68,8 @@ const columnsSerien = [
     {
         title: 'Bezeichnung der Serie',
         dataIndex: 'value',
-        key: "serienbezeichnung"
+        key: "serienbezeichnung",
+        render: text => <Link to={"/serie/" + text}> {text} </Link>
     }
 ]
 

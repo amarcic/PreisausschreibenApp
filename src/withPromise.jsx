@@ -29,8 +29,9 @@ function fetchFromCouch( queryString, apiUrl, collection ) {
     const apiRequest = collection? apiViewSelect + '?startkey="' + queryString + '"&&endkey="' + queryString + '\ufff0"&&reduce=false': apiUrl + queryString;
     //const url = collection? api + '?startkey="' + query + '"&&endkey="' + query + '\ufff0"&&reduce=false' : apiUrl;
     fetch( apiRequest, requestOptions )
-    .then( response => response.json() )
-    .then( data => this.setState( { data: data.rows, loading: false } ) )
+        .then( response => response.json() )
+        .then( data => collection? this.setState({ data: data.rows, loading: false }) : this.setState({ data: data, loading: false}) );
+           // this.setState( collection? { data: data.rows, loading: false } : { data: data } ) )
 
 }
 
@@ -75,9 +76,9 @@ export default function withPromise( WrappedComponent ) {
             componentWillReceiveProps( nextProps ) {
                 
                 //I could check if this.props.query !== nextProps.query before I send another fetch request
-                // I could abstract the fetching away into a fetching method since it is the same here and in componentDidMount()
+               
                 this.fetchStuff( nextProps.query, api, nextProps.collection );
-                /*
+                /*  I could abstract the fetching away into a fetching method since it is the same here and in componentDidMount()
                 const query = nextProps.query;
                 let selectView = "";
                 switch( nextProps.collection ) {

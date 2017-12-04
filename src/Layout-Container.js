@@ -13,6 +13,7 @@ import AboutPage from './AboutPage';
 import SearchPage from './SearchPage';
 import SearchBanner from './SearchBanner';
 import SearchRow from './SearchRow';
+import ResultPage from './ResultPage';
 
 import withPromise from './withPromise';
 
@@ -28,6 +29,7 @@ const requestOptions = {
 // Bug in HOC withPromise
 //const SearchPageWithPromise = withPromise( fetch(apiUrl, requestOptions), SearchPage );
 const SearchPageWithPromise = withPromise( SearchPage );
+//const ResultPageWithPromise = withPromise( ResultPage );
 
 export default class Layout_Container extends React.Component {
     constructor() {
@@ -99,6 +101,8 @@ export default class Layout_Container extends React.Component {
                 <Row>
                             <Route path="/" exact render={ (props) => <SearchBanner updateInput={this.updateInput} {...props} />  } />
                             <Route path="/search" render={ (props) => <SearchRow updateInput={this.updateInput} {...props} /> } />
+                            <Route path="/person/:docId" component={ResultPage} ></Route>
+                            <Route path="/koerperschaft/:docId" component={ResultPage} ></Route>
                             <Route path="/about" component={AboutPage} />
                 </Row>
                 
