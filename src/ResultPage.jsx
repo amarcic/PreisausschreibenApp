@@ -16,7 +16,7 @@ export default function ResultPage( { match } ) {
             <Content>
                 <Breadcrumb>
                     <Breadcrumb.Item><Link to="/">Home</Link></Breadcrumb.Item>
-                    <Breadcrumb.Item><Link to="/search" >Suche</Link></Breadcrumb.Item>
+                    <Breadcrumb.Item><Link to="/search" >Suchergebnisse</Link></Breadcrumb.Item>
                     <Breadcrumb.Item><Link to="/search"> {match.params.docId} </Link></Breadcrumb.Item>
                 </Breadcrumb>
                 <PersonPageWithPromise query={match.params.docId} />

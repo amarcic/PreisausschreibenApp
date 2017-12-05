@@ -21,7 +21,8 @@ const columnsPersonen = [
     {
         title: 'Alias',
         dataIndex: 'value.alias',
-        key: 'namenszusatz'
+        key: 'alias'
+        //render: (text, record) => record.value.name.alias? <ul>{ record.value.name.alias.map( alias => {<li>alias</li>} ) }</ul> : ""
     }
 ]
 
@@ -32,12 +33,13 @@ const columnsPreisausschreiben = [
         key: 'ausschreibung',
         render: (text, record ) => <Link to={"/preisausschreiben/" + record.id}> {text} </Link>
     },
-    /* ereignisse is an array of deeply nested objects unfit for table display
+    /* ereignisse is an array of deeply nested objects unfit for table display*/
     {
         title: 'Ereignisse',
         dataIndex: 'value.ereignisse',
-        key: "ereignisse"
-    },*/
+        key: "ereignisse",
+        render: (text, record) => <ul> {record.value.ereignisse.map( ereignis => <li>  {(ereignis.zeit? ereignis.zeit.datum : "") + ", " + ereignis.ereignistyp + ", " + ( ereignis.ort? ereignis.ort.ortsname : "" )} </li>)} </ul>
+    },
     {
         title: 'Aufgaben',
         dataIndex: 'value.aufgaben',
@@ -115,7 +117,7 @@ export default function SearchPage( props ) {
                         right now I use it as a cheap filter... but really shouldn't
                         I keep it for now since elastic search should be able to filter results before sending the response object
                         */
-                        <Table columns={columns} dataSource={props.requestData} rowKey="id" />
+                        <Table columns={columns} dataSource={props.requestData} rowKey={ record => record.uid } />
                     }
                     
                 </Layout>

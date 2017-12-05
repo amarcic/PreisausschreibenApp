@@ -8,7 +8,7 @@ let selectValue = "preisausschreiben";
 function SearchBox( props ) {
 
     const selectBefore = (
-        <Select defaultValue="preisausschreiben" style={{ width: 140}}
+        <Select defaultValue="preisausschreiben" style={{ width: 160}}
             onChange={ value => selectValue = value }
             >
             <Option value="preisausschreiben">Preisausschreiben</Option>
