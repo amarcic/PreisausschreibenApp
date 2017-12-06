@@ -14,6 +14,7 @@ import SearchPage from './SearchPage';
 import SearchBanner from './SearchBanner';
 import SearchRow from './SearchRow';
 import ResultPage from './ResultPage';
+import SeriesPage from './SeriesPage';
 
 import withPromise from './withPromise';
 
@@ -29,6 +30,7 @@ const requestOptions = {
 // Bug in HOC withPromise
 //const SearchPageWithPromise = withPromise( fetch(apiUrl, requestOptions), SearchPage );
 const SearchPageWithPromise = withPromise( SearchPage );
+const SeriesPageWithPromise = withPromise( SeriesPage );
 //const ResultPageWithPromise = withPromise( ResultPage );
 
 export default class Layout_Container extends React.Component {
@@ -103,6 +105,7 @@ export default class Layout_Container extends React.Component {
                             <Route path="/search" render={ (props) => <SearchRow updateInput={this.updateInput} {...props} /> } />
                             <Route path="/person/:docId" component={ResultPage} ></Route>
                             <Route path="/koerperschaft/:docId" component={ResultPage} ></Route>
+                            <Route path="/overview" render={ (props) => <SeriesPageWithPromise query="none" collection="overview_competitions" {...props} /> } />
                             <Route path="/about" component={AboutPage} />
                 </Row>
                 

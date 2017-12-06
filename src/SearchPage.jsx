@@ -33,7 +33,6 @@ const columnsPreisausschreiben = [
         key: 'ausschreibung',
         render: (text, record ) => <Link to={"/preisausschreiben/" + record.id}> {text} </Link>
     },
-    /* ereignisse is an array of deeply nested objects unfit for table display*/
     {
         title: 'Ereignisse',
         dataIndex: 'value.ereignisse',
