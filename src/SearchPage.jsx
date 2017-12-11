@@ -10,18 +10,18 @@ const columnsPersonen = [
     {
         title: 'Nachname',
         dataIndex: 'value.nachname',
-        key: 'nachname',
+        key: 'value.nachname',
         render: (text, record) => <Link to={"/person/" + record.id}> {text} </Link>
     },
     {
         title: 'Vorname',
         dataIndex: 'value.vorname',
-        key: 'vorname'
+        key: 'value.vorname'
     },
     {
         title: 'Alias',
         dataIndex: 'value.alias',
-        key: 'alias'
+        key: 'value.alias'
         //render: (text, record) => record.value.name.alias? <ul>{ record.value.name.alias.map( alias => {<li>alias</li>} ) }</ul> : ""
     }
 ]
@@ -30,19 +30,20 @@ const columnsPreisausschreiben = [
     {
         title: 'Ausschreibung',
         dataIndex: 'value.ausschreibung',
-        key: 'ausschreibung',
+        key: 'value.ausschreibung',
         render: (text, record ) => <Link to={"/preisausschreiben/" + record.id}> {text} </Link>
     },
     {
         title: 'Ereignisse',
         dataIndex: 'value.ereignisse',
-        key: "ereignisse",
-        render: (text, record) => <ul> {record.value.ereignisse.map( ereignis => <li>  {(ereignis.zeit? ereignis.zeit.datum : "") + ", " + ereignis.ereignistyp + ", " + ( ereignis.ort? ereignis.ort.ortsname : "" )} </li>)} </ul>
+        key: 'value.ereignisse',
+        // this mapping needs unique keys for each mapped element, but no natural unique key available
+        render: (text, record) => <ul> {record.value.ereignisse.map( ereignis => <li /*key={}*/ >  {(ereignis.zeit? ereignis.zeit.datum : "") + ", " + ereignis.ereignistyp + ", " + ( ereignis.ort? ereignis.ort.ortsname : "" )} </li>)} </ul>
     },
     {
         title: 'Aufgaben',
         dataIndex: 'value.aufgaben',
-        key: 'aufgaben'
+        key: 'value.aufgaben'
     }
 ]
 
@@ -50,18 +51,18 @@ const columnsKoerperschaften = [
     {
         title: 'Bezeichnung',
         dataIndex: 'value.bezeichnung[0]',
-        key: 'bezeichnung',
+        key: 'value.bezeichnung',
         render: (text, record ) => <Link to={"/koerperschaft/" + record.id}> {text} </Link>
     },
     {
         title: 'Ort',
         dataIndex: 'value.ort',
-        key: "ort" 
+        key: "value.ort" 
     },
     {
         title: 'Art',
         dataIndex: 'value.art',
-        key: 'art'
+        key: 'value.art'
     }
 ]
 
@@ -79,6 +80,19 @@ const columnsSerien = [
 export default function SearchPage( props ) {
 
     let columns;
+
+    let data;
+    let dataIds = [];
+    let dataUnique = [];
+
+    props.requestData ? data = props.requestData : data = [] ;
+    
+    data.forEach( function( e ) {
+        if( dataIds.indexOf( e.id ) === -1 ) {
+            dataIds.push( e.id );
+            dataUnique.push( e );
+        }
+    } );
 
     switch( props.collection ) {
         case "preisausschreiben": columns = columnsPreisausschreiben; break;
@@ -116,7 +130,7 @@ export default function SearchPage( props ) {
                         right now I use it as a cheap filter... but really shouldn't
                         I keep it for now since elastic search should be able to filter results before sending the response object
                         */
-                        <Table columns={columns} dataSource={props.requestData} rowKey={ record => record.uid } />
+                        <Table columns={columns} dataSource={dataUnique} rowKey={ record => record.id } />
                     }
                     
                 </Layout>
