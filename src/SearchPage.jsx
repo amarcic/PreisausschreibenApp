@@ -11,7 +11,7 @@ const columnsPersonen = [
         title: 'Nachname',
         dataIndex: 'value.nachname',
         key: 'value.nachname',
-        render: (text, record) => <Link to={"/person/" + record.id}> {text} </Link>
+        render: (text, record) => <Link to={"/dokumente/person/" + record.id}> {text} </Link>
     },
     {
         title: 'Vorname',
@@ -31,14 +31,14 @@ const columnsPreisausschreiben = [
         title: 'Ausschreibung',
         dataIndex: 'value.ausschreibung',
         key: 'value.ausschreibung',
-        render: (text, record ) => <Link to={"/preisausschreiben/" + record.id}> {text} </Link>
+        render: (text, record ) => <Link to={"/dokumente/preisausschreiben/" + record.id}> {text} </Link>
     },
     {
         title: 'Ereignisse',
         dataIndex: 'value.ereignisse',
         key: 'value.ereignisse',
-        // this mapping needs unique keys for each mapped element, but no natural unique key available
-        render: (text, record) => <ul> {record.value.ereignisse.map( ereignis => <li /*key={}*/ >  {(ereignis.zeit? ereignis.zeit.datum : "") + ", " + ereignis.ereignistyp + ", " + ( ereignis.ort? ereignis.ort.ortsname : "" )} </li>)} </ul>
+        // will have to check, if the unique keys generated when the array is mapped are used in a meaningful way (index for unique keys not recommended)
+        render: (text, record) => <ul> {record.value.ereignisse.map( ( ereignis, i ) => <li key={i} >  {(ereignis.zeit? ereignis.zeit.datum : "") + ", " + ereignis.ereignistyp + ", " + ( ereignis.ort? ereignis.ort.ortsname : "" )} </li>)} </ul>
     },
     {
         title: 'Aufgaben',
@@ -52,7 +52,7 @@ const columnsKoerperschaften = [
         title: 'Bezeichnung',
         dataIndex: 'value.bezeichnung[0]',
         key: 'value.bezeichnung',
-        render: (text, record ) => <Link to={"/koerperschaft/" + record.id}> {text} </Link>
+        render: (text, record ) => <Link to={"/dokumente/koerperschaft/" + record.id}> {text} </Link>
     },
     {
         title: 'Ort',
@@ -71,7 +71,7 @@ const columnsSerien = [
         title: 'Bezeichnung der Serie',
         dataIndex: 'value',
         key: "serienbezeichnung",
-        render: text => <Link to={"/serie/" + text}> {text} </Link>
+        render: text => <Link to={"/dokumente/serie/" + text}> {text} </Link>
     }
 ]
 
@@ -82,6 +82,9 @@ export default function SearchPage( props ) {
     let columns;
 
     let data;
+    
+    //the variables and forEach block filter the data so only unique ids remain in the array
+    //can be taken out when using elasticsearch
     let dataIds = [];
     let dataUnique = [];
 

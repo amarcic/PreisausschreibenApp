@@ -2,7 +2,7 @@ import React from 'react';
 
 import { List, Card } from 'antd';
 
-export default function( props ) {
+export default function SeriesPage( props ) {
     console.log( props.requestData );
 
     return(
