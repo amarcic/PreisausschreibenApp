@@ -9,7 +9,7 @@ export default function PersonPage( props ) {
     return(
         <div style={{ marginTop: "20px", marginLeft: "80px" }}>
             <Row gutter={24}>
-                <Col span={8}>
+                <Col span={16}>
                     <Card style={{ padding: "30px" }}>
                         <h2> Personendaten für <br /> {data.name.vorname} {data.name.nachname} </h2>
                         <div>

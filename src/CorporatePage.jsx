@@ -11,13 +11,13 @@ export default function CorporatePage( props ) {
     return(
         <div style={{ marginTop: "20px", marginLeft: "80px" }}>
         <Row gutter={24}>
-            <Col span={8}>
+            <Col span={16}>
                 <Card style={{ padding: "30px" }}>
                     <h2>{ data.bezeichnung.map( label => label + ", " ) }</h2>
                     <div>
                         { "Art der Körperschaft: " + data.art } <br />
                         { data.ort? "Ort: " + data.ort : "" } <br />
-                        { data.anmerkung? "Anmerkung zur Körperschaft: <br />" + data.anmerkung : "" }                        
+                        { data.anmerkung? "Anmerkung zur Körperschaft: " + data.anmerkung : "" }                        
                     </div>
                 </Card>
             </Col>

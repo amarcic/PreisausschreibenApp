@@ -71,7 +71,7 @@ const columnsSerien = [
         title: 'Bezeichnung der Serie',
         dataIndex: 'value',
         key: "serienbezeichnung",
-        render: text => <Link to={"/dokumente/serie/" + text}> {text} </Link>
+        render: (text, record) => <Link to={"/dokumente/serie/" + record.id}> {text} </Link>
     }
 ]
 
