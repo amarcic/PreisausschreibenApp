@@ -13,10 +13,10 @@ export default function PersonPage( props ) {
                     <Card style={{ padding: "30px" }}>
                         <h2> Personendaten für <br /> {data.name.vorname} {data.name.nachname} </h2>
                         <div>
-                            { data.name.alias? "Alias: " + data.name.alias.map( i => i + ", " ) : "" } <br />
-                            { data.viafId? "ViafID: " + data.viafId : "ViafId nicht bekannt." } <br />
+                            { data.name.alias? "Alias: " + data.name.alias.map( (i, index, arr) => i + ( index+1 < arr.length? ", " : "" ) ) : "" } <br />
+                            { data.viafId? <span> ViafID:  <a href={"https://viaf.org/viaf/"+data.viafId} >{data.viafId}</a> </span> : "ViafId nicht bekannt." } <br />
                             { data.geschlecht? "Geschlecht: " + data.geschlecht : "Keine Angabe zum Geschlecht." } <br />
-                            { ( data.namenszusatz && data.namenszusatz.bezeichnung )? "Namenszusatz: " + data.namenszusatz.bezeichnung + (data.namenszusatz.stand_stellung? " (" + data.namenszusatz.stand_stellung.map( namenszusatz => namenszusatz + ", " ) + ")" : "") : "" }
+                            { ( data.namenszusatz && data.namenszusatz.bezeichnung )? "Namenszusatz: " + data.namenszusatz.bezeichnung + (data.namenszusatz.stand_stellung? " (" + data.namenszusatz.stand_stellung.map( (namenszusatz, index, arr) => namenszusatz + ( index+1 < arr.length ? ", ": "" ) ) + ")" : "") : "" }
                             { data.anmerkung? "Anmerkungen zur Person: " + data.anmerkung : "" }
                             
 
