@@ -16,7 +16,7 @@ function SearchBox( props ) {
             <Option value="personen">Personen</Option>
             <Option value="koerperschaften">Köperschaften</Option>
             <Option value="serien">Serien</Option>
-            <Option value="unspezifisch">Sämtliche Daten</Option>
+           {/* <Option value="unspezifisch">Sämtliche Daten</Option> */}
         </Select>
     );
 

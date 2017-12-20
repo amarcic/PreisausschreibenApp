@@ -1,7 +1,9 @@
 import React from 'react';
 
-import { Row, Col, Card, List, Tag } from 'antd';
+import { Row, Col, Card, List, Tag, Collapse } from 'antd';
 import { Link } from 'react-router-dom';
+
+const Panel = Collapse.Panel;
 
 export default function ContestPage( props ) {
     console.log( props.requestData );
@@ -31,12 +33,12 @@ export default function ContestPage( props ) {
         </div>
         <h2>Aufgaben</h2>
         <List 
-            itemLayout="horizontal"
+            itemLayout="vertical"
             dataSource={tasks}
             renderItem={ item => (
                 <List.Item>
                     <List.Item.Meta 
-                        title={item.aufgabentyp + (item.wettbewerbskontext ? " (" + item.wettbewerbskontext + ")" : "") }
+                        title={ <span>{item.aufgabentyp} {(item.wettbewerbskontext? <Tag color="magenta">{item.wettbewerbskontext}</Tag> : "")}  </span>}
                         description={item.spezifizierung}
                     />
                    <div>{ item.systematik.map( ( term, i ) => <Tag key={i}> {term} </Tag> ) }</div>
@@ -50,8 +52,11 @@ export default function ContestPage( props ) {
             {events.map(
                 (event, i) => { return(
                     <Col span={8} key={i}>
-                        <Card title={event.ereignistyp} >
-                            {event.wettbewerbskontext? <p>Kontext: {event.wettbewerbskontext.map( (kontext, i, konArray) => kontext + ( i+1 < konArray.length? ", " : "" ) )}</p> : <br />}
+                        <Card 
+                            style={event.ausgefallen? { backgroundColor: "#ff4d4f" } : { backgroundColor: "#ffffff" }}
+                            title={event.ereignistyp}
+                            extra={event.wettbewerbskontext? event.wettbewerbskontext.map( kontext => <Tag color="magenta" key={kontext}>{kontext}</Tag> ) : ""}
+                        >
                             <span>
                             {event.zeit.datum ? event.zeit.datum :
                                 "" + (event.zeit.von ? " ab " + event.zeit.von : "") + (event.zeit.bis ? " bis " + event.zeit.bis : "") + ( event.zeit.datumszusatz ? " (" + event.zeit.datumszusatz + ")" : "" )
@@ -66,35 +71,42 @@ export default function ContestPage( props ) {
             )}
         </Row>
         <br />
-        <h2>Beteiligte</h2>
-        <List 
-            grid={ {column: 2} }
-            itemLayout="horizontal"
-            dataSource={participants}
-            renderItem={ item => (
-                <List.Item>
-                    <List.Item.Meta 
-                        title={<span><Link to={"/dokumente/person/" + item.identifier[0]} > {item.name} </Link> als {item.rolle.map( i => i + " " ) } </span> }
-                        description={item.anmerkung}
-                    />
-                </List.Item>
-            )
 
-            }
-        />
-        <h2>Quellen</h2>
-        <List 
-            itemLayout="horizontal"
-            dataSource={sources}
-            renderItem={ item=>
-                <List.Item>
-                    <List.Item.Meta 
-                    title={item.quellenangabe}
-                    description={ item.korpus===true? "Die Quelle gehört zum Korpus": "Die Quelle gehört nicht zum Kropus" }
-                    />
-                </List.Item>
-            }
-        />
+        <Collapse>
+            <Panel header={ participants.length + " Beteiligte"}>
+                <List
+                    grid={ {column: 2} }
+                    itemLayout="horizontal"
+                    dataSource={participants}
+                    renderItem={ item => (
+                        <List.Item extra={ item.wettbewerbskontext? item.wettbewerbskontext.map( kontext => <Tag key={kontext} color="magenta">{kontext}</Tag> ) : ""} >
+                            <List.Item.Meta 
+                                title={<span><Link to={"/dokumente/person/" + item.identifier[0]} > {item.name} </Link> als {item.rolle.map( i => i + " " ) } </span> }
+                                description={item.anmerkung}
+                            />
+                        </List.Item>
+                    )
+
+                    }
+                />
+            </Panel>
+            <Panel header={ sources.length + " Quellen"}>
+                <List
+                    size="small"
+                    itemLayout="horizontal"
+                    dataSource={sources}
+                    renderItem={ item=>
+                        <List.Item>
+                            <List.Item.Meta 
+                            title={item.quellenangabe}
+                            description={ item.korpus===true? "Die Quelle gehört zum Korpus": "Die Quelle gehört nicht zum Kropus" }
+                            />
+                        </List.Item>
+                    }
+                />
+            </Panel>
+        </Collapse>
+        
     </div>
     );
 }
