@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Row, Col, Card, List, Tag, Collapse } from 'antd';
+import { Row, Col, Card, List, Tag, Collapse, Timeline } from 'antd';
 import { Link } from 'react-router-dom';
 
 const Panel = Collapse.Panel;
@@ -9,8 +9,9 @@ export default function ContestPage( props ) {
     console.log( props.requestData );
 
     const data = props.requestData;
-
-    const events = data.ereignisse;
+    // sort events by date; case that only value data.ereignisse.zeit.bis exists has been ignored (right now there are no such event objects in the data)
+    const events = data.ereignisse.sort( (a,b) => new Date(a.zeit.datum? a.zeit.datum : a.zeit.von) - new Date(b.zeit.datum? b.zeit.datum : b.zeit.von) );
+    console.log( events );
     const tasks = data.aufgaben;
     const keywords = data.schlagwoerter;
     const participants = data.beteiligte;
@@ -48,6 +49,16 @@ export default function ContestPage( props ) {
         />
 
         <h2>Ereignisse</h2>
+        <Timeline>
+        { events.map( (event, i) =>  
+            <Timeline.Item key={i}>
+                {event.ereignistyp} 
+                {event.zeit.datum ? " am " + event.zeit.datum :
+                                "" + (event.zeit.von ? " ab " + event.zeit.von : "") + (event.zeit.bis ? " bis " + event.zeit.bis : "") + ( event.zeit.datumszusatz ? " (" + event.zeit.datumszusatz + ")" : "" )
+                                } in {event.ort? event.ort.ortsname : "Ort unbekannt"} {event.ort.ortszusatz? "(" + event.ort.ortszusatz + ")" : "" } 
+                                {}
+            </Timeline.Item> ) }
+        </Timeline>
         <Row gutter={24}>
             {events.map(
                 (event, i) => { return(
@@ -60,7 +71,8 @@ export default function ContestPage( props ) {
                             <span>
                             {event.zeit.datum ? event.zeit.datum :
                                 "" + (event.zeit.von ? " ab " + event.zeit.von : "") + (event.zeit.bis ? " bis " + event.zeit.bis : "") + ( event.zeit.datumszusatz ? " (" + event.zeit.datumszusatz + ")" : "" )
-                                }, {event.ort? event.ort.ortsname : "Ort unbekannt"} {event.ort.ortszusatz? "(" + event.ort.ortszusatz + ")" : "" }
+                                }, {event.ort? event.ort.ortsname : "Ort unbekannt"} {event.ort.ortszusatz? "(" + event.ort.ortszusatz + ")" : "" } <br />
+                                {event.beschreibung ? event.beschreibung : ""}
                             </span>
                         </Card>
                     </Col>
