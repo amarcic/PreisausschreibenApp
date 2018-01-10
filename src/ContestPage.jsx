@@ -26,22 +26,10 @@ export default function ContestPage( props ) {
     data.aufgaben.forEach( aufgabe => { aufgabe.systematik.forEach( term => taskfields.push( term ) ) } );
 
     return(
-        <div style={{ marginTop: "20px", marginLeft: "80px" }}>
-        <h1> {data.bezeichnung[0]}{ participants.map( participant => participant.rolle.indexOf("ausschreibende Institution/Person")>=0 ? ", " + participant.name : "" ) } </h1>
-        {/*
-        <h1> {data.bezeichnung.map( i => i + ", " )} </h1>
-        
-        <p>{data.bezeichnung.map( i => i + ", " )}</p>
-
-        <h2>Schlagworte</h2>
-        <div>
-            {keywords.map( (keyword, index) => <Tag key={index}>{keyword}</Tag> )}
-        </div>
-        <h2>Aufgabenbereiche</h2>
-        <div>
-            { taskfields.map( (taskfield, index) => <Tag key={index} >{taskfield}</Tag> ) }
-        </div>
-        */}
+        <div style={ { marginTop: 40 } }>
+        <Row>
+            <Col span={20} offset={2}>
+        <h2 style={{color: "grey", marginBottom: 0}}> { participants.map( participant => participant.rolle.indexOf("ausschreibende Institution/Person")>=0 ? participant.name : "" ) } </h2><h1> {data.bezeichnung[0]} </h1> 
         <div style={{marginTop: 50}} >
         <Collapse>
             <Panel header={ data.bezeichnung.length + " Bezeichnungen"}>
@@ -70,6 +58,8 @@ export default function ContestPage( props ) {
         <h2>Aufgaben, Formalia und Teilnahmevoraussetzungen</h2>
         <Collapse>
             <Panel header={ tasks.length + " Aufgabe/n"}>
+            <Row>
+                <Col span={20} offset={2} >
                 <List 
                     itemLayout="vertical"
                     dataSource={tasks}
@@ -84,25 +74,33 @@ export default function ContestPage( props ) {
                     )
                     }
                 />
+                </Col>
+                </Row>
             </Panel>
             <Panel header={"Formalia zum Ablauf des Wettbewerbs"}>
-                <p>
-                    {data.formalia}
-                </p>
+                <Row>
+                    <Col span={20} offset={2} >
+                        {data.formalia}
+                    </Col>
+                </Row>
             </Panel>
             <Panel header={"Teilnahmevoraussetzungen"}>
-                    <List
-                        dataSource={data.teilnahmevoraussetzungen}
-                        renderItem={ item => (
-                            <List.Item>
-                                <List.Item.Meta
-                                    title={ <span> {item.kriterium.map( krit => krit + " " )} </span> } 
-                                />
-                                {item.beschreibung}
-                            </List.Item>
-                        )}
-                       
-                    />
+                <Row>
+                    <Col span={20} offset={2}>
+                        <List
+                            dataSource={data.teilnahmevoraussetzungen}
+                            renderItem={ item => (
+                                <List.Item>
+                                    <List.Item.Meta
+                                        title={ <span> {item.kriterium.map( krit => krit + " " )} </span> } 
+                                    />
+                                    {item.beschreibung}
+                                </List.Item>
+                            )}
+                        
+                        />
+                    </Col>
+                </Row>
             </Panel>
         </Collapse>
         </div>
@@ -110,20 +108,24 @@ export default function ContestPage( props ) {
         <h2>Ereignisse</h2>
         <Collapse>
             { events.length > 1 && <Panel header={ "Timeline: " + events.length + " Ereignisse"}>
-                <Timeline>
-                    { events.map( (event, i) =>  
-                        <Timeline.Item key={i}>
-                            {event.ereignistyp} 
-                            {event.zeit.datum ? " am " + event.zeit.datum :
-                                            "" + (event.zeit.von ? " ab " + event.zeit.von : "") + (event.zeit.bis ? " bis " + event.zeit.bis : "") + ( event.zeit.datumszusatz ? " (" + event.zeit.datumszusatz + ")" : "" )
-                                            } in {event.ort? event.ort.ortsname : "Ort unbekannt"} {event.ort.ortszusatz? "(" + event.ort.ortszusatz + ")" : "" } 
-                                            
-                        </Timeline.Item> ) }
-                </Timeline>  
+            <Row>
+                <Col span={20} offset={1}>
+                    <Timeline>
+                        { events.map( (event, i) =>  
+                            <Timeline.Item key={i}>
+                                {event.ereignistyp} 
+                                {event.zeit.datum ? " am " + event.zeit.datum :
+                                                "" + (event.zeit.von ? " ab " + event.zeit.von : "") + (event.zeit.bis ? " bis " + event.zeit.bis : "") + ( event.zeit.datumszusatz ? " (" + event.zeit.datumszusatz + ")" : "" )
+                                                } in {event.ort? event.ort.ortsname : "Ort unbekannt"} {event.ort.ortszusatz? "(" + event.ort.ortszusatz + ")" : "" } 
+                                                
+                            </Timeline.Item> ) }
+                    </Timeline>
+                </Col>
+            </Row> 
             </Panel>}
             <Panel header={ "Details zu den Ereignissen" } >
                 <List
-                    grid={{ gutter: 24, column: 4 }}
+                    grid={{ gutter: 24, column: 3 }}
                     dataSource={events}
                     renderItem={ item => (
                         <List.Item>
@@ -151,115 +153,27 @@ export default function ContestPage( props ) {
             <Collapse>
                 {
                     awards.map( award => <Panel header={ <span> {award.wettbewerbskontext? " Auszeichnungen im Teilwettbewerb " + award.wettbewerbskontext : "Auszeichnungen"}: {award.auszeichnungsarten? award.auszeichnungsarten.map( i => i + ", " ) : "Verliehne Auszeichnungen sind nicht bekannt" } </span>} >
-                        <List 
-                            itemLayout="vertical"
-                            dataSource={award.platzierungen}
-                            renderItem={ item =>
-                                <List.Item key={item.rang} >
-                                    <List.Item.Meta 
-                                        title={ item.rang + ". Rang"  }
-                                        description={item.beschreibung}
-                                    />
-                                {item.platzierte.map( platzierter => <Tag key={platzierter}>{participants.map( participant => participant.identifier.indexOf(platzierter)===0? participant.name : "" )}</Tag> )}
-                                </List.Item>
-                            }
-                        />
+                    <Row>
+                        <Col span={20} offset={2}>
+                            <List 
+                                itemLayout="vertical"
+                                dataSource={award.platzierungen}
+                                renderItem={ item =>
+                                    <List.Item key={item.rang} >
+                                        <List.Item.Meta 
+                                            title={ item.rang + ". Rang"  }
+                                            description={item.beschreibung}
+                                        />
+                                    {item.platzierte.map( platzierter => <Tag key={platzierter}>{participants.map( participant => participant.identifier.indexOf(platzierter)===0? participant.name : "" )}</Tag> )}
+                                    </List.Item>
+                                }
+                            />
+                         </Col>
+            </Row>
                     </Panel> )
-                }
-                {/*
-                <Panel header={"Auszeichnungen nach Teilwettbewerb"} >
-                    <List
-                        dataSource={awards}
-                        renderItem={ item =>
-                            <List.Item>
-                                <List.Item.Meta
-                                    title={ <span> {item.auszeichnungsarten? item.auszeichnungsarten.map( i => i + ", " ) : "" } - {item.wettbewerbskontext? <Tag color="magenta" >{item.wettbewerbskontext}</Tag> : "" } </span>} 
-                                />
-                                <>
-                            </List.Item>
-                        }
-                     />
-                </Panel>
-                */}
+                }          
             </Collapse>
         </div>
-{/*
-        <h2>Aufgaben</h2>
-        <List 
-            itemLayout="vertical"
-            dataSource={tasks}
-            renderItem={ item => (
-                <List.Item>
-                    <List.Item.Meta 
-                        title={ <span>{item.aufgabentyp} {(item.wettbewerbskontext? <Tag color="magenta">{item.wettbewerbskontext}</Tag> : "")}  </span>}
-                        description={item.spezifizierung}
-                    />
-                   <div>{ item.systematik.map( ( term, i ) => <Tag key={i}> {term} </Tag> ) }</div>
-                </List.Item>
-            )
-            }
-        />
-
-        <h2>Ereignisse</h2>
-        <Timeline>
-        { events.map( (event, i) =>  
-            <Timeline.Item key={i}>
-                {event.ereignistyp} 
-                {event.zeit.datum ? " am " + event.zeit.datum :
-                                "" + (event.zeit.von ? " ab " + event.zeit.von : "") + (event.zeit.bis ? " bis " + event.zeit.bis : "") + ( event.zeit.datumszusatz ? " (" + event.zeit.datumszusatz + ")" : "" )
-                                } in {event.ort? event.ort.ortsname : "Ort unbekannt"} {event.ort.ortszusatz? "(" + event.ort.ortszusatz + ")" : "" }
-            </Timeline.Item> ) }
-        </Timeline>
-        
-        <Row gutter={24}>
-            {events.map(
-                (event, i) => { return(
-                    <Col span={8} key={i}>
-                        <Card 
-                            style={event.ausgefallen? { backgroundColor: "#ff4d4f" } : { backgroundColor: "#ffffff" }}
-                            title={event.ereignistyp}
-                            extra={event.wettbewerbskontext? event.wettbewerbskontext.map( kontext => <Tag color="magenta" key={kontext}>{kontext}</Tag> ) : ""}
-                        >
-                            <p>
-                            {event.zeit.datum ? event.zeit.datum :
-                                "" + (event.zeit.von ? " ab " + event.zeit.von : "") + (event.zeit.bis ? " bis " + event.zeit.bis : "") + ( event.zeit.datumszusatz ? " (" + event.zeit.datumszusatz + ")" : "" )
-                                }, {event.ort? event.ort.ortsname : "Ort unbekannt"} {event.ort.ortszusatz? "(" + event.ort.ortszusatz + ")" : "" } <br />
-                            </p>
-                            <p>{event.beschreibung ? event.beschreibung : ""}</p>
-                        </Card>
-                    </Col>
-                    )
-                }
-
-
-            )}
-        </Row>
-        
-        <br />
-
-        <List
-            grid={{ gutter: 24, column: 4 }}
-            dataSource={events}
-            renderItem={ item => (
-                <List.Item>
-                    <Card 
-                        style={item.ausgefallen? { backgroundColor: "#ff4d4f" } : { backgroundColor: "#ffffff" }}
-                        title={item.ereignistyp}
-                        extra={item.wettbewerbskontext? item.wettbewerbskontext.map( kontext => <Tag color="magenta" key={kontext}>{kontext}</Tag> ) : ""}
-                    >
-                        <p>
-                            {item.zeit.datum ? item.zeit.datum :
-                                    "" + (item.zeit.von ? " ab " + item.zeit.von : "") + (item.zeit.bis ? " bis " + item.zeit.bis : "") + ( item.zeit.datumszusatz ? " (" + item.zeit.datumszusatz + ")" : "" )
-                                    }, {item.ort? item.ort.ortsname : "Ort unbekannt"} {item.ort.ortszusatz? "(" + item.ort.ortszusatz + ")" : "" } <br />
-                        </p>
-                        <p>{item.beschreibung ? item.beschreibung : ""}</p>
-                    </Card>
-                </List.Item>
-            )
-
-            }
-        />
-        */}
         <div style={{marginTop: 50}} >
         <h2>Beteiligte und Teilnehmerleistungen</h2>
         <Collapse>
@@ -288,18 +202,22 @@ export default function ContestPage( props ) {
         <h2>Kommentare und Quellen</h2>
         <Collapse>
             { comments && <Panel header={ comments.length + " Kommentar/e" } >
-                    <List
-                        itemLayout="vertical"
-                        dataSource={comments}
-                        renderItem={ item =>
-                            <List.Item>
-                                <List.Item.Meta
-                                    title={ "Kommentar zu " + item.thema } 
-                                />
-                                {item.text}
-                            </List.Item>
-                        } 
-                    />
+                <Row>
+                    <Col span={20} offset={2}>
+                        <List
+                            itemLayout="vertical"
+                            dataSource={comments}
+                            renderItem={ item =>
+                                <List.Item>
+                                    <List.Item.Meta
+                                        title={ "Kommentar zu " + item.thema } 
+                                    />
+                                    {item.text}
+                                </List.Item>
+                            } 
+                        />
+                    </Col>
+                </Row>
             </Panel>}
             <Panel header={ sources.length + " Quellen"}>
                 <List
@@ -318,8 +236,8 @@ export default function ContestPage( props ) {
             </Panel>
         </Collapse>
         </div>
-
-        
+        </Col>
+    </Row>
     </div>
     );
 }
