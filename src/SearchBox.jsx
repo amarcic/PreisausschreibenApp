@@ -14,7 +14,7 @@ function SearchBox( props ) {
             >
             <Option value="preisausschreiben">Preisausschreiben</Option>
             <Option value="personen">Personen</Option>
-            <Option value="koerperschaften">Köperschaften</Option>
+            <Option value="koerperschaften">Körperschaften</Option>
             <Option value="serien">Serien</Option>
            {/* <Option value="unspezifisch">Sämtliche Daten</Option> */}
         </Select>
