@@ -31,7 +31,7 @@ const columnsPreisausschreiben = [
         title: 'Ausschreibung',
         dataIndex: 'value.ausschreibung',
         key: 'value.ausschreibung',
-        render: (text, record ) => <Link to={"/dokumente/preisausschreiben/" + record.id}> {text} </Link>
+        render: (text, record ) => <Link to={"/dokumente/preisausschreiben/" + record.id}> {text? text: "unbekannt"} </Link>
     },
     {
         title: 'Ereignisse',

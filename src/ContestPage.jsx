@@ -29,9 +29,18 @@ export default function ContestPage( props ) {
         <div style={ { marginTop: 40 } }>
         <Row>
             <Col span={20} offset={2}>
-        <h2 style={{color: "grey", marginBottom: 0}}> { participants.map( participant => participant.rolle.indexOf("ausschreibende Institution/Person")>=0 ? participant.name : "" ) } </h2><h1> {data.bezeichnung[0]} </h1> 
+        <h2 style={{color: "grey", marginBottom: 0}}> { participants.map( participant => participant.rolle.indexOf("ausschreibende Institution/Person")>=0 ? participant.name : "" ) } </h2><h1> {data.bezeichnung[0]} {data.anlass? "- " + data.anlass : ""} </h1>
+        {data.reduzierteErfassung && <p style={{color: "#f5222d"}} >Achtung: Aufgrund des Umfangs des Preisausschreibens wurden folgende Bereiche reduziert erfasst...</p>} 
         <div style={{marginTop: 50}} >
         <Collapse>
+            { data.anlass &&  
+                <Panel header={"Anlass für das Preisausschreiben"}>
+                    <Row>
+                        <Col span={20} offset={2}>
+                            { data.anlass }
+                        </Col>
+                    </Row>
+            </Panel> }
             <Panel header={ data.bezeichnung.length + " Bezeichnungen"}>
                 
                     {data.bezeichnung.map( label => <Tag key={label}>{label}</Tag> )}
@@ -50,7 +59,7 @@ export default function ContestPage( props ) {
             {/* conditional rendering of subcompetitions panel */}
             { subcompetitions &&  
                 <Panel header={ subcompetitions.length + " Teilwettbewerbe"}>
-                    { subcompetitions.map( (subcomp, index) => <Tag color="magenta" key={subcomp} >{subcomp}</Tag> ) }
+                    { subcompetitions.map( subcomp => <Tag color="magenta" key={subcomp} >{subcomp}</Tag> ) }
             </Panel>}
         </Collapse>
         </div>
@@ -58,23 +67,23 @@ export default function ContestPage( props ) {
         <h2>Aufgaben, Formalia und Teilnahmevoraussetzungen</h2>
         <Collapse>
             <Panel header={ tasks.length + " Aufgabe/n"}>
-            <Row>
-                <Col span={20} offset={2} >
-                <List 
-                    itemLayout="vertical"
-                    dataSource={tasks}
-                    renderItem={ item => (
-                        <List.Item>
-                            <List.Item.Meta 
-                                title={ <span>{item.aufgabentyp} {(item.wettbewerbskontext? <Tag color="magenta">{item.wettbewerbskontext}</Tag> : "")}  </span>}
-                                description={item.spezifizierung}
-                            />
-                        <div>{ item.systematik.map( ( term, i ) => <Tag key={i}> {term} </Tag> ) }</div>
-                        </List.Item>
-                    )
-                    }
-                />
-                </Col>
+                <Row>
+                    <Col span={20} offset={2} >
+                        <List 
+                            itemLayout="vertical"
+                            dataSource={tasks}
+                            renderItem={ item => (
+                                <List.Item>
+                                    <List.Item.Meta 
+                                        title={ <span>{item.aufgabentyp} {(item.wettbewerbskontext? <Tag color="magenta">{item.wettbewerbskontext}</Tag> : "")}  </span>}
+                                        description={item.spezifizierung}
+                                    />
+                                <div>{ item.systematik.map( term => <Tag key={term}> {term} </Tag> ) }</div>
+                                </List.Item>
+                            )
+                            }
+                        />
+                    </Col>
                 </Row>
             </Panel>
             <Panel header={"Formalia zum Ablauf des Wettbewerbs"}>
@@ -84,10 +93,11 @@ export default function ContestPage( props ) {
                     </Col>
                 </Row>
             </Panel>
-            <Panel header={"Teilnahmevoraussetzungen"}>
+            { data.teilnahmevoraussetzungen && <Panel header={"Teilnahmevoraussetzungen"}>
                 <Row>
                     <Col span={20} offset={2}>
                         <List
+                            itemLayout="vertical"
                             dataSource={data.teilnahmevoraussetzungen}
                             renderItem={ item => (
                                 <List.Item>
@@ -101,7 +111,7 @@ export default function ContestPage( props ) {
                         />
                     </Col>
                 </Row>
-            </Panel>
+            </Panel>}
         </Collapse>
         </div>
         <div style={{marginTop: 50}} >
@@ -152,7 +162,7 @@ export default function ContestPage( props ) {
             <h2>Preise/Auszeichnungen</h2>
             <Collapse>
                 {
-                    awards.map( award => <Panel header={ <span> {award.wettbewerbskontext? " Auszeichnungen im Teilwettbewerb " + award.wettbewerbskontext : "Auszeichnungen"}: {award.auszeichnungsarten? award.auszeichnungsarten.map( i => i + ", " ) : "Verliehne Auszeichnungen sind nicht bekannt" } </span>} >
+                    awards.map( (award, index) => <Panel key={index} header={ <span> {award.wettbewerbskontext? " Auszeichnungen im Teilwettbewerb " + award.wettbewerbskontext : "Auszeichnungen"}: {award.auszeichnungsarten? award.auszeichnungsarten.map( i => i + ", " ) : "Verliehne Auszeichnungen sind nicht bekannt" } </span>} >
                     <Row>
                         <Col span={20} offset={2}>
                             <List 
@@ -194,8 +204,20 @@ export default function ContestPage( props ) {
                     }
                 />
             </Panel>
-            <Panel header={"Teilnehmerleistungen"} >
-            </Panel>
+            { data.teilnehmerleistungen && <Panel header={"Teilnehmerleistungen"} >
+                    <List
+                        size="small"
+                        dataSource={data.teilnehmerleistungen}
+                        renderItem={ item =>
+                            <List.Item>
+                                <List.Item.Meta 
+                                    title={item.beschreibung}
+                                />
+                                {item.teilnehmer.map( teilnehmer => <Tag key={teilnehmer}>{participants.map( participant => participant.identifier.indexOf(teilnehmer)===0? participant.name : "" )}</Tag> )}
+                            </List.Item>
+                        }
+                    />
+            </Panel>}
         </Collapse>
         </div>
         <div style={{marginTop: 50}} >
