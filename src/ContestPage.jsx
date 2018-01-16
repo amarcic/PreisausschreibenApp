@@ -23,7 +23,7 @@ export default function ContestPage( props ) {
     if (data.kommentare) { comments = data.kommentare }
 
     let taskfields = [];
-    data.aufgaben.forEach( aufgabe => { aufgabe.systematik.forEach( term => taskfields.push( term ) ) } );
+    data.aufgaben.forEach( aufgabe => { aufgabe.systematik.forEach( term => {if (taskfields.indexOf(term)===-1) taskfields.push( term )} ) } );
 
     return(
         <div style={ { marginTop: 40 } }>
@@ -34,23 +34,23 @@ export default function ContestPage( props ) {
         <Collapse>
             <Panel header={ data.bezeichnung.length + " Bezeichnungen"}>
                 
-                    {data.bezeichnung.map( (label, index) => <Tag key={index}>{label}</Tag> )}
+                    {data.bezeichnung.map( label => <Tag key={label}>{label}</Tag> )}
                 
             </Panel>
             <Panel header={ keywords.length + " Schlagworte"}>
                 
-                    {keywords.map( (keyword, index) => <Tag key={index}>{keyword}</Tag> )}
+                    {keywords.map( keyword => <Tag key={keyword}>{keyword}</Tag> )}
                 
             </Panel>
             <Panel header={ taskfields.length + " Aufgabenbereiche"}>
                 
-                    { taskfields.map( (taskfield, index) => <Tag key={index} >{taskfield}</Tag> ) }
+                    { taskfields.map( taskfield => <Tag key={taskfield} >{taskfield}</Tag> ) }
                 
             </Panel>
             {/* conditional rendering of subcompetitions panel */}
             { subcompetitions &&  
                 <Panel header={ subcompetitions.length + " Teilwettbewerbe"}>
-                    { subcompetitions.map( (subcomp, index) => <Tag color="magenta" key={index} >{subcomp}</Tag> ) }
+                    { subcompetitions.map( (subcomp, index) => <Tag color="magenta" key={subcomp} >{subcomp}</Tag> ) }
             </Panel>}
         </Collapse>
         </div>
@@ -224,7 +224,7 @@ export default function ContestPage( props ) {
                     size="small"
                     itemLayout="horizontal"
                     dataSource={sources}
-                    renderItem={ item=>
+                    renderItem={ item =>
                         <List.Item>
                             <List.Item.Meta 
                             title={item.quellenangabe}
