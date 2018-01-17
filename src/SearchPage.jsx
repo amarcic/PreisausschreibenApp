@@ -127,13 +127,14 @@ export default function SearchPage( props ) {
                     <Breadcrumb.Item><Link to="/search">Suchergebnisse</Link></Breadcrumb.Item>
                 </Breadcrumb>
                 <Layout>
-                    <p>Du suchst nach {props.query} im {props.collection}stapel</p>
+                    <p>Suchbegriff: {props.query}</p>
                     {
                         /* as it is the id can be repeated, since results can be repeated in the view
                         right now I use it as a cheap filter... but really shouldn't
                         I keep it for now since elastic search should be able to filter results before sending the response object
                         */
-                        <Table columns={columns} dataSource={dataUnique} rowKey={ record => record.id } />
+                        //antd table component sets the word-break CSS property to "break-all"; solution below (changing it in the table component) does not work
+                        <Table style={{ wordBreak: "normal"}} columns={columns} dataSource={dataUnique} rowKey={ record => record.id } />
                     }
                     
                 </Layout>

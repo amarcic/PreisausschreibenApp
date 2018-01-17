@@ -32,6 +32,22 @@ export default function ContestPage( props ) {
         <h2 style={{color: "grey", marginBottom: 0}}> { participants.map( participant => participant.rolle.indexOf("ausschreibende Institution/Person")>=0 ? participant.name : "" ) } </h2><h1> {data.bezeichnung[0]} {data.anlass? "- " + data.anlass : ""} </h1>
         {data.reduzierteErfassung && <p style={{color: "#f5222d"}} >Achtung: Aufgrund des Umfangs des Preisausschreibens wurden folgende Bereiche reduziert erfasst...</p>} 
         <div style={{marginTop: 50}} >
+        <List 
+            header={<div>Ereignisse</div>}
+            size="small"
+            bordered
+            dataSource={events}
+            renderItem={ item =>
+                <List.Item>                    
+                    <span>{item.zeit.datum ? item.zeit.datum : "" +
+                                    (item.zeit.von ? " ab " + item.zeit.von : "") + 
+                                    (item.zeit.bis ? " bis " + item.zeit.bis : "") + 
+                                    ( item.zeit.datumszusatz ? " (" + item.zeit.datumszusatz + ")" : "" )
+                        } {item.ereignistyp==="Sonstiges"? item.beschreibung : item.ereignistyp}, {item.ort? item.ort.ortsname : "Ort unbekannt"} {item.ort.ortszusatz? "(" + item.ort.ortszusatz + ")" : "" } { item.wettbewerbskontext? item.wettbewerbskontext.map( kontext => <Tag key={kontext} color="magenta">{kontext}</Tag> ) : ""}
+                    </span>
+                </List.Item>
+            }
+        />
         <Collapse>
             { data.anlass &&  
                 <Panel header={"Anlass für das Preisausschreiben"}>
@@ -116,6 +132,7 @@ export default function ContestPage( props ) {
         </div>
         <div style={{marginTop: 50}} >
         <h2>Ereignisse</h2>
+
         <Collapse>
             { events.length > 1 && <Panel header={ "Timeline: " + events.length + " Ereignisse"}>
             <Row>

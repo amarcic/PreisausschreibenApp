@@ -23,7 +23,7 @@ function SearchBox( props ) {
     return(
         <Input.Search 
             size="large"
-            placeholder="deine suche..."
+            placeholder="Ihre Suche..."
             addonBefore={selectBefore}
             style={{ width: 500 }}
             onSearch={ value => {
