@@ -31,23 +31,34 @@ export default function ContestPage( props ) {
             <Col span={20} offset={2}>
         <h2 style={{color: "grey", marginBottom: 0}}> { participants.map( participant => participant.rolle.indexOf("ausschreibende Institution/Person")>=0 ? participant.name : "" ) } </h2><h1> {data.bezeichnung[0]} {data.anlass? "- " + data.anlass : ""} </h1>
         {data.reduzierteErfassung && <p style={{color: "#f5222d"}} >Achtung: Aufgrund des Umfangs des Preisausschreibens wurden folgende Bereiche reduziert erfasst...</p>} 
-        <div style={{marginTop: 50}} >
+        
+        <div style={{marginTop: 50}}>
+        <Row>
         <List 
             header={<div>Ereignisse</div>}
             size="small"
             bordered
             dataSource={events}
             renderItem={ item =>
-                <List.Item>                    
-                    <span>{item.zeit.datum ? item.zeit.datum : "" +
-                                    (item.zeit.von ? " ab " + item.zeit.von : "") + 
-                                    (item.zeit.bis ? " bis " + item.zeit.bis : "") + 
-                                    ( item.zeit.datumszusatz ? " (" + item.zeit.datumszusatz + ")" : "" )
-                        } {item.ereignistyp==="Sonstiges"? item.beschreibung : item.ereignistyp}, {item.ort? item.ort.ortsname : "Ort unbekannt"} {item.ort.ortszusatz? "(" + item.ort.ortszusatz + ")" : "" } { item.wettbewerbskontext? item.wettbewerbskontext.map( kontext => <Tag key={kontext} color="magenta">{kontext}</Tag> ) : ""}
-                    </span>
+                <List.Item>
+                                      
+                    <Col span={4}>
+                        {item.zeit.datum ? new Date(item.zeit.datum).toLocaleDateString( 'de-DE', { day: "2-digit", month: '2-digit', year: "numeric"}) : "" +
+                                    (item.zeit.von ? new Date(item.zeit.von).toLocaleDateString( 'de-DE', { day: "2-digit", month: '2-digit', year: "numeric"} ) : "") + 
+                                    (item.zeit.bis ? " - " + new Date(item.zeit.bis).toLocaleDateString( 'de-DE', { day: "2-digit", month: '2-digit', year: "numeric"} ) : "")  
+                                    
+                        }
+                    </Col>  
+                    <Col span={20}>
+                        {item.ereignistyp==="Sonstiges"? item.beschreibung : item.ereignistyp}, {item.ort? item.ort.ortsname : "Ort unbekannt"} {item.ort.ortszusatz? "(" + item.ort.ortszusatz + ( item.zeit.datumszusatz ? ", " + item.zeit.datumszusatz : "" ) + ")" : "" + ( item.zeit.datumszusatz ? item.zeit.datumszusatz : "" )  } { item.wettbewerbskontext? item.wettbewerbskontext.map( kontext => <Tag key={kontext} color="magenta">{kontext}</Tag> ) : ""}
+                    </Col>
                 </List.Item>
             }
         />
+        </Row>
+        </div>
+        
+        <div style={{marginTop: 50}} >
         <Collapse>
             { data.anlass &&  
                 <Panel header={"Anlass für das Preisausschreiben"}>

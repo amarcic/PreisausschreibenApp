@@ -134,7 +134,7 @@ export default function SearchPage( props ) {
                         I keep it for now since elastic search should be able to filter results before sending the response object
                         */
                         //antd table component sets the word-break CSS property to "break-all"; solution below (changing it in the table component) does not work
-                        <Table style={{ wordBreak: "normal"}} columns={columns} dataSource={dataUnique} rowKey={ record => record.id } />
+                        <Table style={{ wordBreak: "normal!important"}} columns={columns} dataSource={dataUnique} rowKey={ record => record.id } />
                     }
                     
                 </Layout>
