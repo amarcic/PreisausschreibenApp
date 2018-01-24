@@ -1,9 +1,10 @@
 import React from 'react';
 
-import { Row, Col, Card, List, Tag, Collapse, Timeline } from 'antd';
+import { Row, Col, Card, List, Tag, Collapse, Timeline, Tabs } from 'antd';
 import { Link } from 'react-router-dom';
 
 const Panel = Collapse.Panel;
+const TabPane = Tabs.TabPane;
 
 export default function ContestPage( props ) {
     console.log( props.requestData );
@@ -29,9 +30,34 @@ export default function ContestPage( props ) {
         <div style={ { marginTop: 40 } }>
         <Row>
             <Col span={20} offset={2}>
-        <h2 style={{color: "grey", marginBottom: 0}}> { participants.map( participant => participant.rolle.indexOf("ausschreibende Institution/Person")>=0 ? participant.name : "" ) } </h2><h1> {data.bezeichnung[0]} {data.anlass? "- " + data.anlass : ""} </h1>
+        <h2 style={{color: "grey", marginBottom: 0}}> { participants.map( participant => participant.rolle.indexOf("ausschreibende Institution/Person")>=0 ? participant.name : "" ) } </h2><h1> {data.bezeichnung[0]}</h1>
         {data.reduzierteErfassung && <p style={{color: "#f5222d"}} >Achtung: Aufgrund des Umfangs des Preisausschreibens wurden folgende Bereiche reduziert erfasst...</p>} 
-        
+        <p>{data.anlass? "Anlass: " + data.anlass : ""}</p>
+        <div style={{marginTop: 50}}>
+            <Row>
+                <List 
+                    header="Aufgaben"
+                    dataSource={tasks}
+                    size="small"
+                    renderItem={ item =>
+                        <List.Item>
+                            <Col span={4}>
+                                {item.wettbewerbskontext}
+                            </Col>
+                            <Col span={4}>
+                            {item.aufgabentyp}
+                            </Col>
+                            <Col span={16}>
+                            {item.spezifizierung}
+                            </Col>
+                        </List.Item>
+                    }
+                />
+                
+                <Col></Col>
+            </Row>
+        </div>
+
         <div style={{marginTop: 50}}>
         <Row>
         <List 
@@ -50,14 +76,42 @@ export default function ContestPage( props ) {
                         }
                     </Col>  
                     <Col span={20}>
-                        {item.ereignistyp==="Sonstiges"? item.beschreibung : item.ereignistyp}, {item.ort? item.ort.ortsname : "Ort unbekannt"} {item.ort.ortszusatz? "(" + item.ort.ortszusatz + ( item.zeit.datumszusatz ? ", " + item.zeit.datumszusatz : "" ) + ")" : "" + ( item.zeit.datumszusatz ? item.zeit.datumszusatz : "" )  } { item.wettbewerbskontext? item.wettbewerbskontext.map( kontext => <Tag key={kontext} color="magenta">{kontext}</Tag> ) : ""}
+                        {item.ereignistyp==="Sonstiges"? item.beschreibung : item.ereignistyp}, {item.ort? item.ort.ortsname : "Ort unbekannt"} {item.ort.ortszusatz? "(" + item.ort.ortszusatz + ")" : ""  
+                    } {item.zeit.datumszusatz ? "(" + item.zeit.datumszusatz + ")" : ""
+                    } { item.wettbewerbskontext? item.wettbewerbskontext.map( kontext => <Tag key={kontext} color="magenta">{kontext}</Tag> ) : ""}
                     </Col>
                 </List.Item>
             }
         />
         </Row>
         </div>
-        
+        {subcompetitions &&
+            <div style={{marginTop: 50}} >
+                <Tabs defaultActiveKey="0">
+                    {subcompetitions.map( (subcomp, index) => 
+                        <TabPane tab={subcomp} key={index}>
+                            {tasks.map( task =>
+                                {if (task.wettbewerbskontext===subcomp) {
+                                    return (
+                                        <Row key={task.aufgabentyp}>
+                                        <Col span={20} offset={2} >
+                                        <div >
+                                            <p>{task.aufgabentyp}</p>
+                                            {task.systematik.map( term => <Tag key={term}>{term}</Tag> )}
+                                            <p>{task.spezifizierung}</p>
+                                        </div>
+                                        </Col>
+                                        </Row>
+                                    );
+                                } }
+                                /*task.wettbewerbskontext===subcomp ? task.spezifizierung :
+                                ""*/
+                            )}
+                        </TabPane>
+                    )}
+                </Tabs>
+            </div>
+        }
         <div style={{marginTop: 50}} >
         <Collapse>
             { data.anlass &&  
