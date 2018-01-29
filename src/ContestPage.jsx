@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Row, Col, Card, List, Tag, Collapse, Timeline, Tabs } from 'antd';
+import { Row, Col, Card, List, Tag, Collapse, Timeline, Tabs, Icon, Popover } from 'antd';
 import { Link } from 'react-router-dom';
 
 const Panel = Collapse.Panel;
@@ -31,8 +31,8 @@ export default function ContestPage( props ) {
         <Row>
             <Col span={20} offset={2}>
         <h2 style={{color: "grey", marginBottom: 0}}> { participants.map( participant => participant.rolle.indexOf("ausschreibende Institution/Person")>=0 ? participant.name : "" ) } </h2><h1> {data.bezeichnung[0]}</h1>
-        {data.reduzierteErfassung && <p style={{color: "#f5222d"}} >Achtung: Aufgrund des Umfangs des Preisausschreibens wurden folgende Bereiche reduziert erfasst...</p>} 
         <p>{data.anlass? "Anlass: " + data.anlass : ""}</p>
+        {data.reduzierteErfassung && <p style={{color: "#f5222d"}} >Achtung: Aufgrund des Umfangs des Preisausschreibens wurden folgende Bereiche reduziert erfasst...</p>} 
         <div style={{marginTop: 50}}>
             <Row>
                 <List 
@@ -61,7 +61,7 @@ export default function ContestPage( props ) {
         <div style={{marginTop: 50}}>
         <Row>
         <List 
-            header={<div>Ereignisse</div>}
+            header={<div>Ereignisse {comments? <Icon type="info-circle" /> : ""} </div>}
             size="small"
             bordered
             dataSource={events}
@@ -72,13 +72,16 @@ export default function ContestPage( props ) {
                         {item.zeit.datum ? new Date(item.zeit.datum).toLocaleDateString( 'de-DE', { day: "2-digit", month: '2-digit', year: "numeric"}) : "" +
                                     (item.zeit.von ? new Date(item.zeit.von).toLocaleDateString( 'de-DE', { day: "2-digit", month: '2-digit', year: "numeric"} ) : "") + 
                                     (item.zeit.bis ? " - " + new Date(item.zeit.bis).toLocaleDateString( 'de-DE', { day: "2-digit", month: '2-digit', year: "numeric"} ) : "")  
-                                    
-                        }
+                        } { item.zeit.datumszusatz && <Popover
+                            content={item.zeit.datumszusatz}
+                        >
+                            <Icon type="info-circle-o" />
+                        </Popover>}
                     </Col>  
                     <Col span={20}>
-                        {item.ereignistyp==="Sonstiges"? item.beschreibung : item.ereignistyp}, {item.ort? item.ort.ortsname : "Ort unbekannt"} {item.ort.ortszusatz? "(" + item.ort.ortszusatz + ")" : ""  
-                    } {item.zeit.datumszusatz ? "(" + item.zeit.datumszusatz + ")" : ""
-                    } { item.wettbewerbskontext? item.wettbewerbskontext.map( kontext => <Tag key={kontext} color="magenta">{kontext}</Tag> ) : ""}
+                    {item.ereignistyp==="Sonstiges"? item.beschreibung : item.ereignistyp}, {item.ort? item.ort.ortsname : "Ort unbekannt"} {
+                        item.ort.ortszusatz ? " (" + item.ort.ortszusatz +")" : ""                            
+                        } { item.wettbewerbskontext? item.wettbewerbskontext.map( kontext => <Tag key={kontext} color="magenta">{kontext}</Tag> ) : ""}
                     </Col>
                 </List.Item>
             }
@@ -90,6 +93,32 @@ export default function ContestPage( props ) {
                 <Tabs defaultActiveKey="0">
                     {subcompetitions.map( (subcomp, index) => 
                         <TabPane tab={subcomp} key={index}>
+                        <Row>
+                            {awards.map( award =>
+                                {
+                                    if(award.wettbewerbskontext && award.wettbewerbskontext===subcomp) {
+                                        return( 
+                                            <List 
+                                                key={subcomp}
+                                                header={<div>{award.wettbewerbskontext? " Auszeichnungen im Teilwettbewerb " + award.wettbewerbskontext : "Auszeichnungen"}: {award.auszeichnungsarten? award.auszeichnungsarten.map( i => i + ", " ) : "Verliehne Auszeichnungen sind nicht bekannt" }</div>}
+                                                dataSource={award.platzierungen}
+                                                renderItem={ item =>
+                                                    <List.Item>
+                                                        <Col span={4}>
+                                                            {item.rang}. Rang
+                                                        </Col>
+                                                        <Col span={20}>
+                                                            {item.beschreibung}
+                                                        </Col>
+                                                    </List.Item>
+                                                }
+                                            />
+                                        );
+                                    }
+                                }
+                            )
+                            }
+                        </Row>
                             {tasks.map( task =>
                                 {if (task.wettbewerbskontext===subcomp) {
                                     return (
