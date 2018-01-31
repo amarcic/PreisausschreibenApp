@@ -36,18 +36,18 @@ export default function ContestPage( props ) {
         <div style={{marginTop: 50}}>
             <Row>
                 <List 
-                    header="Aufgaben"
+                    header={<h3>Aufgaben</h3>}
                     dataSource={tasks}
                     size="small"
                     renderItem={ item =>
                         <List.Item>
-                            <Col span={4}>
+                            <Col span={4} offset={1}>
                                 {item.wettbewerbskontext}
                             </Col>
                             <Col span={4}>
                             {item.aufgabentyp}
                             </Col>
-                            <Col span={16}>
+                            <Col span={15}>
                             {item.spezifizierung}
                             </Col>
                         </List.Item>
@@ -61,7 +61,7 @@ export default function ContestPage( props ) {
         <div style={{marginTop: 50}}>
         <Row>
         <List 
-            header={<div>Ereignisse {comments? <Icon type="info-circle" /> : ""} </div>}
+            header={<div><h3>Ereignisse</h3> {comments? <Icon type="info-circle" /> : ""} </div>}
             size="small"
             bordered
             dataSource={events}
@@ -93,6 +93,26 @@ export default function ContestPage( props ) {
                 <Tabs defaultActiveKey="0">
                     {subcompetitions.map( (subcomp, index) => 
                         <TabPane tab={subcomp} key={index}>
+                        {/*the following line checks if there are participants with the role "Jurymitglied"; in that case the display of jury info will be rendered */}
+                        { participants.filter( participant => participant.rolle.indexOf( "Jurymitglied" )>=0 ).length>1
+                             && <Row>
+                            <List 
+                                header={<div><h3>Jury</h3></div>}
+                                size="small"
+                                dataSource={participants.filter( participant => participant.rolle.indexOf( "Jurymitglied" ) >=0 && ( participant.wettbewerbskontext ? participant.wettbewerbskontext.indexOf(subcomp) >= 0 : true ) ) }
+                                renderItem={ item =>
+                                    <List.Item>
+                                        <Col span={6} offset={1}>
+                                            {item.name}
+                                        </Col>
+                                        <Col span={17}>
+                                            { item.anmerkung ? item.anmerkung : "" }
+                                        </Col>
+
+                                    </List.Item>
+                                }
+                            />
+                        </Row>}
                         <Row>
                             {awards.map( award =>
                                 {
@@ -100,15 +120,22 @@ export default function ContestPage( props ) {
                                         return( 
                                             <List 
                                                 key={subcomp}
-                                                header={<div>{award.wettbewerbskontext? " Auszeichnungen im Teilwettbewerb " + award.wettbewerbskontext : "Auszeichnungen"}: {award.auszeichnungsarten? award.auszeichnungsarten.map( i => i + ", " ) : "Verliehne Auszeichnungen sind nicht bekannt" }</div>}
-                                                dataSource={award.platzierungen}
+                                                header={<div><h3>Auszeichnungen und Preisträger </h3><br /> {award.auszeichnungsarten? award.auszeichnungsarten.map( prize => <Tag key={prize}>{prize}</Tag> ) : "Verliehne Auszeichnungen sind nicht bekannt" }</div>}
+                                                dataSource={award.platzierungen.sort( (a,b) => a.rang - b.rang )}
                                                 renderItem={ item =>
                                                     <List.Item>
-                                                        <Col span={4}>
-                                                            {item.rang}. Rang
+                                                        <Col span={3} offset={1}>
+                                                            { item.rang==="n" ? "nachrangig" : ( item.rang==="ak" ? "außer Konkurrenz" : item.rang + ". Rang" ) }
                                                         </Col>
-                                                        <Col span={20}>
+                                                        <Col span={12}>
                                                             {item.beschreibung}
+                                                        </Col>
+                                                        <Col span={8}>
+                                                        <ul>
+                                                            {item.platzierte.map( platzierter => <li key={platzierter}> {participants.map( participant => participant.identifier.indexOf(platzierter)===0? participant.name : "" )
+                                                        } { data.teilnehmerleistungen && data.teilnehmerleistungen.map( leistung => leistung.teilnehmer.indexOf(platzierter) >= 0 ? " mit: " + leistung.beschreibung  : "" ) } </li>)}
+                                                            {/*<Tag key={platzierter}>{participants.map( participant => participant.identifier.indexOf(platzierter)===0? participant.name : "" )}</Tag> )*/}
+                                                        </ul>
                                                         </Col>
                                                     </List.Item>
                                                 }
@@ -119,6 +146,7 @@ export default function ContestPage( props ) {
                             )
                             }
                         </Row>
+                        {/*}
                             {tasks.map( task =>
                                 {if (task.wettbewerbskontext===subcomp) {
                                     return (
@@ -133,9 +161,9 @@ export default function ContestPage( props ) {
                                         </Row>
                                     );
                                 } }
-                                /*task.wettbewerbskontext===subcomp ? task.spezifizierung :
-                                ""*/
+
                             )}
+                            */}
                         </TabPane>
                     )}
                 </Tabs>
