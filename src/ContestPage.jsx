@@ -22,6 +22,35 @@ export default function ContestPage( props ) {
     if (data.wettbewerbsgliederung) { subcompetitions = data.wettbewerbsgliederung;}
     let comments;
     if (data.kommentare) { comments = data.kommentare }
+    let rankedParticipants = [];
+    awards.forEach( award => 
+        {
+            if (award.platzierungen) {
+                award.platzierungen.forEach( rank => {
+                    if( rank.platzierte ) {
+                        rank.platzierte.forEach( ranked =>
+                            rankedParticipants.push(ranked)
+                        );
+                    }
+                } );
+            }
+        } 
+    );
+    
+    let subcompParticipants = {};
+    participants.forEach( participant => {
+        if(participant.wettbewerbskontext) {
+            participant.wettbewerbskontext.forEach( context =>
+            {
+                if(!subcompParticipants[context]) {
+                    subcompParticipants[context] = [];
+                }
+                subcompParticipants[context].push( participant );
+            }
+            );
+        } 
+    } );
+    //console.log(subcompParticipants);
 
     let taskfields = [];
     data.aufgaben.forEach( aufgabe => { aufgabe.systematik.forEach( term => {if (taskfields.indexOf(term)===-1) taskfields.push( term )} ) } );
@@ -99,7 +128,8 @@ export default function ContestPage( props ) {
                             <List 
                                 header={<div><h3>Jury</h3></div>}
                                 size="small"
-                                dataSource={participants.filter( participant => participant.rolle.indexOf( "Jurymitglied" ) >=0 && ( participant.wettbewerbskontext ? participant.wettbewerbskontext.indexOf(subcomp) >= 0 : true ) ) }
+                                dataSource={ subcompParticipants[subcomp].filter( participant => participant.rolle.indexOf( "Jurymitglied" ) >= 0 ) }
+                                    //{participants.filter(participant => participant.rolle.indexOf( "Jurymitglied" ) >=0 && ( participant.wettbewerbskontext ? participant.wettbewerbskontext.indexOf(subcomp) >= 0 : true ) ) }
                                 renderItem={ item =>
                                     <List.Item>
                                         <Col span={6} offset={1}>
@@ -146,24 +176,30 @@ export default function ContestPage( props ) {
                             )
                             }
                         </Row>
-                        {/*}
-                            {tasks.map( task =>
-                                {if (task.wettbewerbskontext===subcomp) {
-                                    return (
-                                        <Row key={task.aufgabentyp}>
-                                        <Col span={20} offset={2} >
-                                        <div >
-                                            <p>{task.aufgabentyp}</p>
-                                            {task.systematik.map( term => <Tag key={term}>{term}</Tag> )}
-                                            <p>{task.spezifizierung}</p>
-                                        </div>
+                        <Row>
+                            <List 
+                                header={<div><h3>Weitere Teilnehmer in diesem Teilwettbewerb</h3></div>}
+                                grid={ {column: 2} }
+                                dataSource={ subcompParticipants[subcomp].filter( participant =>
+                                    participant.rolle.indexOf( "TeilnehmerIn" ) >= 0 && rankedParticipants.indexOf( participant.identifier ) === -1
+                                ) }
+                                renderItem={ item =>
+                                    <List.Item>
+                                        <List.Item.Meta 
+                                            title={item.name}
+                                            description={item.anmerkung}
+                                        />
+                                        {/*<Col span={3} offset={1}>
+                                            {item.name} 
                                         </Col>
-                                        </Row>
-                                    );
-                                } }
-
-                            )}
-                            */}
+                                        <Col span={6}>
+                                            { item.anmerkung }
+                                        </Col>
+                                */}                   
+                                    </List.Item>
+                                }
+                            />
+                        </Row>
                         </TabPane>
                     )}
                 </Tabs>
