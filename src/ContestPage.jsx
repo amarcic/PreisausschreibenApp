@@ -123,22 +123,28 @@ export default function ContestPage( props ) {
                     {subcompetitions.map( (subcomp, index) => 
                         <TabPane tab={subcomp} key={index}>
                         {/*the following line checks if there are participants with the role "Jurymitglied"; in that case the display of jury info will be rendered */}
-                        { participants.filter( participant => participant.rolle.indexOf( "Jurymitglied" )>=0 ).length>1
+                        { subcompParticipants[subcomp] && subcompParticipants[subcomp].filter( participant => participant.rolle.indexOf( "Jurymitglied" )>=0 ).length>1
                              && <Row>
                             <List 
+                                
                                 header={<div><h3>Jury</h3></div>}
                                 size="small"
                                 dataSource={ subcompParticipants[subcomp].filter( participant => participant.rolle.indexOf( "Jurymitglied" ) >= 0 ) }
                                     //{participants.filter(participant => participant.rolle.indexOf( "Jurymitglied" ) >=0 && ( participant.wettbewerbskontext ? participant.wettbewerbskontext.indexOf(subcomp) >= 0 : true ) ) }
                                 renderItem={ item =>
                                     <List.Item>
+                                        <List.Item.Meta 
+                                            title={item.name}
+                                            description={item.anmerkung}
+                                        />
+                                        {/*
                                         <Col span={6} offset={1}>
                                             {item.name}
                                         </Col>
                                         <Col span={17}>
                                             { item.anmerkung ? item.anmerkung : "" }
                                         </Col>
-
+                                        */}
                                     </List.Item>
                                 }
                             />
@@ -176,7 +182,7 @@ export default function ContestPage( props ) {
                             )
                             }
                         </Row>
-                        <Row>
+                        { subcompParticipants[subcomp] && <Row>
                             <List 
                                 header={<div><h3>Weitere Teilnehmer in diesem Teilwettbewerb</h3></div>}
                                 grid={ {column: 2} }
@@ -199,7 +205,25 @@ export default function ContestPage( props ) {
                                     </List.Item>
                                 }
                             />
-                        </Row>
+                        </Row>}
+{/* something wrong here */}                       
+                        { data.teilnahmevoraussetzungen && data.teilnahmevoraussetzungen.filter( criterion => criterion.teilwettbewerb === subcomp).length > 0
+                        && <Row>
+                            <List 
+                                header={<h3>Teilnahmevoraussetzungen</h3>}
+                                dataSource={data.teilnahmevoraussetzungen.filter( criterion => criterion.teilwettbewerb === subcomp)}
+                                renderItem={ item =>
+                                    <List.Item>
+                                        <Col span={3} offset={1} >
+                                            {item.kriterium}
+                                        </Col>
+                                        <Col span={20}>
+                                            {item.beschreibung}
+                                        </Col>
+                                    </List.Item>
+                                }
+                            />
+                        </Row>}
                         </TabPane>
                     )}
                 </Tabs>
