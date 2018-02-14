@@ -15,6 +15,7 @@ import SearchBanner from './SearchBanner';
 import SearchRow from './SearchRow';
 import ResultPage from './ResultPage';
 import SeriesPage from './SeriesPage';
+import ErrorBoundary from './ErrorBoundary'
 
 import withPromise from './withPromise';
 
@@ -46,21 +47,6 @@ export default class Layout_Container extends React.Component {
 
         this.updateInput = this.updateInput.bind(this);
     }
-
-    componentWillMount() {
-    //    CouchDataStore.subscribe( this.updateData );
-    }
-
-    componentDidMount() {
-    }
-
-    /*
-    updateData() {
-        this.setState( {
-            data: CouchDataStore.getResults()
-        } );
-    }
-    */
 
     getTitle() {
         return this.state.header.header_title;
@@ -104,14 +90,14 @@ export default class Layout_Container extends React.Component {
                             <Route path="/" exact render={ (props) => <SearchBanner updateInput={this.updateInput} {...props} />  } />
                             <Route path="/search" render={ (props) => <SearchRow updateInput={this.updateInput} {...props} /> } />
                             <Route path="/person/:docId" component={ResultPage} ></Route>
-                            {/* can I use :docId to put the value into a prop, so the Result page can render a document from the url alone? */}
+                            {/* can I use :docId to put the value into a prop, so the Result page can render a document from the url alone? yes!*/}
                             <Route path="/dokumente/:docType/:docId" component={ResultPage} ></Route>
                             <Route path="/overview" render={ (props) => <SeriesPageWithPromise query="none" collection="overview_competitions" {...props} /> } />
                             <Route path="/about" component={AboutPage} />
                 </Row>
                 
                 <Route path="/" exact component={LandingPage} />
-                <Route path="/search" render={ (props) => <SearchPageWithPromise query={this.state.searchInput} collection={this.state.searchCollection} {...props} /> } />
+                <Route path="/search" render={ (props) => <ErrorBoundary> <SearchPageWithPromise query={this.state.searchInput} collection={this.state.searchCollection} {...props} /> </ErrorBoundary> } />
                 <Footer style={{textAlign: 'center'}}>
                     Musikalische Preisausschreiben ©2017
                 </Footer>

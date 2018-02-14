@@ -2,6 +2,7 @@ import React from 'react';
 
 import { Row, Col, Card, List, Tag, Collapse, Timeline, Tabs, Icon, Popover } from 'antd';
 import { Link } from 'react-router-dom';
+import SubcompetitionTabs from './SubcompetitionTabs';
 
 const Panel = Collapse.Panel;
 const TabPane = Tabs.TabPane;
@@ -117,118 +118,9 @@ export default function ContestPage( props ) {
         />
         </Row>
         </div>
-        {subcompetitions &&
-            <div style={{marginTop: 50}} >
-                <Tabs defaultActiveKey="0">
-                    {subcompetitions.map( (subcomp, index) => 
-                        <TabPane tab={subcomp} key={index}>
-                        {/*the following line checks if there are participants with the role "Jurymitglied"; in that case the display of jury info will be rendered */}
-                        { subcompParticipants[subcomp] && subcompParticipants[subcomp].filter( participant => participant.rolle.indexOf( "Jurymitglied" )>=0 ).length>1
-                             && <Row>
-                            <List 
-                                
-                                header={<div><h3>Jury</h3></div>}
-                                size="small"
-                                dataSource={ subcompParticipants[subcomp].filter( participant => participant.rolle.indexOf( "Jurymitglied" ) >= 0 ) }
-                                    //{participants.filter(participant => participant.rolle.indexOf( "Jurymitglied" ) >=0 && ( participant.wettbewerbskontext ? participant.wettbewerbskontext.indexOf(subcomp) >= 0 : true ) ) }
-                                renderItem={ item =>
-                                    <List.Item>
-                                        <List.Item.Meta 
-                                            title={item.name}
-                                            description={item.anmerkung}
-                                        />
-                                        {/*
-                                        <Col span={6} offset={1}>
-                                            {item.name}
-                                        </Col>
-                                        <Col span={17}>
-                                            { item.anmerkung ? item.anmerkung : "" }
-                                        </Col>
-                                        */}
-                                    </List.Item>
-                                }
-                            />
-                        </Row>}
-                        <Row>
-                            {awards.map( award =>
-                                {
-                                    if(award.wettbewerbskontext && award.wettbewerbskontext===subcomp) {
-                                        return( 
-                                            <List 
-                                                key={subcomp}
-                                                header={<div><h3>Auszeichnungen und Preisträger </h3><br /> {award.auszeichnungsarten? award.auszeichnungsarten.map( prize => <Tag key={prize}>{prize}</Tag> ) : "Verliehne Auszeichnungen sind nicht bekannt" }</div>}
-                                                dataSource={award.platzierungen.sort( (a,b) => a.rang - b.rang )}
-                                                renderItem={ item =>
-                                                    <List.Item>
-                                                        <Col span={3} offset={1}>
-                                                            { item.rang==="n" ? "nachrangig" : ( item.rang==="ak" ? "außer Konkurrenz" : item.rang + ". Rang" ) }
-                                                        </Col>
-                                                        <Col span={12}>
-                                                            {item.beschreibung}
-                                                        </Col>
-                                                        <Col span={8}>
-                                                        <ul>
-                                                            {item.platzierte.map( platzierter => <li key={platzierter}> {participants.map( participant => participant.identifier.indexOf(platzierter)===0? participant.name : "" )
-                                                        } { data.teilnehmerleistungen && data.teilnehmerleistungen.map( leistung => leistung.teilnehmer.indexOf(platzierter) >= 0 ? " mit: " + leistung.beschreibung  : "" ) } </li>)}
-                                                            {/*<Tag key={platzierter}>{participants.map( participant => participant.identifier.indexOf(platzierter)===0? participant.name : "" )}</Tag> )*/}
-                                                        </ul>
-                                                        </Col>
-                                                    </List.Item>
-                                                }
-                                            />
-                                        );
-                                    }
-                                }
-                            )
-                            }
-                        </Row>
-                        { subcompParticipants[subcomp] && <Row>
-                            <List 
-                                header={<div><h3>Weitere Teilnehmer in diesem Teilwettbewerb</h3></div>}
-                                grid={ {column: 2} }
-                                dataSource={ subcompParticipants[subcomp].filter( participant =>
-                                    participant.rolle.indexOf( "TeilnehmerIn" ) >= 0 && rankedParticipants.indexOf( participant.identifier ) === -1
-                                ) }
-                                renderItem={ item =>
-                                    <List.Item>
-                                        <List.Item.Meta 
-                                            title={item.name}
-                                            description={item.anmerkung}
-                                        />
-                                        {/*<Col span={3} offset={1}>
-                                            {item.name} 
-                                        </Col>
-                                        <Col span={6}>
-                                            { item.anmerkung }
-                                        </Col>
-                                */}                   
-                                    </List.Item>
-                                }
-                            />
-                        </Row>}
-{/* something wrong here */}                       
-                        { data.teilnahmevoraussetzungen && data.teilnahmevoraussetzungen.filter( criterion => criterion.teilwettbewerb === subcomp).length > 0
-                        && <Row>
-                            <List 
-                                header={<h3>Teilnahmevoraussetzungen</h3>}
-                                dataSource={data.teilnahmevoraussetzungen.filter( criterion => criterion.teilwettbewerb === subcomp)}
-                                renderItem={ item =>
-                                    <List.Item>
-                                        <Col span={3} offset={1} >
-                                            {item.kriterium}
-                                        </Col>
-                                        <Col span={20}>
-                                            {item.beschreibung}
-                                        </Col>
-                                    </List.Item>
-                                }
-                            />
-                        </Row>}
-                        </TabPane>
-                    )}
-                </Tabs>
-            </div>
-        }
+        { subcompetitions && <SubcompetitionTabs subcompetitions={subcompetitions}  participants={ participants.filter( participant => participant.wettbewerbskontext ) } ranked={rankedParticipants} awards={awards} teilnehmerleistungen={data.teilnehmerleistungen} teilnahmevoraussetzungen={data.teilnahmevoraussetzungen} /> }
+
+        
         <div style={{marginTop: 50}} >
         <Collapse>
             { data.anlass &&  

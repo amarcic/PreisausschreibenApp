@@ -1,8 +1,5 @@
 import React from 'react';
 
-/* mock api
-const apiUrl = 'http://www.mocky.io/v2/59e752d10f00003107ee99e7';
-*/
 const api = "http://134.95.80.232:5984/preisausschreiben/";
 
 const requestOptions = {
@@ -53,75 +50,17 @@ export default function withPromise( WrappedComponent ) {
             componentDidMount() {
                 //console.log("hello from withPromise componentDidMount()");
                 this.fetchStuff( this.props.query, api, this.props.collection );
-                /*
-                const query = this.props.query;
-                let selectView = "";
-
-                switch( this.props.collection ) {
-                    case "preisausschreiben": selectView = "_design/preisausschreiben/_view/fulltext"; break;
-                    case "koerperschaften": selectView = "_design/preisausschreiben/_view/all_corporations"; break;
-                    case "personen": selectView = "_design/preisausschreiben/_view/all_persons"; break;
-                    case "serien": selectView = "_design/preisausschreiben/_view/all_series"; break;
-                }
-
-                const api = "http://134.95.80.232:5984/preisausschreiben/" + selectView;
-
-                const url = query? api + '?startkey="' + query + '"&&endkey="' + query + '\ufff0"&&reduce=false' : apiUrl;
-            
-                //console.log(url);
-                fetch( url, requestOptions )
-                    .then( response => response.json() )
-                    .then( data => this.setState( { data: data.rows, loading: false } ) )
-                    */
             }
 
             componentWillReceiveProps( nextProps ) {
                 
+                // the following line fixes the bug, that was using fetched data from previous queries to build the result table (which led to crashes)
+                this.setState( { data: null} );
+
                 //I could check if this.props.query !== nextProps.query before I send another fetch request
                
                 this.fetchStuff( nextProps.query, api, nextProps.collection );
-                /*  I could abstract the fetching away into a fetching method since it is the same here and in componentDidMount()
-                const query = nextProps.query;
-                let selectView = "";
-                switch( nextProps.collection ) {
-                    case "preisausschreiben": selectView = "fulltext"; break;
-                    case "koerperschaften": selectView = "all_corporations"; break;
-                    case "personen": selectView = "all_persons"; break;
-                    case "serien": selectView = "all_series"; break;
-                }
-
-                //const api = apiUrl + "/" + selectView;
-                const api = "http://134.95.80.232:5984/preisausschreiben/_design/preisausschreiben/_view/" + selectView;
-
-                const url = query? api + '?startkey="' + query + '"&&endkey="' + query + '\ufff0"&&reduce=false' : apiUrl;
-                console.log(url);
-                fetch( url, requestOptions )
-                    .then( response => response.json() )
-                    .then( data => this.setState( { data: data.rows, loading: false } ) )
-                    */
             }
-
-            /*needs work, not used yet
-            fetchFromCouch() {
-                const query = nextProps.query;
-                let selectView = "";
-                switch( props.collection ) {
-                    case "preisausschreiben": selectView = "fulltext"; break;
-                    case "koerperschaften": selectView = "all_corporations"; break;
-                    case "personen": selectView = "all_persons"; break;
-                    case "serien": selectView = "all_series"; break;
-                }
-
-                const api = apiUrl + selectView;
-
-                const url = query? api + '?startkey="' + query + '"&&endkey="' + query + '\ufff0"&&reduce=false' : apiUrl;
-                console.log(url);
-                fetch( url, requestOptions )
-                    .then( response => response.json() )
-                    // maybe I need to map the fetched data rows to avoid duplicate keys (problem for ant design table of results)
-                    .then( data => this.setState( { data: data.rows, loading: false } ) )
-            }
-            */
 
 
            render() {
