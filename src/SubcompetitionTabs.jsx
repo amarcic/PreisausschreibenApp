@@ -125,7 +125,7 @@ export default function SubcompetitionTabs( props ) {
                                 renderItem={ item =>
                                     <List.Item>
                                         <Col span={3} offset={1} >
-                                            {item.kriterium}
+                                            {item.kriterium.map( crit => <Tag>{crit}</Tag> )}
                                         </Col>
                                         <Col span={20}>
                                             {item.beschreibung}
