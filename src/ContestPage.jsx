@@ -37,7 +37,7 @@ export default function ContestPage( props ) {
             }
         } 
     );
-    console.log( rankedParticipants );
+    //console.log( rankedParticipants );
 
     let taskfields = [];
     data.aufgaben.forEach( aufgabe => { aufgabe.systematik.forEach( term => {if (taskfields.indexOf(term)===-1) taskfields.push( term )} ) } );
@@ -84,7 +84,7 @@ export default function ContestPage( props ) {
             renderItem={ item =>
                 <List.Item>
                                       
-                    <Col span={4}>
+                    <Col span={5}>
                         {item.zeit.datum ? new Date(item.zeit.datum).toLocaleDateString( 'de-DE', { day: "2-digit", month: '2-digit', year: "numeric"}) : "" +
                                     (item.zeit.von ? new Date(item.zeit.von).toLocaleDateString( 'de-DE', { day: "2-digit", month: '2-digit', year: "numeric"} ) : "") + 
                                     (item.zeit.bis ? " - " + new Date(item.zeit.bis).toLocaleDateString( 'de-DE', { day: "2-digit", month: '2-digit', year: "numeric"} ) : "")  
@@ -94,7 +94,7 @@ export default function ContestPage( props ) {
                             <Icon type="info-circle-o" />
                         </Popover>}
                     </Col>  
-                    <Col span={20}>
+                    <Col span={19}>
                     {item.ereignistyp==="Sonstiges"? item.beschreibung : item.ereignistyp}, {item.ort? item.ort.ortsname : "Ort unbekannt"} {
                         item.ort.ortszusatz ? " (" + item.ort.ortszusatz +")" : ""                            
                         } { item.wettbewerbskontext? item.wettbewerbskontext.map( kontext => <Tag key={kontext} color="magenta">{kontext}</Tag> ) : ""}
@@ -105,13 +105,13 @@ export default function ContestPage( props ) {
         </Row>
         <Divider></Divider>
         </div>
-        { subcompetitions && <SubcompetitionTabs subcompetitions={subcompetitions}  participants={ participants.filter( participant => participant.wettbewerbskontext ) } ranked={rankedParticipants} awards={awards} teilnehmerleistungen={data.teilnehmerleistungen} teilnahmevoraussetzungen={data.teilnahmevoraussetzungen} /> }
+        { subcompetitions && <SubcompetitionTabs subcompetitions={subcompetitions}  participants={ participants.filter( participant => participant.wettbewerbskontext ) } ranked={rankedParticipants} awards={awards} teilnehmerleistungen={data.teilnehmerleistungen} teilnahmevoraussetzungen={data.teilnahmevoraussetzungen} teilnehmerInnenzahl={data.teilnehmerInnenzahl} /> }
         { !subcompetitions && 
             <div style={{marginTop: 50}}>
             { participants.filter( participant => participant.rolle.indexOf( "Jurymitglied" )>=0 ).length>1 
                 && <Row>
                     <List 
-                        grid={ participants.filter( participant => participant.rolle.indexOf( "Jurymitglied" ) >= 0 ).length > 6 ? {column: 2} : {column: 1} }
+                        grid={ participants.filter( participant => participant.rolle.indexOf( "Jurymitglied" ) >= 0 ).length > 4 ? {column: 2} : {column: 1} }
                         header={<div><h3>Jury</h3></div>}
                         size="small"
                         dataSource={ participants.filter( participant => participant.rolle.indexOf( "Jurymitglied" ) >= 0 ) }
@@ -146,9 +146,9 @@ export default function ContestPage( props ) {
                                                 </Col>
                                                 <Col span={8}>
                                                 <ul>
-                                                    {item.platzierte.map( platzierter => <li key={platzierter}> {participants.map( participant => participant.identifier.indexOf(platzierter)===0? participant.name : "" )
-                                                } { data.teilnehmerleistungen && data.teilnehmerleistungen.map( leistung => leistung.teilnehmer.indexOf(platzierter) >= 0 ? " mit: " + leistung.beschreibung  : "" ) } </li>)}
-                                                    {/*<Tag key={platzierter}>{participants.map( participant => participant.identifier.indexOf(platzierter)===0? participant.name : "" )}</Tag> )*/}
+                                                    {/* sorry about the unreadable code below: explanation... */}
+                                                    {item.platzierte.map( platzierter => <li key={platzierter}> { platzierter==="nv" ? "nicht vergeben" : (participants.map( participant => participant.identifier.indexOf(platzierter)===0? participant.name : "") )
+                                                } { data.teilnehmerleistungen && data.teilnehmerleistungen.map( leistung => leistung.teilnehmer && leistung.teilnehmer.indexOf(platzierter) >= 0 ? " mit: " + leistung.beschreibung  : "" ) } </li>)}
                                                 </ul>
                                                 </Col>
                                             </List.Item>
@@ -160,17 +160,18 @@ export default function ContestPage( props ) {
                     )
                 }
                 </Row>}
+                {/* the way of adding the entry to the participant with map works... but I feel a bit uneasy, since map returns an array and I leave it up to the browser, how it generates the string from the array (same above)
+                changed it so it does not leave array handling to react. now only the first element of the array is used. check back if this is enough ( replaced with [0]: .map( leistung => " mit: " + leistung.beschreibung ) ) */}
                 <Row>
-{/*something wrong here: ranked participants also show up here... they shouldn't*/}
                     <List 
                         header={<div><h3>Weitere Teilnehmer</h3></div>}
                         grid={ {column: 2} }
                         dataSource={ participants.filter( participant =>
-                            participant.rolle.indexOf( "TeilnehmerIn" ) >= 0 && rankedParticipants.indexOf( participant.identifier ) === -1 )}
+                            participant.rolle.indexOf( "TeilnehmerIn" ) >= 0 && rankedParticipants.indexOf( participant.identifier[0] ) === -1 )}
                         renderItem={ item =>
                             <List.Item>
                                 <List.Item.Meta 
-                                    title={item.name}
+                                    title={item.name + ( data.teilnehmerleistungen && " mit: " + data.teilnehmerleistungen.filter( leistung => leistung.teilnehmer && leistung.teilnehmer.indexOf(item.identifier[0]) >= 0 )[0].beschreibung ) }
                                     description={item.anmerkung}
                                 />        
                             </List.Item>
@@ -185,7 +186,7 @@ export default function ContestPage( props ) {
                                 renderItem={ item =>
                                     <List.Item>
                                         <Col span={3} offset={1} >
-                                            {item.kriterium.map( crit => <Tag>{crit}</Tag> ) }
+                                            {item.kriterium.map( crit => <Tag key={crit}>{crit}</Tag> ) }
                                         </Col>
                                         <Col span={20}>
                                             {item.beschreibung}
@@ -194,6 +195,25 @@ export default function ContestPage( props ) {
                                 }
                             />
                         </Row>}
+                {
+                    data.teilnehmerInnenzahl && !data.teilnehmerInnenzahl.wettbewerbskontext
+                        && <Row>
+                            <List 
+                                header={ <h3>TeilnehmerInnenzahl</h3> }
+                                dataSource={ data.teilnehmerInnenzahl }
+                                renderItem={ item => 
+                                    <List.Item>
+                                        <Col span={2} offset={1}>
+                                        {item.anzahl}
+                                        </Col>
+                                        <Col>
+                                        {item.anmerkung}
+                                        </Col>
+                                    </List.Item>
+                                }
+                            />
+                        </Row>
+                }
 
             </div>
         }
@@ -232,6 +252,20 @@ export default function ContestPage( props ) {
                     { taskfields.map( taskfield => <Tag key={taskfield} >{taskfield}</Tag> ) }
                 
             </Panel>
+            { data.formalia && <Panel header={"Formalia"} >
+                    <Row>
+                        <Col span={20} offset={2}>
+                            {data.formalia}
+                        </Col>
+                    </Row>
+            </Panel>}
+            { data.ergaenzungen && <Panel header={"Ergänzungen"} >
+                    <Row>
+                        <Col span={20} offset={2}>
+                            {data.ergaenzungen}
+                        </Col>
+                    </Row>
+            </Panel>}
             { comments && <Panel header={ comments.length + " Kommentar/e" } >
                 <Row>
                     <Col span={20} offset={2}>

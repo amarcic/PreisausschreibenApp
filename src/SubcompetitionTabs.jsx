@@ -12,6 +12,7 @@ export default function SubcompetitionTabs( props ) {
     const awards = props.awards;
     const teilnahmevoraussetzungen = props.teilnahmevoraussetzungen;
     const teilnehmerleistungen = props.teilnehmerleistungen;
+    const teilnehmerInnenzahl = props.teilnehmerInnenzahl;
 
     let subcompParticipants = {};
     participants.forEach( participant => {
@@ -37,7 +38,7 @@ export default function SubcompetitionTabs( props ) {
                         { subcompParticipants[subcomp] && subcompParticipants[subcomp].filter( participant => participant.rolle.indexOf( "Jurymitglied" )>=0 ).length>1
                              && <Row>
                             <List 
-                                
+                                grid={ subcompParticipants[subcomp].filter( participant => participant.rolle.indexOf( "Jurymitglied" ) >= 0 ).length > 4 ? {column: 2} : {column: 1} }
                                 header={<div><h3>Jury</h3></div>}
                                 size="small"
                                 dataSource={ subcompParticipants[subcomp].filter( participant => participant.rolle.indexOf( "Jurymitglied" ) >= 0 ) }
@@ -48,14 +49,6 @@ export default function SubcompetitionTabs( props ) {
                                             title={item.name}
                                             description={item.anmerkung}
                                         />
-                                        {/*
-                                        <Col span={6} offset={1}>
-                                            {item.name}
-                                        </Col>
-                                        <Col span={17}>
-                                            { item.anmerkung ? item.anmerkung : "" }
-                                        </Col>
-                                        */}
                                     </List.Item>
                                 }
                             />
@@ -79,7 +72,7 @@ export default function SubcompetitionTabs( props ) {
                                                         </Col>
                                                         <Col span={8}>
                                                         <ul>
-                                                            {item.platzierte.map( platzierter => <li key={platzierter}> {participants.map( participant => participant.identifier.indexOf(platzierter)===0? participant.name : "" )
+                                                            {item.platzierte.map( platzierter => <li key={platzierter}> { platzierter==="nv" ? "nicht vergeben" : (participants.map( participant => participant.identifier.indexOf(platzierter)===0? participant.name : ("") ))
                                                         } { teilnehmerleistungen && teilnehmerleistungen.map( leistung => leistung.teilnehmer.indexOf(platzierter) >= 0 ? " mit: " + leistung.beschreibung  : "" ) } </li>)}
                                                             {/*<Tag key={platzierter}>{participants.map( participant => participant.identifier.indexOf(platzierter)===0? participant.name : "" )}</Tag> )*/}
                                                         </ul>
@@ -98,21 +91,15 @@ export default function SubcompetitionTabs( props ) {
                                 header={<div><h3>Weitere Teilnehmer in diesem Teilwettbewerb</h3></div>}
                                 grid={ {column: 2} }
                                 dataSource={ subcompParticipants[subcomp].filter( participant =>
-                                    participant.rolle.indexOf( "TeilnehmerIn" ) >= 0 && rankedParticipants.indexOf( participant.identifier ) === -1
+                                    participant.rolle.indexOf( "TeilnehmerIn" ) >= 0 && rankedParticipants.indexOf( participant.identifier[0] ) === -1
                                 ) }
                                 renderItem={ item =>
                                     <List.Item>
                                         <List.Item.Meta 
-                                            title={item.name}
+                                            title={ item.name + ( teilnehmerleistungen && teilnehmerleistungen.filter( leistung => leistung.teilnehmer.indexOf(item.identifier[0]) >= 0 ).map( leistung => " mit: " + leistung.beschreibung ) ) }
+                                               
                                             description={item.anmerkung}
-                                        />
-                                        {/*<Col span={3} offset={1}>
-                                            {item.name} 
-                                        </Col>
-                                        <Col span={6}>
-                                            { item.anmerkung }
-                                        </Col>
-                                */}                   
+                                        />       
                                     </List.Item>
                                 }
                             />
@@ -125,7 +112,7 @@ export default function SubcompetitionTabs( props ) {
                                 renderItem={ item =>
                                     <List.Item>
                                         <Col span={3} offset={1} >
-                                            {item.kriterium.map( crit => <Tag>{crit}</Tag> )}
+                                            {item.kriterium.map( crit => <Tag key={crit}>{crit}</Tag> )}
                                         </Col>
                                         <Col span={20}>
                                             {item.beschreibung}
@@ -134,6 +121,24 @@ export default function SubcompetitionTabs( props ) {
                                 }
                             />
                         </Row>}
+                        { teilnehmerInnenzahl && teilnehmerInnenzahl.filter( amount => amount.wettbewerbskontext === subcomp).length > 0
+                            && <Row>
+                                <List
+                                    header={<h3>zur Anzahl von TeilnehmerInnen in diesem Teilwettbewerb</h3>}
+                                    dataSource={ teilnehmerInnenzahl.filter( amount => amount.wettbewerbskontext === subcomp ) }
+                                    renderItem={ item =>
+                                        <List.Item>
+                                            <Col span={2} offset={1} >
+                                                {item.anzahl}
+                                            </Col>
+                                            <Col>
+                                                {item.anmerkung}
+                                            </Col>
+                                        </List.Item>
+                                    }
+                                />
+                            </Row>
+                        }
                         </TabPane>
                     )}
                 </Tabs>
