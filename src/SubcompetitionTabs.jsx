@@ -96,7 +96,7 @@ export default function SubcompetitionTabs( props ) {
                                 renderItem={ item =>
                                     <List.Item>
                                         <List.Item.Meta 
-                                            title={ item.name + ( teilnehmerleistungen ? teilnehmerleistungen.map( leistung => leistung.teilnehmer && leistung.teilnehmer.indexOF(item.identifier[0])>0 ? " mit: " + leistung.beschreibung : "") : "" ) }
+                                            title={ item.name + ( teilnehmerleistungen ? teilnehmerleistungen.map( leistung => leistung.teilnehmer && leistung.teilnehmer.indexOf(item.identifier[0])>0 ? " mit: " + leistung.beschreibung : "") : "" ) }
                                                
                                             description={item.anmerkung}
                                         />       
