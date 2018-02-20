@@ -3,10 +3,10 @@ import { withRouter } from 'react-router-dom';
 
 import { Select, Icon, Input } from 'antd';
 const Option = Select.Option;
-let selectValue = "preisausschreiben";
+
 
 function SearchBox( props ) {
-
+    let selectValue = props.searchCollection;
     const selectBefore = (
         // prop for default value: default value should be dynamic to reflect the current choice
         <Select defaultValue="preisausschreiben" style={{ width: 160}}

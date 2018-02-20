@@ -41,7 +41,7 @@ export default class Layout_Container extends React.Component {
         //    data: CouchDataStore.getResults(),
             messages: [],
             searchInput: "suche...",
-            searchCollection: "unspezifisch",
+            searchCollection: "preisausschreiben",
             requestData: null
         };
 
@@ -87,8 +87,8 @@ export default class Layout_Container extends React.Component {
                 </Header>
 
                 <Row>
-                            <Route path="/" exact render={ (props) => <SearchBanner updateInput={this.updateInput} {...props} />  } />
-                            <Route path="/search" render={ (props) => <SearchRow updateInput={this.updateInput} {...props} /> } />
+                            <Route path="/" exact render={ (props) => <SearchBanner updateInput={this.updateInput} searchCollection={this.state.searchCollection} {...props} />  } />
+                            <Route path="/search" render={ (props) => <SearchRow updateInput={this.updateInput} searchCollection={this.state.searchCollection} {...props} /> } />
                             <Route path="/person/:docId" component={ResultPage} ></Route>
                             {/* can I use :docId to put the value into a prop, so the Result page can render a document from the url alone? yes!*/}
                             <Route path="/dokumente/:docType/:docId" component={ResultPage} ></Route>
