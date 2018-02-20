@@ -38,6 +38,7 @@ export default function ContestPage( props ) {
         } 
     );
     //console.log( rankedParticipants );
+    console.log(data.teilnehmerleistungen);
 
     let taskfields = [];
     data.aufgaben.forEach( aufgabe => { aufgabe.systematik.forEach( term => {if (taskfields.indexOf(term)===-1) taskfields.push( term )} ) } );
@@ -171,7 +172,7 @@ export default function ContestPage( props ) {
                         renderItem={ item =>
                             <List.Item>
                                 <List.Item.Meta 
-                                    title={item.name + ( data.teilnehmerleistungen && " mit: " + data.teilnehmerleistungen.filter( leistung => leistung.teilnehmer && leistung.teilnehmer.indexOf(item.identifier[0]) >= 0 )[0].beschreibung ) }
+                                    title={item.name + ( data.teilnehmerleistungen ? " mit: " + data.teilnehmerleistungen.filter( leistung => leistung.teilnehmer && leistung.teilnehmer.indexOf(item.identifier[0]) >= 0 )[0].beschreibung : "" ) }
                                     description={item.anmerkung}
                                 />        
                             </List.Item>

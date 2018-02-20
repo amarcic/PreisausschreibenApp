@@ -73,7 +73,7 @@ export default function SubcompetitionTabs( props ) {
                                                         <Col span={8}>
                                                         <ul>
                                                             {item.platzierte.map( platzierter => <li key={platzierter}> { platzierter==="nv" ? "nicht vergeben" : (participants.map( participant => participant.identifier.indexOf(platzierter)===0? participant.name : ("") ))
-                                                        } { teilnehmerleistungen && teilnehmerleistungen.map( leistung => leistung.teilnehmer.indexOf(platzierter) >= 0 ? " mit: " + leistung.beschreibung  : "" ) } </li>)}
+                                                        } { teilnehmerleistungen && teilnehmerleistungen.map( leistung => leistung.teilnehmer && leistung.teilnehmer.indexOf(platzierter) >= 0 ? " mit: " + leistung.beschreibung  : "" ) } </li>)}
                                                             {/*<Tag key={platzierter}>{participants.map( participant => participant.identifier.indexOf(platzierter)===0? participant.name : "" )}</Tag> )*/}
                                                         </ul>
                                                         </Col>
@@ -96,7 +96,7 @@ export default function SubcompetitionTabs( props ) {
                                 renderItem={ item =>
                                     <List.Item>
                                         <List.Item.Meta 
-                                            title={ item.name + ( teilnehmerleistungen && teilnehmerleistungen.filter( leistung => leistung.teilnehmer.indexOf(item.identifier[0]) >= 0 ).map( leistung => " mit: " + leistung.beschreibung ) ) }
+                                            title={ item.name + ( teilnehmerleistungen ? teilnehmerleistungen.map( leistung => leistung.teilnehmer && leistung.teilnehmer.indexOF(item.identifier[0])>0 ? " mit: " + leistung.beschreibung : "") : "" ) }
                                                
                                             description={item.anmerkung}
                                         />       
