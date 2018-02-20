@@ -9,7 +9,7 @@ function SearchBox( props ) {
     let selectValue = props.searchCollection;
     const selectBefore = (
         // prop for default value: default value should be dynamic to reflect the current choice
-        <Select defaultValue="preisausschreiben" style={{ width: 160}}
+        <Select defaultValue={props.searchCollection} style={{ width: 160}}
             onChange={ value => selectValue = value }
             >
             <Option value="preisausschreiben">Preisausschreiben</Option>
