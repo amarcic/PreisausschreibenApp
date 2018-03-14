@@ -106,6 +106,7 @@ export default function SearchPage( props ) {
 
     return(
         <Layout style={{ backgroundColor: "#ffffff" }}>
+            {/* waiting for elasticsearch
             <Sider style={{backgroundColor: "#ffffff"}}>
                 <Menu theme="dark" mode="inline" defaultOpenKeys={['sub1','sub2']}>
                     <SubMenu key="sub1" title="Dokumenttypen">
@@ -120,7 +121,7 @@ export default function SearchPage( props ) {
                         <Menu.Item key="7">Bergbau</Menu.Item>
                     </SubMenu>
                 </Menu>
-            </Sider>
+            </Sider>*/}
             <Content style={{ marginLeft: "50px" }}>
                 <Breadcrumb>
                     <Breadcrumb.Item><Link to="/">Home</Link></Breadcrumb.Item>
@@ -131,7 +132,7 @@ export default function SearchPage( props ) {
                     {
                         /* as it is the id can be repeated, since results can be repeated in the view
                         right now I use it as a cheap filter... but really shouldn't
-                        I keep it for now since elastic search should be able to filter results before sending the response object
+                        I keep it for now since elasticsearch should be able to filter results before sending the response object
                         */
                         //antd table component sets the word-break CSS property to "break-all"; solution below (changing it in the table component) does not work
                         <Table columns={columns} dataSource={dataUnique} rowKey={ record => record.id } />

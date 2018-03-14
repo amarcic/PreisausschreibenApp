@@ -18,12 +18,14 @@ export default function ContestPage( props ) {
     const keywords = data.schlagwoerter;
     const participants = data.beteiligte;
     const sources = data.quellen;
-    const awards = data.auszeichnungen;
+    let awards = [];
+    if(data.auszeichnungen) { awards = data.auszeichnungen;}
     let subcompetitions;
     if (data.wettbewerbsgliederung) { subcompetitions = data.wettbewerbsgliederung;}
     let comments;
     if (data.kommentare) { comments = data.kommentare }
     let rankedParticipants = [];
+    
     awards.forEach( award => 
         {
             if (award.platzierungen) {
@@ -39,7 +41,14 @@ export default function ContestPage( props ) {
     );
     //console.log( rankedParticipants );
     console.log(data.teilnehmerleistungen);
+    /*
+    let teilnehmerMitLeistung =[];
+    data.teilnehmerleistungen.forEach( leistung =>
+        teilnehmerMitLeistung[ participants.find( participant => participant.identifier ).identifier ]
+    );
+    console.log( "Leistungen: " + teilnehmerMitLeistung );
 
+    */
     let taskfields = [];
     data.aufgaben.forEach( aufgabe => { aufgabe.systematik.forEach( term => {if (taskfields.indexOf(term)===-1) taskfields.push( term )} ) } );
 
@@ -172,7 +181,9 @@ export default function ContestPage( props ) {
                         renderItem={ item =>
                             <List.Item>
                                 <List.Item.Meta 
-                                    title={item.name + ( data.teilnehmerleistungen ? " mit: " + data.teilnehmerleistungen.filter( leistung => leistung.teilnehmer && leistung.teilnehmer.indexOf(item.identifier[0]) >= 0 )[0].beschreibung : "" ) }
+                                    title={ item.name + ( data.teilnehmerleistungen ? data.teilnehmerleistungen.map( leistung => leistung.teilnehmer && leistung.teilnehmer.indexOf(item.identifier[0])>0 ? " mit: " + leistung.beschreibung : "") : "" ) }
+                                        // this works ( data.teilnehmerleistungen && data.teilnehmerleistungen.find( leistung => leistung.teilnehmer && leistung.teilnehmer.indexOf( item.identifier[0] )>=0 ) ) ? item.name + " mit: " + data.teilnehmerleistungen.find( leistung => leistung.teilnehmer && leistung.teilnehmer.indexOf( item.identifier[0] )>=0 ).beschreibung : item.name }
+                                        // this does not work correctly: " mit: " + data.teilnehmerleistungen.filter( leistung => leistung.teilnehmer && leistung.teilnehmer.indexOf(item.identifier[0]) >= 0 )[0].beschreibung : "" ) }
                                     description={item.anmerkung}
                                 />        
                             </List.Item>
