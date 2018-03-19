@@ -4,11 +4,16 @@ import { Layout } from 'antd';
 
 import SearchBox from './SearchBox';
 
+//absolute path for backgroundImage for 
+//backgroundImage: 'url("preisausschreiben/_design/intern/collage.jpg")',
+//relative path for dev server
+//backgroundImage: 'url("./collage.jpg")',
+//backgroundImage: 'url("collage.jpg")', 
 export default function SearchBanner( props ) {
 
     return(
         <Layout style={{ 
-            backgroundImage: 'url("./CollageA_Farbe1.jpg")', 
+            backgroundImage: 'url("collage.jpg")', 
             height: "75vH", 
             backgroundPosition: "center",
             backgroundSize: "cover" 

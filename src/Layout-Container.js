@@ -28,7 +28,6 @@ const requestOptions = {
         },
         mode: 'cors'
     };
-// Bug in HOC withPromise
 //const SearchPageWithPromise = withPromise( fetch(apiUrl, requestOptions), SearchPage );
 const SearchPageWithPromise = withPromise( SearchPage );
 const SeriesPageWithPromise = withPromise( SeriesPage );
@@ -67,7 +66,7 @@ export default class Layout_Container extends React.Component {
                                                         width: '200px',
                                                         float: 'left'
                                                     }}>
-                        <Link to="/">Musikalische Preisausschreiben</Link>
+                        <Link to="/">Beta Version Home</Link>
                     </div>              
                     <Menu mode="horizontal" theme="dark" style={{ lineHeight: '64px' }}>
                         <SubMenu title={<span>Über das Projekt</span>}>
