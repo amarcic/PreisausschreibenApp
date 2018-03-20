@@ -88,10 +88,10 @@ export default class Layout_Container extends React.Component {
                 <Row>
                             <Route path="/" exact render={ (props) => <SearchBanner updateInput={this.updateInput} searchCollection={this.state.searchCollection} {...props} />  } />
                             <Route path="/search" render={ (props) => <SearchRow updateInput={this.updateInput} searchCollection={this.state.searchCollection} {...props} /> } />
-                            <Route path="/person/:docId" component={ResultPage} ></Route>
+                            <Route path="/person/:docId" render={ (props) => <ErrorBoundary><ResultPage {...props} /> </ErrorBoundary> } ></Route>
                             {/* can I use :docId to put the value into a prop, so the Result page can render a document from the url alone? yes!*/}
-                            <Route path="/dokumente/:docType/:docId" component={ResultPage} ></Route>
-                            <Route path="/overview" render={ (props) => <SeriesPageWithPromise query="none" collection="overview_competitions" {...props} /> } />
+                            <Route path="/dokumente/:docType/:docId" render={ (props) => <ErrorBoundary><ResultPage {...props} /> </ErrorBoundary> } ></Route>
+                            <Route path="/overview" render={ (props) => <ErrorBoundary><SeriesPageWithPromise query="none" collection="overview_competitions" {...props} /></ErrorBoundary> } />
                             <Route path="/about" component={AboutPage} />
                 </Row>
                 

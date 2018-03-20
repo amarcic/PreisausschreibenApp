@@ -87,7 +87,7 @@ export default function ContestPage( props ) {
         <div style={{marginTop: 50}}>
         <Row>
         <List 
-            header={<div><h3>Ereignisse</h3> {comments? <Icon type="info-circle" /> : ""} </div>}
+            header={<div><h3>Ereignisse</h3> {comments? <Popover content="Hallo"> <Icon type="info-circle" /> </Popover>: ""} </div>}
             size="small"
             bordered
             dataSource={events}
