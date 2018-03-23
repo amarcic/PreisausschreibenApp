@@ -60,7 +60,7 @@ export default function SubcompetitionTabs( props ) {
                                         return( 
                                             <List 
                                                 key={subcomp}
-                                                header={<div><h3>Auszeichnungen und Preisträger </h3><br /> {award.auszeichnungsarten? award.auszeichnungsarten.map( prize => <Tag key={prize}>{prize}</Tag> ) : "Verliehne Auszeichnungen sind nicht bekannt" }</div>}
+                                                header={<div><h3>Auszeichnungen und PreisträgerInnen </h3><br /> {award.auszeichnungsarten? award.auszeichnungsarten.map( prize => <Tag key={prize}>{prize}</Tag> ) : "Verliehne Auszeichnungen sind nicht bekannt" }</div>}
                                                 dataSource={award.platzierungen.sort( (a,b) => a.rang - b.rang )}
                                                 renderItem={ item =>
                                                     <List.Item>
@@ -88,7 +88,7 @@ export default function SubcompetitionTabs( props ) {
                         </Row>
                         { subcompParticipants[subcomp] && <Row>
                             <List 
-                                header={<div><h3>Weitere Teilnehmer in diesem Teilwettbewerb</h3></div>}
+                                header={<div><h3>Weitere TeilnehmerInnen in diesem Teilwettbewerb</h3></div>}
                                 grid={ {column: 2} }
                                 dataSource={ subcompParticipants[subcomp].filter( participant =>
                                     participant.rolle.indexOf( "TeilnehmerIn" ) >= 0 && rankedParticipants.indexOf( participant.identifier[0] ) === -1
@@ -96,7 +96,7 @@ export default function SubcompetitionTabs( props ) {
                                 renderItem={ item =>
                                     <List.Item>
                                         <List.Item.Meta 
-                                            title={ item.name + ( teilnehmerleistungen ? teilnehmerleistungen.map( leistung => leistung.teilnehmer && leistung.teilnehmer.indexOf(item.identifier[0])>0 ? " mit: " + leistung.beschreibung : "") : "" ) }
+                                            title={ item.name + ( teilnehmerleistungen ? teilnehmerleistungen.map( leistung => leistung.teilnehmer && leistung.teilnehmer.indexOf(item.identifier[0])>0 ? ", mit: " + leistung.beschreibung : "") : "" ) }
                                                
                                             description={item.anmerkung}
                                         />       

@@ -98,7 +98,7 @@ export default class Layout_Container extends React.Component {
                 <Route path="/" exact component={LandingPage} />
                 <Route path="/search" render={ (props) => <ErrorBoundary> <SearchPageWithPromise query={this.state.searchInput} collection={this.state.searchCollection} {...props} /> </ErrorBoundary> } />
                 <Footer style={{textAlign: 'center'}}>
-                    Musikalische Preisausschreiben ©2017
+                    Musikalische Preisausschreiben ©2018
                 </Footer>
 
             </Layout>

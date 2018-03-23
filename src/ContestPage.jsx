@@ -56,7 +56,7 @@ export default function ContestPage( props ) {
         <div style={ { marginTop: 40 } }>
         <Row>
             <Col span={20} offset={2}>
-        <h2 style={{color: "grey", marginBottom: 0}}> { participants.map( participant => participant.rolle.indexOf("ausschreibende Institution/Person")>=0 ? participant.name + " " : "" ) } </h2><h1> {data.bezeichnung[0]}</h1>
+        <h2 style={{color: "grey", marginBottom: 0}}> { participants.filter( participant => participant.rolle.indexOf("ausschreibende Institution/Person")>=0 ).map( participant => participant.name ).join(", ") } </h2><h1> {data.bezeichnung[0]}</h1>
         <p>{data.anlass? "Anlass: " + data.anlass : ""}</p>
         {data.reduzierteErfassung && <p style={{color: "#f5222d"}} >Achtung: Aufgrund des Umfangs des Preisausschreibens wurden folgende Bereiche reduziert erfasst...</p>} 
         <div style={{marginTop: 50}}>
@@ -68,7 +68,7 @@ export default function ContestPage( props ) {
                     renderItem={ item =>
                         <List.Item>
                             <Col span={4} offset={1}>
-                                {item.wettbewerbskontext}
+                               Teilwettbewerb: {item.wettbewerbskontext}
                             </Col>
                             <Col span={4}>
                             {item.aufgabentyp}
@@ -107,7 +107,8 @@ export default function ContestPage( props ) {
                     <Col span={19}>
                     {item.ereignistyp==="Sonstiges"? item.beschreibung : item.ereignistyp}, {item.ort? item.ort.ortsname : "Ort unbekannt"} {
                         item.ort.ortszusatz ? " (" + item.ort.ortszusatz +")" : ""                            
-                        } { item.wettbewerbskontext? item.wettbewerbskontext.map( kontext => <Tag key={kontext} color="magenta">{kontext}</Tag> ) : ""}
+                        } { item.wettbewerbskontext?"- betrifft Teilwettbewerb/e: " + item.wettbewerbskontext.join(", ") : ""}
+                        {/*.map( kontext => <Tag key={kontext} color="magenta">{kontext}</Tag> ) : ""*/}
                     </Col>
                 </List.Item>
             }
@@ -144,7 +145,7 @@ export default function ContestPage( props ) {
                                 return( 
                                     <List 
                                         key={award.auszeichnungsarten.toString() }
-                                        header={<div><h3>Auszeichnungen und Preisträger </h3><br /> {award.auszeichnungsarten? award.auszeichnungsarten.map( prize => <Tag key={prize}>{prize}</Tag> ) : "Verliehne Auszeichnungen sind nicht bekannt" }</div>}
+                                        header={<div><h3>Auszeichnungen und PreisträgerInnen </h3><br /> {award.auszeichnungsarten? award.auszeichnungsarten.map( prize => <Tag key={prize}>{prize}</Tag> ) : "Verliehne Auszeichnungen sind nicht bekannt" }</div>}
                                         dataSource={award.platzierungen.sort( (a,b) => a.rang - b.rang )}
                                         renderItem={ item =>
                                             <List.Item>
@@ -158,7 +159,7 @@ export default function ContestPage( props ) {
                                                 <ul>
                                                     {/* sorry about the unreadable code below: explanation... */}
                                                     {item.platzierte.map( platzierter => <li key={platzierter}> { platzierter==="nv" ? "nicht vergeben" : (participants.map( participant => participant.identifier.indexOf(platzierter)===0? participant.name : "") )
-                                                } { data.teilnehmerleistungen && data.teilnehmerleistungen.map( leistung => leistung.teilnehmer && leistung.teilnehmer.indexOf(platzierter) >= 0 ? " mit: " + leistung.beschreibung  : "" ) } </li>)}
+                                                } { data.teilnehmerleistungen && data.teilnehmerleistungen.map( leistung => leistung.teilnehmer && leistung.teilnehmer.indexOf(platzierter) >= 0 ? ", mit: " + leistung.beschreibung  : "" ) } </li>)}
                                                 </ul>
                                                 </Col>
                                             </List.Item>
@@ -174,14 +175,14 @@ export default function ContestPage( props ) {
                 changed it so it does not leave array handling to react. now only the first element of the array is used. check back if this is enough ( replaced with [0]: .map( leistung => " mit: " + leistung.beschreibung ) ) */}
                 <Row>
                     <List 
-                        header={<div><h3>Weitere Teilnehmer</h3></div>}
+                        header={<div><h3>Weitere TeilnehmerInnen</h3></div>}
                         grid={ {column: 2} }
                         dataSource={ participants.filter( participant =>
                             participant.rolle.indexOf( "TeilnehmerIn" ) >= 0 && rankedParticipants.indexOf( participant.identifier[0] ) === -1 )}
                         renderItem={ item =>
                             <List.Item>
                                 <List.Item.Meta 
-                                    title={ item.name + ( data.teilnehmerleistungen ? data.teilnehmerleistungen.map( leistung => leistung.teilnehmer && leistung.teilnehmer.indexOf(item.identifier[0])>0 ? " mit: " + leistung.beschreibung : "") : "" ) }
+                                    title={ item.name + ( data.teilnehmerleistungen ? data.teilnehmerleistungen.map( leistung => leistung.teilnehmer && leistung.teilnehmer.indexOf(item.identifier[0])>0 ? ", mit: " + leistung.beschreibung : "") : "" ) }
                                         // this works ( data.teilnehmerleistungen && data.teilnehmerleistungen.find( leistung => leistung.teilnehmer && leistung.teilnehmer.indexOf( item.identifier[0] )>=0 ) ) ? item.name + " mit: " + data.teilnehmerleistungen.find( leistung => leistung.teilnehmer && leistung.teilnehmer.indexOf( item.identifier[0] )>=0 ).beschreibung : item.name }
                                         // this does not work correctly: " mit: " + data.teilnehmerleistungen.filter( leistung => leistung.teilnehmer && leistung.teilnehmer.indexOf(item.identifier[0]) >= 0 )[0].beschreibung : "" ) }
                                     description={item.anmerkung}
@@ -240,7 +241,7 @@ export default function ContestPage( props ) {
                     renderItem={ item => (
                         <List.Item extra={ item.wettbewerbskontext? item.wettbewerbskontext.map( kontext => <Tag key={kontext} color="magenta">{kontext}</Tag> ) : ""} >
                             <List.Item.Meta 
-                                title={<span><Link to={"/dokumente/person/" + item.identifier[0]} > {item.name} </Link> als {item.rolle.map( i => i + " " ) } </span> }
+                                title={<span><Link to={"/dokumente/person/" + item.identifier[0]} > {item.name} </Link> als {item.rolle.join(", ") } </span> }
                                 description={item.anmerkung}
                             />
                         </List.Item>
