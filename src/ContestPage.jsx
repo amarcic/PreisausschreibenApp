@@ -56,7 +56,7 @@ export default function ContestPage( props ) {
         <div style={ { marginTop: 40 } }>
         <Row>
             <Col span={20} offset={2}>
-        <h2 style={{color: "grey", marginBottom: 0}}> { participants.filter( participant => participant.rolle.indexOf("ausschreibende Institution/Person")>=0 ).map( participant => participant.name ).join(", ") } </h2><h1> {data.bezeichnung[0]}</h1>
+        <h2 style={{color: "grey", marginBottom: 0}}>{ participants.filter( participant => participant.rolle.indexOf("ausschreibende Institution/Person")>=0 ).map( participant => participant.name ).join(", ") }</h2>
         <p>{data.anlass? "Anlass: " + data.anlass : ""}</p>
         {data.reduzierteErfassung && <p style={{color: "#f5222d"}} >Achtung: Aufgrund des Umfangs des Preisausschreibens wurden folgende Bereiche reduziert erfasst...</p>} 
         <div style={{marginTop: 50}}>
@@ -68,33 +68,33 @@ export default function ContestPage( props ) {
                     renderItem={ item =>
                         <List.Item>
                             <Col span={4} offset={1}>
-                               Teilwettbewerb: {item.wettbewerbskontext}
+                            {item.wettbewerbskontext? "Teilwettbewerb: " + item.wettbewerbskontext : ""}
                             </Col>
-                            <Col span={4}>
-                            {item.aufgabentyp}
-                            </Col>
-                            <Col span={15}>
+                            <Col span={14}>
                             {item.spezifizierung}
+                            </Col>
+                            <Col span={4} offset={1}>
+                            Aufgabentyp: {item.aufgabentyp}
                             </Col>
                         </List.Item>
                     }
                 />
-                
-                <Col></Col>
             </Row>
         </div>
 
         <div style={{marginTop: 50}}>
         <Row>
         <List 
-            header={<div><h3>Ereignisse</h3> {comments? <Popover content="Hallo"> <Icon type="info-circle" /> </Popover>: ""} </div>}
+            //hack: only the text of the first found comment is displayed; if serveral comments on a topic are possible, this hack will fail
+            //multiple comments on the same topic: c1ee5c0e921aac7ca1b0310b0809c292
+            header={<div><h3>Ereignisse</h3> {comments && comments.filter(comment=>comment.thema==="Ereignisse").length>0? <Popover content={comments.filter( comment => comment.thema==="Ereignisse")[0].text}> <Icon type="info-circle" /> </Popover>: ""} </div>}
             size="small"
-            bordered
+            
             dataSource={events}
             renderItem={ item =>
                 <List.Item>
                                       
-                    <Col span={5}>
+                    <Col span={5} offset={1}>
                         {item.zeit.datum ? new Date(item.zeit.datum).toLocaleDateString( 'de-DE', { day: "2-digit", month: '2-digit', year: "numeric"}) : "" +
                                     (item.zeit.von ? new Date(item.zeit.von).toLocaleDateString( 'de-DE', { day: "2-digit", month: '2-digit', year: "numeric"} ) : "") + 
                                     (item.zeit.bis ? " - " + new Date(item.zeit.bis).toLocaleDateString( 'de-DE', { day: "2-digit", month: '2-digit', year: "numeric"} ) : "")  
@@ -104,10 +104,10 @@ export default function ContestPage( props ) {
                             <Icon type="info-circle-o" />
                         </Popover>}
                     </Col>  
-                    <Col span={19}>
+                    <Col span={18}>
                     {item.ereignistyp==="Sonstiges"? item.beschreibung : item.ereignistyp}, {item.ort? item.ort.ortsname : "Ort unbekannt"} {
                         item.ort.ortszusatz ? " (" + item.ort.ortszusatz +")" : ""                            
-                        } { item.wettbewerbskontext?"- betrifft Teilwettbewerb/e: " + item.wettbewerbskontext.join(", ") : ""}
+                        } { item.wettbewerbskontext?"- betrifft Teilwettbewerbe: " + item.wettbewerbskontext.join(", ") : ""}
                         {/*.map( kontext => <Tag key={kontext} color="magenta">{kontext}</Tag> ) : ""*/}
                     </Col>
                 </List.Item>
@@ -120,7 +120,7 @@ export default function ContestPage( props ) {
         { !subcompetitions && 
             <div style={{marginTop: 50}}>
             { participants.filter( participant => participant.rolle.indexOf( "Jurymitglied" )>=0 ).length>1 
-                && <Row>
+                && <Row>     
                     <List 
                         grid={ participants.filter( participant => participant.rolle.indexOf( "Jurymitglied" ) >= 0 ).length > 4 ? {column: 2} : {column: 1} }
                         header={<div><h3>Jury</h3></div>}
@@ -128,10 +128,12 @@ export default function ContestPage( props ) {
                         dataSource={ participants.filter( participant => participant.rolle.indexOf( "Jurymitglied" ) >= 0 ) }
                         renderItem={ item =>
                             <List.Item>
-                                <List.Item.Meta 
-                                    title={item.name}
-                                    description={item.anmerkung}
-                                />
+                                <Col offset={1}>
+                                    <List.Item.Meta 
+                                        title={item.name}
+                                        description={item.anmerkung}
+                                    />
+                                </Col>
                             </List.Item>
                         }
                     />
@@ -145,7 +147,7 @@ export default function ContestPage( props ) {
                                 return( 
                                     <List 
                                         key={award.auszeichnungsarten.toString() }
-                                        header={<div><h3>Auszeichnungen und PreisträgerInnen </h3><br /> {award.auszeichnungsarten? award.auszeichnungsarten.map( prize => <Tag key={prize}>{prize}</Tag> ) : "Verliehne Auszeichnungen sind nicht bekannt" }</div>}
+                                        header={<div><h3>Auszeichnungen und PreisträgerInnen </h3><br /> {award.auszeichnungsarten? "Auszeichnungsarten: " + award.auszeichnungsarten.join(", ") : "Verliehne Auszeichnungen sind nicht bekannt" }</div>}
                                         dataSource={award.platzierungen.sort( (a,b) => a.rang - b.rang )}
                                         renderItem={ item =>
                                             <List.Item>
@@ -159,7 +161,7 @@ export default function ContestPage( props ) {
                                                 <ul>
                                                     {/* sorry about the unreadable code below: explanation... */}
                                                     {item.platzierte.map( platzierter => <li key={platzierter}> { platzierter==="nv" ? "nicht vergeben" : (participants.map( participant => participant.identifier.indexOf(platzierter)===0? participant.name : "") )
-                                                } { data.teilnehmerleistungen && data.teilnehmerleistungen.map( leistung => leistung.teilnehmer && leistung.teilnehmer.indexOf(platzierter) >= 0 ? ", mit: " + leistung.beschreibung  : "" ) } </li>)}
+                                                }{ data.teilnehmerleistungen && data.teilnehmerleistungen.map( leistung => leistung.teilnehmer && leistung.teilnehmer.indexOf(platzierter) >= 0 ? ", mit: " + leistung.beschreibung  : "" ) } </li>)}
                                                 </ul>
                                                 </Col>
                                             </List.Item>
@@ -180,14 +182,17 @@ export default function ContestPage( props ) {
                         dataSource={ participants.filter( participant =>
                             participant.rolle.indexOf( "TeilnehmerIn" ) >= 0 && rankedParticipants.indexOf( participant.identifier[0] ) === -1 )}
                         renderItem={ item =>
-                            <List.Item>
-                                <List.Item.Meta 
-                                    title={ item.name + ( data.teilnehmerleistungen ? data.teilnehmerleistungen.map( leistung => leistung.teilnehmer && leistung.teilnehmer.indexOf(item.identifier[0])>0 ? ", mit: " + leistung.beschreibung : "") : "" ) }
-                                        // this works ( data.teilnehmerleistungen && data.teilnehmerleistungen.find( leistung => leistung.teilnehmer && leistung.teilnehmer.indexOf( item.identifier[0] )>=0 ) ) ? item.name + " mit: " + data.teilnehmerleistungen.find( leistung => leistung.teilnehmer && leistung.teilnehmer.indexOf( item.identifier[0] )>=0 ).beschreibung : item.name }
-                                        // this does not work correctly: " mit: " + data.teilnehmerleistungen.filter( leistung => leistung.teilnehmer && leistung.teilnehmer.indexOf(item.identifier[0]) >= 0 )[0].beschreibung : "" ) }
-                                    description={item.anmerkung}
-                                />        
-                            </List.Item>
+                            <Col offset={1}>
+                                <List.Item>
+                                    <List.Item.Meta 
+                                        title={ item.name + ( data.teilnehmerleistungen ? data.teilnehmerleistungen.map( leistung => leistung.teilnehmer && leistung.teilnehmer.indexOf(item.identifier[0])>0 ? ", mit: " + leistung.beschreibung : "") : "" ) }
+                                            // there is still a bug in here showing unnecessary comma in some cases
+                                            // this works ( data.teilnehmerleistungen && data.teilnehmerleistungen.find( leistung => leistung.teilnehmer && leistung.teilnehmer.indexOf( item.identifier[0] )>=0 ) ) ? item.name + " mit: " + data.teilnehmerleistungen.find( leistung => leistung.teilnehmer && leistung.teilnehmer.indexOf( item.identifier[0] )>=0 ).beschreibung : item.name }
+                                            // this does not work correctly: " mit: " + data.teilnehmerleistungen.filter( leistung => leistung.teilnehmer && leistung.teilnehmer.indexOf(item.identifier[0]) >= 0 )[0].beschreibung : "" ) }
+                                        description={item.anmerkung}
+                                    />        
+                                </List.Item>
+                            </Col>
                         }
                     />
                 </Row>
@@ -199,7 +204,7 @@ export default function ContestPage( props ) {
                                 renderItem={ item =>
                                     <List.Item>
                                         <Col span={3} offset={1} >
-                                            {item.kriterium.map( crit => <Tag key={crit}>{crit}</Tag> ) }
+                                            {item.kriterium.join(", ") }
                                         </Col>
                                         <Col span={20}>
                                             {item.beschreibung}

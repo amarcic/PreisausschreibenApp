@@ -66,7 +66,7 @@ export default class Layout_Container extends React.Component {
                                                         width: '200px',
                                                         float: 'left'
                                                     }}>
-                        <Link to="/">Beta Version Home</Link>
+                        <Link to="/">Beta-Version Home</Link>
                     </div>              
                     <Menu mode="horizontal" theme="dark" style={{ lineHeight: '64px' }}>
                         <SubMenu title={<span>Über das Projekt</span>}>
@@ -87,6 +87,8 @@ export default class Layout_Container extends React.Component {
 
                 <Row>
                             <Route path="/" exact render={ (props) => <SearchBanner updateInput={this.updateInput} searchCollection={this.state.searchCollection} {...props} />  } />
+                            {/*below is just a quick hack to get to landing page, when opening the index.html in couchdb*/}
+                            <Route path="/index.html" exact render={ (props) => <SearchBanner updateInput={this.updateInput} searchCollection={this.state.searchCollection} {...props} />  } />
                             <Route path="/search" render={ (props) => <SearchRow updateInput={this.updateInput} searchCollection={this.state.searchCollection} {...props} /> } />
                             <Route path="/person/:docId" render={ (props) => <ErrorBoundary><ResultPage {...props} /> </ErrorBoundary> } ></Route>
                             {/* can I use :docId to put the value into a prop, so the Result page can render a document from the url alone? yes!*/}
@@ -96,6 +98,8 @@ export default class Layout_Container extends React.Component {
                 </Row>
                 
                 <Route path="/" exact component={LandingPage} />
+                {/*below is just a quick hack to get to landing page, when opening the index.html in couchdb*/}
+                <Route path="/index.html" exact component={LandingPage} />
                 <Route path="/search" render={ (props) => <ErrorBoundary> <SearchPageWithPromise query={this.state.searchInput} collection={this.state.searchCollection} {...props} /> </ErrorBoundary> } />
                 <Footer style={{textAlign: 'center'}}>
                     Musikalische Preisausschreiben ©2018

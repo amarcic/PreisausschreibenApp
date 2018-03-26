@@ -44,12 +44,14 @@ export default function SubcompetitionTabs( props ) {
                                 dataSource={ subcompParticipants[subcomp].filter( participant => participant.rolle.indexOf( "Jurymitglied" ) >= 0 ) }
                                     //{participants.filter(participant => participant.rolle.indexOf( "Jurymitglied" ) >=0 && ( participant.wettbewerbskontext ? participant.wettbewerbskontext.indexOf(subcomp) >= 0 : true ) ) }
                                 renderItem={ item =>
-                                    <List.Item>
-                                        <List.Item.Meta 
-                                            title={item.name}
-                                            description={item.anmerkung}
-                                        />
-                                    </List.Item>
+                                    <Col offset={1}>
+                                        <List.Item>
+                                            <List.Item.Meta 
+                                                title={item.name}
+                                                description={item.anmerkung}
+                                            />
+                                        </List.Item>
+                                    </Col>
                                 }
                             />
                         </Row>}
@@ -60,7 +62,7 @@ export default function SubcompetitionTabs( props ) {
                                         return( 
                                             <List 
                                                 key={subcomp}
-                                                header={<div><h3>Auszeichnungen und PreisträgerInnen </h3><br /> {award.auszeichnungsarten? award.auszeichnungsarten.map( prize => <Tag key={prize}>{prize}</Tag> ) : "Verliehne Auszeichnungen sind nicht bekannt" }</div>}
+                                                header={<div><h3>Auszeichnungen und PreisträgerInnen </h3><br /> {award.auszeichnungsarten? "Auszeichnungsarten: " + award.auszeichnungsarten.join(", ") : "Verliehne Auszeichnungen sind nicht bekannt" }</div>}
                                                 dataSource={award.platzierungen.sort( (a,b) => a.rang - b.rang )}
                                                 renderItem={ item =>
                                                     <List.Item>
@@ -73,7 +75,7 @@ export default function SubcompetitionTabs( props ) {
                                                         <Col span={8}>
                                                         <ul>
                                                             {item.platzierte.map( platzierter => <li key={platzierter}> { platzierter==="nv" ? "nicht vergeben" : (participants.map( participant => participant.identifier.indexOf(platzierter)===0? participant.name : ("") ))
-                                                        } { teilnehmerleistungen && teilnehmerleistungen.map( leistung => leistung.teilnehmer && leistung.teilnehmer.indexOf(platzierter) >= 0 ? " mit: " + leistung.beschreibung  : "" ) } </li>)}
+                                                        }{ teilnehmerleistungen && teilnehmerleistungen.map( leistung => leistung.teilnehmer && leistung.teilnehmer.indexOf(platzierter) >= 0 ? ", mit: " + leistung.beschreibung  : "" ) } </li>)}
                                                             {/*<Tag key={platzierter}>{participants.map( participant => participant.identifier.indexOf(platzierter)===0? participant.name : "" )}</Tag> )*/}
                                                         </ul>
                                                         </Col>
@@ -94,13 +96,15 @@ export default function SubcompetitionTabs( props ) {
                                     participant.rolle.indexOf( "TeilnehmerIn" ) >= 0 && rankedParticipants.indexOf( participant.identifier[0] ) === -1
                                 ) }
                                 renderItem={ item =>
+                                    <Col offset={1}>
                                     <List.Item>
                                         <List.Item.Meta 
-                                            title={ item.name + ( teilnehmerleistungen ? teilnehmerleistungen.map( leistung => leistung.teilnehmer && leistung.teilnehmer.indexOf(item.identifier[0])>0 ? ", mit: " + leistung.beschreibung : "") : "" ) }
-                                               
+                                            // there is still a bug in here showing unnecessary comma in some cases
+                                            title={ item.name + ( teilnehmerleistungen ? teilnehmerleistungen.map( leistung => leistung.teilnehmer && leistung.teilnehmer.indexOf(item.identifier[0])>0 ? ", mit: " + leistung.beschreibung : "") : "" )}
                                             description={item.anmerkung}
                                         />       
                                     </List.Item>
+                                    </Col>
                                 }
                             />
                         </Row>}                    
@@ -112,7 +116,7 @@ export default function SubcompetitionTabs( props ) {
                                 renderItem={ item =>
                                     <List.Item>
                                         <Col span={3} offset={1} >
-                                            {item.kriterium.map( crit => <Tag key={crit}>{crit}</Tag> )}
+                                            {item.kriterium.join(", ")}
                                         </Col>
                                         <Col span={20}>
                                             {item.beschreibung}
