@@ -14,8 +14,8 @@ export default class ErrorBoundary extends React.Component {
     render() {
         if(this.state.hasError) {
             return <div>
-                    <h1>Sie verwenden die Beta-Version dieser Webanwendung</h1>
-                    <h2>leider ist etwas schiefgegangen... vermutlich ist die Entwicklung der aufgerufenen Funktion noch nicht abgeschlossen</h2>
+                    <h1>Sie verwenden die Beta-Version dieser Webanwendung.</h1>
+                    <h2>Die Entwicklung dieser Funktion ist leider noch nicht abgeschlossen.</h2>
                 </div>;
         }
         return this.props.children;

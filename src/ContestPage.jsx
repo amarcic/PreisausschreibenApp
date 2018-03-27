@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Row, Col, Card, List, Tag, Collapse, Timeline, Tabs, Icon, Popover, Divider } from 'antd';
+import { Row, Col, Card, List, Tag, Collapse, Timeline, Tabs, Icon, Popover, Divider, Table } from 'antd';
 import { Link } from 'react-router-dom';
 import SubcompetitionTabs from './SubcompetitionTabs';
 
@@ -25,6 +25,20 @@ export default function ContestPage( props ) {
     let comments;
     if (data.kommentare) { comments = data.kommentare }
     let rankedParticipants = [];
+
+    const columnsTasks = [{
+        title: "Teilwettbewerb",
+        dataIndex: "wettbewerbskontext"
+    },
+    {
+        title: "Aufgabe",
+        dataIndex: "spezifizierung"
+    },
+    {
+        title: "Aufgabentyp",
+        dataIndex: "aufgabentyp"
+    }
+    ]
     
     awards.forEach( award => 
         {
@@ -59,27 +73,11 @@ export default function ContestPage( props ) {
         <h2 style={{color: "grey", marginBottom: 0}}>{ participants.filter( participant => participant.rolle.indexOf("ausschreibende Institution/Person")>=0 ).map( participant => participant.name ).join(", ") }</h2>
         <p>{data.anlass? "Anlass: " + data.anlass : ""}</p>
         {data.reduzierteErfassung && <p style={{color: "#f5222d"}} >Achtung: Aufgrund des Umfangs des Preisausschreibens wurden folgende Bereiche reduziert erfasst...</p>} 
+
         <div style={{marginTop: 50}}>
-            <Row>
-                <List 
-                    header={<h3>Aufgaben</h3>}
-                    dataSource={tasks}
-                    size="small"
-                    renderItem={ item =>
-                        <List.Item>
-                            <Col span={4} offset={1}>
-                            {item.wettbewerbskontext? "Teilwettbewerb: " + item.wettbewerbskontext : ""}
-                            </Col>
-                            <Col span={14}>
-                            {item.spezifizierung}
-                            </Col>
-                            <Col span={4} offset={1}>
-                            Aufgabentyp: {item.aufgabentyp}
-                            </Col>
-                        </List.Item>
-                    }
-                />
-            </Row>
+        <Row>
+            <Table columns={columnsTasks} dataSource={tasks} pagination={false} />
+        </Row>
         </div>
 
         <div style={{marginTop: 50}}>

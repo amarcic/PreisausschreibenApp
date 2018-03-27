@@ -12,7 +12,7 @@ console.log("it works!");
 const app = document.getElementById('root');
 
 ReactDOM.render(
-    <BrowserRouter basename="/preisausschreiben/_design/intern" >
+    <BrowserRouter basename="/preisausschreiben/_design/beta" >
         <LocaleProvider locale={deDE}>
             <Layout_Container/>
         </ LocaleProvider>

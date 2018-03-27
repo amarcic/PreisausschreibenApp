@@ -16,25 +16,25 @@ function LandingPage( props ) {
                 <div style={{ padding: "30px", backgroundColor: "#fff4d9" }}>
                     <Row gutter={24}>
                         <Col span={8}>
-                            <Card title="Preisausschreiben" hoverable onClick={ () => props.history.push('/overview') } bordered={false} style={{ backgroundColor: "#ffe3d1" }} >992 Preisausschreiben</Card>
+                            <Card title="Preisausschreiben" hoverable onClick={ () => props.history.push('/overview') } bordered={false} style={{ backgroundColor: "#ffe3d1" }} >1100 Preisausschreiben</Card>
                         </Col>
                         <Col span={8}>
-                            <Card title="Personen" hoverable bordered={false} style={{ backgroundColor: "#fff1b5" }}>2282 Personen</Card>
+                            <Card title="Personen" hoverable bordered={false} style={{ backgroundColor: "#fff1b5" }}>2608 Personen</Card>
                         </Col>
                         <Col span={8}>
-                            <Card title="Körperschaften" hoverable bordered={false} style={{ backgroundColor: "#dbf3d0" }}>828 Vereine, Institutionen, etc</Card>
+                            <Card title="Körperschaften" hoverable bordered={false} style={{ backgroundColor: "#dbf3d0" }}>899 Vereine, Institutionen, etc</Card>
                         </Col>
                     </Row>
                     
                     <Row gutter={24} style={{marginTop: "24px"}}>
                         <Col span={8}>
-                            <Card title="Themen und Schlagworte" hoverable bordered={false} style={{ backgroundColor: "#fff1b5" }} > 457 Themen und 372 Schlagworte </Card>
+                            <Card title="Themen und Schlagworte" hoverable bordered={false} style={{ backgroundColor: "#fff1b5" }} > 493 Themen und 399 Schlagworte </Card>
                         </Col>
                         <Col span={8}>
                             <Card title="zufälliger Vorschlag:" hoverable bordered={false} style={{ backgroundColor: "#dbf3d0" }} > Académie royale des Sciences, des Lettres et des Beaux-Arts de Belgique (Classe des Beaux-Arts), 1857-02-07 bis 1857-09-00, Verfassen eines Kantatentextes und Komposition der Kantate *La Mort d'Abel* mit Orchester. </Card>
                         </Col>
                         <Col span={8}>
-                            <Card title="Visualisierungen und Analysen" hoverable bordered={false} style={{ backgroundColor: "#ffe3d1" }} > Personennetzwerke, Regionale Verteilung, Temporale Verteilung, etc. </Card>
+                            <Card title="Visualisierungen und Analysen" hoverable bordered={false} style={{ backgroundColor: "#ffe3d1" }} > Regionale Verteilung, Temporale Verteilung, etc. </Card>
                         </Col>
                     </Row>
                 </div>
