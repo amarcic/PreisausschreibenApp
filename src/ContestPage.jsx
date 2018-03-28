@@ -76,7 +76,11 @@ export default function ContestPage( props ) {
 
         <div style={{marginTop: 50}}>
         <Row>
-            <Table columns={columnsTasks} dataSource={tasks} pagination={false} />
+            <Table 
+                columns={columnsTasks} 
+                dataSource={tasks} 
+                pagination={false}
+                />
         </Row>
         </div>
 
@@ -120,13 +124,14 @@ export default function ContestPage( props ) {
             { participants.filter( participant => participant.rolle.indexOf( "Jurymitglied" )>=0 ).length>1 
                 && <Row>     
                     <List 
-                        grid={ participants.filter( participant => participant.rolle.indexOf( "Jurymitglied" ) >= 0 ).length > 4 ? {column: 2} : {column: 1} }
+                        //grid={ participants.filter( participant => participant.rolle.indexOf( "Jurymitglied" ) >= 0 ).length > 4 ? {column: 2} : {column: 1} }
+                        grid={{column:2}}
                         header={<div><h3>Jury</h3></div>}
                         size="small"
                         dataSource={ participants.filter( participant => participant.rolle.indexOf( "Jurymitglied" ) >= 0 ) }
                         renderItem={ item =>
                             <List.Item>
-                                <Col offset={1}>
+                                <Col offset={2}>
                                     <List.Item.Meta 
                                         title={item.name}
                                         description={item.anmerkung}
@@ -149,10 +154,10 @@ export default function ContestPage( props ) {
                                         dataSource={award.platzierungen.sort( (a,b) => a.rang - b.rang )}
                                         renderItem={ item =>
                                             <List.Item>
-                                                <Col span={3} offset={1}>
+                                                <Col span={5} offset={1}>
                                                     { item.rang==="n" ? "nachrangig" : ( item.rang==="ak" ? "außer Konkurrenz" : item.rang + ". Rang" ) }
                                                 </Col>
-                                                <Col span={12}>
+                                                <Col span={10}>
                                                     {item.beschreibung}
                                                 </Col>
                                                 <Col span={8}>
@@ -201,10 +206,10 @@ export default function ContestPage( props ) {
                                 dataSource={data.teilnahmevoraussetzungen}
                                 renderItem={ item =>
                                     <List.Item>
-                                        <Col span={3} offset={1} >
+                                        <Col span={5} offset={1} >
                                             {item.kriterium.join(", ") }
                                         </Col>
-                                        <Col span={20}>
+                                        <Col span={18}>
                                             {item.beschreibung}
                                         </Col>
                                     </List.Item>
@@ -219,7 +224,7 @@ export default function ContestPage( props ) {
                                 dataSource={ data.teilnehmerInnenzahl }
                                 renderItem={ item => 
                                     <List.Item>
-                                        <Col span={2} offset={1}>
+                                        <Col span={5} offset={1}>
                                         {item.anzahl}
                                         </Col>
                                         <Col>

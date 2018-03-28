@@ -38,7 +38,8 @@ export default function SubcompetitionTabs( props ) {
                         { subcompParticipants[subcomp] && subcompParticipants[subcomp].filter( participant => participant.rolle.indexOf( "Jurymitglied" )>=0 ).length>1
                              && <Row>
                             <List 
-                                grid={ subcompParticipants[subcomp].filter( participant => participant.rolle.indexOf( "Jurymitglied" ) >= 0 ).length > 4 ? {column: 2} : {column: 1} }
+                                //grid={ subcompParticipants[subcomp].filter( participant => participant.rolle.indexOf( "Jurymitglied" ) >= 0 ).length > 4 ? {column: 2} : {column: 1} }
+                                grid={{column: 2}}
                                 header={<div><h3>Jury</h3></div>}
                                 size="small"
                                 dataSource={ subcompParticipants[subcomp].filter( participant => participant.rolle.indexOf( "Jurymitglied" ) >= 0 ) }
@@ -66,10 +67,10 @@ export default function SubcompetitionTabs( props ) {
                                                 dataSource={award.platzierungen.sort( (a,b) => a.rang - b.rang )}
                                                 renderItem={ item =>
                                                     <List.Item>
-                                                        <Col span={3} offset={1}>
+                                                        <Col span={5} offset={1}>
                                                             { item.rang==="n" ? "nachrangig" : ( item.rang==="ak" ? "außer Konkurrenz" : item.rang + ". Rang" ) }
                                                         </Col>
-                                                        <Col span={12}>
+                                                        <Col span={10}>
                                                             {item.beschreibung}
                                                         </Col>
                                                         <Col span={8}>
@@ -115,10 +116,10 @@ export default function SubcompetitionTabs( props ) {
                                 dataSource={teilnahmevoraussetzungen.filter( criterion => criterion.wettbewerbskontext === subcomp)}
                                 renderItem={ item =>
                                     <List.Item>
-                                        <Col span={3} offset={1} >
+                                        <Col span={5} offset={1} >
                                             {item.kriterium.join(", ")}
                                         </Col>
-                                        <Col span={20}>
+                                        <Col span={18}>
                                             {item.beschreibung}
                                         </Col>
                                     </List.Item>
@@ -128,11 +129,11 @@ export default function SubcompetitionTabs( props ) {
                         { teilnehmerInnenzahl && teilnehmerInnenzahl.filter( amount => amount.wettbewerbskontext === subcomp).length > 0
                             && <Row>
                                 <List
-                                    header={<h3>zur Anzahl von TeilnehmerInnen in diesem Teilwettbewerb</h3>}
+                                    header={<h3>TeilnehmerInnenzahl in diesem Teilwettbewerb</h3>}
                                     dataSource={ teilnehmerInnenzahl.filter( amount => amount.wettbewerbskontext === subcomp ) }
                                     renderItem={ item =>
                                         <List.Item>
-                                            <Col span={2} offset={1} >
+                                            <Col span={5} offset={1} >
                                                 {item.anzahl}
                                             </Col>
                                             <Col>
