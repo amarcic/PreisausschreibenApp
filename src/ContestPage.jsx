@@ -247,49 +247,60 @@ export default function ContestPage( props ) {
                     itemLayout="horizontal"
                     dataSource={participants}
                     renderItem={ item => (
-                        <List.Item extra={ item.wettbewerbskontext? item.wettbewerbskontext.map( kontext => <Tag key={kontext} color="magenta">{kontext}</Tag> ) : ""} >
+                        <Col offset={1}>
+                        <List.Item extra={ item.wettbewerbskontext? 
+                                                "Teilwettbewerb: " + item.wettbewerbskontext.join(", ") :
+                                                /*item.wettbewerbskontext.map( kontext => <Tag key={kontext} color="magenta">{kontext}</Tag> ) :*/
+                                                ""} >
                             <List.Item.Meta 
                                 title={<span><Link to={"/dokumente/person/" + item.identifier[0]} > {item.name} </Link> als {item.rolle.join(", ") } </span> }
                                 description={item.anmerkung}
                             />
                         </List.Item>
+                        </Col>
                     )
 
                     }
                 />
             </Panel>
             <Panel header={ data.bezeichnung.length + " Bezeichnungen"}>
-                
-                    {data.bezeichnung.map( label => <Tag key={label}>{label}</Tag> )}
-                
+                    {/*data.bezeichnung.join(", ")*/}
+                    {/*data.bezeichnung.map( label => <Tag key={label}>{label}</Tag> )*/}
+                    <Col offset={1}>
+                        <ul>
+                            {data.bezeichnung.map( label => <li key={label}>{label}</li> )}
+                        </ul>
+                    </Col>
             </Panel>
             <Panel header={ keywords.length + " Schlagworte"}>
-                
-                    {keywords.map( keyword => <Tag key={keyword}>{keyword}</Tag> )}
-                
+                <Col offset={1}>
+                    {keywords.join(", ")}
+                    {/*keywords.map( keyword => <Tag key={keyword}>{keyword}</Tag> )*/}
+                </Col>
             </Panel>
             <Panel header={ taskfields.length + " Aufgabenbereiche"}>
-                
-                    { taskfields.map( taskfield => <Tag key={taskfield} >{taskfield}</Tag> ) }
-                
+                <Col offset={1}>
+                    { taskfields.join(", ") }
+                    {/* taskfields.map( taskfield => <Tag key={taskfield} >{taskfield}</Tag> ) */}
+                </Col>
             </Panel>
             { data.formalia && <Panel header={"Formalia"} >
                     <Row>
-                        <Col span={20} offset={2}>
+                        <Col span={20} offset={1}>
                             {data.formalia}
                         </Col>
                     </Row>
             </Panel>}
             { data.ergaenzungen && <Panel header={"Ergänzungen"} >
                     <Row>
-                        <Col span={20} offset={2}>
+                        <Col span={20} offset={1}>
                             {data.ergaenzungen}
                         </Col>
                     </Row>
             </Panel>}
             { comments && <Panel header={ comments.length + " Kommentar/e" } >
                 <Row>
-                    <Col span={20} offset={2}>
+                    <Col span={20} offset={1}>
                         <List
                             itemLayout="vertical"
                             dataSource={comments}
@@ -311,12 +322,14 @@ export default function ContestPage( props ) {
                     itemLayout="horizontal"
                     dataSource={sources}
                     renderItem={ item =>
+                        <Col offset={1}>
                         <List.Item>
                             <List.Item.Meta 
                             title={item.quellenangabe}
-                            description={ item.korpus===true? "Die Quelle gehört zum Korpus": "Die Quelle gehört nicht zum Kropus" }
+                            description={ item.korpus===true? "Die Quelle gehört zum Korpus.": "Die Quelle gehört nicht zum Kropus." }
                             />
                         </List.Item>
+                        </Col>
                     }
                 />
             </Panel>
