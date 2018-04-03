@@ -60,7 +60,7 @@ export default class Layout_Container extends React.Component {
     render() {
         //console.log(this.state.searchInput);
         return(
-            <Layout>
+            <Layout style={{backgroundColor: "white"}} >
                 <Header>
                     <div className="header--title" style={{
                                                         width: '200px',
@@ -95,12 +95,13 @@ export default class Layout_Container extends React.Component {
                             <Route path="/dokumente/:docType/:docId" render={ (props) => <ErrorBoundary><ResultPage {...props} /> </ErrorBoundary> } ></Route>
                             <Route path="/overview" render={ (props) => <ErrorBoundary><SeriesPageWithPromise query="none" collection="overview_competitions" {...props} /></ErrorBoundary> } />
                             <Route path="/about" component={AboutPage} />
-                </Row>
-                
+                </Row >
+                <Row type="flex" justify="center"style={{ paddingLeft: "60px", paddingRight: "60px", paddingBottom: "120px"}}>
                 <Route path="/" exact component={LandingPage} />
                 {/*below is just a quick hack to get to landing page, when opening the index.html in couchdb*/}
                 <Route path="/index.html" exact component={LandingPage} />
                 <Route path="/search" render={ (props) => <ErrorBoundary> <SearchPageWithPromise query={this.state.searchInput} collection={this.state.searchCollection} {...props} /> </ErrorBoundary> } />
+                </Row>
                 <Footer style={{textAlign: 'center'}}>
                     Musikalische Preisausschreiben ©2018
                 </Footer>

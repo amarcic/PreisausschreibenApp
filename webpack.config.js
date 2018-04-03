@@ -1,7 +1,11 @@
 const debug = process.env.NODE_ENV !== 'production';
 const CompressionPlugin = require("compression-webpack-plugin");
 const path = require('path');
+const fs  = require('fs');
 const webpack = require('webpack');
+
+const lessToJs = require('less-vars-to-js');
+const themeVariables = lessToJs(fs.readFileSync(path.join(__dirname, './ant-theme-vars.less'), 'utf8'));
 
 module.exports = {
     entry: [ "babel-polyfill", "./src/app.js"],
@@ -33,6 +37,11 @@ module.exports = {
         {
             test: /\.css$/,
             loader: "style-loader!css-loader"
+        },
+        {
+            test: /\.less$/,
+            use: [ {loader: "style-loader"}, {loader: "css-loader"}, {loader: "less-loader", options: {modifyVars: themeVariables}} ]
+            //loader: "style-loader!css-loader!less-loader"
         }
     ]
     }
