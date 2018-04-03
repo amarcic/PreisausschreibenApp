@@ -9,7 +9,7 @@ function SearchBox( props ) {
     let selectValue = props.searchCollection;
     const selectBefore = (
         // prop for default value: default value should be dynamic to reflect the current choice
-        <Select defaultValue={props.searchCollection} style={{ width: 160}}
+        <Select defaultValue={props.searchCollection} 
             onChange={ value => selectValue = value }
             >
             <Option value="preisausschreiben">Preisausschreiben</Option>
@@ -25,7 +25,7 @@ function SearchBox( props ) {
             size="large"
             placeholder="Ihre Suche..."
             addonBefore={selectBefore}
-            style={{ width: 500 }}
+            //style={{ width: 500 }}
             onSearch={ value => {
                         //if component is changed to a stateful component extending React.Component, use this.props.history.push(...)
                         let cleanedInput = value.toLowerCase();

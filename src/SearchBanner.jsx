@@ -19,7 +19,7 @@ export default function SearchBanner( props ) {
             backgroundSize: "cover" 
         }}>
             <div style={{
-                backgroundColor: "#fffbe6",
+                backgroundColor: "#FCF9F5",
                 padding: "20px",
                 textAlign: "center",
                 position: "absolute",

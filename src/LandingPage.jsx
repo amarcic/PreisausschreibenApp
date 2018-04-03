@@ -8,14 +8,14 @@ const { Content } = Layout;
 
 function LandingPage( props ) {
     return(
-        <Layout style={{ backgroundColor: "white" }}>
+        <Layout >
                 <Content style={{ marginTop: "20px" }}>
                 <Row>
                 <Col>
                     <Breadcrumb>
                         <Breadcrumb.Item><Link to="/">Home</Link></Breadcrumb.Item>
                     </Breadcrumb>
-                    <div style={{ backgroundColor: "white", maxWidth: "1680px" }}>
+                    <div style={{ maxWidth: "1680px" }}>
                         <Row gutter={24}>
                             <Col span={8}>
                                 <Card title="Preisausschreiben" hoverable onClick={ () => props.history.push('/overview') } bordered={false} style={{ backgroundColor: "#ffe3d1" }} >1100 Preisausschreiben</Card>
@@ -40,7 +40,7 @@ function LandingPage( props ) {
                             </Col>
                         </Row>
                     </div>
-                    <Layout style={{ backgroundColor: "white" }}>
+                    <Layout>
                         <div>
                         </div>
                     </Layout>

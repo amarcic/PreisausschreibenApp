@@ -60,15 +60,16 @@ export default class Layout_Container extends React.Component {
     render() {
         //console.log(this.state.searchInput);
         return(
-            <Layout style={{backgroundColor: "white"}} >
+            <Layout>
                 <Header>
                     <div className="header--title" style={{
                                                         width: '200px',
-                                                        float: 'left'
+                                                        float: 'left',
+                                                        backgroundColor: 'white'
                                                     }}>
                         <Link to="/">Beta-Version Home</Link>
                     </div>              
-                    <Menu mode="horizontal" theme="dark" style={{ lineHeight: '64px' }}>
+                    <Menu mode="horizontal" style={{ lineHeight: '80px', fontFamily: "'Source Sans Pro', sans", fontSize: '20px', fontWeight: '600', color: '#FF5B4A', backgroundColor: 'white' }} theme="light" >
                         <SubMenu title={<span>Über das Projekt</span>}>
                             <Menu.Item key="1">
                                 <Link to="/about">Forschungsvorhaben</Link>
