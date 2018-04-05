@@ -69,20 +69,26 @@ export default class Layout_Container extends React.Component {
                                                     }}>
                         <Link to="/">Beta-Version Home</Link>
                     </div>              
-                    <Menu mode="horizontal" style={{ lineHeight: '80px', fontFamily: "'Source Sans Pro', sans", fontSize: '20px', fontWeight: '600', color: '#FF5B4A', backgroundColor: 'white' }} theme="light" >
-                        <SubMenu title={<span>Über das Projekt</span>}>
-                            <Menu.Item key="1">
-                                <Link to="/about">Forschungsvorhaben</Link>
-                            </Menu.Item>
-                            <Menu.Item key="2">Mitarbeiter</Menu.Item>
+                    <Menu mode="horizontal" style={{ lineHeight: '80px', fontFamily: "'Source Sans Pro', sans", letterSpacing: '0.04em', fontSize: '17px', fontWeight: '40', color: '#FF5B4A', backgroundColor: 'white', float: 'right' }} theme="light" >
+                        <SubMenu title={<span>Suche</span>} >
+                        <Menu.Item key="1">Preisausschreiben</Menu.Item>
+                        <Menu.Item key="2">Personen</Menu.Item>
+                        <Menu.Item key="3">Körperschaften</Menu.Item>
+                        <Menu.Item key="4">Themen und Schlagworte</Menu.Item>
                         </SubMenu>
                         <SubMenu title={<span>Forschung</span>} >
-                            <Menu.Item key="3">Grundriss</Menu.Item>
-                            <Menu.Item key="4">Methodik</Menu.Item>
-                            <Menu.Item key="5">Bibliographie</Menu.Item>
+                            <Menu.Item key="5">Grundriss</Menu.Item>
+                            <Menu.Item key="6">Methodik</Menu.Item>
+                            <Menu.Item key="7">Bibliographie</Menu.Item>
+                            <Menu.Item key="8">Publikationen</Menu.Item>
+                            <Menu.Item key="9">Visualisierungen und Analysen</Menu.Item>
                         </SubMenu>
-                        <Menu.Item key="6">Publikationen</Menu.Item>
-                        <Menu.Item key="7">Sonstiges</Menu.Item>
+                        <SubMenu title={<span>Über das Projekt</span>}>
+                            <Menu.Item key="10">
+                                <Link to="/about">Forschungsvorhaben</Link>
+                            </Menu.Item>
+                            <Menu.Item key="11">Mitarbeiter</Menu.Item>
+                        </SubMenu>
                     </Menu>
                 </Header>
 
