@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Layout, Breadcrumb, Menu, Table } from 'antd';
+import { Layout, Breadcrumb, Menu, Table, Row, Col } from 'antd';
 
 const { Content, Sider } = Layout;
 const { SubMenu } = Menu;
@@ -8,18 +8,18 @@ const { SubMenu } = Menu;
 // is this the right place for the columns definition? should it be inside the SearchPage function?
 const columnsPersonen = [
     {
-        title: 'Nachname',
+        title: <span style={{ fontFamily: "'Source Sans Pro', sans"}} >Nachname</span>,
         dataIndex: 'value.nachname',
         key: 'value.nachname',
         render: (text, record) => <Link to={"/dokumente/person/" + record.id}> {text} </Link>
     },
     {
-        title: 'Vorname',
+        title: <span style={{ fontFamily: "'Source Sans Pro', sans"}} >Vorname</span>,
         dataIndex: 'value.vorname',
         key: 'value.vorname'
     },
     {
-        title: 'Alias',
+        title: <span style={{ fontFamily: "'Source Sans Pro', sans"}} >Alias</span>,
         dataIndex: 'value.alias',
         key: 'value.alias'
         //render: (text, record) => record.value.name.alias? <ul>{ record.value.name.alias.map( alias => {<li>alias</li>} ) }</ul> : ""
@@ -28,20 +28,20 @@ const columnsPersonen = [
 
 const columnsPreisausschreiben = [
     {
-        title: 'Ausschreibung',
+        title: <span style={{ fontFamily: "'Source Sans Pro', sans"}} >Ausschreibung</span>,
         dataIndex: 'value.ausschreibung',
         key: 'value.ausschreibung',
         render: (text, record ) => <Link to={"/dokumente/preisausschreiben/" + record.id}> {text? text: "unbekannt"} </Link>
     },
     {
-        title: 'Ereignisse',
+        title: <span style={{ fontFamily: "'Source Sans Pro', sans"}} >Ereignisse</span>,
         dataIndex: 'value.ereignisse',
         key: 'value.ereignisse',
         // will have to check, if the unique keys generated when the array is mapped are used in a meaningful way (index for unique keys not recommended)
         render: (text, record) => <ul> {record.value.ereignisse.map( ( ereignis, i ) => <li key={i} >  {(ereignis.zeit? ereignis.zeit.datum : "") + ", " + ereignis.ereignistyp + ", " + ( ereignis.ort? ereignis.ort.ortsname : "" )} </li>)} </ul>
     },
     {
-        title: 'Aufgaben',
+        title: <span style={{ fontFamily: "'Source Sans Pro', sans"}} >Aufgaben</span>,
         dataIndex: 'value.aufgaben',
         key: 'value.aufgaben'
     }
@@ -122,12 +122,14 @@ export default function SearchPage( props ) {
                     </SubMenu>
                 </Menu>
             </Sider>*/}
-            <Content style={{ marginLeft: "50px" }}>
+            <Content style={{ marginTop: "50px" }}>
+            
                 <Breadcrumb>
                     <Breadcrumb.Item><Link to="/">Home</Link></Breadcrumb.Item>
                     <Breadcrumb.Item><Link to="/search">Suchergebnisse</Link></Breadcrumb.Item>
                 </Breadcrumb>
                 <Layout>
+                <Row><Col span={24}>
                     <p>Suchbegriff: {props.query}</p>
                     {
                         /* as it is the id can be repeated, since results can be repeated in the view
@@ -135,7 +137,7 @@ export default function SearchPage( props ) {
                         I keep it for now since elasticsearch should be able to filter results before sending the response object
                         */
                         //antd table component sets the word-break CSS property to "break-all"; solution below (changing it in the table component) does not work
-                        <Table 
+                        <Table
                             bodyStyle={{ backgroundColor: "#ffffff" }}
                             columns={columns} 
                             dataSource={dataUnique} 
@@ -143,8 +145,9 @@ export default function SearchPage( props ) {
                             //onRow={ (record) => {return { onClick: ()=>{alert("hello");} }; }  }
                             />
                     }
-                    
+                </Col></Row>     
                 </Layout>
+               
             </Content>
         </Layout>
     );

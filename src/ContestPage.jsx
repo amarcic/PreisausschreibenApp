@@ -67,7 +67,7 @@ export default function ContestPage( props ) {
     data.aufgaben.forEach( aufgabe => { aufgabe.systematik.forEach( term => {if (taskfields.indexOf(term)===-1) taskfields.push( term )} ) } );
 
     return(
-        <div style={ { marginTop: 40 } }>
+        <div style={ { marginTop: 50 } }>
         <Row>
             <Col span={20} offset={2}>
         <h2 style={{color: "grey", marginBottom: 0}}>{ participants.filter( participant => participant.rolle.indexOf("ausschreibende Institution/Person")>=0 ).map( participant => participant.name ).join(", ") }</h2>

@@ -98,14 +98,15 @@ export default class Layout_Container extends React.Component {
                             <Route path="/search" render={ (props) => <SearchRow updateInput={this.updateInput} searchCollection={this.state.searchCollection} {...props} /> } />
                             <Route path="/person/:docId" render={ (props) => <ErrorBoundary><ResultPage {...props} /> </ErrorBoundary> } ></Route>
                             {/* can I use :docId to put the value into a prop, so the Result page can render a document from the url alone? yes!*/}
-                            <Route path="/dokumente/:docType/:docId" render={ (props) => <ErrorBoundary><ResultPage {...props} /> </ErrorBoundary> } ></Route>
+                            
                             <Route path="/overview" render={ (props) => <ErrorBoundary><SeriesPageWithPromise query="none" collection="overview_competitions" {...props} /></ErrorBoundary> } />
                             <Route path="/about" component={AboutPage} />
                 </Row >
-                <Row type="flex" justify="center"style={{ paddingLeft: "60px", paddingRight: "60px", paddingBottom: "120px"}}>
+                <Row type="flex" justify="center" style={{ paddingLeft: "60px", paddingRight: "60px", paddingBottom: "120px"}}>
                 <Route path="/" exact component={LandingPage} />
                 {/*below is just a quick hack to get to landing page, when opening the index.html in couchdb*/}
                 <Route path="/index.html" exact component={LandingPage} />
+                <Route path="/dokumente/:docType/:docId" render={ (props) => <ErrorBoundary><ResultPage {...props} /> </ErrorBoundary> } ></Route>
                 <Route path="/search" render={ (props) => <ErrorBoundary> <SearchPageWithPromise query={this.state.searchInput} collection={this.state.searchCollection} {...props} /> </ErrorBoundary> } />
                 </Row>
                 <Footer style={{textAlign: 'center'}}>

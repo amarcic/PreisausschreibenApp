@@ -11,7 +11,6 @@ import CorporatePage from './CorporatePage';
 import SeriesPage from './SeriesPage';
 import withPromise from './withPromise';
 
-
 export default function ResultPage( { match } ) {
 
     let ResultComponent;
