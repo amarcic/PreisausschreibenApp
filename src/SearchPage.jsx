@@ -105,7 +105,7 @@ export default function SearchPage( props ) {
     }
 
     return(
-        <Layout style={{ backgroundColor: "#ffffff" }}>
+        <Layout>
             {/* waiting for elasticsearch
             <Sider style={{backgroundColor: "#ffffff"}}>
                 <Menu theme="dark" mode="inline" defaultOpenKeys={['sub1','sub2']}>
@@ -136,6 +136,7 @@ export default function SearchPage( props ) {
                         */
                         //antd table component sets the word-break CSS property to "break-all"; solution below (changing it in the table component) does not work
                         <Table 
+                            bodyStyle={{ backgroundColor: "#ffffff" }}
                             columns={columns} 
                             dataSource={dataUnique} 
                             rowKey={ record => record.id }
