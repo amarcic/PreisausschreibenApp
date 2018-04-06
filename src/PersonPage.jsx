@@ -1,10 +1,13 @@
 import React from 'react';
 
 import { Table, Layout, Card, Row, Col } from 'antd';
+import withLookup from './withLookup';
+import CompetitionList from './CompetitionList'
 
 export default function PersonPage( props ) {
 
     const data = props.requestData;
+    const CompListWithLookup = withLookup( CompetitionList );
 
     return(
         <div style={{ marginTop: "20px", marginLeft: "80px" }}>
@@ -23,6 +26,9 @@ export default function PersonPage( props ) {
                         </div>
                     </Card>
                 </Col>
+               <Col span={8} >
+               <CompListWithLookup query={data._id} view="inPreisausschreiben" />
+               </Col>
             </Row>
         </div>
     );

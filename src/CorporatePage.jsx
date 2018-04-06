@@ -1,12 +1,15 @@
 import React from 'react';
 
 import { Card, Row, Col } from 'antd';
-//import { List, Card } from 'antd';
+
+import withLookup from './withLookup';
+import CompetitionList from './CompetitionList';
 
 export default function CorporatePage( props ) {
     //console.log( props.requestData );
 
     const data = props.requestData;
+    const CompListWithLookup = withLookup( CompetitionList );
 
     return(
         <div style={{ marginTop: "20px", marginLeft: "80px" }}>
@@ -20,6 +23,9 @@ export default function CorporatePage( props ) {
                         { data.anmerkung? "Anmerkung zur Körperschaft: " + data.anmerkung : "" }                        
                     </div>
                 </Card>
+            </Col>
+            <Col span={8} >
+               <CompListWithLookup query={data._id} view="inPreisausschreiben" />
             </Col>
         </Row>
     </div>

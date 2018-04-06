@@ -44,6 +44,7 @@ const columnsPreisausschreiben = [
         title: <span style={{ fontFamily: "'Source Sans Pro', sans"}} >Aufgaben</span>,
         dataIndex: 'value.aufgaben',
         key: 'value.aufgaben'
+        /*render: (text, record) => <div>{record.value.aufgaben.split( "," ).join(", ")}</div>*/
     }
 ]
 
