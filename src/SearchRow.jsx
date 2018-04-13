@@ -7,7 +7,7 @@ import SearchBox from './SearchBox';
 export default function SearchRow( props ) {
     return(
         <Layout style={{ 
-            backgroundImage: 'url("./CollageA_Farbe1.jpg")', 
+            backgroundImage: 'url("collage.jpg")', 
             height: "100px", 
             backgroundPosition: "center",
             backgroundSize: "cover" 
