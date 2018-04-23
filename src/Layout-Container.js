@@ -16,6 +16,7 @@ import SearchRow from './SearchRow';
 import ResultPage from './ResultPage';
 import SeriesPage from './SeriesPage';
 import ErrorBoundary from './ErrorBoundary'
+import CreditsPage from './CreditsPage';
 
 import withPromise from './withPromise';
 
@@ -87,6 +88,9 @@ export default class Layout_Container extends React.Component {
                                 <Link to="/about">Forschungsvorhaben</Link>
                             </Menu.Item>
                             <Menu.Item key="11">Mitarbeiter</Menu.Item>
+                            <Menu.Item key="12">
+                                <Link to="/credits">Credits</Link>
+                            </Menu.Item>
                         </SubMenu>
                     </Menu>
                 </Header>
@@ -101,6 +105,7 @@ export default class Layout_Container extends React.Component {
                             
                             <Route path="/overview" render={ (props) => <ErrorBoundary><SeriesPageWithPromise query="none" collection="overview_competitions" {...props} /></ErrorBoundary> } />
                             <Route path="/about" component={AboutPage} />
+                            <Route path="/credits" component={CreditsPage} />
                 </Row >
                 <Row type="flex" justify="center" style={{ paddingLeft: "60px", paddingRight: "60px", paddingBottom: "120px"}}>
                 <Route path="/" exact component={LandingPage} />

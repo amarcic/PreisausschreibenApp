@@ -13,7 +13,7 @@ export default function AboutPage( props ) {
                     <Breadcrumb.Item><Link to="/about">Über das Projekt</Link></Breadcrumb.Item>
                 </Breadcrumb>
             
-                <Layout style={{ backgroundColor: "#fff4d9", marginTop: "20px", marginBottom: "20px" }}>
+                <Layout style={{ marginTop: "20px", marginBottom: "20px" }}>
                 <div>
                     <p>Ermöglicht durch die Deutsche Forschungsgemeinschaft (DFG) </p>
                     <br />
