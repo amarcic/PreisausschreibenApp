@@ -31,9 +31,9 @@ export default function SubcompetitionTabs( props ) {
 
     return(
         <div style={{marginTop: 50}} >
-                <Tabs defaultActiveKey="0">
+                <Tabs defaultActiveKey="0"  >
                     {subcompetitions.map( (subcomp, index) => 
-                        <TabPane tab={subcomp} key={index}>
+                        <TabPane tab={subcomp} key={subcomp}>
                         {/*the following line checks if there are participants with the role "Jurymitglied"; in that case the display of jury info will be rendered */}
                         { subcompParticipants[subcomp] && subcompParticipants[subcomp].filter( participant => participant.rolle.indexOf( "Jurymitglied" )>=0 ).length>1
                              && <Row>
@@ -75,7 +75,8 @@ export default function SubcompetitionTabs( props ) {
                                                         </Col>
                                                         <Col span={8}>
                                                         <ul>
-                                                            {item.platzierte.map( platzierter => <li key={platzierter}> { platzierter==="nv" ? "nicht vergeben" : (participants.map( participant => participant.identifier.indexOf(platzierter)===0? participant.name : ("") ))
+                                                            {item.platzierte.map( platzierter => <li key={platzierter}> { platzierter==="nv" ? "nicht vergeben" : participants.find( participant => participant.identifier.indexOf(platzierter)===0 ).name
+                                                            /*(participants.map( participant => participant.identifier.indexOf(platzierter)===0? participant.name : ("") ) )*/
                                                         }{ teilnehmerleistungen && teilnehmerleistungen.map( leistung => leistung.teilnehmer && leistung.teilnehmer.indexOf(platzierter) >= 0 ? ", mit: " + leistung.beschreibung  : "" ) } </li>)}
                                                             {/*<Tag key={platzierter}>{participants.map( participant => participant.identifier.indexOf(platzierter)===0? participant.name : "" )}</Tag> )*/}
                                                         </ul>
