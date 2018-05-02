@@ -31,7 +31,7 @@ export default function SubcompetitionTabs( props ) {
 
     return(
         <div style={{marginTop: 50}} >
-                <Tabs defaultActiveKey="0"  >
+                <Tabs>
                     {subcompetitions.map( (subcomp, index) => 
                         <TabPane tab={subcomp} key={subcomp}>
                         {/*the following line checks if there are participants with the role "Jurymitglied"; in that case the display of jury info will be rendered */}

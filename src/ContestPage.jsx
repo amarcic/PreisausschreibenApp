@@ -4,6 +4,8 @@ import { Row, Col, Card, List, Tag, Collapse, Timeline, Tabs, Icon, Popover, Div
 import { Link } from 'react-router-dom';
 import SubcompetitionTabs from './SubcompetitionTabs';
 
+import dateHelper from './dateHelper';
+
 const Panel = Collapse.Panel;
 const TabPane = Tabs.TabPane;
 
@@ -97,9 +99,9 @@ export default function ContestPage( props ) {
                 <List.Item>
                                       
                     <Col span={5} offset={1}>
-                        {item.zeit.datum ? new Date(item.zeit.datum).toLocaleDateString( 'de-DE', { day: "2-digit", month: '2-digit', year: "numeric"}) : "" +
-                                    (item.zeit.von ? new Date(item.zeit.von).toLocaleDateString( 'de-DE', { day: "2-digit", month: '2-digit', year: "numeric"} ) : "") + 
-                                    (item.zeit.bis ? " - " + new Date(item.zeit.bis).toLocaleDateString( 'de-DE', { day: "2-digit", month: '2-digit', year: "numeric"} ) : "")  
+                        {item.zeit.datum ? dateHelper(item.zeit.datum)/*new Date(item.zeit.datum).toLocaleDateString( 'de-DE', { day: "2-digit", month: '2-digit', year: "numeric"})*/ : "" +
+                                    (item.zeit.von ?  dateHelper(item.zeit.von) /*new Date(item.zeit.von).toLocaleDateString( 'de-DE', { day: "2-digit", month: '2-digit', year: "numeric"} )*/ : "") + 
+                                    (item.zeit.bis ? " - " + dateHelper(item.zeit.bis) /*new Date(item.zeit.bis).toLocaleDateString( 'de-DE', { day: "2-digit", month: '2-digit', year: "numeric"} )*/ : "")  
                         } { item.zeit.datumszusatz && <Popover
                             content={item.zeit.datumszusatz}
                         >
