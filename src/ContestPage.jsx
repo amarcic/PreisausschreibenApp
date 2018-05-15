@@ -165,7 +165,7 @@ export default function ContestPage( props ) {
                                                 <Col span={8}>
                                                 <ul>
                                                     {/* sorry about the unreadable code below: explanation... */}
-                                                    {item.platzierte.map( platzierter => <li key={platzierter}> { platzierter==="nv" ? "nicht vergeben" : (participants.map( participant => participant.identifier.indexOf(platzierter)===0? participant.name : "") )
+                                                    {item.platzierte.map( platzierter => <li key={platzierter}> { platzierter==="nv" ? "nicht vergeben" : (participants.find( participant => participant.identifier.indexOf(platzierter)===0).name )
                                                 }{ data.teilnehmerleistungen && data.teilnehmerleistungen.map( leistung => leistung.teilnehmer && leistung.teilnehmer.indexOf(platzierter) >= 0 ? ", mit: " + leistung.beschreibung  : "" ) } </li>)}
                                                 </ul>
                                                 </Col>
