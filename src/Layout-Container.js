@@ -20,15 +20,6 @@ import CreditsPage from './CreditsPage';
 
 import withPromise from './withPromise';
 
-const apiUrl = 'http://www.mocky.io/v2/59e752d10f00003107ee99e7';
-const requestOptions = {
-        method: 'GET',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        mode: 'cors'
-    };
 //const SearchPageWithPromise = withPromise( fetch(apiUrl, requestOptions), SearchPage );
 const SearchPageWithPromise = withPromise( SearchPage );
 const SeriesPageWithPromise = withPromise( SeriesPage );

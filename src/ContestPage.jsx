@@ -3,6 +3,8 @@ import React from 'react';
 import { Row, Col, Card, List, Tag, Collapse, Timeline, Tabs, Icon, Popover, Divider, Table } from 'antd';
 import { Link } from 'react-router-dom';
 import SubcompetitionTabs from './SubcompetitionTabs';
+import MemberListJury from './MemberListJury';
+import AwardsList from './AwardsList';
 
 import dateHelper from './dateHelper';
 
@@ -48,14 +50,16 @@ export default function ContestPage( props ) {
                 award.platzierungen.forEach( rank => {
                     if( rank.platzierte ) {
                         rank.platzierte.forEach( ranked =>
-                            rankedParticipants.push(ranked)
+                            rankedParticipants.push( { rankedId: ranked } )
                         );
                     }
                 } );
             }
         } 
     );
-    //console.log( rankedParticipants );
+    //now add further info to the array of rankedParticipants objects (name, cooperation)
+
+    console.log( rankedParticipants );
     console.log(data.teilnehmerleistungen);
     /*
     let teilnehmerMitLeistung =[];
@@ -124,7 +128,8 @@ export default function ContestPage( props ) {
         { !subcompetitions && 
             <div style={{marginTop: 50}}>
             { participants.filter( participant => participant.rolle.indexOf( "Jurymitglied" )>=0 ).length>1 
-                && <Row>     
+                && <MemberListJury juryMembers={participants.filter( participant => participant.rolle.indexOf( "Jurymitglied" ) >= 0 )} />
+                /*<Row>     
                     <List 
                         //grid={ participants.filter( participant => participant.rolle.indexOf( "Jurymitglied" ) >= 0 ).length > 4 ? {column: 2} : {column: 1} }
                         grid={{column:2}}
@@ -142,10 +147,10 @@ export default function ContestPage( props ) {
                             </List.Item>
                         }
                     />
-                </Row>
+                </Row>*/
             }
             { awards 
-               && <Row>
+               && /*<AwardsList awards={awards} />*/<Row>
                     {awards.map( award =>
                         {
                             
@@ -165,7 +170,7 @@ export default function ContestPage( props ) {
                                                 <Col span={8}>
                                                 <ul>
                                                     {/* sorry about the unreadable code below: explanation... */}
-                                                    {item.platzierte.map( platzierter => <li key={platzierter}> { platzierter==="nv" ? "nicht vergeben" : (participants.find( participant => participant.identifier.indexOf(platzierter)===0).name )
+                                                    {item.platzierte.map( platzierter => <li key={platzierter}> { platzierter==="nv" ? "nicht vergeben" : participants.find( participant => participant.identifier.indexOf(platzierter)===0).name 
                                                 }{ data.teilnehmerleistungen && data.teilnehmerleistungen.map( leistung => leistung.teilnehmer && leistung.teilnehmer.indexOf(platzierter) >= 0 ? ", mit: " + leistung.beschreibung  : "" ) } </li>)}
                                                 </ul>
                                                 </Col>
@@ -177,7 +182,7 @@ export default function ContestPage( props ) {
                         }
                     )
                 }
-                </Row>}
+            </Row>}
                 {/* the way of adding the entry to the participant with map works... but I feel a bit uneasy, since map returns an array and I leave it up to the browser, how it generates the string from the array (same above)
                 changed it so it does not leave array handling to react. now only the first element of the array is used. check back if this is enough ( replaced with [0]: .map( leistung => " mit: " + leistung.beschreibung ) ) */}
                 <Row>

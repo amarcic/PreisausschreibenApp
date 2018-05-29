@@ -2,6 +2,8 @@ import React from 'react';
 import { Row, Col, List, Tag, Tabs, Icon, Popover } from 'antd';
 import { Link } from 'react-router-dom';
 
+import MemberListJury from './MemberListJury';
+
 const TabPane = Tabs.TabPane;
 
 export default function SubcompetitionTabs( props ) {
@@ -36,7 +38,9 @@ export default function SubcompetitionTabs( props ) {
                         <TabPane tab={subcomp} key={subcomp}>
                         {/*the following line checks if there are participants with the role "Jurymitglied"; in that case the display of jury info will be rendered */}
                         { subcompParticipants[subcomp] && subcompParticipants[subcomp].filter( participant => participant.rolle.indexOf( "Jurymitglied" )>=0 ).length>1
-                             && <Row>
+                             && <MemberListJury juryMembers={ subcompParticipants[subcomp].filter( participant => participant.rolle.indexOf( "Jurymitglied" ) >= 0 ) } /> 
+                             /* the code below has been replaced by the component <MemberListJury>
+                            <Row>
                             <List 
                                 //grid={ subcompParticipants[subcomp].filter( participant => participant.rolle.indexOf( "Jurymitglied" ) >= 0 ).length > 4 ? {column: 2} : {column: 1} }
                                 grid={{column: 2}}
@@ -55,7 +59,7 @@ export default function SubcompetitionTabs( props ) {
                                     </Col>
                                 }
                             />
-                        </Row>}
+                            </Row>*/}
                         <Row>
                             {awards.map( award =>
                                 {
