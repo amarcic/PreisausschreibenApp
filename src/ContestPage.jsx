@@ -50,17 +50,19 @@ export default function ContestPage( props ) {
                 award.platzierungen.forEach( rank => {
                     if( rank.platzierte ) {
                         rank.platzierte.forEach( ranked =>
-                            rankedParticipants.push( { rankedId: ranked } )
+                            rankedParticipants.push( { rankedId: ranked, rank: rank.rang, context: award.wettbewerbskontext } )
                         );
                     }
                 } );
             }
         } 
     );
-    //now add further info to the array of rankedParticipants objects (name, cooperation)
+    //maybe those information can be added to the participant objects for quicker lookup
+
+    //data.teilnehmerleistungen.forEach( item => participants.find( participant => participant.identifier=item.tei ) )  ;
 
     console.log( rankedParticipants );
-    console.log(data.teilnehmerleistungen);
+    //console.log(data.teilnehmerleistungen);
     /*
     let teilnehmerMitLeistung =[];
     data.teilnehmerleistungen.forEach( leistung =>
@@ -175,8 +177,8 @@ export default function ContestPage( props ) {
                                                 </ul>
                                                 </Col>
                                             </List.Item>
-                                        }
-                                    />
+                                        }    />
+                                
                                 );
                         
                         }
