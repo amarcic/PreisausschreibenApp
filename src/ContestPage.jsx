@@ -50,17 +50,36 @@ export default function ContestPage( props ) {
                 award.platzierungen.forEach( rank => {
                     if( rank.platzierte ) {
                         rank.platzierte.forEach( ranked =>
-                            rankedParticipants.push( { rankedId: ranked, rank: rank.rang, context: award.wettbewerbskontext } )
+                            rankedParticipants[ranked] = { [award.wettbewerbskontext]: rank.rang }
+                            //rankedParticipants.push( { rankedId: ranked, rankInContext: { [award.wettbewerbskontext]: rank.rang }  /*[award.wettbewerbskontext]: rank.rang*/ /*rank: rank.rang, context: award.wettbewerbskontext*/ } )
                         );
                     }
                 } );
             }
         } 
     );
-    //maybe those information can be added to the participant objects for quicker lookup
 
-    //data.teilnehmerleistungen.forEach( item => participants.find( participant => participant.identifier=item.tei ) )  ;
+    //the following line adds the data from rankedParticipants to the participants object.
+    Object.keys(rankedParticipants).forEach( id => { participants.find( participant => participant.identifier[0]===id ).ranks = rankedParticipants[id] } )
+    //the following code looks for the participants identified in teilnehmerleistung.teilnehmer; then it adds a property 'leistung' to participants to hold the info from teilnehmerleistung in an array
+    data.teilnehmerleistungen.forEach( leistung => leistung.teilnehmer.forEach( participantId => {
+                                                                let attendee = participants.find( participant => participant.identifier[0] === participantId );
+                                                                attendee.leistung? attendee.leistung.push(leistung.beschreibung) : attendee.leistung = [leistung.beschreibung];
+                                                                return attendee;
+                                                                } 
+                                                            ) )
+    
+    //the whole preparation of participant data should maybe be outsourced to an extra function
 
+    let participantsBySubcomp = {};
+    participants.forEach( participant => {
+                                            if ( participant.wettbewerbskontext ) {
+                                                participant.wettbewerbskontext.forEach( context => participantsBySubcomp[context]? participantsBySubcomp[context].push(participant) : participantsBySubcomp[context] = [ participant ] )
+                                            }  
+                                        } 
+                                    )
+
+    console.log(participantsBySubcomp);
     console.log( rankedParticipants );
     //console.log(data.teilnehmerleistungen);
     /*
@@ -152,7 +171,7 @@ export default function ContestPage( props ) {
                 </Row>*/
             }
             { awards 
-               && /*<AwardsList awards={awards} />*/<Row>
+               && /*<AwardsList awards={awards} awardedParticipants={ participants.filter( participant => participant.hasOwnProperty('ranks') ) } />*/<Row>
                     {awards.map( award =>
                         {
                             
