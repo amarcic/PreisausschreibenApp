@@ -49,8 +49,11 @@ export default function ContestPage( props ) {
             if (award.platzierungen) {
                 award.platzierungen.forEach( rank => {
                     if( rank.platzierte ) {
-                        rank.platzierte.forEach( ranked =>
-                            rankedParticipants[ranked] = { [award.wettbewerbskontext]: rank.rang }
+                        rank.platzierte.forEach( ranked =>{
+                            let context = "0";
+                            award.wettbewerbskontext? context=award.wettbewerbskontext : context = "hauptwettbewerb"; 
+                            rankedParticipants[ranked] = { [context]: rank.rang }
+                        }
                             //rankedParticipants.push( { rankedId: ranked, rankInContext: { [award.wettbewerbskontext]: rank.rang }  /*[award.wettbewerbskontext]: rank.rang*/ /*rank: rank.rang, context: award.wettbewerbskontext*/ } )
                         );
                     }
@@ -62,12 +65,14 @@ export default function ContestPage( props ) {
     //the following line adds the data from rankedParticipants to the participants object.
     Object.keys(rankedParticipants).forEach( id => { participants.find( participant => participant.identifier[0]===id ).ranks = rankedParticipants[id] } )
     //the following code looks for the participants identified in teilnehmerleistung.teilnehmer; then it adds a property 'leistung' to participants to hold the info from teilnehmerleistung in an array
-    data.teilnehmerleistungen.forEach( leistung => leistung.teilnehmer.forEach( participantId => {
+    if (data.teilnehmerleistungen) {
+            data.teilnehmerleistungen.forEach( leistung => leistung.teilnehmer.forEach( participantId => {
                                                                 let attendee = participants.find( participant => participant.identifier[0] === participantId );
                                                                 attendee.leistung? attendee.leistung.push(leistung.beschreibung) : attendee.leistung = [leistung.beschreibung];
                                                                 return attendee;
                                                                 } 
                                                             ) )
+        }
     
     //the whole preparation of participant data should maybe be outsourced to an extra function
 
@@ -79,8 +84,9 @@ export default function ContestPage( props ) {
                                         } 
                                     )
 
-    console.log(participantsBySubcomp);
-    console.log( rankedParticipants );
+    //console.log(participantsBySubcomp);
+    //console.log( rankedParticipants );
+    console.log(participants.filter( participant => participant.hasOwnProperty('ranks') ) );
     //console.log(data.teilnehmerleistungen);
     /*
     let teilnehmerMitLeistung =[];
@@ -170,10 +176,10 @@ export default function ContestPage( props ) {
                     />
                 </Row>*/
             }
-            { awards 
-               && /*<AwardsList awards={awards} awardedParticipants={ participants.filter( participant => participant.hasOwnProperty('ranks') ) } />*/<Row>
+            { awards && participants.filter( participant => participant.hasOwnProperty('ranks') ).length > 0
+               && <Row><AwardsList awards={awards} awardedParticipants={ participants.filter( participant => participant.hasOwnProperty('ranks') ) } />
                     {awards.map( award =>
-                        {
+                        {/*
                             
                                 return( 
                                     <List 
@@ -189,8 +195,7 @@ export default function ContestPage( props ) {
                                                     {item.beschreibung}
                                                 </Col>
                                                 <Col span={8}>
-                                                <ul>
-                                                    {/* sorry about the unreadable code below: explanation... */}
+                                                <ul>                                                    
                                                     {item.platzierte.map( platzierter => <li key={platzierter}> { platzierter==="nv" ? "nicht vergeben" : participants.find( participant => participant.identifier.indexOf(platzierter)===0).name 
                                                 }{ data.teilnehmerleistungen && data.teilnehmerleistungen.map( leistung => leistung.teilnehmer && leistung.teilnehmer.indexOf(platzierter) >= 0 ? ", mit: " + leistung.beschreibung  : "" ) } </li>)}
                                                 </ul>
@@ -200,7 +205,7 @@ export default function ContestPage( props ) {
                                 
                                 );
                         
-                        }
+                            */}
                     )
                 }
             </Row>}

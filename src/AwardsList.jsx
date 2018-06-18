@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 export default function AwardsList( props ) {
     
     let awards = props.awards;
+    let awardedParticipants = props.awardedParticipants;
 
     return(
         <Row>
@@ -26,7 +27,7 @@ export default function AwardsList( props ) {
                                 <ul>
                                     {item.platzierte.map( placed => 
                                         <li key={placed}>
-                                            { placed==="nv" ? "nicht vergeben" : placed }
+                                            { placed==="nv" ? "nicht vergeben" : awardedParticipants.find( participant => participant.identifier[0] === placed ).name }
                                         </li>
                                         )}
                                 </ul>
