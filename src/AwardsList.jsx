@@ -6,6 +6,8 @@ export default function AwardsList( props ) {
     
     let awards = props.awards;
     let awardedParticipants = props.awardedParticipants;
+    //console.log(awards);
+    //console.log(awardedParticipants);
 
     return(
         <Row>
@@ -24,13 +26,18 @@ export default function AwardsList( props ) {
                                     {item.beschreibung}
                                 </Col>
                                 <Col span={8}>
-                                <ul>
+                                {awardedParticipants && <ul>
                                     {item.platzierte.map( placed => 
-                                        <li key={placed}>
-                                            { placed==="nv" ? "nicht vergeben" : awardedParticipants.find( participant => participant.identifier[0] === placed ).name }
+                                        <li style={{listStyleType: 'none'}} key={placed}>
+                                            { placed==='nv' ? "nicht vergeben" 
+                                                                : awardedParticipants.find( participant => participant.identifier[0]===placed ).name
+                                                                + ( awardedParticipants.find( participant => participant.identifier[0]===placed ).hasOwnProperty('leistungen') ?
+                                                                    ", mit: " + awardedParticipants.find(participant => participant.identifier[0]===placed ).leistungen.join(", ")
+                                                                    : "")
+                                                                }
                                         </li>
                                         )}
-                                </ul>
+                                </ul>}
                                 </Col>
                             </List.Item>}
                         /> );

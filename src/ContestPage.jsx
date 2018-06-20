@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import SubcompetitionTabs from './SubcompetitionTabs';
 import MemberListJury from './MemberListJury';
 import AwardsList from './AwardsList';
+import ContestantList from './ContestantList';
 
 import dateHelper from './dateHelper';
 
@@ -63,12 +64,13 @@ export default function ContestPage( props ) {
     );
 
     //the following line adds the data from rankedParticipants to the participants object.
-    Object.keys(rankedParticipants).forEach( id => { participants.find( participant => participant.identifier[0]===id ).ranks = rankedParticipants[id] } )
+    Object.keys(rankedParticipants).forEach( id => { participants.find( participant => participant.identifier[0]===id ) ? participants.find( participant => participant.identifier[0]===id ).ranks  = rankedParticipants[id] : console.log("done here"); } )
     //the following code looks for the participants identified in teilnehmerleistung.teilnehmer; then it adds a property 'leistung' to participants to hold the info from teilnehmerleistung in an array
+    
     if (data.teilnehmerleistungen) {
             data.teilnehmerleistungen.forEach( leistung => leistung.teilnehmer.forEach( participantId => {
                                                                 let attendee = participants.find( participant => participant.identifier[0] === participantId );
-                                                                attendee.leistung? attendee.leistung.push(leistung.beschreibung) : attendee.leistung = [leistung.beschreibung];
+                                                                attendee.leistungen? attendee.leistungen.push(leistung.beschreibung) : attendee.leistungen = [leistung.beschreibung];
                                                                 return attendee;
                                                                 } 
                                                             ) )
@@ -83,7 +85,8 @@ export default function ContestPage( props ) {
                                             }  
                                         } 
                                     )
-
+    
+    //console.log(participants);
     //console.log(participantsBySubcomp);
     //console.log( rankedParticipants );
     console.log(participants.filter( participant => participant.hasOwnProperty('ranks') ) );
@@ -151,7 +154,7 @@ export default function ContestPage( props ) {
         </Row>
         <Divider></Divider>
         </div>
-        { subcompetitions && <SubcompetitionTabs subcompetitions={subcompetitions}  participants={ participants.filter( participant => participant.wettbewerbskontext ) } ranked={rankedParticipants} awards={awards} teilnehmerleistungen={data.teilnehmerleistungen} teilnahmevoraussetzungen={data.teilnahmevoraussetzungen} teilnehmerInnenzahl={data.teilnehmerInnenzahl} /> }
+        { subcompetitions && <SubcompetitionTabs subcompetitions={subcompetitions}  participants={ participants.filter( participant => participant.wettbewerbskontext ) } awards={awards} teilnehmerleistungen={data.teilnehmerleistungen} teilnahmevoraussetzungen={data.teilnahmevoraussetzungen} teilnehmerInnenzahl={data.teilnehmerInnenzahl} /> }
         { !subcompetitions && 
             <div style={{marginTop: 50}}>
             { participants.filter( participant => participant.rolle.indexOf( "Jurymitglied" )>=0 ).length>1 
@@ -176,10 +179,10 @@ export default function ContestPage( props ) {
                     />
                 </Row>*/
             }
-            { awards && participants.filter( participant => participant.hasOwnProperty('ranks') ).length > 0
-               && <Row><AwardsList awards={awards} awardedParticipants={ participants.filter( participant => participant.hasOwnProperty('ranks') ) } />
-                    {awards.map( award =>
-                        {/*
+            { //awards && participants.filter( participant => participant.hasOwnProperty('ranks') ).length > 0 &&
+                <Row><AwardsList awards={awards} awardedParticipants={ participants.filter( participant => participant.hasOwnProperty('ranks') ) } />
+                    {/*awards.map( award =>
+                        {
                             
                                 return( 
                                     <List 
@@ -205,12 +208,14 @@ export default function ContestPage( props ) {
                                 
                                 );
                         
-                            */}
+                            }
                     )
-                }
+                */}
             </Row>}
                 {/* the way of adding the entry to the participant with map works... but I feel a bit uneasy, since map returns an array and I leave it up to the browser, how it generates the string from the array (same above)
                 changed it so it does not leave array handling to react. now only the first element of the array is used. check back if this is enough ( replaced with [0]: .map( leistung => " mit: " + leistung.beschreibung ) ) */}
+                <ContestantList contestants={participants.filter( participant => !participant.hasOwnProperty('ranks') )} />
+                {/*
                 <Row>
                     <List 
                         header={<div><h3>Weitere TeilnehmerInnen</h3></div>}
@@ -231,7 +236,7 @@ export default function ContestPage( props ) {
                             </Col>
                         }
                     />
-                </Row>
+                </Row>*/}
                 { data.teilnahmevoraussetzungen
                         && <Row>
                             <List 

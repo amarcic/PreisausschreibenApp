@@ -3,6 +3,8 @@ import { Row, Col, List, Tag, Tabs, Icon, Popover } from 'antd';
 import { Link } from 'react-router-dom';
 
 import MemberListJury from './MemberListJury';
+import AwardsList from './AwardsList';
+import ContestantList from './ContestantList';
 
 const TabPane = Tabs.TabPane;
 
@@ -10,11 +12,12 @@ export default function SubcompetitionTabs( props ) {
 
     const participants = props.participants;
     const subcompetitions = props.subcompetitions;
-    const rankedParticipants = props.ranked;
+    //const rankedParticipants = props.ranked;
     const awards = props.awards;
     const teilnahmevoraussetzungen = props.teilnahmevoraussetzungen;
     const teilnehmerleistungen = props.teilnehmerleistungen;
     const teilnehmerInnenzahl = props.teilnehmerInnenzahl;
+    const awardedParticipants = participants.filter( participant => participant.hasOwnProperty('ranks') );
 
     let subcompParticipants = {};
     participants.forEach( participant => {
@@ -60,8 +63,9 @@ export default function SubcompetitionTabs( props ) {
                                 }
                             />
                             </Row>*/}
-                        <Row>
-                            {awards.map( award =>
+                        {/*award.wettbewerbskontext && award.wettbewerbskontext===subcomp&&*/
+                            awards.find( award => award.wettbewerbskontext===subcomp) && <AwardsList awards={awards.filter( award => award.wettbewerbskontext===subcomp) } awardedParticipants={awardedParticipants.filter( participant => participant.wettbewerbskontext.indexOf(subcomp)>-1 )} />
+                            /*awards.map( award =>
                                 {
                                     if(award.wettbewerbskontext && award.wettbewerbskontext===subcomp) {
                                         return( 
@@ -80,9 +84,9 @@ export default function SubcompetitionTabs( props ) {
                                                         <Col span={8}>
                                                         <ul>
                                                             {item.platzierte.map( platzierter => <li key={platzierter}> { platzierter==="nv" ? "nicht vergeben" : participants.find( participant => participant.identifier.indexOf(platzierter)===0 ).name
-                                                            /*(participants.map( participant => participant.identifier.indexOf(platzierter)===0? participant.name : ("") ) )*/
+                                                            //(participants.map( participant => participant.identifier.indexOf(platzierter)===0? participant.name : ("") ) )
                                                         }{ teilnehmerleistungen && teilnehmerleistungen.map( leistung => leistung.teilnehmer && leistung.teilnehmer.indexOf(platzierter) >= 0 ? ", mit: " + leistung.beschreibung  : "" ) } </li>)}
-                                                            {/*<Tag key={platzierter}>{participants.map( participant => participant.identifier.indexOf(platzierter)===0? participant.name : "" )}</Tag> )*/}
+                                                            {//<Tag key={platzierter}>{participants.map( participant => participant.identifier.indexOf(platzierter)===0? participant.name : "" )}</Tag> )}
                                                         </ul>
                                                         </Col>
                                                     </List.Item>
@@ -92,14 +96,15 @@ export default function SubcompetitionTabs( props ) {
                                     }
                                 }
                             )
-                            }
-                        </Row>
-                        { subcompParticipants[subcomp] && <Row>
+                            */
+                        }
+                        { subcompParticipants[subcomp] && <ContestantList contestants={participants.filter( participant => !participant.hasOwnProperty('ranks') && participant.wettbewerbskontext.indexOf(subcomp)>-1 ) } /> }
+                        {/*<Row>
                             <List 
                                 header={<div><h3>Weitere TeilnehmerInnen in diesem Teilwettbewerb</h3></div>}
                                 grid={ {column: 2} }
                                 dataSource={ subcompParticipants[subcomp].filter( participant =>
-                                    participant.rolle.indexOf( "TeilnehmerIn" ) >= 0 && rankedParticipants.indexOf( participant.identifier[0] ) === -1
+                                    participant.rolle.indexOf( "TeilnehmerIn" ) >= 0 && !participant.ranks /*rankedParticipants.indexOf( participant.identifier[0] ) === -1*
                                 ) }
                                 renderItem={ item =>
                                     <Col offset={1}>
@@ -113,7 +118,7 @@ export default function SubcompetitionTabs( props ) {
                                     </Col>
                                 }
                             />
-                        </Row>}                    
+                            </Row>*/}                   
                         { teilnahmevoraussetzungen && teilnahmevoraussetzungen.filter( criterion => criterion.wettbewerbskontext === subcomp).length > 0
                         && <Row>
                             <List 
