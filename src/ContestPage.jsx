@@ -6,6 +6,7 @@ import SubcompetitionTabs from './SubcompetitionTabs';
 import MemberListJury from './MemberListJury';
 import AwardsList from './AwardsList';
 import ContestantList from './ContestantList';
+import Prerequisits from './Prerequisits';
 
 import dateHelper from './dateHelper';
 
@@ -86,6 +87,7 @@ export default function ContestPage( props ) {
                                         } 
                                     )
     
+    console.log( "länge: "  + participants.filter( participant => participant.rolle.indexOf( "Jurymitglied" )>=0 && !participant.hasOwnProperty('wettbewerbskontext') ).length);
     //console.log(participants);
     //console.log(participantsBySubcomp);
     //console.log( rankedParticipants );
@@ -157,7 +159,7 @@ export default function ContestPage( props ) {
         { subcompetitions && <SubcompetitionTabs subcompetitions={subcompetitions}  participants={ participants.filter( participant => participant.wettbewerbskontext ) } awards={awards} teilnehmerleistungen={data.teilnehmerleistungen} teilnahmevoraussetzungen={data.teilnahmevoraussetzungen} teilnehmerInnenzahl={data.teilnehmerInnenzahl} /> }
         { !subcompetitions && 
             <div style={{marginTop: 50}}>
-            { participants.filter( participant => participant.rolle.indexOf( "Jurymitglied" )>=0 ).length>1 
+            { participants.filter( participant => participant.rolle.indexOf( "Jurymitglied" )>=0 ).length>0 
                 && <MemberListJury juryMembers={participants.filter( participant => participant.rolle.indexOf( "Jurymitglied" ) >= 0 )} />
                 /*<Row>     
                     <List 
@@ -276,6 +278,16 @@ export default function ContestPage( props ) {
 
             </div>
         }
+        { //the extra MememberListJury component is here for the case the jury memebers are not in any subcompetition and thus would not be shown at all
+            subcompetitions
+            && participants.filter( participant => participant.rolle.indexOf( "Jurymitglied" )>=0 && !participant.hasOwnProperty('wettbewerbskontext') ).length>0 
+            && <div style={{marginTop: 50}} ><Divider>den Quellen konnte für folgende Einträge keine eindeutige Zuordnung zu Teilwettwerben entnommen werden</Divider>
+                    <MemberListJury juryMembers={participants.filter( participant => participant.rolle.indexOf( "Jurymitglied" ) >= 0 && !participant.hasOwnProperty('wettbewerbskontext') )} /></div>}
+        { //the extra Prerequisits component is here for the case prerequisits are not in any subcompetition and thus would not be shown at all
+            data.teilnahmevoraussetzungen 
+            && subcompetitions && data.teilnahmevoraussetzungen.filter( prereq => !prereq.hasOwnProperty( 'wettbewerbskontext' ) ) > 0
+            && <div style={{marginTop: 50}} ><Divider>den Quellen konnte für folgende Einträge keine eindeutige Zuordnung zu Teilwettwerben entnommen werden</Divider>
+                    <Prerequisits prereqs={data.teilnahmevoraussetzungen.filter( prereq => !prereq.hasOwnProperty( 'wettbewerbskontext' ) ) } /></div> }
         <Divider></Divider>
         <div style={{marginTop: 50}} >
         <Collapse>

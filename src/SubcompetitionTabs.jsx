@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import MemberListJury from './MemberListJury';
 import AwardsList from './AwardsList';
 import ContestantList from './ContestantList';
-
+import Prerequisits from './Prerequisits';
 const TabPane = Tabs.TabPane;
 
 export default function SubcompetitionTabs( props ) {
@@ -120,7 +120,7 @@ export default function SubcompetitionTabs( props ) {
                             />
                             </Row>*/}                   
                         { teilnahmevoraussetzungen && teilnahmevoraussetzungen.filter( criterion => criterion.wettbewerbskontext === subcomp).length > 0
-                        && <Row>
+                        && <Prerequisits prereqs={teilnahmevoraussetzungen.filter( criterion => criterion.wettbewerbskontext === subcomp)} /> }{/*<Row>
                             <List 
                                 header={<h3>Teilnahmevoraussetzungen</h3>}
                                 dataSource={teilnahmevoraussetzungen.filter( criterion => criterion.wettbewerbskontext === subcomp)}
@@ -135,7 +135,7 @@ export default function SubcompetitionTabs( props ) {
                                     </List.Item>
                                 }
                             />
-                        </Row>}
+                            </Row>*/}
                         { teilnehmerInnenzahl && teilnehmerInnenzahl.filter( amount => amount.wettbewerbskontext === subcomp).length > 0
                             && <Row>
                                 <List
