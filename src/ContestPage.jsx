@@ -6,6 +6,7 @@ import SubcompetitionTabs from './SubcompetitionTabs';
 import MemberListJury from './MemberListJury';
 import AwardsList from './AwardsList';
 import ContestantList from './ContestantList';
+import NumberOfParticipants from './NumberOfParticipants';
 import Prerequisits from './Prerequisits';
 
 import dateHelper from './dateHelper';
@@ -240,6 +241,9 @@ export default function ContestPage( props ) {
                     />
                 </Row>*/}
                 { data.teilnahmevoraussetzungen
+                    && <Prerequisits prereqs={data.teilnahmevoraussetzungen} /> 
+                }
+                {/* data.teilnahmevoraussetzungen
                         && <Row>
                             <List 
                                 header={<h3>Teilnahmevoraussetzungen</h3>}
@@ -255,8 +259,11 @@ export default function ContestPage( props ) {
                                     </List.Item>
                                 }
                             />
-                        </Row>}
-                {
+                            </Row>*/}
+                { data.teilnehmerInnenzahl && !data.teilnehmerInnenzahl.filter( nop => nop.hasOwnProperty('wettbewerbskontext') ).length>0
+                    && <NumberOfParticipants numOPart={ data.teilnehmerInnenzahl } />
+                }
+                {/*
                     data.teilnehmerInnenzahl && !data.teilnehmerInnenzahl.wettbewerbskontext
                         && <Row>
                             <List 
@@ -274,7 +281,7 @@ export default function ContestPage( props ) {
                                 }
                             />
                         </Row>
-                }
+                            */}
 
             </div>
         }

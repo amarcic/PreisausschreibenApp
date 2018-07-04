@@ -6,6 +6,7 @@ import MemberListJury from './MemberListJury';
 import AwardsList from './AwardsList';
 import ContestantList from './ContestantList';
 import Prerequisits from './Prerequisits';
+import NumberOfParticipants from './NumberOfParticipants';
 const TabPane = Tabs.TabPane;
 
 export default function SubcompetitionTabs( props ) {
@@ -137,6 +138,10 @@ export default function SubcompetitionTabs( props ) {
                             />
                             </Row>*/}
                         { teilnehmerInnenzahl && teilnehmerInnenzahl.filter( amount => amount.wettbewerbskontext === subcomp).length > 0
+                            && <NumberOfParticipants numOPart={ teilnehmerInnenzahl.filter( amount => amount.wettbewerbskontext === subcomp ) } />
+
+                        }
+                        {/* teilnehmerInnenzahl && teilnehmerInnenzahl.filter( amount => amount.wettbewerbskontext === subcomp).length > 0
                             && <Row>
                                 <List
                                     header={<h3>TeilnehmerInnenzahl in diesem Teilwettbewerb</h3>}
@@ -153,7 +158,7 @@ export default function SubcompetitionTabs( props ) {
                                     }
                                 />
                             </Row>
-                        }
+                                */}
                         </TabPane>
                     )}
                 </Tabs>

@@ -14,11 +14,14 @@ export default function ContestantList( props ) {
                 grid={ {column: 2} }
                 dataSource={ contestants /*.filter( contestant => !contestant.hasOwnProperty('ranks') )*/ }
                 renderItem={ item => 
-                    <Col>
+                    <Col offset={1}>
                         <List.Item>
                             <List.Item.Meta
                                 title={item.name + ( item.leistungen ? ", mit: " + item.leistungen : "" ) }
-                            />
+                                description={ item.kollaboration? " Gemeinsam teilgenommen mit: " + item.kollaboration.join(", ") /*+
+                                    item.kollaboration.map( coll => contestants.find( contestant => contestant.identifier[0]===coll ).name ).join(", ") */
+                                : "" }
+                            />                            
                         </List.Item>
                     </Col>
                 }            
