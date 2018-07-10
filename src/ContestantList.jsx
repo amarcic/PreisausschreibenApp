@@ -18,8 +18,10 @@ export default function ContestantList( props ) {
                         <List.Item>
                             <List.Item.Meta
                                 title={item.name + ( item.leistungen ? ", mit: " + item.leistungen : "" ) }
-                                description={ item.kollaboration? " Gemeinsam teilgenommen mit: " + item.kollaboration.join(", ") /*+
-                                    item.kollaboration.map( coll => contestants.find( contestant => contestant.identifier[0]===coll ).name ).join(", ") */
+                                description={ item.kollaboration? " Gemeinsam teilgenommen mit: " + item.kollaboration.map( coll => contestants.find( contestant => contestant.identifier[0]===coll ).name  ).join(", ")
+                                /*reason for the problem is the following: this component does only 
+                                have access to participants; but a collaboration can include people who did not directly participate (i.e. a teacher);
+                                I can simply not filter out non-participants... but that is odd, too*/
                                 : "" }
                             />                            
                         </List.Item>

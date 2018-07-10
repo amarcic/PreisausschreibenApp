@@ -217,7 +217,7 @@ export default function ContestPage( props ) {
             </Row>}
                 {/* the way of adding the entry to the participant with map works... but I feel a bit uneasy, since map returns an array and I leave it up to the browser, how it generates the string from the array (same above)
                 changed it so it does not leave array handling to react. now only the first element of the array is used. check back if this is enough ( replaced with [0]: .map( leistung => " mit: " + leistung.beschreibung ) ) */}
-                <ContestantList contestants={participants.filter( participant => !participant.hasOwnProperty('ranks') )} />
+                <ContestantList contestants={participants/*.filter( participant => !participant.hasOwnProperty('ranks') )*/} />
                 {/*
                 <Row>
                     <List 
