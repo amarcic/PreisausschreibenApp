@@ -16,7 +16,7 @@ export default function SubcompetitionTabs( props ) {
     //const rankedParticipants = props.ranked;
     const awards = props.awards;
     const teilnahmevoraussetzungen = props.teilnahmevoraussetzungen;
-    const teilnehmerleistungen = props.teilnehmerleistungen;
+    //const teilnehmerleistungen = props.teilnehmerleistungen;
     const teilnehmerInnenzahl = props.teilnehmerInnenzahl;
     const awardedParticipants = participants.filter( participant => participant.hasOwnProperty('ranks') );
 
@@ -33,7 +33,7 @@ export default function SubcompetitionTabs( props ) {
             );
         } 
     } );
-    //console.log(subcompParticipants);
+    console.log(subcompParticipants);
 
     return(
         <div style={{marginTop: 50}} >

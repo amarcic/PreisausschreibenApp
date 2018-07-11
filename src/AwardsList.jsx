@@ -7,7 +7,7 @@ export default function AwardsList( props ) {
     let awards = props.awards;
     let awardedParticipants = props.awardedParticipants;
     //console.log(awards);
-    //console.log(awardedParticipants);
+    console.log(awardedParticipants);
 
     return(
         <Row>

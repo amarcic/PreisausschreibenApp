@@ -55,7 +55,9 @@ export default function ContestPage( props ) {
                         rank.platzierte.forEach( ranked =>{
                             let context = "0";
                             award.wettbewerbskontext? context=award.wettbewerbskontext : context = "hauptwettbewerb"; 
-                            rankedParticipants[ranked] = { [context]: rank.rang }
+                            //rankedParticipants[ranked] = { [context]: rank.rang }
+                            if (!rankedParticipants[ranked]) {rankedParticipants[ranked]={} };
+                            rankedParticipants[ranked][context] = rank.rang;
                         }
                             //rankedParticipants.push( { rankedId: ranked, rankInContext: { [award.wettbewerbskontext]: rank.rang }  /*[award.wettbewerbskontext]: rank.rang*/ /*rank: rank.rang, context: award.wettbewerbskontext*/ } )
                         );
@@ -66,20 +68,27 @@ export default function ContestPage( props ) {
     );
 
     //the following line adds the data from rankedParticipants to the participants object.
-    Object.keys(rankedParticipants).forEach( id => { participants.find( participant => participant.identifier[0]===id ) ? participants.find( participant => participant.identifier[0]===id ).ranks  = rankedParticipants[id] : console.log("done here"); } )
+    //using .find() causes a problem, if the same person ranked in different subcompetitions
+    Object.keys( rankedParticipants ).forEach( id => { console.log(id);
+                                                        if( participants.find( participant => participant.identifier[0]===id ) ) { participants.forEach( participant => { if (participant.identifier[0] === id) { if(!participant.ranks) {participant.ranks={}};  for (let key in rankedParticipants[id]) ( participant.ranks[key]=rankedParticipants[id][key] ) } } ) }
+                                                    } );
+                                                    console.log(rankedParticipants);
+    //Object.keys(rankedParticipants).forEach( id => { participants.find( participant => participant.identifier[0]===id ) ? participants.find( participant => participant.identifier[0]===id ).ranks  = rankedParticipants[id] : console.log("done here"); } )
     //the following code looks for the participants identified in teilnehmerleistung.teilnehmer; then it adds a property 'leistung' to participants to hold the info from teilnehmerleistung in an array
     
+    // I added a check for array and property 'teilnehmer' on data.teilnehmerleistungen
     if (data.teilnehmerleistungen) {
-            data.teilnehmerleistungen.forEach( leistung => leistung.teilnehmer.forEach( participantId => {
-                                                                let attendee = participants.find( participant => participant.identifier[0] === participantId );
-                                                                attendee.leistungen? attendee.leistungen.push(leistung.beschreibung) : attendee.leistungen = [leistung.beschreibung];
-                                                                return attendee;
-                                                                } 
-                                                            ) )
+            data.teilnehmerleistungen.forEach( leistung =>     { if (leistung.hasOwnProperty('teilnehmer')&&Array.isArray(leistung.teilnehmer))
+                                                                    { leistung.teilnehmer.forEach( participantId => {
+                                                                    let attendee = participants.find( participant => participant.identifier[0] === participantId );
+                                                                    attendee.leistungen? attendee.leistungen.push(leistung.beschreibung) : attendee.leistungen = [leistung.beschreibung];
+                                                                    return attendee;
+                                                                    } 
+                                                            )}} )
         }
     
     //the whole preparation of participant data should maybe be outsourced to an extra function
-
+    /*
     let participantsBySubcomp = {};
     participants.forEach( participant => {
                                             if ( participant.wettbewerbskontext ) {
@@ -87,8 +96,8 @@ export default function ContestPage( props ) {
                                             }  
                                         } 
                                     )
-    
-    console.log( "länge: "  + participants.filter( participant => participant.rolle.indexOf( "Jurymitglied" )>=0 && !participant.hasOwnProperty('wettbewerbskontext') ).length);
+    */
+    //console.log( "länge: "  + participants.filter( participant => participant.rolle.indexOf( "Jurymitglied" )>=0 && !participant.hasOwnProperty('wettbewerbskontext') ).length);
     //console.log(participants);
     //console.log(participantsBySubcomp);
     //console.log( rankedParticipants );
