@@ -30,10 +30,12 @@ export default function AwardsList( props ) {
                                     {item.platzierte.map( placed => 
                                         <li style={{listStyleType: 'none'}} key={placed}>
                                             { placed==='nv' ? "nicht vergeben" 
-                                                                : awardedParticipants.find( participant => participant.identifier[0]===placed ).name
-                                                                + ( awardedParticipants.find( participant => participant.identifier[0]===placed ).hasOwnProperty('leistungen') ?
-                                                                    ", mit: " + awardedParticipants.find(participant => participant.identifier[0]===placed ).leistungen.join(", ")
-                                                                    : "")
+                                                                : awardedParticipants.find( participant => participant.identifier[0]===placed ) ? 
+                                                                        awardedParticipants.find( participant => participant.identifier[0]===placed ).name
+                                                                        + ( awardedParticipants.find( participant => participant.identifier[0]===placed ).hasOwnProperty('leistungen') ?
+                                                                                ", mit: " + awardedParticipants.find(participant => participant.identifier[0]===placed ).leistungen.join(", ")
+                                                                            : "") 
+                                                                                :  placed + "(nicht gefunden...)"
                                                                 }
                                         </li>
                                         )}
