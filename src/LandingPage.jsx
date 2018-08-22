@@ -19,13 +19,13 @@ function LandingPage( props ) {
                     <div style={{ maxWidth: "1680px" }}>
                         <Row gutter={24}>
                             <Col span={8}>
-                                <Card hoverable cover={<img alt="Bücherstapel" src="Preisausschreibenstapel.jpg"/>} onClick={ () => props.history.push('/overview') } bordered={false}  ><Meta title="Preisausschreibensuche" description="1100 Preisausschreiben" /></Card>
+                                <Card hoverable cover={<img alt="Bücherstapel" src="/app/Preisausschreibenstapel.jpg"/>} onClick={ () => props.history.push('/overview') } bordered={false}  ><Meta title="Preisausschreibensuche" description="1100 Preisausschreiben" /></Card>
                             </Col>
                             <Col span={8}>
-                                <Card cover={<img alt="Collage Portraits" src="Personenstapel.jpg"/>} hoverable onClick={ () => props.history.push('/overview') } bordered={false} ><Meta title="Personensuche" description="2608 Personen" /></Card>
+                                <Card cover={<img alt="Collage Portraits" src="/app/Personenstapel.jpg"/>} hoverable onClick={ () => props.history.push('/overview') } bordered={false} ><Meta title="Personensuche" description="2608 Personen" /></Card>
                             </Col>
                             <Col span={8}>
-                                <Card cover={<img alt="Eidgenössisches Sängerfest 1854 in Winterthur (Zentralbibliothek Zürich, http://doi.org/10.3931/e-rara-38066)" src="Winterthur1854.jpg"/>} hoverable onClick={ () => props.history.push('/overview') } bordered={false}><Meta title="Körperschaftensuche" description="899 Vereine, Institutionen, etc" /></Card>
+                                <Card cover={<img alt="Eidgenössisches Sängerfest 1854 in Winterthur (Zentralbibliothek Zürich, http://doi.org/10.3931/e-rara-38066)" src="/app/Winterthur1854.jpg"/>} hoverable onClick={ () => props.history.push('/overview') } bordered={false}><Meta title="Körperschaftensuche" description="899 Vereine, Institutionen, etc" /></Card>
                             </Col>
                         </Row>
                         
