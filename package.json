@@ -5,10 +5,10 @@
   "main": "./src/app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack -p",
+    "build": "webpack --config webpack.prod.js",
     "dev": "webpack-dev-server --inline --hot",
     "production": "cross-env NODE_ENV=production webpack",
-    "start": "webpack-dev-server --hot --open"
+    "start": "webpack-dev-server --hot --open --config webpack.dev.js"
   },
   "repository": {
     "type": "git",
@@ -37,7 +37,8 @@
     "style-loader": "^0.19.1",
     "webpack": "^4.17.1",
     "webpack-cli": "^3.1.0",
-    "webpack-dev-server": "^3.1.5"
+    "webpack-dev-server": "^3.1.5",
+    "webpack-merge": "^4.1.4"
   },
   "dependencies": {
     "ajv": "^6.5.3",
