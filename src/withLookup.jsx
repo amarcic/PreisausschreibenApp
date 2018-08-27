@@ -15,12 +15,15 @@ function fetchFromCouch( queryString, apiUrl, view ) {
 console.log(view);
     let selectView = "";
     switch( view ) {
-        case "inPreisausschreiben": selectView = "_design/preisausschreiben/_view/idsinpa"; break;
+        case "inPreisausschreiben": selectView = "_design/preisausschreiben/_view/idsinpas"; break;
+//        case "directDoc": selectView = "preisausschreiben/"; break;
     }
 
-    const apiViewSelect = apiUrl + selectView;
-    const apiRequest = apiUrl + "_design/preisausschreiben/_view/idsinpas" + '?key="' + queryString + '"';
+    const apiViewSelect = apiUrl +  selectView;
+    //console.log("apireq: " + apiUrl + selectView );
+    const apiRequest = apiUrl + selectView + '?key="' + queryString + '"';
     //view? apiViewSelect + '?startkey="' + queryString + '"&&endkey="' + queryString + '\ufff0"&&reduce=false': apiUrl + queryString;
+    //console.log("apireq: " + apiRequest );
      
     fetch( apiRequest, requestOptions )
         .then( response => response.json() )
@@ -41,7 +44,7 @@ export default function withLookup( WrappedComponent ) {
             }
 
             componentDidMount() {
-                console.log("hello from withPromise componentDidMount()");
+//                console.log("hello from withPromise componentDidMount()");
                 this.fetchStuff( this.props.query, api, this.props.view );
             }
 

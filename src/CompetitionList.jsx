@@ -7,7 +7,7 @@ export default function CompetitionList(props) {
 
     return(
         <ul>
-            {data.map( item => <li> <Link to={"/dokumente/preisausschreiben/" + item.id}>{item.value.bezeichnung}, {item.value.ort}</Link> </li> )}
+            {data.map( item => <li key={item.id}> <Link to={"/dokumente/preisausschreiben/" + item.id}>{item.value.bezeichnung}, {item.value.ort}</Link> </li> )}
         </ul>
     );
 
