@@ -321,7 +321,7 @@ export default function ContestPage( props ) {
                                                 /*item.wettbewerbskontext.map( kontext => <Tag key={kontext} color="magenta">{kontext}</Tag> ) :*/
                                                 ""} >
                             <List.Item.Meta 
-                                title={<span><Link to={"/dokumente/person/" + item.identifier[0]} > {item.name} </Link> als {item.rolle.join(", ") } </span> }
+                                title={<span><Link to={"/dokumente/" + item.identifier[0]} > {item.name} </Link> als {item.rolle.join(", ") } </span> }
                                 description={item.anmerkung}
                             />
                         </List.Item>

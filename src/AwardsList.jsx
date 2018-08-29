@@ -31,10 +31,10 @@ export default function AwardsList( props ) {
                                         <li style={{listStyleType: 'none'}} key={placed}>
                                             { placed==='nv' ? "nicht vergeben" 
                                                                 : awardedParticipants.find( participant => participant.identifier[0]===placed ) ? 
-                                                                        awardedParticipants.find( participant => participant.identifier[0]===placed ).name
-                                                                        + ( awardedParticipants.find( participant => participant.identifier[0]===placed ).hasOwnProperty('leistungen') ?
+                                                                        <span><Link to={"/dokumente/" + awardedParticipants.find( participant => participant.identifier[0]===placed ).identifier[0]} >{awardedParticipants.find( participant => participant.identifier[0]===placed ).name} </Link>
+                                                                         {( awardedParticipants.find( participant => participant.identifier[0]===placed ).hasOwnProperty('leistungen') ?
                                                                                 ", mit: " + awardedParticipants.find(participant => participant.identifier[0]===placed ).leistungen.join(", ")
-                                                                            : "") 
+                                                                            : "") }</span>
                                                                                 :  placed + "(nicht gefunden...)"
                                                                 }
                                         </li>

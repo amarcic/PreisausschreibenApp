@@ -2,13 +2,13 @@ import React from 'react';
 import { Row, Col, List } from 'antd';
 import { Link } from 'react-router-dom';
 
-import RouteById from "./RouteById";
-import withPromise from "./withPromise";
+//import RouteById from "./RouteById";
+//import withPromise from "./withPromise";
 
 export default function ContestantList( props ) {
 
     const contestants = props.contestants;
-    const RouteWithPromise = withPromise( RouteById );
+//    const RouteWithPromise = withPromise( RouteById );
     console.log(contestants);
 
     return (
@@ -21,7 +21,8 @@ export default function ContestantList( props ) {
                     <Col offset={1}>
                         <List.Item>
                             <List.Item.Meta
-                                title={<span><RouteWithPromise query={item.identifier[0]} text={item.name} />{item.leistungen ? ", mit: " + item.leistungen : "" } </span>} 
+                                title={<span><Link to={"/dokumente/" + item.identifier[0]}>{item.name}</Link>{( item.leistungen ? ", mit: " + item.leistungen : "" )}</span>}
+                                //{<span><RouteWithPromise query={item.identifier[0]} text={item.name} />{item.leistungen ? ", mit: " + item.leistungen : "" } </span>} 
                                 //{item.name + ( item.leistungen ? ", mit: " + item.leistungen : "" ) }
                                 description={ item.kollaboration? " Gemeinsam teilgenommen mit: " + item.kollaboration.map( coll => contestants.find( contestant => contestant.identifier[0]===coll ).name  ).join(", ")
                                 /*reason for the problem is the following: this component does only 

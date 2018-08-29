@@ -1,11 +1,6 @@
 import React from 'react';
 import { Row, Col, List } from 'antd';
-//import { Link } from 'react-router-dom';
-
-import RouteById from './RouteById';
-import withPromise from './withPromise';
-
-let RouteWithPromise = withPromise( RouteById );
+import { Link } from 'react-router-dom';
 
 export default function MemberListJury( props ) {
 
@@ -22,7 +17,7 @@ export default function MemberListJury( props ) {
                     <Col offset={1}>
                         <List.Item>
                             <List.Item.Meta 
-                                title={<RouteWithPromise query={item.identifier[0]} text={item.name} />}  //{item.name}
+                                title={<span><Link to={"/dokumente/" + item.identifier[0]} >{item.name}</Link></span>}
                                 description={item.anmerkung}
                             />
                         </List.Item>

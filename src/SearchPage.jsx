@@ -11,7 +11,7 @@ const columnsPersonen = [
         title: <span style={{ fontFamily: "'Source Sans Pro', sans"}} >Nachname</span>,
         dataIndex: 'value.nachname',
         key: 'value.nachname',
-        render: (text, record) => <Link to={"/dokumente/person/" + record.id}> {text} </Link>
+        render: (text, record) => <Link to={"/dokumente/" + record.id}> {text} </Link>
     },
     {
         title: <span style={{ fontFamily: "'Source Sans Pro', sans"}} >Vorname</span>,
@@ -31,7 +31,7 @@ const columnsPreisausschreiben = [
         title: <span style={{ fontFamily: "'Source Sans Pro', sans"}} >Ausschreibung</span>,
         dataIndex: 'value.ausschreibung',
         key: 'value.ausschreibung',
-        render: (text, record ) => <Link to={"/dokumente/preisausschreiben/" + record.id}> {text? text: "unbekannt"} </Link>
+        render: (text, record ) => <Link to={"/dokumente/" + record.id}> {text? text: "unbekannt"} </Link>
     },
     {
         title: <span style={{ fontFamily: "'Source Sans Pro', sans"}} >Ereignisse</span>,
@@ -53,7 +53,7 @@ const columnsKoerperschaften = [
         title: 'Bezeichnung',
         dataIndex: 'value.bezeichnung[0]',
         key: 'value.bezeichnung',
-        render: (text, record ) => <Link to={"/dokumente/koerperschaft/" + record.id}> {text} </Link>
+        render: (text, record ) => <Link to={"/dokumente/" + record.id}> {text} </Link>
     },
     {
         title: 'Ort',
@@ -72,7 +72,7 @@ const columnsSerien = [
         title: 'Bezeichnung der Serie',
         dataIndex: 'value',
         key: "serienbezeichnung",
-        render: (text, record) => <Link to={"/dokumente/serie/" + record.id}> {text} </Link>
+        render: (text, record) => <Link to={"/dokumente/" + record.id}> {text} </Link>
     }
 ]
 
