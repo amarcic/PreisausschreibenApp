@@ -8,7 +8,7 @@ import AwardsList from './AwardsList';
 import ContestantList from './ContestantList';
 import NumberOfParticipants from './NumberOfParticipants';
 import Prerequisits from './Prerequisits';
-import EventList from './EventList';
+import EventsList from './EventsList';
 
 const Panel = Collapse.Panel;
 //const TabPane = Tabs.TabPane;
@@ -133,7 +133,7 @@ export default function ContestPage( props ) {
 
         <div style={{marginTop: 50}}>
         <Row>
-            <EventList events={events} comments={comments} />
+            <EventsList events={events} comments={comments} />
         </Row>
         <Divider></Divider>
         </div>
