@@ -28,8 +28,8 @@ export default function ContestPage( props ) {
     if(data.auszeichnungen) { awards = data.auszeichnungen;}
     let subcompetitions;
     if (data.wettbewerbsgliederung) { subcompetitions = data.wettbewerbsgliederung;}
-    let comments;
-    if (data.kommentare) { comments = data.kommentare }
+    let comments = [];
+    if (data.kommentare) { comments = data.kommentare };
     let rankedParticipants = [];
 
     const columnsTasks = [{
@@ -134,15 +134,15 @@ export default function ContestPage( props ) {
 
         <div style={{marginTop: 50}}>
         <Row>
-            <EventsList events={events} comments={comments.filter( comment => comment.thema==="Jury" ) } />
+            <EventsList events={events} comments={comments.filter( comment => comment.thema==="Ereignisse" ) } />
         </Row>
         <Divider></Divider>
         </div>
-        { subcompetitions && <SubcompetitionTabs subcompetitions={subcompetitions}  participants={ participants.filter( participant => participant.wettbewerbskontext ) } awards={awards} teilnehmerleistungen={data.teilnehmerleistungen} teilnahmevoraussetzungen={data.teilnahmevoraussetzungen} teilnehmerInnenzahl={data.teilnehmerInnenzahl} /> }
+        { subcompetitions && <SubcompetitionTabs subcompetitions={subcompetitions}  participants={ participants.filter( participant => participant.wettbewerbskontext ) } awards={awards} teilnehmerleistungen={data.teilnehmerleistungen} teilnahmevoraussetzungen={data.teilnahmevoraussetzungen} teilnehmerInnenzahl={data.teilnehmerInnenzahl} comments={comments} /> }
         { !subcompetitions && 
             <div style={{marginTop: 50}}>
             { participants.filter( participant => participant.rolle.indexOf( "Jurymitglied" )>=0 ).length>0 
-                && <MemberListJury juryMembers={participants.filter( participant => participant.rolle.indexOf( "Jurymitglied" ) >= 0 )} />
+                && <MemberListJury juryMembers={participants.filter( participant => participant.rolle.indexOf( "Jurymitglied" ) >= 0 )} comments={comments.filter( comment => comment.thema === "Jury" )} />
             }
             { //awards && participants.filter( participant => participant.hasOwnProperty('ranks') ).length > 0 &&
                 <Row><AwardsList awards={awards} awardedParticipants={ participants.filter( participant => participant.hasOwnProperty('ranks') ) } />
@@ -160,7 +160,7 @@ export default function ContestPage( props ) {
             subcompetitions
             && participants.filter( participant => participant.rolle.indexOf( "Jurymitglied" )>=0 && !participant.hasOwnProperty('wettbewerbskontext') ).length>0 
             && <div style={{marginTop: 50}} ><Divider>den Quellen konnte für folgende Einträge keine eindeutige Zuordnung zu Teilwettwerben entnommen werden</Divider>
-        <MemberListJury juryMembers={participants.filter( participant => participant.rolle.indexOf( "Jurymitglied" ) >= 0 && !participant.hasOwnProperty('wettbewerbskontext') )} /></div>
+        <MemberListJury juryMembers={participants.filter( participant => participant.rolle.indexOf( "Jurymitglied" ) >= 0 && !participant.hasOwnProperty('wettbewerbskontext') )} comments={comments.filter( comment => comment.thema === "Jury" )} /></div>
         }
         { /*the extra Prerequisits component is here for the case prerequisits are not in any subcompetition and thus would not be shown at all
             data.teilnahmevoraussetzungen 
