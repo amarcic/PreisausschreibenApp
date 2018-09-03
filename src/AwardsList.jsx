@@ -27,11 +27,11 @@ export default function AwardsList( props ) {
                                 </Col>
                                 <Col span={8}>
                                 {awardedParticipants && <ul>
-                                    {item.platzierte.map( placed => 
-                                        <li style={{listStyleType: 'none'}} key={placed}>
+                                    {item.platzierte.map( (placed, i) => 
+                                        <li style={{listStyleType: 'none'}} key={i}>
                                             { placed==='nv' ? "nicht vergeben" 
                                                                 : awardedParticipants.find( participant => participant.identifier[0]===placed ) ? 
-                                                                        <span><Link to={"/dokumente/" + awardedParticipants.find( participant => participant.identifier[0]===placed ).identifier[0]} >{awardedParticipants.find( participant => participant.identifier[0]===placed ).name} </Link>
+                                                                        <span><Link to={"/dokumente/" + awardedParticipants.find( participant => participant.identifier[0]===placed ).identifier[0]} >{awardedParticipants.find( participant => participant.identifier[0]===placed ).name}</Link>
                                                                          {( awardedParticipants.find( participant => participant.identifier[0]===placed ).hasOwnProperty('leistungen') ?
                                                                                 ", mit: " + awardedParticipants.find(participant => participant.identifier[0]===placed ).leistungen.join(", ")
                                                                             : "") }</span>

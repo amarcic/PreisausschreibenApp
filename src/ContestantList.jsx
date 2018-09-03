@@ -24,7 +24,7 @@ export default function ContestantList( props ) {
                                 title={<span><Link to={"/dokumente/" + item.identifier[0]}>{item.name}</Link>{( item.leistungen ? ", mit: " + item.leistungen : "" )}</span>}
                                 //{<span><RouteWithPromise query={item.identifier[0]} text={item.name} />{item.leistungen ? ", mit: " + item.leistungen : "" } </span>} 
                                 //{item.name + ( item.leistungen ? ", mit: " + item.leistungen : "" ) }
-                                description={ item.kollaboration? " Gemeinsam teilgenommen mit: " + item.kollaboration.map( coll => contestants.find( contestant => contestant.identifier[0]===coll ).name  ).join(", ")
+                                description={ item.kollaboration ? " Gemeinsam teilgenommen mit: " + item.kollaboration.map( coll => contestants.find( contestant => contestant.identifier[0]===coll ).name  ).join(", ")
                                 /*reason for the problem is the following: this component does only 
                                 have access to participants; but a collaboration can include people who did not directly participate (i.e. a teacher);
                                 I can simply not filter out non-participants... but that is odd, too*/

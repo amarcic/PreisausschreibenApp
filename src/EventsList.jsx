@@ -1,32 +1,21 @@
 import React from 'react';
-import { Row, Col, Tooltip, Collapse } from 'antd';
-import EventItem from './EventItem';
-//import { Link } from 'react-router-dom';
+import { Row, Col, Tooltip, Collapse, Icon} from 'antd';
+
 const Panel = Collapse.Panel;
 
 import dateHelper from './dateHelper';
 
-/*
-export default class EventsList extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            events: this.props.events,
-            comments: this.props.comments
-        }
-    }
-    render() {*/
-
 export default function EventsList( props ) {
 
     const events = props.events;
-    const comments = props.comments;
+    const comments = props.comments.map( comment => comment.text ).join('\n');
+//    console.log(comments);
 
         return(
             <Row>
-                <h3>Ereignisse</h3>
-                {events.map( event =>
-                    <Collapse bordered={false}>
+                <h3>Ereignisse { comments ? <Tooltip title={comments} ><Icon type="plus-square" theme="outlined" /></Tooltip> : "" }</h3>
+                {events.map( (event, i) =>
+                    <Collapse bordered={false} key={i}>
                         <Panel
                             header={
                                 <Row>
@@ -46,21 +35,12 @@ export default function EventsList( props ) {
                         >
                         <Col offset={1}>
                             Art des Ereignisses: {event.ereignistyp ? <span> {event.ereignistyp} <br /></span> : ""}
-                            Wettbewerbskontext: {event.wettbewerbskontext ? event.wettbewerbskontext : ""  }
+                            {event.wettbewerbskontext ? "Wettbewerbskontext: " + event.wettbewerbskontext.join(", ") : ""  }
                         </Col>
                         </Panel>
                     </Collapse>
                 )}
             </Row>
         );
-            {/*<List 
-                dataSource={this.state.events}
-                renderItem={ item =>
-                    <List.Item>
-                        <EventItem eventType={item.ereignistyp} date={item.zeit} location={item.ort} desciption={item.beschreibung} context={item.wettbewerbskontext} />
-                    </List.Item>
-                
-            />}
-        )*/}
     }
 //}
