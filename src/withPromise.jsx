@@ -44,14 +44,21 @@ export default function withPromise( WrappedComponent ) {
                     loading: true,
                     data: null
                 }
-                this.fetchStuff = fetchFromCouch.bind(this);
+                this.fetchData = fetchFromCouch.bind(this);
             }
         
             componentDidMount() {
                 //console.log("hello from withPromise componentDidMount()");
-                this.fetchStuff( this.props.query, api, this.props.collection );
+                this.fetchData( this.props.query, api, this.props.collection );
             }
 
+            componentDidUpdate( prevProps ) {
+                if ( this.props.query !== prevProps.query ) {
+                    this.fetchData( this.props.query, api, this.props.collection );
+                }
+            }
+
+            /* replaced with the componentDidUpdate method above, since componentWillReceiveProps is considered unsafe and will be depricated in the future
             componentWillReceiveProps( nextProps ) {
                 
                 // the following line fixes the bug, that was using fetched data from previous queries to build the result table (which led to crashes)
@@ -59,9 +66,9 @@ export default function withPromise( WrappedComponent ) {
 
                 //I could check if this.props.query !== nextProps.query before I send another fetch request
                
-                this.fetchStuff( nextProps.query, api, nextProps.collection );
+                this.fetchData( nextProps.query, api, nextProps.collection );
             }
-
+            */
 
            render() {
             //console.log("hello from withPromise render()");

@@ -40,14 +40,20 @@ export default function withLookup( WrappedComponent ) {
                     loading: true,
                     data: null
                 }
-                this.fetchStuff = fetchFromCouch.bind(this);
+                this.fetchData= fetchFromCouch.bind(this);
             }
 
             componentDidMount() {
 //                console.log("hello from withPromise componentDidMount()");
-                this.fetchStuff( this.props.query, api, this.props.view );
+                this.fetchData( this.props.query, api, this.props.view );
             }
 
+            componentDidUpdate( prevProps ) {
+                if (this.props.query !== prevProps.query) {
+                    this.fetchData( this.props.query, api, this.props.view );
+                }
+            }
+/*
             componentWillReceiveProps( nextProps ) {
                 
                 // the following line fixes the bug, that was using fetched data from previous queries to build the result table (which led to crashes)
@@ -57,7 +63,7 @@ export default function withLookup( WrappedComponent ) {
                
                 this.fetchStuff( nextProps.query, api, nextProps.view );
             }
-
+*/
             render() {
                 const { hocProp, ...passthroughProps } = this.props;
                 const fetchedData = this.state.data;

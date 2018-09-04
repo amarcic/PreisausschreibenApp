@@ -21,7 +21,7 @@ export default function SubcompetitionTabs( props ) {
     const awardedParticipants = participants.filter( participant => participant.hasOwnProperty('ranks') );
     const comments = props.comments;
 
-    console.log(comments.filter( comment => comment.thema==="Jury" ));
+    //console.log("subcomp comments filtered: " +  JSON.stringify(comments.filter( comment => comment.thema==="Jury" )));
 
     let subcompParticipants = {};
     participants.forEach( participant => {
@@ -36,7 +36,7 @@ export default function SubcompetitionTabs( props ) {
             );
         } 
     } );
-    console.log(subcompParticipants);
+    //console.log(subcompParticipants);
 
     return(
         <div style={{marginTop: 50}} >
@@ -45,7 +45,7 @@ export default function SubcompetitionTabs( props ) {
                         <TabPane tab={subcomp} key={subcomp}>
                         {/*the following line checks if there are participants with the role "Jurymitglied"; in that case the display of jury info will be rendered */}
                         { subcompParticipants[subcomp] && subcompParticipants[subcomp].filter( participant => participant.rolle.indexOf( "Jurymitglied" )>=0 ).length>1
-                             && <MemberListJury juryMembers={ subcompParticipants[subcomp].filter( participant => participant.rolle.indexOf( "Jurymitglied" ) >= 0 ) } comments={[]} /> 
+                             && <MemberListJury juryMembers={ subcompParticipants[subcomp].filter( participant => participant.rolle.indexOf( "Jurymitglied" ) >= 0 ) } comments={comments.filter( comment => comment.thema==="Jury" ) } /> 
                         }
                         {/*award.wettbewerbskontext && award.wettbewerbskontext===subcomp&&*/
                             awards.find( award => award.wettbewerbskontext===subcomp) && <AwardsList awards={awards.filter( award => award.wettbewerbskontext===subcomp) } awardedParticipants={awardedParticipants.filter( participant => participant.wettbewerbskontext.indexOf(subcomp)>-1 )} />
