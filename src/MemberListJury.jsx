@@ -26,12 +26,13 @@ export default class MemberListJury extends React.Component {
     }
 
     render() {
+        console.log("comments: " + this.props.comments.length)
        // console.log("comments:"+ JSON.stringify(this.state.comments) );
        //let comments = this.state.comments;
     return(
         <Row>
             <List 
-                header={<h3>Jury { this.props.comments ? <Button type="normal" onClick={this.showDrawer} >Kommentare</Button> : "" }</h3>}
+                header={<h3>Jury { this.props.comments && this.props.comments.length>0 ? <Button type="normal" onClick={this.showDrawer} >Kommentare</Button> : "" }</h3>}
                 grid={{column: 2}}
                 size="small"
                 dataSource={this.props.juryMembers}

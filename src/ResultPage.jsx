@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { Table, Layout, Breadcrumb } from 'antd';
+import { Layout, Breadcrumb } from 'antd';
 
 const Content = Layout;
 

@@ -75,11 +75,19 @@ export default function ContestPage( props ) {
     //Object.keys(rankedParticipants).forEach( id => { participants.find( participant => participant.identifier[0]===id ) ? participants.find( participant => participant.identifier[0]===id ).ranks  = rankedParticipants[id] : console.log("done here"); } )
     //the following code looks for the participants identified in teilnehmerleistung.teilnehmer; then it adds a property 'leistung' to participants to hold the info from teilnehmerleistung in an array
     
+    
     // I added a check for array and property 'teilnehmer' on data.teilnehmerleistungen
+    // I have no idea what this is doing... but it is doing something
+    
     if (data.teilnehmerleistungen) {
             data.teilnehmerleistungen.forEach( leistung =>     { if (leistung.hasOwnProperty('teilnehmer')&&Array.isArray(leistung.teilnehmer))
                                                                     { leistung.teilnehmer.forEach( participantId => {
                                                                     let attendee = participants.find( participant => participant.identifier[0] === participantId );
+                                                                    /*if ( attendee ) {
+                                                                        attendee.leistungen? attendee.leistungen.push(leistung.beschreibung) : attendee.leistungen = [leistung.beschreibung];
+                                                                        return attendee;
+                                                                    }
+                                                                    else return "nicht gefunden";*/
                                                                     attendee.leistungen? attendee.leistungen.push(leistung.beschreibung) : attendee.leistungen = [leistung.beschreibung];
                                                                     return attendee;
                                                                     } 
@@ -101,15 +109,7 @@ export default function ContestPage( props ) {
     //console.log(participantsBySubcomp);
     //console.log( rankedParticipants );
     console.log(participants.filter( participant => participant.hasOwnProperty('ranks') ) );
-    //console.log(data.teilnehmerleistungen);
-    /*
-    let teilnehmerMitLeistung =[];
-    data.teilnehmerleistungen.forEach( leistung =>
-        teilnehmerMitLeistung[ participants.find( participant => participant.identifier ).identifier ]
-    );
-    console.log( "Leistungen: " + teilnehmerMitLeistung );
 
-    */
     let taskfields = [];
     data.aufgaben.forEach( aufgabe => { aufgabe.systematik.forEach( term => {if (taskfields.indexOf(term)===-1) taskfields.push( term )} ) } );
 

@@ -9,7 +9,7 @@ export default function ContestantList( props ) {
 
     const contestants = props.contestants;
 //    const RouteWithPromise = withPromise( RouteById );
-    console.log(contestants);
+//    console.log("contestants: " + JSON.stringify(contestants.filter( cont => cont.kollaboration)) );
 
     return (
         <Row>
