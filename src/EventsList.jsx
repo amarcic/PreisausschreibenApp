@@ -1,21 +1,42 @@
 import React from 'react';
-import { Row, Col, Tooltip, Collapse, Icon} from 'antd';
-
+import { Row, Col, Tooltip, Collapse, Drawer, Button } from 'antd';
+//import EventItem from './EventItem';
+//import { Link } from 'react-router-dom';
 const Panel = Collapse.Panel;
 
 import dateHelper from './dateHelper';
 
-export default function EventsList( props ) {
 
-    const events = props.events;
-    const comments = props.comments.map( comment => comment.text ).join('\n');
-//    console.log(comments);
+export default class EventsList extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            visible: false
+        }
+        this.showDrawer = this.showDrawer.bind(this);
+        this.onClose = this.onClose.bind(this);
+    }
+
+    showDrawer() {
+        this.setState( { visible: true} );
+    }
+
+    onClose() {
+        this.setState( {visible: false} );
+    }
+
+    render() {
+
+//export default function EventsList( props ) {
+
+    const events = this.props.events;
+    const comments = this.props.comments;
 
         return(
             <Row>
-                <h3>Ereignisse { comments ? <Tooltip title={comments} ><Icon type="plus-square" theme="outlined" /></Tooltip> : "" }</h3>
-                {events.map( (event, i) =>
-                    <Collapse bordered={false} key={i}>
+                <h3>Ereignisse { comments && comments.length>0 ? <Button type="normal" onClick={this.showDrawer} >Kommentare</Button> : "" }</h3>
+                {events.map( event =>
+                    <Collapse bordered={false}>
                         <Panel
                             header={
                                 <Row>
@@ -35,12 +56,31 @@ export default function EventsList( props ) {
                         >
                         <Col offset={1}>
                             Art des Ereignisses: {event.ereignistyp ? <span> {event.ereignistyp} <br /></span> : ""}
-                            {event.wettbewerbskontext ? "Wettbewerbskontext: " + event.wettbewerbskontext.join(", ") : ""  }
+                            {event.wettbewerbskontext ? "Wettbewerbskontext: " + event.wettbewerbskontext : ""  }
                         </Col>
                         </Panel>
                     </Collapse>
                 )}
+                <Drawer 
+                    title="Kommentare zur Jury"
+                    placement="right"
+                    closable={false}
+                    onClose={this.onClose}
+                    visible={this.state.visible}
+                    
+                >
+                    {comments.map( comment => comment.text ).join('\n')}
+                </Drawer>
             </Row>
         );
+            {/*<List 
+                dataSource={this.state.events}
+                renderItem={ item =>
+                    <List.Item>
+                        <EventItem eventType={item.ereignistyp} date={item.zeit} location={item.ort} desciption={item.beschreibung} context={item.wettbewerbskontext} />
+                    </List.Item>
+                
+            />}
+        )*/}
     }
-//}
+}
