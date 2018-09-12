@@ -41,10 +41,10 @@ function LandingPage( props ) {
                             </Col>
                         </Row>
                     </div>
-                    <Layout>
+                    {/*<Layout>
                         <div>
                         </div>
-                    </Layout>
+                    </Layout>*/}
                 </Col>
                 </Row>
                 </Content>

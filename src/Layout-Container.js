@@ -100,6 +100,8 @@ export default class Layout_Container extends React.Component {
                 <Route path="/dokumente/:docId" render={ (props) => {const DocViewSwitchWithPromise = withPromise( DocViewSwitch ); return(<ErrorBoundary><DocViewSwitchWithPromise query={props.match.params.docId} {...props}/></ErrorBoundary>);} } ></Route>
                 {/*<Route path="/dokumente/:docType/:docId" render={ (props) => <ErrorBoundary><ResultPage {...props} /> </ErrorBoundary> } ></Route>*/}
                 <Route path="/search" render={ (props) => <ErrorBoundary> <SearchPageWithPromise query={this.state.searchInput} collection={this.state.searchCollection} {...props} /> </ErrorBoundary> } />
+                <div class="ModalHolder">
+                </div>
                 </Row>
                 <Footer style={{textAlign: 'center'}}>
                     Musikalische Preisausschreiben ©2018

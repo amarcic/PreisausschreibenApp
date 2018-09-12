@@ -108,7 +108,7 @@ export default function ContestPage( props ) {
     //console.log(participants);
     //console.log(participantsBySubcomp);
     //console.log( rankedParticipants );
-    console.log(participants.filter( participant => participant.hasOwnProperty('ranks') ) );
+    //console.log(participants.filter( participant => participant.hasOwnProperty('ranks') ) );
 
     let taskfields = [];
     data.aufgaben.forEach( aufgabe => { aufgabe.systematik.forEach( term => {if (taskfields.indexOf(term)===-1) taskfields.push( term )} ) } );
@@ -147,7 +147,7 @@ export default function ContestPage( props ) {
             { //awards && participants.filter( participant => participant.hasOwnProperty('ranks') ).length > 0 &&
                 <Row><AwardsList awards={awards} awardedParticipants={ participants.filter( participant => participant.hasOwnProperty('ranks') ) } />
             </Row>}
-                <ContestantList contestants={participants/*.filter( participant => !participant.hasOwnProperty('ranks') )*/} />
+                <ContestantList contestants={participants.filter( participant => !participant.hasOwnProperty('ranks') && participant.rolle.indexOf("TeilnehmerIn")>-1 )} />
                 { data.teilnahmevoraussetzungen
                     && <Prerequisits prereqs={data.teilnahmevoraussetzungen} /> 
                 }
