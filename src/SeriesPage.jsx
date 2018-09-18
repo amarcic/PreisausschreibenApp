@@ -12,7 +12,7 @@ export default function SeriesPage( props ) {
         <Row gutter={24}>
             <Col span={16}>
                 <Card style={{ padding: "30px" }}>
-                    <h2> {data.bezeichnung.map( i => i + ", " )} </h2>
+                    <h2> {data.bezeichnung.join(", ") /*map( i => i + ", " )*/} </h2>
                     <div>
                         <p>
                             { data.beschreibung? "Beschreibung: " + data.beschreibung : "" } <br />
