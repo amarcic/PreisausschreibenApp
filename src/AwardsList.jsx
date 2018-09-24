@@ -11,14 +11,14 @@ export default function AwardsList( props ) {
 
     if(awards[0]&&awards[0].platzierungen) { awards[0].platzierungen.forEach( rnk => { if(!awardedParticipantsByRank[rnk.rang]) awardedParticipantsByRank[rnk.rang] = {};
                                                                             rnk.platzierte.forEach( plcd => { 
-                                                                                let participant = awardedParticipants.find( particip => particip.identifier[0] === plcd);
+                                                                                let participant = plcd!=="nv" ? awardedParticipants.find( particip => particip.identifier[0] === plcd) : "nicht vergeben" ;
                                                                                 console.log("placed: " + plcd)
-                                                                                console.log(participant);                                                                               
+                                                                                console.log(typeof participant);                                                                               
                                                                                 
                                                                                 //if (participant.kollaboration) {participant.kollaboration.forEach( collab => collaborators.push( awardedParticipants.find( particip => particip.identifier[0] === collab ) ) )   }
                                                                                 awardedParticipantsByRank[rnk.rang][plcd]=participant ;      
 
-                                                                                if(participant.hasOwnProperty('kollaboration')) {
+                                                                                if(typeof participant !== "string" && participant.hasOwnProperty('kollaboration')) {
                                                                                     let collaborators=[];
                                                                                     participant.kollaboration.forEach( coll => awardedParticipants.find( particip2 => particip2.identifier[0] === coll) ? collaborators.push(awardedParticipants.find( particip2 => particip2.identifier[0] === coll).name) : collaborators.push("nicht gefunden") );
                                                                                     awardedParticipantsByRank[rnk.rang][plcd]['colls']= "gemeinsam mit " + collaborators.join(", ");
