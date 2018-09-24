@@ -14,9 +14,15 @@ export default function AwardsList( props ) {
                                                                                 let participant = awardedParticipants.find( particip => particip.identifier[0] === plcd);
                                                                                 console.log("placed: " + plcd)
                                                                                 console.log(participant);                                                                               
-                                                                                let collaborators=[];
+                                                                                
                                                                                 //if (participant.kollaboration) {participant.kollaboration.forEach( collab => collaborators.push( awardedParticipants.find( particip => particip.identifier[0] === collab ) ) )   }
                                                                                 awardedParticipantsByRank[rnk.rang][plcd]=participant ;      
+
+                                                                                if(participant.hasOwnProperty('kollaboration')) {
+                                                                                    let collaborators=[];
+                                                                                    participant.kollaboration.forEach( coll => awardedParticipants.find( particip2 => particip2.identifier[0] === coll) ? collaborators.push(awardedParticipants.find( particip2 => particip2.identifier[0] === coll).name) : collaborators.push("nicht gefunden") );
+                                                                                    awardedParticipantsByRank[rnk.rang][plcd]['colls']= "gemeinsam mit " + collaborators.join(", ");
+                                                                                }
                                                                             }  
                                                                         ) }
                                 );
@@ -58,6 +64,7 @@ export default function AwardsList( props ) {
                                                                                 :  placed + "(nicht gefunden...)"*/
                                                                 :    <span><Link to={"/dokumente/" + awardedParticipantsByRank[item.rang][placed].identifier[0]} >{awardedParticipantsByRank[item.rang][placed].name}</Link>
                                                                 {awardedParticipantsByRank[item.rang][placed].hasOwnProperty('leistungen') ? ", mit: " + awardedParticipantsByRank[item.rang][placed].leistungen.join(", ") : "" }</span>}
+                                                                {awardedParticipantsByRank[item.rang][placed].hasOwnProperty('colls') ? " (" + awardedParticipantsByRank[item.rang][placed].colls + ")" : "" }
                                         </li>);}
                                         )}
                                 </ul>}

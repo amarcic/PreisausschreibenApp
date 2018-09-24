@@ -16,7 +16,7 @@ export default function CorporatePage( props ) {
         <Row gutter={24}>
             <Col span={16}>
                 <Card style={{ padding: "30px" }}>
-                    <h2>{ data.bezeichnung.join(", ") /*.map( (label, index, arr) => label + ( index+1 < arr.length? ", ": "") )*/ }</h2>
+                    <h2>{ data.bezeichnung.join(", ") }</h2>
                     <div>
                         { "Art der Körperschaft: " + data.art } <br />
                         { data.ort? "Ort: " + data.ort : "" } <br />
