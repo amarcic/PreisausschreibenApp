@@ -7,36 +7,17 @@ const Panel = Collapse.Panel;
 import dateHelper from './dateHelper';
 
 
-export default class EventsList extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            visible: false
-        }
-        this.showDrawer = this.showDrawer.bind(this);
-        this.onClose = this.onClose.bind(this);
-    }
+export default function EventsList(props){
 
-    showDrawer() {
-        this.setState( { visible: true} );
-    }
-
-    onClose() {
-        this.setState( {visible: false} );
-    }
-
-    render() {
-
-//export default function EventsList( props ) {
-
-    const events = this.props.events;
-    const comments = this.props.comments;
+    const events = props.events;
+    const comments = props.comments;
+    const showDrawer = props.showDrawer;
 
         return(
             <Row>
-                <h3>Ereignisse { comments && comments.length>0 ? <Button type="normal" onClick={this.showDrawer} >Kommentare</Button> : "" }</h3>
-                {events.map( event =>
-                    <Collapse bordered={false}>
+                <h3>Ereignisse { comments && comments.length>0 ? <Button type="normal" onClick={showDrawer} >Kommentare</Button> : "" }</h3>
+                {events.map( (event,index) =>
+                    <Collapse bordered={false} key={index} >
                         <Panel
                             header={
                                 <Row>
@@ -61,16 +42,17 @@ export default class EventsList extends React.Component {
                         </Panel>
                     </Collapse>
                 )}
-                <Drawer 
-                    title="Kommentare zur Jury"
+                { comments && comments.length>0 && <Drawer 
+                    title="Kommentare zu den Ereignissen"
                     placement="right"
                     closable={false}
-                    onClose={this.onClose}
-                    visible={this.state.visible}
+                    onClose={props.onClose}
+                    visible={props.visible}
+                    width="25%"
                     
                 >
-                    {comments.map( comment => comment.text ).join('\n')}
-                </Drawer>
+                    {comments.map( (comment, index) => <p key={index}>{comment.text}</p> )}
+                </Drawer>}
             </Row>
         );
             {/*<List 
@@ -82,5 +64,4 @@ export default class EventsList extends React.Component {
                 
             />}
         )*/}
-    }
 }

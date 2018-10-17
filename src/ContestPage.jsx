@@ -9,8 +9,14 @@ import ContestantList from './ContestantList';
 import NumberOfParticipants from './NumberOfParticipants';
 import Prerequisits from './Prerequisits';
 import EventsList from './EventsList';
+import withCommentContainer from './withCommentContainer';
 
 const Panel = Collapse.Panel;
+const EventsListWithCommentContainer = withCommentContainer(EventsList);
+const MemberListJuryWithCommentContainer = withCommentContainer(MemberListJury);
+const AwardsListWithCommentContainer = withCommentContainer(AwardsList);
+const ContestantListWithCommentContainer = withCommentContainer(ContestantList);
+const PrerequisitsWithCommentContainer = withCommentContainer(Prerequisits);
 //const TabPane = Tabs.TabPane;
 
 export default function ContestPage( props ) {
@@ -31,6 +37,8 @@ export default function ContestPage( props ) {
     let comments = [];
     if (data.kommentare) { comments = data.kommentare };
     let rankedParticipants = [];
+
+    //let activeSubTab = subcompetitions? subcompetitions[0] : "";
 
     const columnsTasks = [{
         title: "Teilwettbewerb",
@@ -68,7 +76,7 @@ export default function ContestPage( props ) {
 
     //the following line adds the data from rankedParticipants to the participants object.
     //using .find() causes a problem, if the same person ranked in different subcompetitions
-    Object.keys( rankedParticipants ).forEach( id => { console.log(id);
+    Object.keys( rankedParticipants ).forEach( id => { //console.log(id);
                                                         if( participants.find( participant => participant.identifier[0]===id ) ) { participants.forEach( participant => { if (participant.identifier[0] === id) { if(!participant.ranks) {participant.ranks={}};  for (let key in rankedParticipants[id]) ( participant.ranks[key]=rankedParticipants[id][key] ) } } ) }
                                                     } );
     //                                                console.log(rankedParticipants);
@@ -119,7 +127,7 @@ export default function ContestPage( props ) {
             <Col span={20} offset={2}>
         <h2 style={{color: "grey", marginBottom: 0}}>{ participants.filter( participant => participant.rolle.indexOf("ausschreibende Institution/Person")>=0 ).map( participant => participant.name ).join(", ") }</h2>
         <p>{data.anlass? "Anlass: " + data.anlass : ""}</p>
-        {data.reduzierteErfassung && <p style={{color: "#f5222d"}} >Achtung: Aufgrund des Umfangs des Preisausschreibens wurden folgende Bereiche reduziert erfasst...</p>} 
+        {data.reduzierteErfassung && <p style={{color: "#f5222d"}} >Den angeführten Quellen zu diesem Wettbewerb lassen sich möglicherweise weitere Informationen entnehmen, die in der Datenbank bisher nicht erfasst wurden. Dies gilt für alle Wettbewerbe mit der Teilnahme von Gruppen wie z.B. Ensembles, Chören oder Orchestern.</p>} 
 
         <div style={{marginTop: 50}}>
         <Row>
@@ -128,13 +136,19 @@ export default function ContestPage( props ) {
                 dataSource={tasks} 
                 pagination={false}
                 rowKey={ record => record.wettbewerbskontext }
+                onRow = { record => {return{
+                    onClick: ()=>{/*activeSubTab=record.wettbewerbskontext;*/}
+                }; } }
                 />
         </Row>
         </div>
 
         <div style={{marginTop: 50}}>
-        <Row>
+        {/*<Row>
             <EventsList events={events} comments={comments.filter( comment => comment.thema==="Ereignisse" ) } />
+        </Row>*/}
+        <Row>
+            <EventsListWithCommentContainer events={events} comments={comments.filter( comment => comment.thema==="Ereignisse" )} />
         </Row>
         <Divider></Divider>
         </div>
@@ -142,14 +156,14 @@ export default function ContestPage( props ) {
         { !subcompetitions && 
             <div style={{marginTop: 50}}>
             { participants.filter( participant => participant.rolle.indexOf( "Jurymitglied" )>=0 ).length>0 
-                && <MemberListJury juryMembers={participants.filter( participant => participant.rolle.indexOf( "Jurymitglied" ) >= 0 )} comments={comments.filter( comment => comment.thema === "Jury" )} />
+                && <MemberListJuryWithCommentContainer juryMembers={participants.filter( participant => participant.rolle.indexOf( "Jurymitglied" ) >= 0 )} comments={comments.filter( comment => comment.thema === "Jury" || comment.thema === "Beurteilung" )} />
             }
             { //awards && participants.filter( participant => participant.hasOwnProperty('ranks') ).length > 0 &&
-                <Row><AwardsList awards={awards} awardedParticipants={ participants.filter( participant => participant.hasOwnProperty('ranks') ) } />
+                <Row><AwardsListWithCommentContainer awards={awards} awardedParticipants={participants.filter( participant => participant.hasOwnProperty('ranks') )} comments={comments.filter( comment => comment.thema === "PreisträgerInnen" || comment.thema === "Auszeichnungen" )} />
             </Row>}
-                <ContestantList contestants={participants.filter( participant => !participant.hasOwnProperty('ranks') && participant.rolle.indexOf("TeilnehmerIn")>-1 )} />
+                <ContestantListWithCommentContainer contestants={participants.filter( participant => !participant.hasOwnProperty('ranks') && participant.rolle.indexOf("TeilnehmerIn")>-1 )} comments={comments.filter( comment => comment.thema === "TeilnehmerInnen" )} />
                 { data.teilnahmevoraussetzungen
-                    && <Prerequisits prereqs={data.teilnahmevoraussetzungen} /> 
+                    && <PrerequisitsWithCommentContainer prereqs={data.teilnahmevoraussetzungen} comments={comments.filter( comment => comment.thema === "Teilnahmevoraussetzungen" )} /> 
                 }
                 { data.teilnehmerInnenzahl && !data.teilnehmerInnenzahl.filter( nop => nop.hasOwnProperty('wettbewerbskontext') ).length>0
                     && <NumberOfParticipants numOPart={ data.teilnehmerInnenzahl } />
@@ -160,7 +174,7 @@ export default function ContestPage( props ) {
             subcompetitions
             && participants.filter( participant => participant.rolle.indexOf( "Jurymitglied" )>=0 && !participant.hasOwnProperty('wettbewerbskontext') ).length>0 
             && <div style={{marginTop: 50}} ><Divider>den Quellen konnte für folgende Einträge keine eindeutige Zuordnung zu Teilwettwerben entnommen werden</Divider>
-        <MemberListJury juryMembers={participants.filter( participant => participant.rolle.indexOf( "Jurymitglied" ) >= 0 && !participant.hasOwnProperty('wettbewerbskontext') )} comments={comments.filter( comment => comment.thema === "Jury" )} /></div>
+        <MemberListJuryWithCommentContainer juryMembers={participants.filter( participant => participant.rolle.indexOf( "Jurymitglied" ) >= 0 && !participant.hasOwnProperty('wettbewerbskontext') )} comments={comments.filter( comment => comment.thema === "Jury" )} /></div>
         }
         { /*the extra Prerequisits component is here for the case prerequisits are not in any subcompetition and thus would not be shown at all
             data.teilnahmevoraussetzungen 

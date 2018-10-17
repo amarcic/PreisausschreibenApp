@@ -7,7 +7,13 @@ import AwardsList from './AwardsList';
 import ContestantList from './ContestantList';
 import Prerequisits from './Prerequisits';
 import NumberOfParticipants from './NumberOfParticipants';
+import withCommentContainer from './withCommentContainer'; 
+
 const TabPane = Tabs.TabPane;
+const MemberListJuryWithCommentContainer = withCommentContainer(MemberListJury);
+const AwardsListWithCommentContainer = withCommentContainer(AwardsList);
+const ContestantListWithCommentContainer = withCommentContainer(ContestantList);
+const PrerequisitsWithCommentContainer = withCommentContainer(Prerequisits);
 
 export default function SubcompetitionTabs( props ) {
 
@@ -20,8 +26,9 @@ export default function SubcompetitionTabs( props ) {
     const teilnehmerInnenzahl = props.teilnehmerInnenzahl;
     const awardedParticipants = participants.filter( participant => participant.hasOwnProperty('ranks') );
     const comments = props.comments;
+    //let activeSubTab = props.activeSubTab;
 
-    //console.log("subcomp comments filtered: " +  JSON.stringify(comments.filter( comment => comment.thema==="Jury" )));
+    console.log("subcomp comments filtered: " +  JSON.stringify(comments.filter( comment => comment.thema==="Jury" )));
 
     let subcompParticipants = {};
     participants.forEach( participant => {
@@ -45,14 +52,14 @@ export default function SubcompetitionTabs( props ) {
                         <TabPane tab={subcomp} key={subcomp}>
                         {/*the following line checks if there are participants with the role "Jurymitglied"; in that case the display of jury info will be rendered */}
                         { subcompParticipants[subcomp] && subcompParticipants[subcomp].filter( participant => participant.rolle.indexOf( "Jurymitglied" )>=0 ).length>1
-                             && <MemberListJury juryMembers={ subcompParticipants[subcomp].filter( participant => participant.rolle.indexOf( "Jurymitglied" ) >= 0 ) } comments={comments.filter( comment => comment.thema==="Jury" ) } /> 
+                             && <MemberListJuryWithCommentContainer juryMembers={ subcompParticipants[subcomp].filter( participant => participant.rolle.indexOf( "Jurymitglied" ) >= 0 ) } comments={comments.filter( comment => comment.thema==="Jury" || comment.thema === "Beurteilung" ) } /> 
                         }
                         {/*award.wettbewerbskontext && award.wettbewerbskontext===subcomp&&*/
-                            awards.find( award => award.wettbewerbskontext===subcomp) && <AwardsList awards={awards.filter( award => award.wettbewerbskontext===subcomp) } awardedParticipants={awardedParticipants.filter( participant => participant.wettbewerbskontext.indexOf(subcomp)>-1 )} />
+                            awards.find( award => award.wettbewerbskontext===subcomp) && <AwardsListWithCommentContainer awards={awards.filter( award => award.wettbewerbskontext===subcomp) } awardedParticipants={awardedParticipants.filter( participant => participant.wettbewerbskontext.indexOf(subcomp)>-1 )} comments={comments.filter( comment => comment.thema === "Auszeichnungen" || comment.thema === "PreisträgerInnen" )} />
                         }
-                        { subcompParticipants[subcomp] && <ContestantList contestants={participants.filter( participant => !participant.hasOwnProperty('ranks') && participant.wettbewerbskontext.indexOf(subcomp)>-1 ) } /> }                 
+                        { subcompParticipants[subcomp] && <ContestantListWithCommentContainer contestants={participants.filter( participant => !participant.hasOwnProperty('ranks') && participant.wettbewerbskontext.indexOf(subcomp)>-1 ) } comments={comments.filter( comment => comment.thema === "TeilnehmerInnen" )} /> }                 
                         { teilnahmevoraussetzungen && teilnahmevoraussetzungen.filter( criterion => criterion.wettbewerbskontext === subcomp).length > 0
-                        && <Prerequisits prereqs={teilnahmevoraussetzungen.filter( criterion => criterion.wettbewerbskontext === subcomp)} /> }
+                        && <PrerequisitsWithCommentContainer prereqs={teilnahmevoraussetzungen.filter( criterion => criterion.wettbewerbskontext === subcomp)} comments={comments.filter( comment => comment.thema === "Teilnahmevoraussetzungen" )} /> }
                         { teilnehmerInnenzahl && teilnehmerInnenzahl.filter( amount => amount.wettbewerbskontext === subcomp).length > 0
                             && <NumberOfParticipants numOPart={ teilnehmerInnenzahl.filter( amount => amount.wettbewerbskontext === subcomp ) } />
 

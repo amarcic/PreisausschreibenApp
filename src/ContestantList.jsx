@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, List } from 'antd';
+import { Row, Col, List, Button, Drawer } from 'antd';
 import { Link } from 'react-router-dom';
 
 //import RouteById from "./RouteById";
@@ -8,13 +8,15 @@ import { Link } from 'react-router-dom';
 export default function ContestantList( props ) {
 
     const contestants = props.contestants;
+    const comments = props.comments;
+    const showDrawer = props.showDrawer;
 //    const RouteWithPromise = withPromise( RouteById );
 //    console.log("contestants: " + JSON.stringify(contestants.filter( cont => cont.kollaboration)) );
 
     return (
         <Row>
             <List 
-                header={<div><h3>Weitere TeilnehmerInnen</h3></div>}
+                header={<div><h3>Weitere TeilnehmerInnen {comments && comments.length>0 ? <Button type="normal" onClick={showDrawer} >Kommentare</Button> : "" }</h3></div>}
                 grid={ {column: 2} }
                 dataSource={ contestants /*.filter( contestant => !contestant.hasOwnProperty('ranks') )*/ }
                 renderItem={ item => 
@@ -34,6 +36,17 @@ export default function ContestantList( props ) {
                     </Col>
                 }            
             />
+            { comments && comments.length>0 && <Drawer 
+                    title="Kommentare zu den TeilnehmerInnen"
+                    placement="right"
+                    closable={false}
+                    onClose={props.onClose}
+                    visible={props.visible}
+                    width="25%"
+                    
+                >
+                    {comments.map( comment => <p>{comment.text}</p> )}
+                </Drawer>}
         </Row>
     );
 }

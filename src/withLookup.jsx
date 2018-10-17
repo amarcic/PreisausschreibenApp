@@ -12,7 +12,7 @@ const requestOptions = {
 
 
 function fetchFromCouch( queryString, apiUrl, view ) {
-console.log(view);
+//console.log(view);
     let selectView = "";
     switch( view ) {
         case "inPreisausschreiben": selectView = "_design/preisausschreiben/_view/idsinpas"; break;

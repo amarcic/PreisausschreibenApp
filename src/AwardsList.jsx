@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, List } from 'antd';
+import { Row, Col, List, Button, Drawer } from 'antd';
 import { Link } from 'react-router-dom';
 
 export default function AwardsList( props ) {
@@ -7,13 +7,16 @@ export default function AwardsList( props ) {
     let awards = props.awards;
     let awardedParticipants = props.awardedParticipants;
 
+    const comments = props.comments;
+    const showDrawer = props.showDrawer;
+
     let awardedParticipantsByRank = {};
 
     if(awards[0]&&awards[0].platzierungen) { awards[0].platzierungen.forEach( rnk => { if(!awardedParticipantsByRank[rnk.rang]) awardedParticipantsByRank[rnk.rang] = {};
                                                                             rnk.platzierte.forEach( plcd => { 
                                                                                 let participant = plcd!=="nv" ? awardedParticipants.find( particip => particip.identifier[0] === plcd) : "nicht vergeben" ;
-                                                                                console.log("placed: " + plcd)
-                                                                                console.log(typeof participant);                                                                               
+                                                                                //console.log("placed: " + plcd)
+                                                                               // console.log(typeof participant);                                                                               
                                                                                 
                                                                                 //if (participant.kollaboration) {participant.kollaboration.forEach( collab => collaborators.push( awardedParticipants.find( particip => particip.identifier[0] === collab ) ) )   }
                                                                                 awardedParticipantsByRank[rnk.rang][plcd]=participant ;      
@@ -28,8 +31,9 @@ export default function AwardsList( props ) {
                                 );
                             }
 
-    console.log("platzierte:");
-    console.log(awards);
+    //console.log("platzierte:");
+    //console.log(awards);
+    console.log(comments);
 
     return(
         <Row>
@@ -37,7 +41,8 @@ export default function AwardsList( props ) {
                 awards.map( award => {
                     return( <List 
                         key={award.auszeichnungsarten.toString() }
-                        header={<div><h3>Auszeichnungen und PreisträgerInnen </h3><br /> {award.auszeichnungsarten? "Auszeichnungsarten: " + award.auszeichnungsarten.join(", ") : "Verliehne Auszeichnungen sind nicht bekannt" }</div>}
+                        header={<div><h3>Auszeichnungen und PreisträgerInnen {comments && comments.length>0 ? <Button type="normal" onClick={showDrawer} >Kommentare</Button> : "" }</h3>
+                            <br /> {award.auszeichnungsarten? "Auszeichnungsarten: " + award.auszeichnungsarten.join(", ") : "Verliehne Auszeichnungen sind nicht bekannt" }</div>}
                         dataSource={award.platzierungen.sort( (a,b) => a.rang - b.rang )}
                         renderItem={ item =>
                             <List.Item>
@@ -73,6 +78,17 @@ export default function AwardsList( props ) {
                         /> );
                 } )
             }
+            { comments && comments.length>0 && <Drawer 
+                    title="Kommentare zu Auszeichnungen und PreisträgerInnen"
+                    placement="right"
+                    closable={false}
+                    onClose={props.onClose}
+                    visible={props.visible}
+                    width="25%"
+                    
+                >
+                    {comments.map( (comment, index) => <p key={index}>{comment.thema + ": " + comment.text}</p> )}
+                </Drawer>}
         </Row>
     );
 }

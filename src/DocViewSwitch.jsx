@@ -11,8 +11,8 @@ import CorporatePage from './CorporatePage';
 import SeriesPage from './SeriesPage';
 
 export default function DocViewSwitch( props ) {
-    console.log("doc view switch")
-    console.log(props.requestData);
+//    console.log("doc view switch")
+//    console.log(props.requestData);
     let docData = props.requestData;
 
     let ResultComponent;

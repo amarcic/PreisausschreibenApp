@@ -3,7 +3,7 @@ import React from 'react';
 import { Row, Col, Card } from 'antd';
 
 export default function SeriesPage( props ) {
-    console.log( props.requestData );
+    //console.log( props.requestData );
 
     const data = props.requestData;
 
