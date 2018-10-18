@@ -48,7 +48,7 @@ export default function EventsList(props){
                     closable={false}
                     onClose={props.onClose}
                     visible={props.visible}
-                    width="25%"
+                    width="30%"
                     
                 >
                     {comments.map( (comment, index) => <p key={index}>{comment.text}</p> )}

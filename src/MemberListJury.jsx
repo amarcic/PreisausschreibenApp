@@ -32,7 +32,7 @@ export default function MemberListJury (props) {
                 closable={false}
                 onClose={props.onClose}
                 visible={props.visible}
-                width="25%" 
+                width="30%" 
             >
                 {props.comments.map( (comment, index) => <p key={index}>{comment.thema + ": " + comment.text}</p> )}
             </Drawer>}
