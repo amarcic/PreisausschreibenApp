@@ -37,7 +37,9 @@ export default function EventsList(props){
                         >
                         <Col offset={1}>
                             Art des Ereignisses: {event.ereignistyp ? <span> {event.ereignistyp} <br /></span> : ""}
-                            {event.wettbewerbskontext ? "Wettbewerbskontext: " + event.wettbewerbskontext.join(", ") : ""  }
+                            {event.wettbewerbskontext ? <span>{"Wettbewerbskontext: " + event.wettbewerbskontext.join(", ")}<br /></span> : ""  }
+                            {event.zeit.datumszusatz ? <span>{"Zusatz zum Datum: " + event.zeit.datumszusatz}<br /></span> : ""}
+                            {event.ort.ortszusatz ? <span>{"Zusatz zum Ort: " + event.ort.ortszusatz}<br /></span> : ""}
                         </Col>
                         </Panel>
                     </Collapse>

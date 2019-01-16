@@ -36,4 +36,4 @@ export default function Prerequisits( props ) {
             </Drawer>}
         </Row>
     );
-}
+}  
