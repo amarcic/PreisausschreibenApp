@@ -28,6 +28,7 @@ export default class Layout_Container extends React.Component {
             messages: [],
             searchInput: "suche...",
             searchCollection: "preisausschreiben",
+            searchESfield: "ortsname",
             requestData: null
         };
 

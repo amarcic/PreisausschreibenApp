@@ -45,7 +45,7 @@ export default function ContestantList( props ) {
                     width="30%"
                     
                 >
-                    {comments.map( (comment, index) => <p key={index} >{comment.thema + ": " + comment.text}</p> )}
+                    {comments.map( (comment, index) => <p key={index} >{comment.text}</p> )}
                 </Drawer>}
         </Row>
     );

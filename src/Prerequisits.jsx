@@ -14,7 +14,7 @@ export default function Prerequisits( props ) {
                 dataSource={prereqs}
                 renderItem={ item =>
                     <List.Item>
-                        <Col span={5} offset={1} >
+                        <Col span={2} offset={1} >
                             {item.kriterium.join(", ")}
                         </Col>
                         <Col span={18}>

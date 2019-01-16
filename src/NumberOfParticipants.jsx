@@ -13,7 +13,7 @@ export default function NumberOfParticipants( props ) {
             dataSource={ numOPart }
             renderItem={ item =>
                 <List.Item>
-                    <Col span={5} offset={1} >
+                    <Col span={1} offset={1} >
                         {item.anzahl} 
                     </Col>
                     <Col>

@@ -34,7 +34,7 @@ export default function MemberListJury (props) {
                 visible={props.visible}
                 width="30%" 
             >
-                {props.comments.map( (comment, index) => <p key={index}>{comment.thema + ": " + comment.text}</p> )}
+                {props.comments.map( (comment, index) => <p key={index}>{comment.text}</p> )}
             </Drawer>}
         </Row>
     );

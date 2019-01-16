@@ -20,7 +20,7 @@ const PrerequisitsWithCommentContainer = withCommentContainer(Prerequisits);
 //const TabPane = Tabs.TabPane;
 
 export default function ContestPage( props ) {
-    //console.log( props.requestData );
+    console.log( props.requestData );
 
     const data = props.requestData;
     // sort events by date; case that only value data.ereignisse.zeit.bis exists has been ignored (right now there are no such event objects in the data)
@@ -173,7 +173,7 @@ export default function ContestPage( props ) {
         { //the extra MememberListJury component is here for the case the jury memebers are not in any subcompetition and thus would not be shown at all
             subcompetitions
             && participants.filter( participant => participant.rolle.indexOf( "Jurymitglied" )>=0 && !participant.hasOwnProperty('wettbewerbskontext') ).length>0 
-            && <div style={{marginTop: 50}} ><Divider>den Quellen konnte für folgende Einträge keine eindeutige Zuordnung zu Teilwettwerben entnommen werden</Divider>
+            && <div style={{marginTop: 50}} ><Divider>Den Quellen konnte für folgende Einträge keine eindeutige Zuordnung zu Teilwettwerben entnommen werden</Divider>
         <MemberListJuryWithCommentContainer juryMembers={participants.filter( participant => participant.rolle.indexOf( "Jurymitglied" ) >= 0 && !participant.hasOwnProperty('wettbewerbskontext') )} comments={comments.filter( comment => comment.thema === "Jury" )} /></div>
         }
         { /*the extra Prerequisits component is here for the case prerequisits are not in any subcompetition and thus would not be shown at all

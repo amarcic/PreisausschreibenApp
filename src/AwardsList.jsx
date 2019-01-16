@@ -42,7 +42,7 @@ export default function AwardsList( props ) {
                     return( <List 
                         key={award.auszeichnungsarten.toString() }
                         header={<div><h3>Auszeichnungen und PreisträgerInnen {comments && comments.length>0 ? <Button type="normal" onClick={showDrawer} >Kommentare</Button> : "" }</h3>
-                            <br /> {award.auszeichnungsarten? "Auszeichnungsarten: " + award.auszeichnungsarten.join(", ") : "Verliehne Auszeichnungen sind nicht bekannt" }</div>}
+                            <br /> {award.auszeichnungsarten? "Auszeichnungsarten: " + award.auszeichnungsarten.join(", ") : "Keine Daten" }</div>}
                         dataSource={award.platzierungen.sort( (a,b) => a.rang - b.rang )}
                         renderItem={ item =>
                             <List.Item>
@@ -87,7 +87,7 @@ export default function AwardsList( props ) {
                     width="30%"
                     
                 >
-                    {comments.map( (comment, index) => <p key={index}>{comment.thema + ": " + comment.text}</p> )}
+                    {comments.map( (comment, index) => <p key={index}>{comment.text}</p> )}
                 </Drawer>}
         </Row>
     );

@@ -5,7 +5,7 @@ const lessToJs = require('less-vars-to-js');
 const themeVariables = lessToJs(fs.readFileSync(path.join(__dirname, './ant-theme-vars.less'), 'utf8'));
 
 module.exports = {
-    entry: ["babel-polyfill", "./src/app.js"],
+    entry: ["@babel/polyfill", "./src/app.js"],
     output: {
         path: path.resolve(__dirname, "dist"),
         filename: "bundle.js"
