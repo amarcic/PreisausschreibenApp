@@ -1,14 +1,11 @@
-const debug = process.env.NODE_ENV !== 'production';
-//const CompressionPlugin = require("compression-webpack-plugin");
 const path = require('path');
 const fs  = require('fs');
-const webpack = require('webpack');
 
 const lessToJs = require('less-vars-to-js');
 const themeVariables = lessToJs(fs.readFileSync(path.join(__dirname, './ant-theme-vars.less'), 'utf8'));
 
 module.exports = {
-    entry: [ "babel-polyfill", "./src/app.js"],
+    entry: ["@babel/polyfill", "./src/app.js"],
     output: {
         path: path.resolve(__dirname, "dist"),
         filename: "bundle.js"
@@ -16,17 +13,7 @@ module.exports = {
     resolve: {
         extensions: [ '*', '.js', '.jsx', '.json' ]
     },
-    devtool: debug ? false : false,
     context: __dirname,
-    devServer: {
-        contentBase: path.join( __dirname, "dist"),
-        historyApiFallback: true
-    },  
-    plugins: debug ? [] : [
-        new webpack.optimize.UglifyJsPlugin({
-            compress: process.env.NODE_ENV === 'production'
-        })
-    ],
     module: {
         rules: [
         {
@@ -45,4 +32,4 @@ module.exports = {
         }
     ]
     }
-};
+}

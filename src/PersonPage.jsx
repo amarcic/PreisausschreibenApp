@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Table, Layout, Card, Row, Col } from 'antd';
 import withLookup from './withLookup';
-import CompetitionList from './CompetitionList'
+import CompetitionList from './CompetitionList';
 
 export default function PersonPage( props ) {
 
@@ -19,7 +19,7 @@ export default function PersonPage( props ) {
                             { data.name.alias? "Alias: " + data.name.alias.map( (i, index, arr) => i + ( index+1 < arr.length? ", " : "" ) ) : "" } <br />
                             { data.viafId? <span> ViafID:  <a target="_blank" href={"https://viaf.org/viaf/"+data.viafId} >{data.viafId}</a> </span> : "ViafId nicht bekannt." } <br />
                             { data.geschlecht? "Geschlecht: " + data.geschlecht : "Keine Angabe zum Geschlecht." } <br />
-                            { ( data.namenszusatz && data.namenszusatz.bezeichnung )? "Namenszusatz: " + data.namenszusatz.bezeichnung + (data.namenszusatz.stand_stellung? " (" + data.namenszusatz.stand_stellung.map( (namenszusatz, index, arr) => namenszusatz + ( index+1 < arr.length ? ", ": "" ) ) + ")" : "") : "" }
+                            { ( data.namenszusatz && data.namenszusatz.bezeichnung )? "Namenszusatz: " + data.namenszusatz.bezeichnung + (data.namenszusatz.stand_stellung? " (" + data.namenszusatz.stand_stellung.join(", ") + ")" : "") : "" }
                             { data.anmerkung? "Anmerkungen zur Person: " + data.anmerkung : "" }
                             
 

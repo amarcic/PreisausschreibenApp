@@ -9,24 +9,20 @@ import PersonPage from './PersonPage';
 import ContestPage from './ContestPage';
 import CorporatePage from './CorporatePage';
 import SeriesPage from './SeriesPage';
-import withPromise from './withPromise';
 
-export default function ResultPage( { match } ) {
+export default function DocViewSwitch( props ) {
+//    console.log("doc view switch")
+//    console.log(props.requestData);
+    let docData = props.requestData;
 
     let ResultComponent;
 
-    //console.log( match.params.docType );
-
-    switch( match.params.docType ) {
+    switch( docData.type ) {
         case "person": ResultComponent = PersonPage; break;
         case "preisausschreiben": ResultComponent = ContestPage; break;
-        case "koerperschaft": ResultComponent = CorporatePage; break;
+        case "corporation": ResultComponent = CorporatePage; break;
         case "serie": ResultComponent = SeriesPage; break;
     }
-    //console.log( ResultComponent );
-    //console.log( PersonPage );
-
-    const DocViewWithPromise = withPromise( ResultComponent );
 
     return(
         <Layout>
@@ -34,9 +30,9 @@ export default function ResultPage( { match } ) {
                 <Breadcrumb>
                     <Breadcrumb.Item><Link to="/">Home</Link></Breadcrumb.Item>
                     <Breadcrumb.Item><Link to="/search" >Suchergebnisse</Link></Breadcrumb.Item>
-                    <Breadcrumb.Item><Link to="/search"> {match.params.docType} mit Id {match.params.docId} </Link></Breadcrumb.Item>
+                    <Breadcrumb.Item><Link to="/search"> {docData.docType} mit Id {docData._id} </Link></Breadcrumb.Item>
                 </Breadcrumb>
-                <DocViewWithPromise query={match.params.docId} />
+                <ResultComponent requestData={docData} />
             </Content>
         </Layout>
     );
