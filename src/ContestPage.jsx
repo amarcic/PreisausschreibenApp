@@ -143,6 +143,18 @@ export default function ContestPage( props ) {
         </Row>
         </div>
 
+        <div style={{marginTop: 50}} >
+        <Collapse>
+            { data.formalia && <Panel header={"Formalia"} >
+                    <Row>
+                        <Col span={20} offset={1}>
+                            {data.formalia}
+                        </Col>
+                    </Row>
+            </Panel>}
+        </Collapse>
+        </div>
+
         <div style={{marginTop: 50}}>
         {/*<Row>
             <EventsList events={events} comments={comments.filter( comment => comment.thema==="Ereignisse" ) } />
