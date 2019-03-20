@@ -228,23 +228,10 @@ export default function ContestPage( props ) {
             </Panel>
             <Panel header={ keywords.length + " Schlagworte"}>
                 <Col offset={1}>
-                    {keywords.join(", ")}
-                    {/*keywords.map( keyword => <Tag key={keyword}>{keyword}</Tag> )*/}
+                    {keywords.concat(taskfields).sort().join(", ")}
+                    {/*still lowercase is sorted after uppercase, but should not be*/}
                 </Col>
             </Panel>
-            <Panel header={ taskfields.length + " Aufgabenbereiche"}>
-                <Col offset={1}>
-                    { taskfields.join(", ") }
-                    {/* taskfields.map( taskfield => <Tag key={taskfield} >{taskfield}</Tag> ) */}
-                </Col>
-            </Panel>
-            { data.formalia && <Panel header={"Formalia"} >
-                    <Row>
-                        <Col span={20} offset={1}>
-                            {data.formalia}
-                        </Col>
-                    </Row>
-            </Panel>}
             { data.ergaenzungen && <Panel header={"Ergänzungen"} >
                     <Row>
                         <Col span={20} offset={1}>
