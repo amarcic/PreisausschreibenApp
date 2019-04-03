@@ -10,6 +10,8 @@ import NumberOfParticipants from './NumberOfParticipants';
 import Prerequisits from './Prerequisits';
 import EventsList from './EventsList';
 import withCommentContainer from './withCommentContainer';
+import TaskTabs from './TaskTabs';
+import Tasks from './Tasks';
 
 const Panel = Collapse.Panel;
 const EventsListWithCommentContainer = withCommentContainer(EventsList);
@@ -143,6 +145,8 @@ export default function ContestPage( props ) {
         </Row>
         </div>
 
+        {subcompetitions? <TaskTabs tasks={tasks} subcompetitions={subcompetitions} conditions={data.teilnahmevoraussetzungen} />:<Tasks tasks={tasks} conditions={data.teilnahmevoraussetzungen}  />}
+
         <div style={{marginTop: 50}} >
         <Collapse>
             { data.formalia && <Panel header={"Formalia"} >
@@ -175,7 +179,7 @@ export default function ContestPage( props ) {
             </Row>}
                 <ContestantListWithCommentContainer contestants={participants.filter( participant => !participant.hasOwnProperty('ranks') && participant.rolle.indexOf("TeilnehmerIn")>-1 )} comments={comments.filter( comment => comment.thema === "TeilnehmerInnen" )} />
                 { data.teilnahmevoraussetzungen
-                    && <PrerequisitsWithCommentContainer prereqs={data.teilnahmevoraussetzungen} comments={comments.filter( comment => comment.thema === "Teilnahmevoraussetzungen" )} /> 
+                    && <PrerequisitsWithCommentContainer conditions={data.teilnahmevoraussetzungen} comments={comments.filter( comment => comment.thema === "Teilnahmevoraussetzungen" )} /> 
                 }
                 { data.teilnehmerInnenzahl && !data.teilnehmerInnenzahl.filter( nop => nop.hasOwnProperty('wettbewerbskontext') ).length>0
                     && <NumberOfParticipants numOPart={ data.teilnehmerInnenzahl } />

@@ -3,7 +3,7 @@ import { Row, Col, List, Drawer, Button } from 'antd';
 
 export default function Prerequisits( props ) {
     
-    let prereqs = props.prereqs;
+    let conditions = props.conditions;
     let comments = props.comments;
     let showDrawer = props.showDrawer;
 
@@ -11,7 +11,7 @@ export default function Prerequisits( props ) {
         <Row>
             <List 
                 header={<h3>Teilnahmevoraussetzungen {comments && comments.length>0 ? <Button type="normal" onClick={showDrawer} >Kommentare</Button> : "" }</h3>}
-                dataSource={prereqs}
+                dataSource={conditions}
                 renderItem={ item =>
                     <List.Item>
                         <Col span={2} offset={1} >

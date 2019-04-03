@@ -59,7 +59,7 @@ export default function SubcompetitionTabs( props ) {
                         }
                         { subcompParticipants[subcomp] && <ContestantListWithCommentContainer contestants={participants.filter( participant => !participant.hasOwnProperty('ranks') && participant.wettbewerbskontext.indexOf(subcomp)>-1 ) } comments={comments.filter( comment => comment.thema === "TeilnehmerInnen" )} /> }                 
                         { teilnahmevoraussetzungen && teilnahmevoraussetzungen.filter( criterion => criterion.wettbewerbskontext === subcomp).length > 0
-                        && <PrerequisitsWithCommentContainer prereqs={teilnahmevoraussetzungen.filter( criterion => criterion.wettbewerbskontext === subcomp)} comments={comments.filter( comment => comment.thema === "Teilnahmevoraussetzungen" )} /> }
+                        && <PrerequisitsWithCommentContainer conditions={teilnahmevoraussetzungen.filter( criterion => criterion.wettbewerbskontext === subcomp)} comments={comments.filter( comment => comment.thema === "Teilnahmevoraussetzungen" )} /> }
                         { teilnehmerInnenzahl && teilnehmerInnenzahl.filter( amount => amount.wettbewerbskontext === subcomp).length > 0
                             && <NumberOfParticipants numOPart={ teilnehmerInnenzahl.filter( amount => amount.wettbewerbskontext === subcomp ) } />
 
