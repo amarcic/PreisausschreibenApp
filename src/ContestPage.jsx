@@ -32,6 +32,7 @@ export default function ContestPage( props ) {
     const keywords = data.schlagwoerter;
     const participants = data.beteiligte;
     const sources = data.quellen;
+    const formalia = data.formalia;
     let awards = [];
     if(data.auszeichnungen) { awards = data.auszeichnungen;}
     let subcompetitions;
@@ -131,7 +132,7 @@ export default function ContestPage( props ) {
         <p>{data.anlass? "Anlass: " + data.anlass : ""}</p>
         {data.reduzierteErfassung && <p style={{color: "#f5222d"}} >Den angeführten Quellen zu diesem Wettbewerb lassen sich möglicherweise weitere Informationen entnehmen, die in der Datenbank bisher nicht erfasst wurden. Dies gilt für alle Wettbewerbe mit der Teilnahme von Gruppen wie z.B. Ensembles, Chören oder Orchestern.</p>} 
 
-        <div style={{marginTop: 50}}>
+        {/*<div style={{marginTop: 50}}>
         <Row>
             <Table 
                 columns={columnsTasks} 
@@ -139,25 +140,17 @@ export default function ContestPage( props ) {
                 pagination={false}
                 rowKey={ record => record.wettbewerbskontext }
                 onRow = { record => {return{
-                    onClick: ()=>{/*activeSubTab=record.wettbewerbskontext;*/}
+                    onClick: ()=>{}
                 }; } }
                 />
         </Row>
-        </div>
+            </div>*/}
 
-        {subcompetitions? <TaskTabs tasks={tasks} subcompetitions={subcompetitions} conditions={data.teilnahmevoraussetzungen} />:<Tasks tasks={tasks} conditions={data.teilnahmevoraussetzungen}  />}
+        {subcompetitions
+                    ? <div><h3>Aufgaben nach Teilwettbewerb</h3><TaskTabs tasks={tasks} subcompetitions={subcompetitions} conditions={data.teilnahmevoraussetzungen} formalia={formalia} /></div>
+                    : <div><h3>Aufgaben</h3><Tasks tasks={tasks} conditions={data.teilnahmevoraussetzungen} formalia={formalia} /></div>}
 
-        <div style={{marginTop: 50}} >
-        <Collapse>
-            { data.formalia && <Panel header={"Formalia"} >
-                    <Row>
-                        <Col span={20} offset={1}>
-                            {data.formalia}
-                        </Col>
-                    </Row>
-            </Panel>}
-        </Collapse>
-        </div>
+        
 
         <div style={{marginTop: 50}}>
         {/*<Row>

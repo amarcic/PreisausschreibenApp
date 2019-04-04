@@ -16,6 +16,7 @@ export default function TaskTabs( props ) {
     //const participants = props.participants;
     const subcompetitions = props.subcompetitions;
     const tasks = props.tasks;
+    const formalia = props.formalia;
     //const rankedParticipants = props.ranked;
     //const awards = props.awards;
     const conditions = props.conditions;
@@ -36,12 +37,11 @@ export default function TaskTabs( props ) {
 
     return(
         <div style={{marginTop: 50}} >
-            <h3>Aufgaben</h3>
                 <Tabs>
                     {subcompetitions.map( (subcomp) =>
                         <TabPane tab={subcomp} key={subcomp}>
                             {taskBySubComp.hasOwnProperty(subcomp)&&
-                            <Tasks tasks={taskBySubComp[subcomp]} conditions={conditions }/>}
+                            <Tasks tasks={taskBySubComp[subcomp]} conditions={conditions} formalia={formalia} />}
                             
                             {/*<Row>
                                 <Col span={20} offset={1}>
