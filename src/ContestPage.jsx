@@ -12,6 +12,7 @@ import EventsList from './EventsList';
 import withCommentContainer from './withCommentContainer';
 import TaskTabs from './TaskTabs';
 import Tasks from './Tasks';
+import OverviewSection from './OverviewSection';
 
 const Panel = Collapse.Panel;
 const EventsListWithCommentContainer = withCommentContainer(EventsList);
@@ -33,6 +34,7 @@ export default function ContestPage( props ) {
     const participants = data.beteiligte;
     const sources = data.quellen;
     const formalia = data.formalia;
+    const occasion = data.anlass;
     let awards = [];
     if(data.auszeichnungen) { awards = data.auszeichnungen;}
     let subcompetitions;
@@ -42,20 +44,6 @@ export default function ContestPage( props ) {
     let rankedParticipants = [];
 
     //let activeSubTab = subcompetitions? subcompetitions[0] : "";
-
-    const columnsTasks = [{
-        title: "Teilwettbewerb",
-        dataIndex: "wettbewerbskontext"
-    },
-    {
-        title: "Aufgabe",
-        dataIndex: "spezifizierung"
-    },
-    {
-        title: "Aufgabentyp",
-        dataIndex: "aufgabentyp"
-    }
-    ]
     
     awards.forEach( award => 
         {
@@ -131,20 +119,8 @@ export default function ContestPage( props ) {
         <h2 style={{color: "grey", marginBottom: 0}}>{ participants.filter( participant => participant.rolle.indexOf("ausschreibende Institution/Person")>=0 ).map( participant => participant.name ).join(", ") }</h2>
         <p>{data.anlass? "Anlass: " + data.anlass : ""}</p>
         {data.reduzierteErfassung && <p style={{color: "#f5222d"}} >Den angeführten Quellen zu diesem Wettbewerb lassen sich möglicherweise weitere Informationen entnehmen, die in der Datenbank bisher nicht erfasst wurden. Dies gilt für alle Wettbewerbe mit der Teilnahme von Gruppen wie z.B. Ensembles, Chören oder Orchestern.</p>} 
-
-        {/*<div style={{marginTop: 50}}>
-        <Row>
-            <Table 
-                columns={columnsTasks} 
-                dataSource={tasks} 
-                pagination={false}
-                rowKey={ record => record.wettbewerbskontext }
-                onRow = { record => {return{
-                    onClick: ()=>{}
-                }; } }
-                />
-        </Row>
-            </div>*/}
+        
+        <OverviewSection occasion={occasion} />
 
         {subcompetitions
                     ? <div><h3>Aufgaben nach Teilwettbewerb</h3><TaskTabs tasks={tasks} subcompetitions={subcompetitions} conditions={data.teilnahmevoraussetzungen} formalia={formalia} /></div>

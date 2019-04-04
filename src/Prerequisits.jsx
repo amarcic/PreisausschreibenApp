@@ -10,7 +10,7 @@ export default function Prerequisits( props ) {
     return(
         <Row>
             <List 
-                header={<h3>Teilnahmevoraussetzungen {comments && comments.length>0 ? <Button type="normal" onClick={showDrawer} >Kommentare</Button> : "" }</h3>}
+                header={<h1>Teilnahmevoraussetzungen {comments && comments.length>0 ? <Button type="normal" onClick={showDrawer} >Kommentare</Button> : "" }</h1>}
                 dataSource={conditions}
                 renderItem={ item =>
                     <List.Item>
