@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Row, Col, List, Collapse, Divider, Table } from 'antd';
+import { Row, Col, List, Collapse, Divider } from 'antd';
 import { Link } from 'react-router-dom';
 import SubcompetitionTabs from './SubcompetitionTabs';
 import MemberListJury from './MemberListJury';
@@ -20,7 +20,7 @@ const MemberListJuryWithCommentContainer = withCommentContainer(MemberListJury);
 const AwardsListWithCommentContainer = withCommentContainer(AwardsList);
 const ContestantListWithCommentContainer = withCommentContainer(ContestantList);
 const PrerequisitsWithCommentContainer = withCommentContainer(Prerequisits);
-//const TabPane = Tabs.TabPane;
+
 
 export default function ContestPage( props ) {
     console.log( props.requestData );
@@ -35,6 +35,8 @@ export default function ContestPage( props ) {
     const sources = data.quellen;
     const formalia = data.formalia;
     const occasion = data.anlass;
+    const taskTypes = data.aufgaben.map( task => task.aufgabentyp );
+
     let awards = [];
     if(data.auszeichnungen) { awards = data.auszeichnungen;}
     let subcompetitions;
@@ -42,8 +44,9 @@ export default function ContestPage( props ) {
     let comments = [];
     if (data.kommentare) { comments = data.kommentare };
     let rankedParticipants = [];
-
-    //let activeSubTab = subcompetitions? subcompetitions[0] : "";
+    let tender = [];
+    let series;
+    let numberOfParticipants;
     
     awards.forEach( award => 
         {
@@ -78,7 +81,7 @@ export default function ContestPage( props ) {
     // I added a check for array and property 'teilnehmer' on data.teilnehmerleistungen
     // I have no idea what this is doing... but it is doing something
     
-    if (data.teilnehmerleistungen) {
+    if (data.hasOwnProperty("teilnehmerleistungen")) {
             data.teilnehmerleistungen.forEach( leistung =>     { if (leistung.hasOwnProperty('teilnehmer')&&Array.isArray(leistung.teilnehmer))
                                                                     { leistung.teilnehmer.forEach( participantId => {
                                                                     let attendee = participants.find( participant => participant.identifier[0] === participantId );
@@ -112,6 +115,12 @@ export default function ContestPage( props ) {
     let taskfields = [];
     data.aufgaben.forEach( aufgabe => { aufgabe.systematik.forEach( term => {if (taskfields.indexOf(term)===-1) taskfields.push( term )} ) } );
 
+    tender = participants.filter( participant => participant.rolle.indexOf("ausschreibende Institution/Person")>=0 );
+
+    if (data.hasOwnProperty("teilnehmerInnenzahl")) {numberOfParticipants = data.teilnehmerInnenzahl;}
+
+    if (data.hasOwnProperty("serienzuordnung")) {series=data.serienzuordnung}  
+
     return(
         <div style={ { marginTop: 50 } }>
         <Row>
@@ -120,7 +129,7 @@ export default function ContestPage( props ) {
         <p>{data.anlass? "Anlass: " + data.anlass : ""}</p>
         {data.reduzierteErfassung && <p style={{color: "#f5222d"}} >Den angeführten Quellen zu diesem Wettbewerb lassen sich möglicherweise weitere Informationen entnehmen, die in der Datenbank bisher nicht erfasst wurden. Dies gilt für alle Wettbewerbe mit der Teilnahme von Gruppen wie z.B. Ensembles, Chören oder Orchestern.</p>} 
         
-        <OverviewSection occasion={occasion} />
+        <OverviewSection occasion={occasion} tender={tender} series={series} pAmount={numberOfParticipants} taskTypes={taskTypes} />
 
         {subcompetitions
                     ? <div><h3>Aufgaben nach Teilwettbewerb</h3><TaskTabs tasks={tasks} subcompetitions={subcompetitions} conditions={data.teilnahmevoraussetzungen} formalia={formalia} /></div>
@@ -173,7 +182,7 @@ export default function ContestPage( props ) {
             <Panel header={ participants.length + " Beteiligte"}>
                 <List
                     grid={ {column: 2} }
-                    itemLayout="horizontal"
+                    itemLayout="vertical"
                     dataSource={participants}
                     renderItem={ item => (
                         <Col offset={1}>
