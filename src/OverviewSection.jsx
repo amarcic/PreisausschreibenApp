@@ -51,11 +51,6 @@ export default function OverviewSection( props ) {
                 </div>
             </Col>
         </Row>
-        <Row>
-            <Col>
-                {}
-            </Col>
-        </Row>
     </div>
     );
 }

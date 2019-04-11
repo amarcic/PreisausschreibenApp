@@ -49,7 +49,8 @@ export default function ContestPage( props ) {
     let numberOfParticipants;
 
     const duration = [ (events[0].zeit.datum ? events[0].zeit.datum : events[0].zeit.von), (events[events.length-1].zeit.datum ? events[events.length-1].zeit.datum : events[events.length-1].zeit.von)];
-    const place = [events[0].ort.ortsname];
+    const place = data.ereignisse[0].ort.ortsname ? data.ereignisse[0].ort.ortsname : data.ereignisse.find( event => event.hasOwnProperty(ortsname) ).ortsname;
+    //const place = [events[0].ort.ortsname];
     
     awards.forEach( award => 
         {
@@ -159,9 +160,9 @@ export default function ContestPage( props ) {
                 <Row><AwardsListWithCommentContainer awards={awards} awardedParticipants={participants.filter( participant => participant.hasOwnProperty('ranks') )} comments={comments.filter( comment => comment.thema === "PreisträgerInnen" || comment.thema === "Auszeichnungen" )} />
             </Row>}
                 <ContestantListWithCommentContainer contestants={participants.filter( participant => !participant.hasOwnProperty('ranks') && participant.rolle.indexOf("TeilnehmerIn")>-1 )} comments={comments.filter( comment => comment.thema === "TeilnehmerInnen" )} />
-                { data.teilnahmevoraussetzungen
+                {/* data.teilnahmevoraussetzungen
                     && <PrerequisitsWithCommentContainer conditions={data.teilnahmevoraussetzungen} comments={comments.filter( comment => comment.thema === "Teilnahmevoraussetzungen" )} /> 
-                }
+                */}
                 { data.teilnehmerInnenzahl && !data.teilnehmerInnenzahl.filter( nop => nop.hasOwnProperty('wettbewerbskontext') ).length>0
                     && <NumberOfParticipants numOPart={ data.teilnehmerInnenzahl } />
                 }
