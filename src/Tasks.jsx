@@ -20,7 +20,7 @@ export default function Tasks( props ) {
         </Row>
         <Row>
             <Col>
-                {conditions && <Prerequisits conditions={conditions} /> }
+                {conditions&&conditions.length>0 && <Prerequisits conditions={conditions} /> }
             </Col>
         </Row>
         <Collapse>

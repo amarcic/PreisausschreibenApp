@@ -19,7 +19,7 @@ const EventsListWithCommentContainer = withCommentContainer(EventsList);
 const MemberListJuryWithCommentContainer = withCommentContainer(MemberListJury);
 const AwardsListWithCommentContainer = withCommentContainer(AwardsList);
 const ContestantListWithCommentContainer = withCommentContainer(ContestantList);
-const PrerequisitsWithCommentContainer = withCommentContainer(Prerequisits);
+//const PrerequisitsWithCommentContainer = withCommentContainer(Prerequisits);
 
 
 export default function ContestPage( props ) {
@@ -49,7 +49,7 @@ export default function ContestPage( props ) {
     let numberOfParticipants;
 
     const duration = [ (events[0].zeit.datum ? events[0].zeit.datum : events[0].zeit.von), (events[events.length-1].zeit.datum ? events[events.length-1].zeit.datum : events[events.length-1].zeit.von)];
-    const place = data.ereignisse[0].ort.ortsname ? data.ereignisse[0].ort.ortsname : data.ereignisse.find( event => event.hasOwnProperty(ortsname) ).ortsname;
+    const place = data.ereignisse[0].ort.hasOwnProperty("ortsname") ? data.ereignisse[0].ort.ortsname : data.ereignisse.find( event => event.ort.hasOwnProperty("ortsname") ).ort.ortsname;
     //const place = [events[0].ort.ortsname];
     
     awards.forEach( award => 
