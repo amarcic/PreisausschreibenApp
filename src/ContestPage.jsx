@@ -47,6 +47,9 @@ export default function ContestPage( props ) {
     let tender = [];
     let series;
     let numberOfParticipants;
+
+    const duration = [ (events[0].zeit.datum ? events[0].zeit.datum : events[0].zeit.von), (events[events.length-1].zeit.datum ? events[events.length-1].zeit.datum : events[events.length-1].zeit.von)];
+    const place = [events[0].ort.ortsname];
     
     awards.forEach( award => 
         {
@@ -125,11 +128,11 @@ export default function ContestPage( props ) {
         <div style={ { marginTop: 50 } }>
         <Row>
             <Col span={20} offset={2}>
-        <h2 style={{color: "grey", marginBottom: 0}}>{ participants.filter( participant => participant.rolle.indexOf("ausschreibende Institution/Person")>=0 ).map( participant => participant.name ).join(", ") }</h2>
-        <p>{data.anlass? "Anlass: " + data.anlass : ""}</p>
+        {/*<h2 style={{color: "grey", marginBottom: 0}}>{ participants.filter( participant => participant.rolle.indexOf("ausschreibende Institution/Person")>=0 ).map( participant => participant.name ).join(", ") }</h2>
+        <p>{data.anlass? "Anlass: " + data.anlass : ""}</p>*/}
         {data.reduzierteErfassung && <p style={{color: "#f5222d"}} >Den angeführten Quellen zu diesem Wettbewerb lassen sich möglicherweise weitere Informationen entnehmen, die in der Datenbank bisher nicht erfasst wurden. Dies gilt für alle Wettbewerbe mit der Teilnahme von Gruppen wie z.B. Ensembles, Chören oder Orchestern.</p>} 
         
-        <OverviewSection occasion={occasion} tender={tender} series={series} pAmount={numberOfParticipants} taskTypes={taskTypes} />
+        <OverviewSection occasion={occasion} duration={duration} place={place} tender={tender} series={series} pAmount={numberOfParticipants} taskTypes={taskTypes} />
 
         {subcompetitions
                     ? <div><h3>Aufgaben nach Teilwettbewerb</h3><TaskTabs tasks={tasks} subcompetitions={subcompetitions} conditions={data.teilnahmevoraussetzungen} formalia={formalia} /></div>
