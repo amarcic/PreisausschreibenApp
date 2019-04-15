@@ -1,7 +1,7 @@
 
-export default function niceJoinHelper( arr, finalSeperator ) {
+export default function niceJoinHelper( arr ) {
 
-    finalSeperator = finalSeperator || " und ";
+    let finalSeperator = arguments[1] || " und ";
 
     let nicelyJoined = "";
     let length=arr.length;
