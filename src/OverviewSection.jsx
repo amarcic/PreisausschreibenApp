@@ -14,7 +14,7 @@ export default function OverviewSection( props ) {
     const place=props.place;
     let pAmount;
 
-    console.log(tender);
+    //console.log(tender);
 
     if (props.pAmount) { pAmount=props.pAmount.filter( nof => !nof.hasOwnProperty("wettbewerbskontext") ) }
 

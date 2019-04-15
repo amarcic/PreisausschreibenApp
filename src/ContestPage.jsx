@@ -7,15 +7,12 @@ import MemberListJury from './MemberListJury';
 import AwardsList from './AwardsList';
 import ContestantList from './ContestantList';
 import NumberOfParticipants from './NumberOfParticipants';
-import Prerequisits from './Prerequisits';
-import EventsList from './EventsList';
+import EventSegment from './EventSegment';
 import withCommentContainer from './withCommentContainer';
-import TaskTabs from './TaskTabs';
-import Tasks from './Tasks';
-import OverviewSection from './OverviewSection';
+import OverviewTaskSegment from './OverviewTaskSegment';
 
 const Panel = Collapse.Panel;
-const EventsListWithCommentContainer = withCommentContainer(EventsList);
+const EventSegmentWithCommentContainer = withCommentContainer(EventSegment);
 const MemberListJuryWithCommentContainer = withCommentContainer(MemberListJury);
 const AwardsListWithCommentContainer = withCommentContainer(AwardsList);
 const ContestantListWithCommentContainer = withCommentContainer(ContestantList);
@@ -133,20 +130,14 @@ export default function ContestPage( props ) {
         <p>{data.anlass? "Anlass: " + data.anlass : ""}</p>*/}
         {data.reduzierteErfassung && <p style={{color: "#f5222d"}} >Den angeführten Quellen zu diesem Wettbewerb lassen sich möglicherweise weitere Informationen entnehmen, die in der Datenbank bisher nicht erfasst wurden. Dies gilt für alle Wettbewerbe mit der Teilnahme von Gruppen wie z.B. Ensembles, Chören oder Orchestern.</p>} 
         
-        <OverviewSection occasion={occasion} duration={duration} place={place} tender={tender} series={series} pAmount={numberOfParticipants} taskTypes={taskTypes} />
-
-        {subcompetitions
-                    ? <div><h3>Aufgaben nach Teilwettbewerb</h3><TaskTabs tasks={tasks} subcompetitions={subcompetitions} conditions={data.teilnahmevoraussetzungen} formalia={formalia} /></div>
-                    : <div><h3>Aufgaben</h3><Tasks tasks={tasks} conditions={data.teilnahmevoraussetzungen} formalia={formalia} /></div>}
-
-        
+        <OverviewTaskSegment occasion={occasion} duration={duration} place={place} tender={tender} series={series} pAmount={numberOfParticipants} taskTypes={taskTypes} tasks={tasks} subcompetitions={subcompetitions} conditions={data.teilnahmevoraussetzungen} formalia={formalia} />       
 
         <div style={{marginTop: 50}}>
         {/*<Row>
             <EventsList events={events} comments={comments.filter( comment => comment.thema==="Ereignisse" ) } />
         </Row>*/}
         <Row>
-            <EventsListWithCommentContainer events={events} comments={comments.filter( comment => comment.thema==="Ereignisse" )} />
+            <EventSegmentWithCommentContainer events={events} comments={comments.filter( comment => comment.thema==="Ereignisse" )} />
         </Row>
         <Divider></Divider>
         </div>
