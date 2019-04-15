@@ -10,7 +10,7 @@ export default function OverviewSection( props ) {
     const occasion=props.occasion;
     const tender=props.tender.map( tparticipant => tparticipant.name );
     const series=props.series;
-    const duration=props.duration.map( date => dateHelper(date) );
+    const duration=props.duration.map( date => dateHelper(date, " ") );
     const place=props.place;
     let pAmount;
 
