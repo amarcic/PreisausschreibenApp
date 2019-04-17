@@ -10,6 +10,7 @@ import NumberOfParticipants from './NumberOfParticipants';
 import EventSegment from './EventSegment';
 import withCommentContainer from './withCommentContainer';
 import OverviewTaskSegment from './OverviewTaskSegment';
+import CompetingSegment from './CompetingSegment';
 
 const Panel = Collapse.Panel;
 const EventSegmentWithCommentContainer = withCommentContainer(EventSegment);
@@ -133,15 +134,15 @@ export default function ContestPage( props ) {
         <OverviewTaskSegment occasion={occasion} duration={duration} place={place} tender={tender} series={series} pAmount={numberOfParticipants} taskTypes={taskTypes} tasks={tasks} subcompetitions={subcompetitions} conditions={data.teilnahmevoraussetzungen} formalia={formalia} />       
 
         <div style={{marginTop: 50}}>
-        {/*<Row>
-            <EventsList events={events} comments={comments.filter( comment => comment.thema==="Ereignisse" ) } />
-        </Row>*/}
         <Row>
             <EventSegmentWithCommentContainer events={events} comments={comments.filter( comment => comment.thema==="Ereignisse" )} />
         </Row>
         <Divider></Divider>
         </div>
-        { subcompetitions && <SubcompetitionTabs subcompetitions={subcompetitions}  participants={ participants.filter( participant => participant.wettbewerbskontext ) } awards={awards} teilnehmerleistungen={data.teilnehmerleistungen} teilnahmevoraussetzungen={data.teilnahmevoraussetzungen} teilnehmerInnenzahl={data.teilnehmerInnenzahl} comments={comments} /> }
+
+        <CompetingSegment participants={participants} awards={awards} subcompetitions={subcompetitions} numOfParticipants={data.teilnehmerInnenzahl} />
+
+        { subcompetitions && <SubcompetitionTabs subcompetitions={subcompetitions}  participants={ participants.filter( participant => participant.wettbewerbskontext ) } awards={awards} teilnehmerleistungen={data.teilnehmerleistungen} numOfParticipants={data.teilnehmerInnenzahl} teilnehmerInnenzahl={data.teilnehmerInnenzahl} comments={comments} /> }
         { !subcompetitions && 
             <div style={{marginTop: 50}}>
             { participants.filter( participant => participant.rolle.indexOf( "Jurymitglied" )>=0 ).length>0 
@@ -165,13 +166,9 @@ export default function ContestPage( props ) {
             && <div style={{marginTop: 50}} ><Divider>Den Quellen konnte für folgende Einträge keine eindeutige Zuordnung zu Teilwettwerben entnommen werden</Divider>
         <MemberListJuryWithCommentContainer juryMembers={participants.filter( participant => participant.rolle.indexOf( "Jurymitglied" ) >= 0 && !participant.hasOwnProperty('wettbewerbskontext') )} comments={comments.filter( comment => comment.thema === "Jury" )} /></div>
         }
-        { /*the extra Prerequisits component is here for the case prerequisits are not in any subcompetition and thus would not be shown at all
-            data.teilnahmevoraussetzungen 
-            && subcompetitions && data.teilnahmevoraussetzungen.filter( prereq => !prereq.hasOwnProperty( 'wettbewerbskontext' ) ) > 0
-            && <div style={{marginTop: 50}} ><Divider>den Quellen konnte für folgende Einträge keine eindeutige Zuordnung zu Teilwettwerben entnommen werden</Divider>
-                    <Prerequisits prereqs={data.teilnahmevoraussetzungen.filter( prereq => !prereq.hasOwnProperty( 'wettbewerbskontext' ) ) } /></div> 
-        */}
+
         <Divider></Divider>
+        
         <div style={{marginTop: 50}} >
         <Collapse>
             <Panel header={ participants.length + " Beteiligte"}>
