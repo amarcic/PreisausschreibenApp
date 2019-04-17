@@ -142,30 +142,12 @@ export default function ContestPage( props ) {
 
         <CompetingSegment participants={participants} awards={awards} subcompetitions={subcompetitions} numOfParticipants={data.teilnehmerInnenzahl} />
 
-        { subcompetitions && <SubcompetitionTabs subcompetitions={subcompetitions}  participants={ participants.filter( participant => participant.wettbewerbskontext ) } awards={awards} teilnehmerleistungen={data.teilnehmerleistungen} numOfParticipants={data.teilnehmerInnenzahl} teilnehmerInnenzahl={data.teilnehmerInnenzahl} comments={comments} /> }
-        { !subcompetitions && 
-            <div style={{marginTop: 50}}>
-            { participants.filter( participant => participant.rolle.indexOf( "Jurymitglied" )>=0 ).length>0 
-                && <MemberListJuryWithCommentContainer juryMembers={participants.filter( participant => participant.rolle.indexOf( "Jurymitglied" ) >= 0 )} comments={comments.filter( comment => comment.thema === "Jury" || comment.thema === "Beurteilung" )} />
-            }
-            { //awards && participants.filter( participant => participant.hasOwnProperty('ranks') ).length > 0 &&
-                <Row><AwardsListWithCommentContainer awards={awards} awardedParticipants={participants.filter( participant => participant.hasOwnProperty('ranks') )} comments={comments.filter( comment => comment.thema === "PreisträgerInnen" || comment.thema === "Auszeichnungen" )} />
-            </Row>}
-                <ContestantListWithCommentContainer contestants={participants.filter( participant => !participant.hasOwnProperty('ranks') && participant.rolle.indexOf("TeilnehmerIn")>-1 )} comments={comments.filter( comment => comment.thema === "TeilnehmerInnen" )} />
-                {/* data.teilnahmevoraussetzungen
-                    && <PrerequisitsWithCommentContainer conditions={data.teilnahmevoraussetzungen} comments={comments.filter( comment => comment.thema === "Teilnahmevoraussetzungen" )} /> 
-                */}
-                { data.teilnehmerInnenzahl && !data.teilnehmerInnenzahl.filter( nop => nop.hasOwnProperty('wettbewerbskontext') ).length>0
-                    && <NumberOfParticipants numOPart={ data.teilnehmerInnenzahl } />
-                }
-            </div>
-        }
         { //the extra MememberListJury component is here for the case the jury memebers are not in any subcompetition and thus would not be shown at all
-            subcompetitions
+         /*   subcompetitions
             && participants.filter( participant => participant.rolle.indexOf( "Jurymitglied" )>=0 && !participant.hasOwnProperty('wettbewerbskontext') ).length>0 
             && <div style={{marginTop: 50}} ><Divider>Den Quellen konnte für folgende Einträge keine eindeutige Zuordnung zu Teilwettwerben entnommen werden</Divider>
         <MemberListJuryWithCommentContainer juryMembers={participants.filter( participant => participant.rolle.indexOf( "Jurymitglied" ) >= 0 && !participant.hasOwnProperty('wettbewerbskontext') )} comments={comments.filter( comment => comment.thema === "Jury" )} /></div>
-        }
+        */ }
 
         <Divider></Divider>
         

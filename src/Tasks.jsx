@@ -1,15 +1,12 @@
 import React from 'react';
-import { Row, Col, Collapse } from 'antd';
+import { Row, Col } from 'antd';
 //import { Link } from 'react-router-dom';
 import Prerequisits from './Prerequisits';
-
-const Panel = Collapse.Panel;
 
 export default function Tasks( props ) {
 
     const tasks=props.tasks;
-    const conditions=props.conditions;
-    const formalia=props.formalia;
+    const conditions=props.conditions;  
 
     return(
     <div>
@@ -23,15 +20,6 @@ export default function Tasks( props ) {
                 {conditions&&conditions.length>0 && <Prerequisits conditions={conditions} /> }
             </Col>
         </Row>
-        <Collapse>
-            { formalia && <Panel header={"Formalia"} >
-                    <Row>
-                        <Col span={20} offset={1}>
-                            {formalia}
-                        </Col>
-                    </Row>
-            </Panel>}
-        </Collapse>
     </div>
     );
 }

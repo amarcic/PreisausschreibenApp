@@ -6,7 +6,6 @@ import MemberListJury from './MemberListJury';
 import ContestantList from './ContestantList';
 import NumberOfParticipants from './NumberOfParticipants';
 
-
 export default function CompetingDisplay( props ) {
 
     const juryMembers = props.participants.filter( participant => participant.rolle.indexOf("Jurymitglied")>=0 );
@@ -30,7 +29,7 @@ export default function CompetingDisplay( props ) {
             </Row>}
             {furtherContestants && furtherContestants.length>0 && <ContestantList contestants={furtherContestants} />}
             { 
-                numOfParticipants && numOfParticipants.length>0 /*&& !numOfParticipants.filter( nop => nop.hasOwnProperty('wettbewerbskontext') ).length>0*/
+                numOfParticipants && numOfParticipants.length>0
                 && <NumberOfParticipants numOPart={ numOfParticipants } />
             }
         </div>

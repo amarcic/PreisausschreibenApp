@@ -1,10 +1,15 @@
 import React from 'react';
+import { Row, Col, Collapse } from 'antd';
 
 import OverviewSection from "./OverviewSection";
 import Tasks from './Tasks';
 import TaskTabs from './TaskTabs';
 
+const Panel = Collapse.Panel;
+
 export default function OverviewTaskSegment( props ) {
+
+    const formalia = props.formalia;
 
     return(
         <div>
@@ -13,6 +18,18 @@ export default function OverviewTaskSegment( props ) {
             {props.subcompetitions
                         ? <div><h3>Aufgaben nach Teilwettbewerb</h3><TaskTabs tasks={props.tasks} subcompetitions={props.subcompetitions} conditions={props.conditions} formalia={props.formalia} /></div>
                         : <div><h3>Aufgaben</h3><Tasks tasks={props.tasks} conditions={props.conditions} formalia={props.formalia} /></div>}
+            
+            { formalia && 
+                <Collapse bordered={false}>
+                    <Panel header={"Formalia"} >
+                            <Row>
+                                <Col span={20} offset={1}>
+                                    {formalia}
+                                </Col>
+                            </Row>
+                    </Panel>
+                </Collapse>
+            }
         </div>
     );
 
