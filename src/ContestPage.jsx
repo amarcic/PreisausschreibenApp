@@ -47,8 +47,9 @@ export default function ContestPage( props ) {
     let numberOfParticipants;
 
     const duration = [ (events[0].zeit.datum ? events[0].zeit.datum : events[0].zeit.von), (events[events.length-1].zeit.datum ? events[events.length-1].zeit.datum : events[events.length-1].zeit.von)];
-    const place = data.ereignisse[0].ort.hasOwnProperty("ortsname") ? data.ereignisse[0].ort.ortsname : data.ereignisse.find( event => event.ort.hasOwnProperty("ortsname") ).ort.ortsname;
-    //const place = [events[0].ort.ortsname];
+    const place = data.ereignisse.find( event => event.ort.hasOwnProperty("ortsname")) ? data.ereignisse.find( event => event.ort.hasOwnProperty("ortsname") ).ort.ortsname : "Ort unbekannt"  ;
+
+    console.log( place );
     
     awards.forEach( award => 
         {
@@ -141,13 +142,6 @@ export default function ContestPage( props ) {
         </div>
 
         <CompetingSegment participants={participants} awards={awards} subcompetitions={subcompetitions} numOfParticipants={data.teilnehmerInnenzahl} />
-
-        { //the extra MememberListJury component is here for the case the jury memebers are not in any subcompetition and thus would not be shown at all
-         /*   subcompetitions
-            && participants.filter( participant => participant.rolle.indexOf( "Jurymitglied" )>=0 && !participant.hasOwnProperty('wettbewerbskontext') ).length>0 
-            && <div style={{marginTop: 50}} ><Divider>Den Quellen konnte für folgende Einträge keine eindeutige Zuordnung zu Teilwettwerben entnommen werden</Divider>
-        <MemberListJuryWithCommentContainer juryMembers={participants.filter( participant => participant.rolle.indexOf( "Jurymitglied" ) >= 0 && !participant.hasOwnProperty('wettbewerbskontext') )} comments={comments.filter( comment => comment.thema === "Jury" )} /></div>
-        */ }
 
         <Divider></Divider>
         
