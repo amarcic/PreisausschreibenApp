@@ -11,6 +11,7 @@ import EventSegment from './EventSegment';
 import withCommentContainer from './withCommentContainer';
 import OverviewTaskSegment from './OverviewTaskSegment';
 import CompetingSegment from './CompetingSegment';
+import ParticipantSegment from './ParticipantSegment';
 
 const Panel = Collapse.Panel;
 const EventSegmentWithCommentContainer = withCommentContainer(EventSegment);
@@ -145,12 +146,14 @@ export default function ContestPage( props ) {
 
         <Divider></Divider>
         
+        <ParticipantSegment participants={participants} />
+
         <div style={{marginTop: 50}} >
         <Collapse>
             <Panel header={ participants.length + " Beteiligte"}>
                 <List
                     grid={ {column: 2} }
-                    itemLayout="vertical"
+                    itemLayout="horizontal"
                     dataSource={participants}
                     renderItem={ item => (
                         <Col offset={1}>
