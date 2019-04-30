@@ -84,11 +84,10 @@ export default function ParticipantSegment( props ) {
         }
     ]
 
-console.log(participants[1]);
-
     return(
         
         <div>
+            <h3>Beteiligte</h3>
             <Table columns={columns} dataSource={participants} />
         </div>
     );

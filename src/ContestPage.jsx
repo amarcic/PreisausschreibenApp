@@ -150,7 +150,7 @@ export default function ContestPage( props ) {
 
         <div style={{marginTop: 50}} >
         <Collapse>
-            <Panel header={ participants.length + " Beteiligte"}>
+            {/*<Panel header={ participants.length + " Beteiligte"}>
                 <List
                     grid={ {column: 2} }
                     itemLayout="horizontal"
@@ -169,7 +169,7 @@ export default function ContestPage( props ) {
 
                     }
                 />
-            </Panel>
+            </Panel>*/}
             <Panel header={ data.bezeichnung.length + " Bezeichnungen"}>
                     {/*data.bezeichnung.join(", ")*/}
                     {/*data.bezeichnung.map( label => <Tag key={label}>{label}</Tag> )*/}

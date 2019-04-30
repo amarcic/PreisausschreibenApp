@@ -49,22 +49,6 @@ export default function CompetingSegment( props ) {
                     }
                 </Collapse>
             </div> }
-
-{ /*          <Collapse>
-                { subcompetitions && (juryNoContext.length>0 || contestantNoContext.length>0 ) && <Panel header={"nicht eindeutig einem Teilwettbewerb zuzuordnen"} >
-                        <Row>
-                            <Col span={20} offset={1}>
-                                <MemberListJury juryMembers={juryNoContext} />
-                            </Col>
-                        </Row>
-                        { contestantNoContext.length>0 && <Row>
-                            <Col span={20} offset={1}>
-                                <ContestantList contestants={contestantNoContext} />
-                            </Col>
-                        </Row>}
-                </Panel>
-                }
-            </Collapse>*/}
         </div>
     );
 
