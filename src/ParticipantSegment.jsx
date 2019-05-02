@@ -1,5 +1,6 @@
 import React from 'react';
 import { Table, Input, Button, Icon } from 'antd';
+import { Link } from 'react-router-dom';
 
 export default class ParticipantSegment extends React.Component {
 
@@ -15,7 +16,7 @@ export default class ParticipantSegment extends React.Component {
             <div style={{padding: 8}} >
                 <Input
                     ref={ node => {this.searchInput = node } } 
-                    placeholder={ 'Search ${dataIndex}' }
+                    placeholder={ 'Search ' + dataIndex }
                     value={ selectedKeys[0] }
                     onChange={ event => setSelectedKeys( event.target.value ? [event.target.value] : [] ) }
                     onPressEnter={ () => this.handleSearch(selectedKeys, confirm) } 
@@ -42,7 +43,7 @@ export default class ParticipantSegment extends React.Component {
                 setTimeout( () => this.searchInput.select() );
             }
         },
-        render: text => text
+        render: (text, record) => <Link to={"/dokumente/" + record.identifier[0] } >{text}</Link>
     })
 
     handleSearch = ( selectedKeys, confirm) => {

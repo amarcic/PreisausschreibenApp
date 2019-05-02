@@ -14,7 +14,7 @@ export default function EventSegment(props){
 
         return(
             <Row>
-                <h3>Ereignisse { comments && comments.length>0 ? <Button type="normal" onClick={showDrawer} >Kommentare</Button> : "" }</h3>
+                <h3>Ereignisse { comments && comments.length>0 ? <span style={{float: "right"}} ><Button type="normal" onClick={showDrawer} >Ergänzende Informationen</Button></span> : "" }</h3>
                 {events.map( (event,index) =>
                     <Collapse bordered={false} key={index} >
                         <Panel
@@ -44,7 +44,7 @@ export default function EventSegment(props){
                     </Collapse>
                 )}
                 { comments && comments.length>0 && <Drawer 
-                    title="Kommentare zu den Ereignissen"
+                    title="Ergänzende Informationen zu den Ereignissen"
                     placement="right"
                     closable={false}
                     onClose={props.onClose}

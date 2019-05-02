@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { Row, Col, List, Collapse, Divider } from 'antd';
-import { Link } from 'react-router-dom';
 import SubcompetitionTabs from './SubcompetitionTabs';
 import MemberListJury from './MemberListJury';
 import AwardsList from './AwardsList';
@@ -144,35 +143,13 @@ export default function ContestPage( props ) {
 
         <CompetingSegment participants={participants} awards={awards} subcompetitions={subcompetitions} numOfParticipants={data.teilnehmerInnenzahl} />
 
-        <Divider></Divider>
+        <Divider style={{marginTop: 50}}></Divider>
         
         <ParticipantSegment participants={participants} />
 
         <div style={{marginTop: 50}} >
         <Collapse>
-            {/*<Panel header={ participants.length + " Beteiligte"}>
-                <List
-                    grid={ {column: 2} }
-                    itemLayout="horizontal"
-                    dataSource={participants}
-                    renderItem={ item => (
-                        <Col offset={1}>
-                        <List.Item extra={ item.wettbewerbskontext? 
-                                                "Teilwettbewerb: " + item.wettbewerbskontext.join(", ") : ""} >
-                            <List.Item.Meta 
-                                title={<span><Link to={"/dokumente/" + item.identifier[0]} > {item.name} </Link> als {item.rolle.join(", ") } </span> }
-                                description={item.anmerkung}
-                            />
-                        </List.Item>
-                        </Col>
-                    )
-
-                    }
-                />
-            </Panel>*/}
             <Panel header={ data.bezeichnung.length + " Bezeichnungen"}>
-                    {/*data.bezeichnung.join(", ")*/}
-                    {/*data.bezeichnung.map( label => <Tag key={label}>{label}</Tag> )*/}
                     <Col offset={1}>
                         <ul>
                             {data.bezeichnung.map( label => <li key={label}>{label}</li> )}
