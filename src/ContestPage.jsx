@@ -1,11 +1,6 @@
 import React from 'react';
 
 import { Row, Col, List, Collapse, Divider } from 'antd';
-import SubcompetitionTabs from './SubcompetitionTabs';
-import MemberListJury from './MemberListJury';
-import AwardsList from './AwardsList';
-import ContestantList from './ContestantList';
-import NumberOfParticipants from './NumberOfParticipants';
 import EventSegment from './EventSegment';
 import withCommentContainer from './withCommentContainer';
 import OverviewTaskSegment from './OverviewTaskSegment';
@@ -14,10 +9,10 @@ import ParticipantSegment from './ParticipantSegment';
 
 const Panel = Collapse.Panel;
 const EventSegmentWithCommentContainer = withCommentContainer(EventSegment);
-const MemberListJuryWithCommentContainer = withCommentContainer(MemberListJury);
-const AwardsListWithCommentContainer = withCommentContainer(AwardsList);
-const ContestantListWithCommentContainer = withCommentContainer(ContestantList);
-//const PrerequisitsWithCommentContainer = withCommentContainer(Prerequisits);
+const OverviewTaskSegmentWithCommentContainer = withCommentContainer(OverviewTaskSegment);
+const CompetingSegmentWithCommentContainer = withCommentContainer(CompetingSegment);
+const ParticipantSegmentWithCommentContainer = withCommentContainer(ParticipantSegment);
+
 
 
 export default function ContestPage( props ) {
@@ -26,7 +21,6 @@ export default function ContestPage( props ) {
     const data = props.requestData;
     // sort events by date; case that only value data.ereignisse.zeit.bis exists has been ignored (right now there are no such event objects in the data)
     const events = data.ereignisse.sort( (a,b) => new Date(a.zeit.datum? a.zeit.datum : a.zeit.von) - new Date(b.zeit.datum? b.zeit.datum : b.zeit.von) );
-    //console.log( events );
     const tasks = data.aufgaben;
     const keywords = data.schlagwoerter;
     const participants = data.beteiligte;
@@ -63,7 +57,6 @@ export default function ContestPage( props ) {
                             if (!rankedParticipants[ranked]) {rankedParticipants[ranked]={} };
                             rankedParticipants[ranked][context] = rank.rang;
                         }
-                            //rankedParticipants.push( { rankedId: ranked, rankInContext: { [award.wettbewerbskontext]: rank.rang }  /*[award.wettbewerbskontext]: rank.rang*/ /*rank: rank.rang, context: award.wettbewerbskontext*/ } )
                         );
                     }
                 } );
@@ -75,14 +68,7 @@ export default function ContestPage( props ) {
     //using .find() causes a problem, if the same person ranked in different subcompetitions
     Object.keys( rankedParticipants ).forEach( id => { //console.log(id);
                                                         if( participants.find( participant => participant.identifier[0]===id ) ) { participants.forEach( participant => { if (participant.identifier[0] === id) { if(!participant.ranks) {participant.ranks={}};  for (let key in rankedParticipants[id]) ( participant.ranks[key]=rankedParticipants[id][key] ) } } ) }
-                                                    } );
-    //                                                console.log(rankedParticipants);
-    //Object.keys(rankedParticipants).forEach( id => { participants.find( participant => participant.identifier[0]===id ) ? participants.find( participant => participant.identifier[0]===id ).ranks  = rankedParticipants[id] : console.log("done here"); } )
-    //the following code looks for the participants identified in teilnehmerleistung.teilnehmer; then it adds a property 'leistung' to participants to hold the info from teilnehmerleistung in an array
-    
-    
-    // I added a check for array and property 'teilnehmer' on data.teilnehmerleistungen
-    // I have no idea what this is doing... but it is doing something
+                                                    } );                                              
     
     if (data.hasOwnProperty("teilnehmerleistungen")) {
             data.teilnehmerleistungen.forEach( leistung =>     { if (leistung.hasOwnProperty('teilnehmer')&&Array.isArray(leistung.teilnehmer))
@@ -98,22 +84,6 @@ export default function ContestPage( props ) {
                                                                     } 
                                                             )}} )
         }
-    
-    //the whole preparation of participant data should maybe be outsourced to an extra function
-    /*
-    let participantsBySubcomp = {};
-    participants.forEach( participant => {
-                                            if ( participant.wettbewerbskontext ) {
-                                                participant.wettbewerbskontext.forEach( context => participantsBySubcomp[context]? participantsBySubcomp[context].push(participant) : participantsBySubcomp[context] = [ participant ] )
-                                            }  
-                                        } 
-                                    )
-    */
-    //console.log( "länge: "  + participants.filter( participant => participant.rolle.indexOf( "Jurymitglied" )>=0 && !participant.hasOwnProperty('wettbewerbskontext') ).length);
-    //console.log(participants);
-    //console.log(participantsBySubcomp);
-    //console.log( rankedParticipants );
-    //console.log(participants.filter( participant => participant.hasOwnProperty('ranks') ) );
 
     let taskfields = [];
     data.aufgaben.forEach( aufgabe => { aufgabe.systematik.forEach( term => {if (taskfields.indexOf(term)===-1) taskfields.push( term )} ) } );
@@ -127,13 +97,10 @@ export default function ContestPage( props ) {
     return(
         <div style={ { marginTop: 50 } }>
         <Row>
-            <Col span={20} offset={2}>
-        {/*<h2 style={{color: "grey", marginBottom: 0}}>{ participants.filter( participant => participant.rolle.indexOf("ausschreibende Institution/Person")>=0 ).map( participant => participant.name ).join(", ") }</h2>
-        <p>{data.anlass? "Anlass: " + data.anlass : ""}</p>*/}
-        {data.reduzierteErfassung && <p style={{color: "#f5222d"}} >Den angeführten Quellen zu diesem Wettbewerb lassen sich möglicherweise weitere Informationen entnehmen, die in der Datenbank bisher nicht erfasst wurden. Dies gilt für alle Wettbewerbe mit der Teilnahme von Gruppen wie z.B. Ensembles, Chören oder Orchestern.</p>} 
+            <Col span={20} offset={2}> 
         
         <div>
-            <OverviewTaskSegment occasion={occasion} duration={duration} place={place} tender={tender} series={series} pAmount={numberOfParticipants} taskTypes={taskTypes} tasks={tasks} subcompetitions={subcompetitions} conditions={data.teilnahmevoraussetzungen} formalia={formalia} />       
+            <OverviewTaskSegmentWithCommentContainer occasion={occasion} duration={duration} place={place} tender={tender} series={series} pAmount={numberOfParticipants} taskTypes={taskTypes} tasks={tasks} subcompetitions={subcompetitions} conditions={data.teilnahmevoraussetzungen} formalia={formalia} comments={comments.filter( comment => comment.thema==="Preisausschreiben allgemein" || comment.thema==="Aufgaben" || comment.thema==="Formalia" || comment.thema==="ausschreibende Institution/Person" || comment.thema==="Teilnahmevoraussetzungen" )}  />       
         </div>
 
         <div style={{marginTop: 50}}>
@@ -143,11 +110,13 @@ export default function ContestPage( props ) {
             <Divider></Divider>
         </div>
 
-        <CompetingSegment participants={participants} awards={awards} subcompetitions={subcompetitions} numOfParticipants={data.teilnehmerInnenzahl} />
+        {data.reduzierteErfassung && <p style={{color: "#f5222d"}} >Den angeführten Quellen zu diesem Wettbewerb lassen sich möglicherweise weitere Informationen entnehmen, die in der Datenbank bisher nicht erfasst wurden. Dies gilt für alle Wettbewerbe mit der Teilnahme von Gruppen wie z.B. Ensembles, Chören oder Orchestern.</p>}
+        
+        <CompetingSegmentWithCommentContainer participants={participants} awards={awards} subcompetitions={subcompetitions} numOfParticipants={data.teilnehmerInnenzahl} comments={comments.filter( comment => comment.thema==="PreisträgerInnen" || comment.thema==="Jury" || comment.thema==="Beurteilung" || comment.thema==="Auszeichnungen" || comment.thema==="PreisträgerInnen" )} />
 
         <Divider style={{marginTop: 50}}></Divider>
         
-        <ParticipantSegment participants={participants} />
+        <ParticipantSegmentWithCommentContainer participants={participants} comments={comments.filter( comment => comment.thema==="TeilnehmerInnen")} />
 
         <div style={{marginTop: 50}} >
         <Collapse>

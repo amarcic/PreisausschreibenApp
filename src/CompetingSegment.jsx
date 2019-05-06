@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, Collapse } from 'antd';
+import { Row, Col, Collapse, Drawer, Button } from 'antd';
 
 import CompetingDisplay from './CompetingDisplay';
 import SubcompetitionTabs from './SubcompetitionTabs';
@@ -16,9 +16,12 @@ export default function CompetingSegment( props ) {
     const subcompetitions = props.subcompetitions || undefined;
     const juryNoContext = participants.filter( participant => participant.rolle.indexOf( "Jurymitglied" )>=0 && !participant.hasOwnProperty('wettbewerbskontext') );
     const contestantNoContext = participants.filter( participant => participant.rolle.indexOf( "TeilnehmerIn" )>=0 && !participant.hasOwnProperty("wettbewerbskontext") );
+    const showDrawer = props.showDrawer;
+    const comments = props.comments;
 
     return(
         <div>
+            <h2>Konkurrenzblock { comments && comments.length>0 ? <span style={{float: "right"}} ><Button type="normal" onClick={showDrawer} >Ergänzende Informationen</Button></span> : "" }</h2>
             { subcompetitions && <SubcompetitionTabs subcompetitions={subcompetitions}  participants={ participants.filter( participant => participant.wettbewerbskontext ) } awards={awards} numOfParticipants={numOfParticipants} teilnehmerInnenzahl={numOfParticipants} /> }
             { !subcompetitions && 
                 <div style={{marginTop: 50}}>
@@ -49,6 +52,17 @@ export default function CompetingSegment( props ) {
                     }
                 </Collapse>
             </div> }
+            { comments && comments.length>0 && <Drawer 
+                    title="Ergänzende Informationen zu den Ereignissen"
+                    placement="right"
+                    closable={false}
+                    onClose={props.onClose}
+                    visible={props.visible}
+                    width="30%"
+                    
+                >
+                    {comments.map( (comment, index) => <p key={index}>{comment.text}</p> )}
+                </Drawer>}
         </div>
     );
 
