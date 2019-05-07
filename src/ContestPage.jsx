@@ -6,6 +6,7 @@ import withCommentContainer from './withCommentContainer';
 import OverviewTaskSegment from './OverviewTaskSegment';
 import CompetingSegment from './CompetingSegment';
 import ParticipantSegment from './ParticipantSegment';
+import dateHelper from './dateHelper';
 
 const Panel = Collapse.Panel;
 const EventSegmentWithCommentContainer = withCommentContainer(EventSegment);
@@ -20,7 +21,7 @@ export default function ContestPage( props ) {
 
     const data = props.requestData;
     // sort events by date; case that only value data.ereignisse.zeit.bis exists has been ignored (right now there are no such event objects in the data)
-    const events = data.ereignisse.sort( (a,b) => new Date(a.zeit.datum? a.zeit.datum : a.zeit.von) - new Date(b.zeit.datum? b.zeit.datum : b.zeit.von) );
+    const events = data.ereignisse.sort( (a,b) => new Date(a.zeit.datum? dateHelper(a.zeit.datum, "01", "-", "std") : dateHelper(a.zeit.von, "01", "-", "std")) - new Date(b.zeit.datum? dateHelper(b.zeit.datum, "01", "-", "std") : dateHelper(b.zeit.von, "01", "-", "std")) );
     const tasks = data.aufgaben;
     const keywords = data.schlagwoerter;
     const participants = data.beteiligte;
@@ -35,10 +36,13 @@ export default function ContestPage( props ) {
     if (data.wettbewerbsgliederung) { subcompetitions = data.wettbewerbsgliederung;}
     let comments = [];
     if (data.kommentare) { comments = data.kommentare };
+    if (data.ergaenzungen) { comments.push( { text: data.ergaenzungen, thema: "Ergaenzungen" } ) }
     let rankedParticipants = [];
     let tender = [];
     let series;
     let numberOfParticipants;
+
+    console.log(events)
 
     const duration = [ (events[0].zeit.datum ? events[0].zeit.datum : events[0].zeit.von), (events[events.length-1].zeit.datum ? events[events.length-1].zeit.datum : events[events.length-1].zeit.von)];
     const place = data.ereignisse.find( event => event.ort.hasOwnProperty("ortsname")) ? data.ereignisse.find( event => event.ort.hasOwnProperty("ortsname") ).ort.ortsname : "Ort unbekannt"  ;
@@ -100,7 +104,7 @@ export default function ContestPage( props ) {
             <Col span={20} offset={2}> 
         
         <div>
-            <OverviewTaskSegmentWithCommentContainer occasion={occasion} duration={duration} place={place} tender={tender} series={series} pAmount={numberOfParticipants} taskTypes={taskTypes} tasks={tasks} subcompetitions={subcompetitions} conditions={data.teilnahmevoraussetzungen} formalia={formalia} comments={comments.filter( comment => comment.thema==="Preisausschreiben allgemein" || comment.thema==="Aufgaben" || comment.thema==="Formalia" || comment.thema==="ausschreibende Institution/Person" || comment.thema==="Teilnahmevoraussetzungen" )}  />       
+            <OverviewTaskSegmentWithCommentContainer occasion={occasion} duration={duration} place={place} tender={tender} series={series} pAmount={numberOfParticipants} taskTypes={taskTypes} tasks={tasks} subcompetitions={subcompetitions} conditions={data.teilnahmevoraussetzungen} formalia={formalia} comments={comments.filter( comment => comment.thema==="Preisausschreiben allgemein" || comment.thema==="Aufgaben" || comment.thema==="Formalia" || comment.thema==="ausschreibende Institution/Person" || comment.thema==="Teilnahmevoraussetzungen" || comment.thema==="Ergaenzungen" )}  />       
         </div>
 
         <div style={{marginTop: 50}}>
@@ -112,7 +116,7 @@ export default function ContestPage( props ) {
 
         {data.reduzierteErfassung && <p style={{color: "#f5222d"}} >Den angeführten Quellen zu diesem Wettbewerb lassen sich möglicherweise weitere Informationen entnehmen, die in der Datenbank bisher nicht erfasst wurden. Dies gilt für alle Wettbewerbe mit der Teilnahme von Gruppen wie z.B. Ensembles, Chören oder Orchestern.</p>}
         
-        <CompetingSegmentWithCommentContainer participants={participants} awards={awards} subcompetitions={subcompetitions} numOfParticipants={data.teilnehmerInnenzahl} comments={comments.filter( comment => comment.thema==="PreisträgerInnen" || comment.thema==="Jury" || comment.thema==="Beurteilung" || comment.thema==="Auszeichnungen" || comment.thema==="PreisträgerInnen" )} />
+        <CompetingSegmentWithCommentContainer participants={participants} awards={awards} subcompetitions={subcompetitions} numOfParticipants={data.teilnehmerInnenzahl} comments={comments.filter( comment => comment.thema==="PreisträgerInnen" || comment.thema==="Jury" || comment.thema==="Beurteilung" || comment.thema==="Auszeichnungen" || comment.thema==="PreisträgerInnen" || comment.thema==="TeilnehmerInnen" )} />
 
         <Divider style={{marginTop: 50}}></Divider>
         

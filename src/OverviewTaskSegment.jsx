@@ -36,7 +36,7 @@ export default function OverviewTaskSegment( props ) {
                     </Collapse>
                 }
                 { comments && comments.length>0 && <Drawer 
-                        title="Ergänzende Informationen zum Preisausschreiben allgemein, zu Aufgaben und Teilnehmerzahlen"
+                        title="Ergänzende Informationen zum Preisausschreiben allgemein, zur Ausschreibung, zu Aufgaben, Formalia und zu den Teilnahmevorraussetzungen"
                         placement="right"
                         closable={false}
                         onClose={props.onClose}
