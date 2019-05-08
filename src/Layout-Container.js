@@ -17,6 +17,8 @@ import CreditsPage from './CreditsPage';
 import DocViewSwitch from './DocViewSwitch';
 
 import withPromise from './withPromise';
+import OnMethodsPage from './OnMethodsPage';
+import BibliographyPage from './BibliographyPage';
 
 const SearchPageWithPromise = withPromise( SearchPage );
 const SeriesPageWithPromise = withPromise( SeriesPage );
@@ -57,15 +59,17 @@ export default class Layout_Container extends React.Component {
                     </div>              
                     <Menu mode="horizontal" style={{ lineHeight: '78px', fontFamily: "'Source Sans Pro', sans", letterSpacing: '0.04em', fontSize: '17px', fontWeight: '40', float: 'right' }} theme="light" >
                         <SubMenu title={<span>Suche</span>} >
-                        <Menu.Item key="1">Preisausschreiben</Menu.Item>
+                        <Menu.Item key="1"><Link to="/search">Preisausschreiben</Link></Menu.Item>
                         <Menu.Item key="2">Personen</Menu.Item>
                         <Menu.Item key="3">Körperschaften</Menu.Item>
                         <Menu.Item key="4">Themen und Schlagworte</Menu.Item>
                         </SubMenu>
                         <SubMenu title={<span>Forschung</span>} >
                             <Menu.Item key="5">Grundriss</Menu.Item>
-                            <Menu.Item key="6">Methodik</Menu.Item>
-                            <Menu.Item key="7">Bibliographie</Menu.Item>
+                            <Menu.Item key="6">
+                                <Link to="/methodik">Methodik</Link>
+                            </Menu.Item>
+                            <Menu.Item key="7"><Link to="/bibliographie">Bibliographie</Link></Menu.Item>
                             <Menu.Item key="8">Publikationen</Menu.Item>
                             <Menu.Item key="9">Visualisierungen und Analysen</Menu.Item>
                         </SubMenu>
@@ -86,12 +90,10 @@ export default class Layout_Container extends React.Component {
                             <Route path="/" exact render={ (props) => <SearchBanner updateInput={this.updateInput} searchCollection={this.state.searchCollection} {...props} />  } />
                             {/*below is just a quick hack to get to landing page, when opening the index.html in couchdb*/}
                             <Route path="/index.html" exact render={ (props) => <SearchBanner updateInput={this.updateInput} searchCollection={this.state.searchCollection} {...props} />  } />
-                            {/*
-                                                <Route path="/person/:docId" render={ (props) => <ErrorBoundary><ResultPage {...props} /> </ErrorBoundary> } ></Route>*/}
-                            {/* can I use :docId to put the value into a prop, so the Result page can render a document from the url alone? yes!*/}
-                            
                             <Route path="/overview" render={ (props) => <ErrorBoundary><SeriesPageWithPromise query="none" collection="overview_competitions" {...props} /></ErrorBoundary> } />
                             <Route path="/about" component={AboutPage} />
+                            <Route path="/methodik" component={OnMethodsPage} />
+                            <Route path="/bibliographie" component={BibliographyPage} />
                             <Route path="/credits" component={CreditsPage} />
                 </Row >
                 <Row type="flex" justify="center" style={{ paddingLeft: "60px", paddingRight: "60px", paddingBottom: "120px"}}>
@@ -99,10 +101,7 @@ export default class Layout_Container extends React.Component {
                 {/*below is just a quick hack to get to landing page, when opening the index.html in couchdb*/}
                 <Route path="/index.html" exact component={LandingPage} />
                 <Route path="/dokumente/:docId" render={ (props) => {const DocViewSwitchWithPromise = withPromise( DocViewSwitch ); return(<ErrorBoundary><DocViewSwitchWithPromise query={props.match.params.docId} {...props}/></ErrorBoundary>);} } ></Route>
-                {/*<Route path="/dokumente/:docType/:docId" render={ (props) => <ErrorBoundary><ResultPage {...props} /> </ErrorBoundary> } ></Route>*/}
                 <Route path="/search" render={ (props) => <ErrorBoundary> <SearchPageWithPromise query={this.state.searchInput} collection={this.state.searchCollection} {...props} /> </ErrorBoundary> } />
-                <div className="ModalHolder">
-                </div>
                 </Row>
                 <Footer style={{textAlign: 'center'}}>
                     Musikalische Preisausschreiben ©2018

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Row, Col, List, Collapse, Divider } from 'antd';
+import { Row, Col, List, Collapse, Divider, Alert } from 'antd';
 import EventSegment from './EventSegment';
 import withCommentContainer from './withCommentContainer';
 import OverviewTaskSegment from './OverviewTaskSegment';
@@ -112,21 +112,23 @@ export default function ContestPage( props ) {
         <Divider style={{marginTop: 50}}></Divider>
 
         <div style={{marginTop: 50}}>
-            <Row>
                 <EventSegmentWithCommentContainer events={events} comments={comments.filter( comment => comment.thema==="Ereignisse" )} />
-            </Row>
         </div>
 
         <Divider style={{marginTop: 50}}></Divider>
 
-        {data.reduzierteErfassung && <p style={{color: "#f5222d"}} >Den angeführten Quellen zu diesem Wettbewerb lassen sich möglicherweise weitere Informationen entnehmen, die in der Datenbank bisher nicht erfasst wurden. Dies gilt für alle Wettbewerbe mit der Teilnahme von Gruppen wie z.B. Ensembles, Chören oder Orchestern.</p>}
+        {data.reduzierteErfassung && <Alert message="Den angeführten Quellen zu diesem Wettbewerb lassen sich möglicherweise weitere Informationen entnehmen, die in der Datenbank bisher nicht erfasst wurden. Dies gilt für alle Wettbewerbe mit der Teilnahme von Gruppen wie z.B. Ensembles, Chören oder Orchestern." type="info" showIcon />}
         
-        <CompetingSegmentWithCommentContainer participants={participants} awards={awards} subcompetitions={subcompetitions} numOfParticipants={data.teilnehmerInnenzahl} comments={comments.filter( comment => comment.thema==="PreisträgerInnen" || comment.thema==="Jury" || comment.thema==="Beurteilung" || comment.thema==="Auszeichnungen" || comment.thema==="PreisträgerInnen" || comment.thema==="TeilnehmerInnen" )} />
+        <div style={{marginTop: 50}}>
+            <CompetingSegmentWithCommentContainer participants={participants} awards={awards} subcompetitions={subcompetitions} numOfParticipants={data.teilnehmerInnenzahl} comments={comments.filter( comment => comment.thema==="PreisträgerInnen" || comment.thema==="Jury" || comment.thema==="Beurteilung" || comment.thema==="Auszeichnungen" || comment.thema==="PreisträgerInnen" || comment.thema==="TeilnehmerInnen" )} />
+        </div>
 
         <Divider style={{marginTop: 50}}></Divider>
         
-        <ParticipantSegmentWithCommentContainer participants={participants} comments={comments.filter( comment => comment.thema==="TeilnehmerInnen")} />
-
+        <div style={{marginTop: 50}}>
+            <ParticipantSegmentWithCommentContainer participants={participants} comments={comments.filter( comment => comment.thema==="TeilnehmerInnen")} />
+        </div>
+        
         <Divider style={{marginTop: 50}}></Divider>
 
         <div style={{marginTop: 50}} >
@@ -135,63 +137,6 @@ export default function ContestPage( props ) {
 
         <div style={{marginTop: 50}}>
             <ResourceSegment resources={resources} />
-
-        {/*<Collapse>
-            <Panel header={ data.bezeichnung.length + " Bezeichnungen"}>
-                    <Col offset={1}>
-                        <ul>
-                            {data.bezeichnung.map( label => <li key={label}>{label}</li> )}
-                        </ul>
-                    </Col>
-            </Panel>
-            <Panel header={ keywords.length + " Schlagworte"}>
-                <Col offset={1}>
-                    {keywords.concat(taskfields).sort().join(", ")}
-                </Col>
-            </Panel>
-            { data.ergaenzungen && <Panel header={"Ergänzungen"} >
-                    <Row>
-                        <Col span={20} offset={1}>
-                            {data.ergaenzungen}
-                        </Col>
-                    </Row>
-            </Panel>}
-            { comments && <Panel header={ comments.length + " Kommentar/e" } >
-                <Row>
-                    <Col span={20} offset={1}>
-                        <List
-                            itemLayout="vertical"
-                            dataSource={comments}
-                            renderItem={ item =>
-                                <List.Item>
-                                    <List.Item.Meta
-                                        title={ "Kommentar zu " + item.thema } 
-                                    />
-                                    {item.text}
-                                </List.Item>
-                            } 
-                        />
-                    </Col>
-                </Row>
-            </Panel>}
-            <Panel header={ resources.length + " Quellen"}>
-                <List
-                    size="small"
-                    itemLayout="horizontal"
-                    dataSource={resources}
-                    renderItem={ item =>
-                        <Col offset={1}>
-                        <List.Item>
-                            <List.Item.Meta 
-                            title={item.quellenangabe}
-                            description={ item.korpus===true? "Die Quelle gehört zum Korpus.": "Die Quelle gehört nicht zum Kropus." }
-                            />
-                        </List.Item>
-                        </Col>
-                    }
-                />
-            </Panel>
-                </Collapse>*/}
         </div>
 
         </Col>
