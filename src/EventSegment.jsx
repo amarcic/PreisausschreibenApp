@@ -1,13 +1,12 @@
 import React from 'react';
-import { Row, Col, Tooltip, Collapse, Drawer, Button } from 'antd';
-//import EventItem from './EventItem';
-//import { Link } from 'react-router-dom';
+import { Row, Col, Tooltip, Collapse, Drawer, Button, Badge } from 'antd';
+
 const Panel = Collapse.Panel;
 
 import dateHelper from './dateHelper';
 
 
-export default function EventsList(props){
+export default function EventSegment(props){
 
     const events = props.events;
     const comments = props.comments;
@@ -15,7 +14,7 @@ export default function EventsList(props){
 
         return(
             <Row>
-                <h3>Ereignisse { comments && comments.length>0 ? <Button type="normal" onClick={showDrawer} >Kommentare</Button> : "" }</h3>
+                <h2>Ereignisse { comments && comments.length>0 ? <span style={{float: "right"}} ><Badge count={comments.length} ><Button type="normal" onClick={showDrawer} >Ergänzende Informationen</Button></Badge></span> : "" }</h2>
                 {events.map( (event,index) =>
                     <Collapse bordered={false} key={index} >
                         <Panel
@@ -45,7 +44,7 @@ export default function EventsList(props){
                     </Collapse>
                 )}
                 { comments && comments.length>0 && <Drawer 
-                    title="Kommentare zu den Ereignissen"
+                    title="Ergänzende Informationen zu den Ereignissen"
                     placement="right"
                     closable={false}
                     onClose={props.onClose}
@@ -57,13 +56,4 @@ export default function EventsList(props){
                 </Drawer>}
             </Row>
         );
-            {/*<List 
-                dataSource={this.state.events}
-                renderItem={ item =>
-                    <List.Item>
-                        <EventItem eventType={item.ereignistyp} date={item.zeit} location={item.ort} desciption={item.beschreibung} context={item.wettbewerbskontext} />
-                    </List.Item>
-                
-            />}
-        )*/}
 }

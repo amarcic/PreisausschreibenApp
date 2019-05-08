@@ -6,7 +6,7 @@ const { Content } = Layout;
 
 export default function AboutPage( props ) {
     return(
-        <Layout style={{ backgroundColor: "#fff4d9" }}>
+        <Layout>
             <Content style={{ marginLeft: "50px", marginTop: "20px" }}>
                 <Breadcrumb>
                     <Breadcrumb.Item><Link to="/">Home</Link></Breadcrumb.Item>

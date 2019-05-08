@@ -19,7 +19,7 @@ export default function MemberListJury (props) {
                     <Col offset={1}>
                         <List.Item>
                             <List.Item.Meta 
-                                title={<span><Link to={"/dokumente/" + item.identifier[0]} >{item.name}</Link></span>}
+                                title={<span><Link target="_blank" to={"/dokumente/" + item.identifier[0]} >{item.name}</Link></span>}
                                 description={item.anmerkung}
                             />
                         </List.Item>

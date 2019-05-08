@@ -1,58 +1,55 @@
 import React from 'react';
 
-import { Row, Col, List, Collapse, Divider, Table } from 'antd';
-import { Link } from 'react-router-dom';
-import SubcompetitionTabs from './SubcompetitionTabs';
-import MemberListJury from './MemberListJury';
-import AwardsList from './AwardsList';
-import ContestantList from './ContestantList';
-import NumberOfParticipants from './NumberOfParticipants';
-import Prerequisits from './Prerequisits';
-import EventsList from './EventsList';
+import { Row, Col, List, Collapse, Divider, Alert } from 'antd';
+import EventSegment from './EventSegment';
 import withCommentContainer from './withCommentContainer';
+import OverviewTaskSegment from './OverviewTaskSegment';
+import CompetingSegment from './CompetingSegment';
+import ParticipantSegment from './ParticipantSegment';
+import LabelSegment from './LabelSegment';
+import ResourceSegment from './ResourceSegment';
+import dateHelper from './dateHelper';
 
 const Panel = Collapse.Panel;
-const EventsListWithCommentContainer = withCommentContainer(EventsList);
-const MemberListJuryWithCommentContainer = withCommentContainer(MemberListJury);
-const AwardsListWithCommentContainer = withCommentContainer(AwardsList);
-const ContestantListWithCommentContainer = withCommentContainer(ContestantList);
-const PrerequisitsWithCommentContainer = withCommentContainer(Prerequisits);
-//const TabPane = Tabs.TabPane;
+const EventSegmentWithCommentContainer = withCommentContainer(EventSegment);
+const OverviewTaskSegmentWithCommentContainer = withCommentContainer(OverviewTaskSegment);
+const CompetingSegmentWithCommentContainer = withCommentContainer(CompetingSegment);
+const ParticipantSegmentWithCommentContainer = withCommentContainer(ParticipantSegment);
+
+
 
 export default function ContestPage( props ) {
     console.log( props.requestData );
 
     const data = props.requestData;
     // sort events by date; case that only value data.ereignisse.zeit.bis exists has been ignored (right now there are no such event objects in the data)
-    const events = data.ereignisse.sort( (a,b) => new Date(a.zeit.datum? a.zeit.datum : a.zeit.von) - new Date(b.zeit.datum? b.zeit.datum : b.zeit.von) );
-    //console.log( events );
+    const events = data.ereignisse.sort( (a,b) => new Date(a.zeit.datum? dateHelper(a.zeit.datum, "01", "-", "std") : dateHelper(a.zeit.von, "01", "-", "std")) - new Date(b.zeit.datum? dateHelper(b.zeit.datum, "01", "-", "std") : dateHelper(b.zeit.von, "01", "-", "std")) );
     const tasks = data.aufgaben;
     const keywords = data.schlagwoerter;
     const participants = data.beteiligte;
-    const sources = data.quellen;
+    const resources = data.quellen;
+    const formalia = data.formalia;
+    const occasion = data.anlass;
+    const taskTypes = data.aufgaben.map( task => task.aufgabentyp );
+
     let awards = [];
     if(data.auszeichnungen) { awards = data.auszeichnungen;}
     let subcompetitions;
     if (data.wettbewerbsgliederung) { subcompetitions = data.wettbewerbsgliederung;}
     let comments = [];
     if (data.kommentare) { comments = data.kommentare };
+    if (data.ergaenzungen) { comments.push( { text: data.ergaenzungen, thema: "Ergaenzungen" } ) }
     let rankedParticipants = [];
+    let tender = [];
+    let series;
+    let numberOfParticipants;
 
-    //let activeSubTab = subcompetitions? subcompetitions[0] : "";
+    console.log(events)
 
-    const columnsTasks = [{
-        title: "Teilwettbewerb",
-        dataIndex: "wettbewerbskontext"
-    },
-    {
-        title: "Aufgabe",
-        dataIndex: "spezifizierung"
-    },
-    {
-        title: "Aufgabentyp",
-        dataIndex: "aufgabentyp"
-    }
-    ]
+    const duration = [ (events[0].zeit.datum ? events[0].zeit.datum : events[0].zeit.von), (events[events.length-1].zeit.datum ? events[events.length-1].zeit.datum : events[events.length-1].zeit.von)];
+    const place = data.ereignisse.find( event => event.ort.hasOwnProperty("ortsname")) ? data.ereignisse.find( event => event.ort.hasOwnProperty("ortsname") ).ort.ortsname : "Ort unbekannt"  ;
+
+    console.log( place );
     
     awards.forEach( award => 
         {
@@ -66,7 +63,6 @@ export default function ContestPage( props ) {
                             if (!rankedParticipants[ranked]) {rankedParticipants[ranked]={} };
                             rankedParticipants[ranked][context] = rank.rang;
                         }
-                            //rankedParticipants.push( { rankedId: ranked, rankInContext: { [award.wettbewerbskontext]: rank.rang }  /*[award.wettbewerbskontext]: rank.rang*/ /*rank: rank.rang, context: award.wettbewerbskontext*/ } )
                         );
                     }
                 } );
@@ -78,16 +74,9 @@ export default function ContestPage( props ) {
     //using .find() causes a problem, if the same person ranked in different subcompetitions
     Object.keys( rankedParticipants ).forEach( id => { //console.log(id);
                                                         if( participants.find( participant => participant.identifier[0]===id ) ) { participants.forEach( participant => { if (participant.identifier[0] === id) { if(!participant.ranks) {participant.ranks={}};  for (let key in rankedParticipants[id]) ( participant.ranks[key]=rankedParticipants[id][key] ) } } ) }
-                                                    } );
-    //                                                console.log(rankedParticipants);
-    //Object.keys(rankedParticipants).forEach( id => { participants.find( participant => participant.identifier[0]===id ) ? participants.find( participant => participant.identifier[0]===id ).ranks  = rankedParticipants[id] : console.log("done here"); } )
-    //the following code looks for the participants identified in teilnehmerleistung.teilnehmer; then it adds a property 'leistung' to participants to hold the info from teilnehmerleistung in an array
+                                                    } );                                              
     
-    
-    // I added a check for array and property 'teilnehmer' on data.teilnehmerleistungen
-    // I have no idea what this is doing... but it is doing something
-    
-    if (data.teilnehmerleistungen) {
+    if (data.hasOwnProperty("teilnehmerleistungen")) {
             data.teilnehmerleistungen.forEach( leistung =>     { if (leistung.hasOwnProperty('teilnehmer')&&Array.isArray(leistung.teilnehmer))
                                                                     { leistung.teilnehmer.forEach( participantId => {
                                                                     let attendee = participants.find( participant => participant.identifier[0] === participantId );
@@ -101,181 +90,53 @@ export default function ContestPage( props ) {
                                                                     } 
                                                             )}} )
         }
-    
-    //the whole preparation of participant data should maybe be outsourced to an extra function
-    /*
-    let participantsBySubcomp = {};
-    participants.forEach( participant => {
-                                            if ( participant.wettbewerbskontext ) {
-                                                participant.wettbewerbskontext.forEach( context => participantsBySubcomp[context]? participantsBySubcomp[context].push(participant) : participantsBySubcomp[context] = [ participant ] )
-                                            }  
-                                        } 
-                                    )
-    */
-    //console.log( "länge: "  + participants.filter( participant => participant.rolle.indexOf( "Jurymitglied" )>=0 && !participant.hasOwnProperty('wettbewerbskontext') ).length);
-    //console.log(participants);
-    //console.log(participantsBySubcomp);
-    //console.log( rankedParticipants );
-    //console.log(participants.filter( participant => participant.hasOwnProperty('ranks') ) );
 
     let taskfields = [];
     data.aufgaben.forEach( aufgabe => { aufgabe.systematik.forEach( term => {if (taskfields.indexOf(term)===-1) taskfields.push( term )} ) } );
 
+    tender = participants.filter( participant => participant.rolle.indexOf("ausschreibende Institution/Person")>=0 );
+
+    if (data.hasOwnProperty("teilnehmerInnenzahl")) {numberOfParticipants = data.teilnehmerInnenzahl;}
+
+    if (data.hasOwnProperty("serienzuordnung")) {series=data.serienzuordnung}  
+
     return(
         <div style={ { marginTop: 50 } }>
         <Row>
-            <Col span={20} offset={2}>
-        <h2 style={{color: "grey", marginBottom: 0}}>{ participants.filter( participant => participant.rolle.indexOf("ausschreibende Institution/Person")>=0 ).map( participant => participant.name ).join(", ") }</h2>
-        <p>{data.anlass? "Anlass: " + data.anlass : ""}</p>
-        {data.reduzierteErfassung && <p style={{color: "#f5222d"}} >Den angeführten Quellen zu diesem Wettbewerb lassen sich möglicherweise weitere Informationen entnehmen, die in der Datenbank bisher nicht erfasst wurden. Dies gilt für alle Wettbewerbe mit der Teilnahme von Gruppen wie z.B. Ensembles, Chören oder Orchestern.</p>} 
-
-        <div style={{marginTop: 50}}>
-        <Row>
-            <Table 
-                columns={columnsTasks} 
-                dataSource={tasks} 
-                pagination={false}
-                rowKey={ record => record.wettbewerbskontext }
-                onRow = { record => {return{
-                    onClick: ()=>{/*activeSubTab=record.wettbewerbskontext;*/}
-                }; } }
-                />
-        </Row>
+            <Col span={20} offset={2}> 
+        
+        <div>
+            <OverviewTaskSegmentWithCommentContainer occasion={occasion} duration={duration} place={place} tender={tender} series={series} pAmount={numberOfParticipants} taskTypes={taskTypes} tasks={tasks} subcompetitions={subcompetitions} conditions={data.teilnahmevoraussetzungen} formalia={formalia} comments={comments.filter( comment => comment.thema==="Preisausschreiben allgemein" || comment.thema==="Aufgaben" || comment.thema==="Formalia" || comment.thema==="ausschreibende Institution/Person" || comment.thema==="Teilnahmevoraussetzungen" || comment.thema==="Ergaenzungen" )}  />       
         </div>
 
+        <Divider style={{marginTop: 50}}></Divider>
+
         <div style={{marginTop: 50}}>
-        {/*<Row>
-            <EventsList events={events} comments={comments.filter( comment => comment.thema==="Ereignisse" ) } />
-        </Row>*/}
-        <Row>
-            <EventsListWithCommentContainer events={events} comments={comments.filter( comment => comment.thema==="Ereignisse" )} />
-        </Row>
-        <Divider></Divider>
+                <EventSegmentWithCommentContainer events={events} comments={comments.filter( comment => comment.thema==="Ereignisse" )} />
         </div>
-        { subcompetitions && <SubcompetitionTabs subcompetitions={subcompetitions}  participants={ participants.filter( participant => participant.wettbewerbskontext ) } awards={awards} teilnehmerleistungen={data.teilnehmerleistungen} teilnahmevoraussetzungen={data.teilnahmevoraussetzungen} teilnehmerInnenzahl={data.teilnehmerInnenzahl} comments={comments} /> }
-        { !subcompetitions && 
-            <div style={{marginTop: 50}}>
-            { participants.filter( participant => participant.rolle.indexOf( "Jurymitglied" )>=0 ).length>0 
-                && <MemberListJuryWithCommentContainer juryMembers={participants.filter( participant => participant.rolle.indexOf( "Jurymitglied" ) >= 0 )} comments={comments.filter( comment => comment.thema === "Jury" || comment.thema === "Beurteilung" )} />
-            }
-            { //awards && participants.filter( participant => participant.hasOwnProperty('ranks') ).length > 0 &&
-                <Row><AwardsListWithCommentContainer awards={awards} awardedParticipants={participants.filter( participant => participant.hasOwnProperty('ranks') )} comments={comments.filter( comment => comment.thema === "PreisträgerInnen" || comment.thema === "Auszeichnungen" )} />
-            </Row>}
-                <ContestantListWithCommentContainer contestants={participants.filter( participant => !participant.hasOwnProperty('ranks') && participant.rolle.indexOf("TeilnehmerIn")>-1 )} comments={comments.filter( comment => comment.thema === "TeilnehmerInnen" )} />
-                { data.teilnahmevoraussetzungen
-                    && <PrerequisitsWithCommentContainer prereqs={data.teilnahmevoraussetzungen} comments={comments.filter( comment => comment.thema === "Teilnahmevoraussetzungen" )} /> 
-                }
-                { data.teilnehmerInnenzahl && !data.teilnehmerInnenzahl.filter( nop => nop.hasOwnProperty('wettbewerbskontext') ).length>0
-                    && <NumberOfParticipants numOPart={ data.teilnehmerInnenzahl } />
-                }
-            </div>
-        }
-        { //the extra MememberListJury component is here for the case the jury memebers are not in any subcompetition and thus would not be shown at all
-            subcompetitions
-            && participants.filter( participant => participant.rolle.indexOf( "Jurymitglied" )>=0 && !participant.hasOwnProperty('wettbewerbskontext') ).length>0 
-            && <div style={{marginTop: 50}} ><Divider>Den Quellen konnte für folgende Einträge keine eindeutige Zuordnung zu Teilwettwerben entnommen werden</Divider>
-        <MemberListJuryWithCommentContainer juryMembers={participants.filter( participant => participant.rolle.indexOf( "Jurymitglied" ) >= 0 && !participant.hasOwnProperty('wettbewerbskontext') )} comments={comments.filter( comment => comment.thema === "Jury" )} /></div>
-        }
-        { /*the extra Prerequisits component is here for the case prerequisits are not in any subcompetition and thus would not be shown at all
-            data.teilnahmevoraussetzungen 
-            && subcompetitions && data.teilnahmevoraussetzungen.filter( prereq => !prereq.hasOwnProperty( 'wettbewerbskontext' ) ) > 0
-            && <div style={{marginTop: 50}} ><Divider>den Quellen konnte für folgende Einträge keine eindeutige Zuordnung zu Teilwettwerben entnommen werden</Divider>
-                    <Prerequisits prereqs={data.teilnahmevoraussetzungen.filter( prereq => !prereq.hasOwnProperty( 'wettbewerbskontext' ) ) } /></div> 
-        */}
-        <Divider></Divider>
+
+        <Divider style={{marginTop: 50}}></Divider>
+
+        {data.reduzierteErfassung && <Alert message="Den angeführten Quellen zu diesem Wettbewerb lassen sich möglicherweise weitere Informationen entnehmen, die in der Datenbank bisher nicht erfasst wurden. Dies gilt für alle Wettbewerbe mit der Teilnahme von Gruppen wie z.B. Ensembles, Chören oder Orchestern." type="info" showIcon />}
+        
+        <div style={{marginTop: 50}}>
+            <CompetingSegmentWithCommentContainer participants={participants} awards={awards} subcompetitions={subcompetitions} numOfParticipants={data.teilnehmerInnenzahl} comments={comments.filter( comment => comment.thema==="PreisträgerInnen" || comment.thema==="Jury" || comment.thema==="Beurteilung" || comment.thema==="Auszeichnungen" || comment.thema==="PreisträgerInnen" || comment.thema==="TeilnehmerInnen" )} />
+        </div>
+
+        <Divider style={{marginTop: 50}}></Divider>
+        
+        <div style={{marginTop: 50}}>
+            <ParticipantSegmentWithCommentContainer participants={participants} comments={comments.filter( comment => comment.thema==="TeilnehmerInnen")} />
+        </div>
+        
+        <Divider style={{marginTop: 50}}></Divider>
+
         <div style={{marginTop: 50}} >
-        <Collapse>
-            <Panel header={ participants.length + " Beteiligte"}>
-                <List
-                    grid={ {column: 2} }
-                    itemLayout="horizontal"
-                    dataSource={participants}
-                    renderItem={ item => (
-                        <Col offset={1}>
-                        <List.Item extra={ item.wettbewerbskontext? 
-                                                "Teilwettbewerb: " + item.wettbewerbskontext.join(", ") : ""} >
-                            <List.Item.Meta 
-                                title={<span><Link to={"/dokumente/" + item.identifier[0]} > {item.name} </Link> als {item.rolle.join(", ") } </span> }
-                                description={item.anmerkung}
-                            />
-                        </List.Item>
-                        </Col>
-                    )
+            <LabelSegment tags={keywords.concat(taskfields)} labels={data.bezeichnung} />
+        </div>
 
-                    }
-                />
-            </Panel>
-            <Panel header={ data.bezeichnung.length + " Bezeichnungen"}>
-                    {/*data.bezeichnung.join(", ")*/}
-                    {/*data.bezeichnung.map( label => <Tag key={label}>{label}</Tag> )*/}
-                    <Col offset={1}>
-                        <ul>
-                            {data.bezeichnung.map( label => <li key={label}>{label}</li> )}
-                        </ul>
-                    </Col>
-            </Panel>
-            <Panel header={ keywords.length + " Schlagworte"}>
-                <Col offset={1}>
-                    {keywords.join(", ")}
-                    {/*keywords.map( keyword => <Tag key={keyword}>{keyword}</Tag> )*/}
-                </Col>
-            </Panel>
-            <Panel header={ taskfields.length + " Aufgabenbereiche"}>
-                <Col offset={1}>
-                    { taskfields.join(", ") }
-                    {/* taskfields.map( taskfield => <Tag key={taskfield} >{taskfield}</Tag> ) */}
-                </Col>
-            </Panel>
-            { data.formalia && <Panel header={"Formalia"} >
-                    <Row>
-                        <Col span={20} offset={1}>
-                            {data.formalia}
-                        </Col>
-                    </Row>
-            </Panel>}
-            { data.ergaenzungen && <Panel header={"Ergänzungen"} >
-                    <Row>
-                        <Col span={20} offset={1}>
-                            {data.ergaenzungen}
-                        </Col>
-                    </Row>
-            </Panel>}
-            { comments && <Panel header={ comments.length + " Kommentar/e" } >
-                <Row>
-                    <Col span={20} offset={1}>
-                        <List
-                            itemLayout="vertical"
-                            dataSource={comments}
-                            renderItem={ item =>
-                                <List.Item>
-                                    <List.Item.Meta
-                                        title={ "Kommentar zu " + item.thema } 
-                                    />
-                                    {item.text}
-                                </List.Item>
-                            } 
-                        />
-                    </Col>
-                </Row>
-            </Panel>}
-            <Panel header={ sources.length + " Quellen"}>
-                <List
-                    size="small"
-                    itemLayout="horizontal"
-                    dataSource={sources}
-                    renderItem={ item =>
-                        <Col offset={1}>
-                        <List.Item>
-                            <List.Item.Meta 
-                            title={item.quellenangabe}
-                            description={ item.korpus===true? "Die Quelle gehört zum Korpus.": "Die Quelle gehört nicht zum Kropus." }
-                            />
-                        </List.Item>
-                        </Col>
-                    }
-                />
-            </Panel>
-        </Collapse>
+        <div style={{marginTop: 50}}>
+            <ResourceSegment resources={resources} />
         </div>
 
         </Col>

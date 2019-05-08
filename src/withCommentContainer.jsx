@@ -1,5 +1,5 @@
 import React from 'react';
-import { Drawer } from 'antd';
+//import { Drawer } from 'antd';
 
 export default function withCommentContainer( WrappedComponent ) {
     return (

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, List, Button, Drawer } from 'antd';
+import { Row, Col, List, Button, Drawer, Tooltip } from 'antd';
 import { Link } from 'react-router-dom';
 
 //import RouteById from "./RouteById";
@@ -16,7 +16,7 @@ export default function ContestantList( props ) {
     return (
         <Row>
             <List 
-                header={<div><h3>Weitere TeilnehmerInnen {comments && comments.length>0 ? <Button type="normal" onClick={showDrawer} >Kommentare</Button> : "" }</h3></div>}
+                header={<div><h3>Weitere <Tooltip title="Glossareintrag: Teilnehmer">TeilnehmerInnen</Tooltip> {comments && comments.length>0 ? <Button type="normal" onClick={showDrawer} >Kommentare</Button> : "" }</h3></div>}
                 grid={ {column: 2} }
                 dataSource={ contestants /*.filter( contestant => !contestant.hasOwnProperty('ranks') )*/ }
                 renderItem={ item => 

@@ -12,6 +12,8 @@ export default function AwardsList( props ) {
 
     let awardedParticipantsByRank = {};
 
+    console.log(awards);
+
     if(awards[0]&&awards[0].platzierungen) { awards[0].platzierungen.forEach( rnk => { if(!awardedParticipantsByRank[rnk.rang]) awardedParticipantsByRank[rnk.rang] = {};
                                                                             rnk.platzierte.forEach( plcd => { 
                                                                                 let participant = plcd!=="nv" ? awardedParticipants.find( particip => particip.identifier[0] === plcd) : "nicht vergeben" ;
@@ -57,16 +59,6 @@ export default function AwardsList( props ) {
                                     {item.platzierte.map( (placed, i) => 
                                         {return (<li style={{listStyleType: 'none'}} key={i}>
                                             { placed==='nv' ? "nicht vergeben" 
-                                                                /*: awardedParticipants.find( participant => participant.identifier[0]===placed ) ? 
-                                                                        <span>{ !awardedParticipants.find( participant => participant.identifier[0]===placed ).kollaboration ?
-                                                                             <Link to={"/dokumente/" + awardedParticipants.find( participant => participant.identifier[0]===placed ).identifier[0]} >{awardedParticipants.find( participant => participant.identifier[0]===placed ).name}</Link>
-                                                                            :
-                                                                            <Link to={"/dokumente/" + awardedParticipants.find( participant => participant.identifier[0]===placed ).identifier[0]} >{awardedParticipants.find( participant => participant.identifier[0]===placed ).name}</Link>
-                                                                            }
-                                                                         {( awardedParticipants.find( participant => participant.identifier[0]===placed ).hasOwnProperty('leistungen') ?
-                                                                                ", mit: " + awardedParticipants.find(participant => participant.identifier[0]===placed ).leistungen.join(", ")
-                                                                            : "") }</span>
-                                                                                :  placed + "(nicht gefunden...)"*/
                                                                 :    <span><Link to={"/dokumente/" + awardedParticipantsByRank[item.rang][placed].identifier[0]} >{awardedParticipantsByRank[item.rang][placed].name}</Link>
                                                                 {awardedParticipantsByRank[item.rang][placed].hasOwnProperty('leistungen') ? ", mit: " + awardedParticipantsByRank[item.rang][placed].leistungen.join(", ") : "" }</span>}
                                                                 {awardedParticipantsByRank[item.rang][placed].hasOwnProperty('colls') ? " (" + awardedParticipantsByRank[item.rang][placed].colls + ")" : "" }
