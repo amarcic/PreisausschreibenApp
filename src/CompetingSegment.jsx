@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, Collapse, Drawer, Button } from 'antd';
+import { Row, Col, Collapse, Drawer, Button, Badge } from 'antd';
 
 import CompetingDisplay from './CompetingDisplay';
 import SubcompetitionTabs from './SubcompetitionTabs';
@@ -21,7 +21,7 @@ export default function CompetingSegment( props ) {
 
     return(
         <div>
-            <h2>Konkurrenzblock { comments && comments.length>0 ? <span style={{float: "right"}} ><Button type="normal" onClick={showDrawer} >Ergänzende Informationen</Button></span> : "" }</h2>
+            <h2>Konkurrenzblock { comments && comments.length>0 ? <span style={{float: "right"}} ><Badge count={comments.length} ><Button type="normal" onClick={showDrawer} >Ergänzende Informationen</Button></Badge></span> : "" }</h2>
             { subcompetitions && <SubcompetitionTabs subcompetitions={subcompetitions}  participants={ participants.filter( participant => participant.wettbewerbskontext ) } awards={awards} numOfParticipants={numOfParticipants} teilnehmerInnenzahl={numOfParticipants} /> }
             { !subcompetitions && 
                 <div style={{marginTop: 50}}>

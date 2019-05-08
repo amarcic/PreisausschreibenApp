@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, Collapse, Drawer, Button } from 'antd';
+import { Row, Col, Collapse, Drawer, Button, Badge } from 'antd';
 
 import OverviewSection from "./OverviewSection";
 import Tasks from './Tasks';
@@ -18,11 +18,11 @@ export default function OverviewTaskSegment( props ) {
             <Col>
                 <OverviewSection occasion={props.occasion} duration={props.duration} place={props.place} tender={props.tender} series={props.series} pAmount={props.pAmount} taskTypes={props.taskTypes} />
                 
-                { comments && comments.length>0 ? <span style={{float: "right"}} ><Button type="normal" onClick={showDrawer} >Ergänzende Informationen</Button></span> : "" }
+                { comments && comments.length>0 ? <span style={{float: "right"}} ><Badge count={comments.length} ><Button type="normal" onClick={showDrawer} >Ergänzende Informationen</Button></Badge></span> : "" }
 
                 { props.subcompetitions
-                            ? <div style={{marginTop: 50}}><h3>Aufgaben nach Teilwettbewerb</h3><TaskTabs tasks={props.tasks} subcompetitions={props.subcompetitions} conditions={props.conditions} formalia={props.formalia} /></div>
-                            : <div style={{marginTop: 50}}><h3>Aufgaben</h3><Tasks tasks={props.tasks} conditions={props.conditions} formalia={props.formalia} /></div> }
+                            ? <div style={{marginTop: 50}}><h2>Aufgaben nach Teilwettbewerb</h2><TaskTabs tasks={props.tasks} subcompetitions={props.subcompetitions} conditions={props.conditions} formalia={props.formalia} /></div>
+                            : <div style={{marginTop: 50}}><h2>Aufgaben</h2><Tasks tasks={props.tasks} conditions={props.conditions} formalia={props.formalia} /></div> }
                 
                 { formalia && 
                     <Collapse bordered={false}>

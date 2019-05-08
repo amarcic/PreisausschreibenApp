@@ -6,6 +6,8 @@ import withCommentContainer from './withCommentContainer';
 import OverviewTaskSegment from './OverviewTaskSegment';
 import CompetingSegment from './CompetingSegment';
 import ParticipantSegment from './ParticipantSegment';
+import LabelSegment from './LabelSegment';
+import ResourceSegment from './ResourceSegment';
 import dateHelper from './dateHelper';
 
 const Panel = Collapse.Panel;
@@ -25,7 +27,7 @@ export default function ContestPage( props ) {
     const tasks = data.aufgaben;
     const keywords = data.schlagwoerter;
     const participants = data.beteiligte;
-    const sources = data.quellen;
+    const resources = data.quellen;
     const formalia = data.formalia;
     const occasion = data.anlass;
     const taskTypes = data.aufgaben.map( task => task.aufgabentyp );
@@ -107,12 +109,15 @@ export default function ContestPage( props ) {
             <OverviewTaskSegmentWithCommentContainer occasion={occasion} duration={duration} place={place} tender={tender} series={series} pAmount={numberOfParticipants} taskTypes={taskTypes} tasks={tasks} subcompetitions={subcompetitions} conditions={data.teilnahmevoraussetzungen} formalia={formalia} comments={comments.filter( comment => comment.thema==="Preisausschreiben allgemein" || comment.thema==="Aufgaben" || comment.thema==="Formalia" || comment.thema==="ausschreibende Institution/Person" || comment.thema==="Teilnahmevoraussetzungen" || comment.thema==="Ergaenzungen" )}  />       
         </div>
 
+        <Divider style={{marginTop: 50}}></Divider>
+
         <div style={{marginTop: 50}}>
             <Row>
                 <EventSegmentWithCommentContainer events={events} comments={comments.filter( comment => comment.thema==="Ereignisse" )} />
             </Row>
-            <Divider></Divider>
         </div>
+
+        <Divider style={{marginTop: 50}}></Divider>
 
         {data.reduzierteErfassung && <p style={{color: "#f5222d"}} >Den angeführten Quellen zu diesem Wettbewerb lassen sich möglicherweise weitere Informationen entnehmen, die in der Datenbank bisher nicht erfasst wurden. Dies gilt für alle Wettbewerbe mit der Teilnahme von Gruppen wie z.B. Ensembles, Chören oder Orchestern.</p>}
         
@@ -122,8 +127,16 @@ export default function ContestPage( props ) {
         
         <ParticipantSegmentWithCommentContainer participants={participants} comments={comments.filter( comment => comment.thema==="TeilnehmerInnen")} />
 
+        <Divider style={{marginTop: 50}}></Divider>
+
         <div style={{marginTop: 50}} >
-        <Collapse>
+            <LabelSegment tags={keywords.concat(taskfields)} labels={data.bezeichnung} />
+        </div>
+
+        <div style={{marginTop: 50}}>
+            <ResourceSegment resources={resources} />
+
+        {/*<Collapse>
             <Panel header={ data.bezeichnung.length + " Bezeichnungen"}>
                     <Col offset={1}>
                         <ul>
@@ -134,7 +147,6 @@ export default function ContestPage( props ) {
             <Panel header={ keywords.length + " Schlagworte"}>
                 <Col offset={1}>
                     {keywords.concat(taskfields).sort().join(", ")}
-                    {/*still lowercase is sorted after uppercase, but should not be*/}
                 </Col>
             </Panel>
             { data.ergaenzungen && <Panel header={"Ergänzungen"} >
@@ -162,11 +174,11 @@ export default function ContestPage( props ) {
                     </Col>
                 </Row>
             </Panel>}
-            <Panel header={ sources.length + " Quellen"}>
+            <Panel header={ resources.length + " Quellen"}>
                 <List
                     size="small"
                     itemLayout="horizontal"
-                    dataSource={sources}
+                    dataSource={resources}
                     renderItem={ item =>
                         <Col offset={1}>
                         <List.Item>
@@ -179,7 +191,7 @@ export default function ContestPage( props ) {
                     }
                 />
             </Panel>
-        </Collapse>
+                </Collapse>*/}
         </div>
 
         </Col>

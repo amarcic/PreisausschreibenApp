@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table, Input, Button, Icon, Drawer } from 'antd';
+import { Table, Input, Button, Icon, Drawer, Badge } from 'antd';
 import { Link } from 'react-router-dom';
 
 export default class ParticipantSegment extends React.Component {
@@ -138,7 +138,7 @@ export default class ParticipantSegment extends React.Component {
         return(
             
             <div>
-                <h2>Beteiligte { this.props.comments && this.props.comments.length>0 ? <span style={{float: "right"}} ><Button type="normal" onClick={this.props.showDrawer} >Ergänzende Informationen</Button></span> : "" }</h2>
+                <h2>Beteiligte { this.props.comments && this.props.comments.length>0 ? <span style={{float: "right"}} ><Badge count={this.props.comments.length} ><Button type="normal" onClick={this.props.showDrawer} >Ergänzende Informationen</Button></Badge></span> : "" }</h2>
                 <Table columns={columns} dataSource={this.props.participants} />
                 { this.props.comments && this.props.comments.length>0 && <Drawer 
                     title="Ergänzende Informationen zu den Ereignissen"

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, Tooltip, Collapse, Drawer, Button } from 'antd';
+import { Row, Col, Tooltip, Collapse, Drawer, Button, Badge } from 'antd';
 
 const Panel = Collapse.Panel;
 
@@ -14,7 +14,7 @@ export default function EventSegment(props){
 
         return(
             <Row>
-                <h2>Ereignisse { comments && comments.length>0 ? <span style={{float: "right"}} ><Button type="normal" onClick={showDrawer} >Ergänzende Informationen</Button></span> : "" }</h2>
+                <h2>Ereignisse { comments && comments.length>0 ? <span style={{float: "right"}} ><Badge count={comments.length} ><Button type="normal" onClick={showDrawer} >Ergänzende Informationen</Button></Badge></span> : "" }</h2>
                 {events.map( (event,index) =>
                     <Collapse bordered={false} key={index} >
                         <Panel
