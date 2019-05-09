@@ -17,6 +17,7 @@ import CreditsPage from './CreditsPage';
 import DocViewSwitch from './DocViewSwitch';
 
 import withPromise from './withPromise';
+import withESData from './withESData';
 import OnMethodsPage from './OnMethodsPage';
 import BibliographyPage from './BibliographyPage';
 
