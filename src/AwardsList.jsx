@@ -1,6 +1,7 @@
 import React from 'react';
 import { Row, Col, List, Button, Drawer } from 'antd';
 import { Link } from 'react-router-dom';
+import Markdown from 'markdown-to-jsx';
 
 export default function AwardsList( props ) {
     
@@ -59,8 +60,8 @@ export default function AwardsList( props ) {
                                     {item.platzierte.map( (placed, i) => 
                                         {return (<li style={{listStyleType: 'none'}} key={i}>
                                             { placed==='nv' ? "nicht vergeben" 
-                                                                :    <span><Link to={"/dokumente/" + awardedParticipantsByRank[item.rang][placed].identifier[0]} >{awardedParticipantsByRank[item.rang][placed].name}</Link>
-                                                                {awardedParticipantsByRank[item.rang][placed].hasOwnProperty('leistungen') ? ", mit: " + awardedParticipantsByRank[item.rang][placed].leistungen.join(", ") : "" }</span>}
+                                                                :    <span><Link to={"/dokumente/" + awardedParticipantsByRank[item.rang][placed].identifier[0]} >{awardedParticipantsByRank[item.rang][placed].name}</Link><Markdown>
+                                                                {awardedParticipantsByRank[item.rang][placed].hasOwnProperty('leistungen') ? ", mit: " + awardedParticipantsByRank[item.rang][placed].leistungen.join(", ") : "" }</Markdown></span>}
                                                                 {awardedParticipantsByRank[item.rang][placed].hasOwnProperty('colls') ? " (" + awardedParticipantsByRank[item.rang][placed].colls + ")" : "" }
                                         </li>);}
                                         )}

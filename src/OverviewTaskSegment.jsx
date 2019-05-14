@@ -1,5 +1,6 @@
 import React from 'react';
 import { Row, Col, Collapse, Drawer, Button, Badge, Tooltip } from 'antd';
+import Markdown from 'markdown-to-jsx';
 
 import OverviewSection from "./OverviewSection";
 import Tasks from './Tasks';
@@ -44,7 +45,7 @@ export default function OverviewTaskSegment( props ) {
                         width="30%"
                         
                     >
-                        {comments.map( (comment, index) => <p key={index}>{comment.text}</p> )}
+                        {comments.map( (comment, index) => <p key={index}><Markdown>{comment.text}</Markdown></p> )}
                     </Drawer> }
             </Col>
         </Row>

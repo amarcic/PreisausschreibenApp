@@ -17,7 +17,7 @@ export default function TaskTabs( props ) {
     const taskBySubComp = {};
     //console.log(tasks);
     //for each subcompetition there should be a value on the object taskBySubComp, so with the string for the subcomp the task value can be accessed for display
-    tasks.forEach( task => !taskBySubComp[task.wettbewerbskontext]? taskBySubComp[task.wettbewerbskontext]=[{ aufgabentyp: [task.aufgabentyp], spezifizierung: [task.spezifizierung] }] : taskBySubComp[task.wettbewerbskontext].push({ aufgabentyp: [task.aufgabentyp], spezifizierung: [task.spezifizierung] }) );
+    tasks.forEach( task => !taskBySubComp[task.wettbewerbskontext]? taskBySubComp[task.wettbewerbskontext]=[{ aufgabentyp: task.aufgabentyp, spezifizierung: task.spezifizierung }] : taskBySubComp[task.wettbewerbskontext].push({ aufgabentyp: [task.aufgabentyp], spezifizierung: [task.spezifizierung] }) );
     console.log(taskBySubComp);
 
     return(

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Row, Col, Collapse, List } from 'antd';
+import Markdown from 'markdown-to-jsx';
 
 const Panel = Collapse.Panel;
 

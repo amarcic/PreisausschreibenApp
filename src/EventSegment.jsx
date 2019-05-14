@@ -1,5 +1,6 @@
 import React from 'react';
 import { Row, Col, Tooltip, Collapse, Drawer, Button, Badge } from 'antd';
+import Markdown from 'markdown-to-jsx';
 
 const Panel = Collapse.Panel;
 
@@ -29,7 +30,7 @@ export default function EventSegment(props){
                                         </Tooltip>
                                     </Col>
                                     <Col>
-                                        {event.beschreibung ? event.beschreibung : event.ereignistyp }, <Tooltip title={ event.ort.ortszusatz ? event.ort.ortszusatz 
+                                        <Markdown>{event.beschreibung ? event.beschreibung : event.ereignistyp }</Markdown>, <Tooltip title={ event.ort.ortszusatz ? event.ort.ortszusatz 
                                             : "keine weiteren Angaben zum Ort" } >{event.ort.ortsname? event.ort.ortsname : ""}</Tooltip>
                                     </Col>
                                 </Row>}
@@ -52,7 +53,7 @@ export default function EventSegment(props){
                     width="30%"
                     
                 >
-                    {comments.map( (comment, index) => <p key={index}>{comment.text}</p> )}
+                    {comments.map( (comment, index) => <p key={index}><Markdown>{comment.text}</Markdown></p> )}
                 </Drawer>}
             </Row>
         );

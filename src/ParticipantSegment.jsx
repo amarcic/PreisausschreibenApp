@@ -1,6 +1,7 @@
 import React from 'react';
 import { Table, Input, Button, Icon, Drawer, Badge } from 'antd';
 import { Link } from 'react-router-dom';
+import Markdown from 'markdown-to-jsx';
 
 export default class ParticipantSegment extends React.Component {
 
@@ -71,14 +72,19 @@ export default class ParticipantSegment extends React.Component {
             },
             {
                 title: "Anmerkung",
-                dataIndex: "anmerkung"
+                dataIndex: "anmerkung",
+                render: note => (
+                    <Markdown>
+                        {note ? note : ""}
+                    </Markdown>
+                )
             },
             {
                 title: "Rolle",
                 dataIndex: "rolle",
-                render: rolle => (
+                render: role => (
                     <span>
-                        {rolle.join(", ")}
+                        {role.join(", ")}
                     </span>
                 ),
                 filters: [
@@ -149,7 +155,7 @@ export default class ParticipantSegment extends React.Component {
                     width="30%"
                     
                 >
-                    {this.props.comments.map( (comment, index) => <p key={index}>{comment.text}</p> )}
+                    {this.props.comments.map( (comment, index) => <p key={index}><Markdown>{comment.text}</Markdown></p> )}
                 </Drawer>}
             </div>
         );

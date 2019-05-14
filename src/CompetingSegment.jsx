@@ -1,5 +1,6 @@
 import React from 'react';
 import { Row, Col, Collapse, Drawer, Button, Badge } from 'antd';
+import Markdown from 'markdown-to-jsx';
 
 import CompetingDisplay from './CompetingDisplay';
 import SubcompetitionTabs from './SubcompetitionTabs';
@@ -61,7 +62,7 @@ export default function CompetingSegment( props ) {
                     width="30%"
                     
                 >
-                    {comments.map( (comment, index) => <p key={index}>{comment.text}</p> )}
+                    {comments.map( (comment, index) => <p key={index}><Markdown>{comment.text}</Markdown></p> )}
                 </Drawer>}
         </div>
     );
