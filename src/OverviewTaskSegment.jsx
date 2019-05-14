@@ -30,7 +30,7 @@ export default function OverviewTaskSegment( props ) {
                         <Panel header={"Formalia"} >
                                 <Row>
                                     <Col span={20} offset={1}>
-                                        {formalia}
+                                        <Markdown>{formalia}</Markdown>
                                     </Col>
                                 </Row>
                         </Panel>

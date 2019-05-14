@@ -22,6 +22,16 @@ function fetchFromES( queryString, view ) {
         }
       });
      
+
+      client.search({
+        index: 'couchdata3',
+        type: 'contest',
+        q: 'anlass:könig'
+    }).then(function(resp) {
+        return resp;
+    }, function(err) {
+        console.trace(err.message);
+    }).then( data => this.setState({ data: data.hits.hits, loading: false }) ) ;
     /*try {
         const response = await client.search( {
             q: queryString
