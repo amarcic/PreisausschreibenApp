@@ -26,7 +26,7 @@ function fetchFromES( queryString, view ) {
       client.search({
         index: 'couchdata3',
         type: 'contest',
-        q: 'anlass:könig'
+        q: 'schlagwoerter:könig'
     }).then(function(resp) {
         return resp;
     }, function(err) {

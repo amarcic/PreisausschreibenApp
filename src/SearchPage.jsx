@@ -89,6 +89,8 @@ export default function SearchPage( props ) {
     let dataIds = [];
     let dataUnique = [];
 
+    console.log(dataUnique);
+
     props.requestData ? data = props.requestData : data = [] ;
     
     data.forEach( function( e ) {

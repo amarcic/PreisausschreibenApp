@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Layout, Breadcrumb, Menu, Table, Row, Col } from 'antd';
 
+import dateHelper from './dateHelper';
+
 const { Content, Sider } = Layout;
 const { SubMenu } = Menu;
 
@@ -9,22 +11,38 @@ const { SubMenu } = Menu;
 
 const columnsPreisausschreiben = [
     {
-        title: <span style={{ fontFamily: "'Source Sans Pro', sans"}} >Ausschreibung</span>,
-        dataIndex: 'value.ausschreibung',
-        key: 'value.ausschreibung',
-        render: (text, record ) => <Link to={"/dokumente/" + record._id}> {text? text: "unbekannt"} </Link>
+        title: <span style={{ fontFamily: "'Source Sans Pro', sans"}} >Ort</span>,
+        dataIndex: '_source.esPlacename',
+        key: '_source.esPlacename',
+        // will have to check, if the unique keys generated when the array is mapped are used in a meaningful way (index for unique keys not recommended)
+        render: (text) => <span> {text} </span>,
+        //render: (text, record) => <ul> {record._source.ereignisse.map( ( ereignis, i ) => <li key={i} >  {(ereignis.zeit? ereignis.zeit.datum : "") + ", " + ereignis.ereignistyp + ", " + ( ereignis.ort? ereignis.ort.ortsname : "" )} </li>)} </ul>
+        sorter: (a, b) =>  {if ( a._source.esPlacename > b._source.esPlacename ) {return 1;} 
+                                    if ( a._source.esPlacename < b._source.esPlacename ) {return -1;}
+                                    return 0;},
+        sortDirection: ['descend', 'ascend']
     },
     {
-        title: <span style={{ fontFamily: "'Source Sans Pro', sans"}} >Ereignisse</span>,
-        dataIndex: 'value.ereignisse',
-        key: 'value.ereignisse',
-        // will have to check, if the unique keys generated when the array is mapped are used in a meaningful way (index for unique keys not recommended)
-        render: (text, record) => <ul> {record._source.ereignisse.map( ( ereignis, i ) => <li key={i} >  {(ereignis.zeit? ereignis.zeit.datum : "") + ", " + ereignis.ereignistyp + ", " + ( ereignis.ort? ereignis.ort.ortsname : "" )} </li>)} </ul>
+        title: <span style={{ fontFamily: "'Source Sans Pro', sans"}} >Zeit</span>,
+        dataIndex: '_source.esStart',
+        key: '_source.esStart',
+        render: (text, record) => <span>{dateHelper(text) + " bis " + dateHelper(record._source.esEnd)}</span>,
+        sorter: (a, b) =>  {if ( a._source.esEnd > b._source.esEnd ) {return 1;} 
+                                    if ( a._source.esEnd < b._source.esEnd ) {return -1;}
+                                    return 0;},
+        sortDirection: ['descend', 'ascend']
+    },
+    {
+        title: <span style={{ fontFamily: "'Source Sans Pro', sans"}} >Ausschreibung</span>,
+        dataIndex: '_source.beteiligte',
+        key: 'value.ausschreibung',
+        render: (text, record ) => <Link to={"/dokumente/" + record._id}> {text.filter( participant => participant.rolle.indexOf('ausschreibende Institution/Person')>-1 ).length>0? text.filter( participant => participant.rolle.indexOf('ausschreibende Institution/Person')>-1 ).map(participant => participant.name).join(", "): "unbekannt"} </Link>
     },
     {
         title: <span style={{ fontFamily: "'Source Sans Pro', sans"}} >Aufgaben</span>,
-        dataIndex: 'value.aufgaben',
-        key: 'value.aufgaben'
+        dataIndex: '_source.aufgaben',
+        key: 'value.aufgaben',
+        render: (text) => text.map( task => task.aufgabentyp ).join(", ")
         /*render: (text, record) => <div>{record.value.aufgaben.split( "," ).join(", ")}</div>*/
     }
 ]
@@ -35,21 +53,24 @@ export default function SearchPage( props ) {
 
     let columns;
 
-    let data;
+    const data = props.requestData || [];
     
     //the variables and forEach block filter the data so only unique ids remain in the array
     //can be taken out when using elasticsearch
-    let dataIds = [];
-    let dataUnique = [];
+    //let dataIds = [];
+    //let dataUnique = [];
 
-    props.requestData ? data = props.requestData : data = [] ;
+    //props.requestData ? data = props.requestData : data = [] ;
+
     
-    data.forEach( function( e ) {
+    
+   /* data.forEach( function( e ) {
         if( dataIds.indexOf( e.id ) === -1 ) {
             dataIds.push( e.id );
             dataUnique.push( e );
         }
     } );
+    */
 
     switch( props.collection ) {
         case "preisausschreiben": columns = columnsPreisausschreiben; break;
@@ -94,8 +115,8 @@ export default function SearchPage( props ) {
                         <Table
                             bodyStyle={{ backgroundColor: "#ffffff" }}
                             columns={columns} 
-                            dataSource={dataUnique} 
-                            rowKey={ record => record.id }
+                            dataSource={data} 
+                            rowKey={ record => record._id }
                             //onRow={ (record) => {return { onClick: ()=>{alert("hello");} }; }  }
                             />
                     }
