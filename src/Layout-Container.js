@@ -91,6 +91,7 @@ export default class Layout_Container extends React.Component {
                 <Row>
                             <Route path="/" exact render={ (props) => <SearchBanner updateInput={this.updateInput} searchCollection={this.state.searchCollection} {...props} />  } />
                             {/*below is just a quick hack to get to landing page, when opening the index.html in couchdb*/}
+                            <Route path='/search' render={ (props) => <SearchRow updateInput={this.updateInput} searchCollection={this.state.searchCollection} {...props} /> } />
                             <Route path="/index.html" exact render={ (props) => <SearchBanner updateInput={this.updateInput} searchCollection={this.state.searchCollection} {...props} />  } />
                             <Route path="/overview" render={ (props) => <ErrorBoundary><SeriesPageWithPromise query="none" collection="overview_competitions" {...props} /></ErrorBoundary> } />
                             <Route path="/about" component={AboutPage} />
@@ -104,7 +105,7 @@ export default class Layout_Container extends React.Component {
                     <Route path="/index.html" exact component={LandingPage} />
                     <Route path="/dokumente/:docId" render={ (props) => {const DocViewSwitchWithPromise = withPromise( DocViewSwitch ); return(<ErrorBoundary><DocViewSwitchWithPromise query={props.match.params.docId} {...props}/></ErrorBoundary>);} } ></Route>
                     <Route path="/search" render={ (props) => <ErrorBoundary> <SearchPageWithPromise query={this.state.searchInput} collection={this.state.searchCollection} {...props} /> </ErrorBoundary> } />
-                    <Route path="/prosearch" render={ (props) => <ErrorBoundary> <SearchPageWithESData query={this.state.searchInput} collection={this.state.searchCollection} {...props} /> </ErrorBoundary> } />
+                    <Route path="/prosearch" render={ (props) => <ErrorBoundary> <SearchPageWithESData query={this.state.searchInput} collection={this.state.searchCollection} updateInput={this.updateInput} searchCollection={this.state.searchCollection} {...props} /> </ErrorBoundary> } />
                 </Row>
                 <Footer style={{textAlign: 'center'}}>
                     Musikalische Preisausschreiben ©2018
