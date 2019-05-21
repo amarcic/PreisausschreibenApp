@@ -32,11 +32,13 @@ export default class Layout_Container extends React.Component {
         this.state = {
             messages: [],
             searchInput: "suche...",
+            queryObject: { match: { _all: 'bonn' } },
             searchCollection: "preisausschreiben",
+            searchType: "contest",
             searchESfield: "ortsname",
             requestData: null
         };
-
+        this.updateQuery = this.updateQuery.bind(this);
         this.updateInput = this.updateInput.bind(this);
     }
 
@@ -47,6 +49,12 @@ export default class Layout_Container extends React.Component {
     updateInput( value ) {
         this.setState(
             { searchInput: value.input, searchCollection: value.collection }
+        );
+    }
+
+    updateQuery( value ) {
+        this.setState(
+            { queryObject: value.input, searchType: value.type }
         );
     }
 
@@ -105,7 +113,7 @@ export default class Layout_Container extends React.Component {
                     <Route path="/index.html" exact component={LandingPage} />
                     <Route path="/dokumente/:docId" render={ (props) => {const DocViewSwitchWithPromise = withPromise( DocViewSwitch ); return(<ErrorBoundary><DocViewSwitchWithPromise query={props.match.params.docId} {...props}/></ErrorBoundary>);} } ></Route>
                     <Route path="/search" render={ (props) => <ErrorBoundary> <SearchPageWithPromise query={this.state.searchInput} collection={this.state.searchCollection} {...props} /> </ErrorBoundary> } />
-                    <Route path="/prosearch" render={ (props) => <ErrorBoundary> <SearchPageWithESData query={this.state.searchInput} collection={this.state.searchCollection} updateInput={this.updateInput} searchCollection={this.state.searchCollection} {...props} /> </ErrorBoundary> } />
+                    <Route path="/prosearch" render={ (props) => <ErrorBoundary> <SearchPageWithESData query={this.state.queryObject} updateQuery={this.updateQuery} searchType={this.state.searchType} {...props} /> </ErrorBoundary> } />
                 </Row>
                 <Footer style={{textAlign: 'center'}}>
                     Musikalische Preisausschreiben ©2018

@@ -7,9 +7,11 @@ let client = new elasticsearch.Client({
 });
 
 
-function fetchFromES( queryString, view ) {
+function fetchFromES( queryObj, view, type ) {
 //console.log(view);
-    let index = view || 'all';
+    const index = view || 'couchdata3';
+    const doctype = type || '_all';
+    const fields = fields || '_all';
 
     client.ping({
         // ping usually has a 3000ms timeout
@@ -24,21 +26,12 @@ function fetchFromES( queryString, view ) {
      
 
       client.search({
-        index: 'couchdata3',
+        index: index,
         type: 'contest',
-        q: queryString
-    }).then(function(resp) {
-        return resp;
-    }, function(err) {
-        console.trace(err.message);
-    }).then( data => this.setState({ data: data.hits.hits, loading: false }) ) ;
-    /*try {
-        const response = await client.search( {
-            q: queryString
-        } );
-    } catch (error) {
-        console.trace(error.message);
-    }*/
+        body: {
+            query: queryObj
+        }
+    }).then( resp => this.setState({ data: resp.hits.hits, loading: false, hitsCount: resp.hits.total }), err => console.trace(err.message) )
 }
 
 export default function withESData( WrappedComponent ) {
@@ -49,7 +42,8 @@ export default function withESData( WrappedComponent ) {
                 super( props );
                 this.state = {
                     loading: true,
-                    data: null
+                    data: null,
+                    hitsCount: null
                 }
                 this.fetchData= fetchFromES.bind(this);
             }
@@ -68,13 +62,16 @@ export default function withESData( WrappedComponent ) {
             render() {
                 const { hocProp, ...passthroughProps } = this.props;
                 const fetchedData = this.state.data;
+                const hitsCount = this.state.hitsCount;
                 const isLoading = this.state.loading;
+
+                console.log(fetchedData);
 
                 if (this.state.loading) {
                     return (<p>your request is being fetched at this very moment</p>);
                 } else {
                     return(
-                        <WrappedComponent requestData={fetchedData} {...passthroughProps} />
+                        <WrappedComponent requestData={fetchedData} hitsCount={hitsCount} {...passthroughProps} />
                     );
                 }
             };

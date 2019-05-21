@@ -55,8 +55,9 @@ export default function SearchPage( props ) {
     let columns;
 
     const data = props.requestData || [];
+    console.log(props.searchType);
 
-    switch( props.collection ) {
+    switch( props.searchType ) {
         case "preisausschreiben": columns = columnsPreisausschreiben; break;
         case "personen": columns = columnsPersonen; break;
         case "koerperschaften": columns = columnsKoerperschaften; break;
@@ -73,7 +74,7 @@ export default function SearchPage( props ) {
                 </Breadcrumb>
 
                 <Row style={{marginTop: "50px"}}>
-                    <Col span={4}><span>Suchbegriff: {props.query}</span><FacetSider updateInput={props.updateInput} searchCollection={props.searchCollection} /></Col>
+                    <Col span={4}><span>Suchbegriff: {props.query.match._all}{props.hitsCount?"("+props.hitsCount+")":"" }</span><FacetSider updateQuery={props.updateQuery} searchType={props.searchType} /></Col>
                     <Col span={18}>
                     {
                         <Table
@@ -81,6 +82,7 @@ export default function SearchPage( props ) {
                             columns={columns} 
                             dataSource={data} 
                             rowKey={ record => record._id }
+                            pagination={{ total: props.hitsCount, showTotal: total => total + ' Treffer' }}
                             //onRow={ (record) => {return { onClick: ()=>{alert("hello");} }; }  }
                             />
                     }

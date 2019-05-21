@@ -8,23 +8,24 @@ const { SubMenu } = Menu;
 
 function FacetSider( props ) {
 
-    let selectValue = props.searchCollection;
+    let selectValue = props.searchType;
 
     return(
         <Sider>
             <Input.Search 
-            size="large"
-            placeholder="Ihre Suche..."
-            //style={{ width: 500 }}
-            onSearch={ value => {
-                        //if component is changed to a stateful component extending React.Component, use this.props.history.push(...)
-                        let cleanedInput = value.toLowerCase();
-                        props.history.push('/prosearch');
-                        props.updateInput({ input: cleanedInput, collection: selectValue});
-                        //props.updateInput(value);
-                        //return console.log(value);
-                        } 
-                    }
+                size="large"
+                placeholder="Ihre Suche..."
+                //style={{ width: 500 }}
+                onSearch={ value => {
+                            //if component is changed to a stateful component extending React.Component, use this.props.history.push(...)
+                            let cleanedInput = value.toLowerCase();
+                            let queryObj = {match: { _all: cleanedInput }};
+                            props.history.push('/prosearch');
+                            props.updateQuery({ input: queryObj, type: selectValue});
+                            //props.updateInput(value);
+                            //return console.log(value);
+                            } 
+                        }
         />
             <Menu theme="light" mode="inline" defaultOpenKeys={['sub1','sub2']}>
                 <SubMenu key="sub1" title="Dokumenttypen">
