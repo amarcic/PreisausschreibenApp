@@ -50,7 +50,6 @@ export default function SearchPage( props ) {
     let columns;
 
     const data = props.requestData || [];
-    data.forEach(entry => console.log(entry._source.esEnd  ));
 
     switch( props.searchType ) {
         case "contest": columns = columnsPreisausschreiben; break;
@@ -77,7 +76,7 @@ export default function SearchPage( props ) {
                             columns={columns} 
                             dataSource={data} 
                             rowKey={ record => record._id }
-                            pagination={{ total: props.hitsCount, showTotal: total => total + ' Treffer' }}
+                            pagination={{ total: props.hitsCount, showTotal: total => total + ' Treffer', onChange: (page, pageSize) => props.updateQuery({ input: props.query, type: props.searchType, offset: (page-1)*pageSize}) }}
                             //onRow={ (record) => {return { onClick: ()=>{alert("hello");} }; }  }
                             />
                     </Col>

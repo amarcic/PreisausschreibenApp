@@ -9,11 +9,12 @@ let client = new elasticsearch.Client({
 });
 
 
-function fetchFromES( queryObj, view, type ) {
-//console.log(view);
+function fetchFromES( queryObj, view, offset ) {
+
     const index = view || 'couchdata3';
-    const doctype = type || '_all';
+    //const doctype = type || '_all';
     const fields = fields || '_all';
+    const from = offset || 0;
 
     console.log(view);
     /*client.ping({
@@ -31,6 +32,7 @@ function fetchFromES( queryObj, view, type ) {
       client.search({
         index: index,
         type: 'contest',
+        from: from,
         body: {
             query: queryObj
         }
@@ -38,7 +40,7 @@ function fetchFromES( queryObj, view, type ) {
 }
 
 export default function withESData( WrappedComponent ) {
-
+    
     return(
         class extends React.Component {
             constructor( props ) {
@@ -53,14 +55,17 @@ export default function withESData( WrappedComponent ) {
 
             componentDidMount() {
                 //console.log("hello from withESData componentDidMount()");
-                this.fetchData( this.props.query, this.props.view );
+                //there is no this.props.view
+                this.fetchData( this.props.query, this.props.view, this.props.offset );
             }
 
             componentDidUpdate( prevProps ) {
-                
-                if (JSON.stringify(this.props.query) !== JSON.stringify(prevProps.query)) {
+                console.log("offset:" + this.props.offset);
+                //if I want rerendering when offset is changed, I will have to include a comparison of the offset parameter
+                if ((JSON.stringify(this.props.query) !== JSON.stringify(prevProps.query))||(this.props.offset !== prevProps.offset)) {
                     //console.log(JSON.stringify(this.props.query), JSON.stringify(prevProps.query) );
-                    this.fetchData( this.props.query, this.props.view );
+                    //there is no this.props.view
+                    this.fetchData( this.props.query, this.props.view, this.props.offset );
                 }
             }
 
