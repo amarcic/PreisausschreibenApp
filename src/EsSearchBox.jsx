@@ -6,7 +6,7 @@ const Option = Select.Option;
 
 
 function EsSearchBox( props ) {
-    let selectValue = /*props.searchCollection*/;
+    let selectValue = props.searchType;
     const selectBefore = (
         // prop for default value: default value should be dynamic to reflect the current choice
         <Select defaultValue={props.searchCollection} 

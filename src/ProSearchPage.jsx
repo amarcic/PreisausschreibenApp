@@ -8,8 +8,6 @@ import FacetSider from './FacetSider';
 const { Content, Sider } = Layout;
 const { SubMenu } = Menu;
 
-// is this the right place for the columns definition? should it be inside the SearchPage function?
-
 const columnsPreisausschreiben = [
     {
         title: <span style={{ fontFamily: "'Source Sans Pro', sans"}} >Ort</span>,
@@ -17,7 +15,6 @@ const columnsPreisausschreiben = [
         key: '_source.esPlacename',
         // will have to check, if the unique keys generated when the array is mapped are used in a meaningful way (index for unique keys not recommended)
         render: (text) => <span> {text} </span>,
-        //render: (text, record) => <ul> {record._source.ereignisse.map( ( ereignis, i ) => <li key={i} >  {(ereignis.zeit? ereignis.zeit.datum : "") + ", " + ereignis.ereignistyp + ", " + ( ereignis.ort? ereignis.ort.ortsname : "" )} </li>)} </ul>
         sorter: (a, b) =>  {if ( a._source.esPlacename > b._source.esPlacename ) {return 1;} 
                                     if ( a._source.esPlacename < b._source.esPlacename ) {return -1;}
                                     return 0;},
@@ -48,17 +45,15 @@ const columnsPreisausschreiben = [
     }
 ]
 
-// if the sider is added with a custom component the surrounding ant Layout component will be
-// missing the ant-layout-has-sider class and not render sider and content correctly 
 export default function SearchPage( props ) {
 
     let columns;
 
     const data = props.requestData || [];
-    console.log(props.searchType);
+    data.forEach(entry => console.log(entry._source.esEnd  ));
 
     switch( props.searchType ) {
-        case "preisausschreiben": columns = columnsPreisausschreiben; break;
+        case "contest": columns = columnsPreisausschreiben; break;
         case "personen": columns = columnsPersonen; break;
         case "koerperschaften": columns = columnsKoerperschaften; break;
         case "serien": columns = columnsSerien; break;
@@ -76,7 +71,7 @@ export default function SearchPage( props ) {
                 <Row style={{marginTop: "50px"}}>
                     <Col span={4}><span>Suchbegriff: {props.query.match._all}{props.hitsCount?"("+props.hitsCount+")":"" }</span><FacetSider updateQuery={props.updateQuery} searchType={props.searchType} /></Col>
                     <Col span={18}>
-                    {
+
                         <Table
                             bodyStyle={{ backgroundColor: "#ffffff" }}
                             columns={columns} 
@@ -85,7 +80,6 @@ export default function SearchPage( props ) {
                             pagination={{ total: props.hitsCount, showTotal: total => total + ' Treffer' }}
                             //onRow={ (record) => {return { onClick: ()=>{alert("hello");} }; }  }
                             />
-                    }
                     </Col>
                 </Row>
             </Content>

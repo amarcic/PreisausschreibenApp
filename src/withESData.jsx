@@ -1,6 +1,8 @@
 import React from 'react';
 import elasticsearch from 'elasticsearch';
 
+import { Spin } from 'antd';
+
 let client = new elasticsearch.Client({
     host: 'projects.cceh.uni-koeln.de:9200',
     log: 'trace'
@@ -13,7 +15,8 @@ function fetchFromES( queryObj, view, type ) {
     const doctype = type || '_all';
     const fields = fields || '_all';
 
-    client.ping({
+    console.log(view);
+    /*client.ping({
         // ping usually has a 3000ms timeout
         requestTimeout: 1000
       }, function (error) {
@@ -22,7 +25,7 @@ function fetchFromES( queryObj, view, type ) {
         } else {
           console.log('All is well');
         }
-      });
+      });*/
      
 
       client.search({
@@ -49,12 +52,14 @@ export default function withESData( WrappedComponent ) {
             }
 
             componentDidMount() {
-//                console.log("hello from withPromise componentDidMount()");
+                //console.log("hello from withESData componentDidMount()");
                 this.fetchData( this.props.query, this.props.view );
             }
 
             componentDidUpdate( prevProps ) {
-                if (this.props.query !== prevProps.query) {
+                
+                if (JSON.stringify(this.props.query) !== JSON.stringify(prevProps.query)) {
+                    //console.log(JSON.stringify(this.props.query), JSON.stringify(prevProps.query) );
                     this.fetchData( this.props.query, this.props.view );
                 }
             }
@@ -68,7 +73,7 @@ export default function withESData( WrappedComponent ) {
                 console.log(fetchedData);
 
                 if (this.state.loading) {
-                    return (<p>your request is being fetched at this very moment</p>);
+                    return (<Spin size="large" tip="Die Daten werden geladen." />);
                 } else {
                     return(
                         <WrappedComponent requestData={fetchedData} hitsCount={hitsCount} {...passthroughProps} />

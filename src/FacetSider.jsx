@@ -15,7 +15,6 @@ function FacetSider( props ) {
             <Input.Search 
                 size="large"
                 placeholder="Ihre Suche..."
-                //style={{ width: 500 }}
                 onSearch={ value => {
                             //if component is changed to a stateful component extending React.Component, use this.props.history.push(...)
                             let cleanedInput = value.toLowerCase();

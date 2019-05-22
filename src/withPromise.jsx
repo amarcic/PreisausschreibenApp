@@ -53,6 +53,7 @@ export default function withPromise( WrappedComponent ) {
             }
 
             componentDidUpdate( prevProps ) {
+                console.log(this.props.query !== prevProps.query);
                 if ( this.props.query !== prevProps.query ) {
                     this.fetchData( this.props.query, api, this.props.collection );
                 }
