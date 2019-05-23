@@ -9,14 +9,15 @@ let client = new elasticsearch.Client({
 });
 
 
-function fetchFromES( queryObj, view, offset ) {
+function fetchFromES( queryObj, optionObj ) {
 
-    const index = view || 'couchdata3';
+    const options = optionObj || {};
+    const index = 'couchdata3';
     //const doctype = type || '_all';
     const fields = fields || '_all';
-    const from = offset || 0;
+    const from = options.offset || 0;
 
-    console.log(view);
+    //console.log(view);
     /*client.ping({
         // ping usually has a 3000ms timeout
         requestTimeout: 1000
@@ -56,7 +57,7 @@ export default function withESData( WrappedComponent ) {
             componentDidMount() {
                 //console.log("hello from withESData componentDidMount()");
                 //there is no this.props.view
-                this.fetchData( this.props.query, this.props.view, this.props.offset );
+                this.fetchData( this.props.query, {offset: this.props.offset } );
             }
 
             componentDidUpdate( prevProps ) {
@@ -65,7 +66,7 @@ export default function withESData( WrappedComponent ) {
                 if ((JSON.stringify(this.props.query) !== JSON.stringify(prevProps.query))||(this.props.offset !== prevProps.offset)) {
                     //console.log(JSON.stringify(this.props.query), JSON.stringify(prevProps.query) );
                     //there is no this.props.view
-                    this.fetchData( this.props.query, this.props.view, this.props.offset );
+                    this.fetchData( this.props.query, {offset: this.props.offset } );
                 }
             }
 

@@ -8,6 +8,7 @@ import FacetSider from './FacetSider';
 const { Content, Sider } = Layout;
 const { SubMenu } = Menu;
 
+//sorter for columns only sort through the currently displayed results. I should either use elasticsearch for sorting (so all results are sorted) or drop the function 
 const columnsPreisausschreiben = [
     {
         title: <span style={{ fontFamily: "'Source Sans Pro', sans"}} >Ort</span>,
