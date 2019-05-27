@@ -13,6 +13,7 @@ import ProSearchPage from './ProSearchPage';
 import SearchBanner from './SearchBanner';
 import SearchRow from './SearchRow';
 import SeriesPage from './SeriesPage';
+import CorpusPage from './CorpusPage';
 import ErrorBoundary from './ErrorBoundary'
 import CreditsPage from './CreditsPage';
 import DocViewSwitch from './DocViewSwitch';
@@ -82,15 +83,16 @@ export default class Layout_Container extends React.Component {
                                 <Link to="/methodik">Methodik</Link>
                             </Menu.Item>
                             <Menu.Item key="7"><Link to="/bibliographie">Bibliographie</Link></Menu.Item>
-                            <Menu.Item key="8">Publikationen</Menu.Item>
-                            <Menu.Item key="9">Visualisierungen und Analysen</Menu.Item>
+                            <Menu.Item key="8"><Link to="/corpus">Korpus</Link></Menu.Item>
+                            <Menu.Item key="9">Publikationen</Menu.Item>
+                            <Menu.Item key="10">Visualisierungen und Analysen</Menu.Item>
                         </SubMenu>
                         <SubMenu title={<span>Über das Projekt</span>}>
-                            <Menu.Item key="10">
+                            <Menu.Item key="11">
                                 <Link to="/about">Forschungsvorhaben</Link>
                             </Menu.Item>
-                            <Menu.Item key="11">Mitarbeiter</Menu.Item>
-                            <Menu.Item key="12">
+                            <Menu.Item key="12">Mitarbeiter</Menu.Item>
+                            <Menu.Item key="13">
                                 <Link to="/credits">Credits</Link>
                             </Menu.Item>
                         </SubMenu>
@@ -105,6 +107,7 @@ export default class Layout_Container extends React.Component {
                             <Route path="/overview" render={ (props) => <ErrorBoundary><SeriesPageWithPromise query="none" collection="overview_competitions" {...props} /></ErrorBoundary> } />
                             <Route path="/about" component={AboutPage} />
                             <Route path="/methodik" component={OnMethodsPage} />
+                            <Route path="/corpus" component={CorpusPage} />
                             <Route path="/bibliographie" component={BibliographyPage} />
                             <Route path="/credits" component={CreditsPage} />
                 </Row >
