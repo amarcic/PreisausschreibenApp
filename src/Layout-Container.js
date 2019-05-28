@@ -82,7 +82,7 @@ export default class Layout_Container extends React.Component {
                             <Menu.Item key="6">
                                 <Link to="/methodik">Methodik</Link>
                             </Menu.Item>
-                            <Menu.Item key="7"><Link to="/bibliographie">Bibliographie</Link></Menu.Item>
+                                                {/*<Menu.Item key="7"><Link to="/bibliographie">Bibliographie</Link></Menu.Item>*/}
                             <Menu.Item key="8"><Link to="/corpus">Korpus</Link></Menu.Item>
                             <Menu.Item key="9">Publikationen</Menu.Item>
                             <Menu.Item key="10">Visualisierungen und Analysen</Menu.Item>
@@ -108,7 +108,7 @@ export default class Layout_Container extends React.Component {
                             <Route path="/about" component={AboutPage} />
                             <Route path="/methodik" component={OnMethodsPage} />
                             <Route path="/corpus" component={CorpusPage} />
-                            <Route path="/bibliographie" component={BibliographyPage} />
+                            {/*<Route path="/bibliographie" component={BibliographyPage} />*/}
                             <Route path="/credits" component={CreditsPage} />
                 </Row >
                 <Row type="flex" justify="center" style={{ paddingLeft: "60px", paddingRight: "60px", paddingBottom: "120px"}}>
