@@ -33,7 +33,7 @@ export default class Layout_Container extends React.Component {
         this.state = {
             messages: [],
             searchInput: "suche...",
-            queryObject: { match: { _all: '' } },
+            queryObject: { match: { _all: {query: '', operator: "or"} } },
             offset: 0,
             searchCollection: "preisausschreiben",
             searchType: "contest",

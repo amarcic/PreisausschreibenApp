@@ -47,6 +47,7 @@ function onChange(checkedValues) {
 function FacetSider( props ) {
 
     let selectValue = props.searchType;
+    let queryObj = {match: { _all: { query: props.query.match._all.query, operator: props.query.match._all.operator} }};
 
     return(
         <Sider>
@@ -56,7 +57,8 @@ function FacetSider( props ) {
                 onSearch={ value => {
                             //if component is changed to a stateful component extending React.Component, use this.props.history.push(...)
                             let cleanedInput = value.toLowerCase();
-                            let queryObj = {match: { _all: { query: cleanedInput, operator: "or"} }};
+                            queryObj.match._all.query=cleanedInput;
+                            //let queryObj = {match: { _all: { query: cleanedInput, operator: props.query.match._all.operator} }};
                             props.history.push('/prosearch');
                             props.updateQuery({ input: queryObj, type: selectValue});
                             //props.updateInput(value);
@@ -64,7 +66,7 @@ function FacetSider( props ) {
                             } 
                         }
         />
-        <Radio.Group onChange={alert("change value here")} value="or"><Radio value="or">OR</Radio><Radio value="and">AND</Radio></Radio.Group>
+        <Radio.Group onChange={e => {queryObj.match._all.operator=e.target.value;props.updateQuery({ input: queryObj, type: selectValue});}} value={props.query.match._all.operator}><Radio value="or">OR</Radio><Radio value="and">AND</Radio></Radio.Group>
         <Checkbox onChange={onChange}>Preisausschreiben</Checkbox>
         <Dropdown overlay={<Menu mode="vertical"><Menu.Item><CheckboxGroup options={optionsParticipants} onChange={onChange} /></Menu.Item></Menu>}><span>Rollen <Icon type="down" /></span></Dropdown>
 
@@ -76,7 +78,7 @@ function FacetSider( props ) {
                             onSearch={ value => {
                                         //if component is changed to a stateful component extending React.Component, use this.props.history.push(...)
                                         let cleanedInput = value.toLowerCase();
-                                        let queryObj = {match: { _all: cleanedInput }};
+                                        let queryObj = {match: { _all: { query: cleanedInput, operator: "or" } }};
                                         props.history.push('/prosearch');
                                         props.updateQuery({ input: queryObj, type: selectValue});
                                         //props.updateInput(value);
