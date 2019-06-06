@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 
-import { Layout, Menu, Input, Checkbox, Dropdown, Icon, Row, Col } from 'antd';
+import { Layout, Menu, Input, Checkbox, Dropdown, Icon, Radio, Row, Col } from 'antd';
 
 //this should be a form?
 
@@ -56,7 +56,7 @@ function FacetSider( props ) {
                 onSearch={ value => {
                             //if component is changed to a stateful component extending React.Component, use this.props.history.push(...)
                             let cleanedInput = value.toLowerCase();
-                            let queryObj = {match: { _all: cleanedInput }};
+                            let queryObj = {match: { _all: { query: cleanedInput, operator: "or"} }};
                             props.history.push('/prosearch');
                             props.updateQuery({ input: queryObj, type: selectValue});
                             //props.updateInput(value);
@@ -64,6 +64,7 @@ function FacetSider( props ) {
                             } 
                         }
         />
+        <Radio.Group onChange={alert("change value here")} value="or"><Radio value="or">OR</Radio><Radio value="and">AND</Radio></Radio.Group>
         <Checkbox onChange={onChange}>Preisausschreiben</Checkbox>
         <Dropdown overlay={<Menu mode="vertical"><Menu.Item><CheckboxGroup options={optionsParticipants} onChange={onChange} /></Menu.Item></Menu>}><span>Rollen <Icon type="down" /></span></Dropdown>
 
