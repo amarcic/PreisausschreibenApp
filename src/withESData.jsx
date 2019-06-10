@@ -15,6 +15,7 @@ function fetchFromES( queryObj, optionObj ) {
     const index = 'couchdata3';
     //const doctype = type || '_all';
     const fields = fields || '_all';
+    const sort = options.sort || "";
     const from = options.offset || 0;
 
     //console.log(view);
@@ -28,13 +29,20 @@ function fetchFromES( queryObj, optionObj ) {
           console.log('All is well');
         }
       });*/
-     
+      
+      //sort does not work
+      console.log("sort:" + sort.on);
+      let sortObj = { esPlacename: {order: "asc"} };
+      if (sort.on!==undefined||sort!=="") {
+          sortObj[sort.on] = {order: sort.order};
+      }
 
       client.search({
         index: index,
         type: 'contest',
         from: from,
         body: {
+            sort: [sortObj],
             query: queryObj
         }
     }).then( resp => this.setState({ data: resp.hits.hits, loading: false, hitsCount: resp.hits.total }), err => console.trace(err.message) )

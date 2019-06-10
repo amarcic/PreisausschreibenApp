@@ -35,6 +35,7 @@ export default class Layout_Container extends React.Component {
             searchInput: "suche...",
             queryObject: { match: { _all: {query: '', operator: "or"} } },
             offset: 0,
+            sort: {},
             searchCollection: "preisausschreiben",
             searchType: "contest",
             searchESfield: "ortsname",
@@ -56,7 +57,7 @@ export default class Layout_Container extends React.Component {
 
     updateQuery( value ) {
         this.setState(
-            { queryObject: value.input, searchType: value.type, offset: value.offset }
+            { queryObject: value.input, searchType: value.type, sort: value.sort, offset: value.offset }
         );
     }
 
