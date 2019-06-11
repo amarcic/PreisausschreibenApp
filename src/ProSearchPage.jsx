@@ -81,7 +81,7 @@ export default function SearchPage( props ) {
                             dataSource={data} 
                             rowKey={ record => record._id }
                             pagination={{ total: props.hitsCount, showTotal: total => total + ' Treffer', onChange: (page, pageSize) => props.updateQuery({ input: props.query, type: props.searchType, offset: (page-1)*pageSize}) }}
-                            onHeaderRow={ (column, index) => {return {onClick: event => props.updateQuery({ input: props.query, type: props.searchType, sort: {on: "esStart", order: "asc"}, offset: props.offset })}} }
+                            onHeaderRow={ (column, index) => {return {onClick: event => props.updateQuery({ input: props.query, type: props.searchType, sort: {on: "esStart", order: "desc"}, offset: props.offset })}} }
                             //onRow={ (record) => {return { onClick: ()=>{alert("hello");} }; }  }
                             />
                     </Col>

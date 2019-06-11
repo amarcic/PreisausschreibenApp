@@ -1,3 +1,6 @@
+//higher order component to wrap all components that need data fetched from elasticsearch
+//elasticsearch 1.76 is expected
+
 import React from 'react';
 import elasticsearch from 'elasticsearch';
 
@@ -31,9 +34,10 @@ function fetchFromES( queryObj, optionObj ) {
       });*/
       
       //sort does not work
-      console.log("sort:" + sort.on);
-      let sortObj = { esPlacename: {order: "asc"} };
-      if (sort.on!==undefined||sort!=="") {
+      console.log("sort:" + JSON.stringify(sort));
+      let sortObj = {};
+      console.log("object key length: "+ Object.keys(sort).length)
+      if (Object.keys(sort).length>0&&sort!=="") {
           sortObj[sort.on] = {order: sort.order};
       }
 
@@ -65,16 +69,16 @@ export default function withESData( WrappedComponent ) {
             componentDidMount() {
                 //console.log("hello from withESData componentDidMount()");
                 //there is no this.props.view
-                this.fetchData( this.props.query, {offset: this.props.offset } );
+                this.fetchData( this.props.query, {offset: this.props.offset, sort: this.props.sort } );
             }
 
             componentDidUpdate( prevProps ) {
                 console.log("offset:" + this.props.offset);
                 //if I want rerendering when offset is changed, I will have to include a comparison of the offset parameter
-                if ((JSON.stringify(this.props.query) !== JSON.stringify(prevProps.query))||(this.props.offset !== prevProps.offset)) {
+                if ((JSON.stringify(this.props.query) !== JSON.stringify(prevProps.query))||(this.props.offset !== prevProps.offset)||(this.props.sort !== prevProps.sort)) {
                     //console.log(JSON.stringify(this.props.query), JSON.stringify(prevProps.query) );
                     //there is no this.props.view
-                    this.fetchData( this.props.query, {offset: this.props.offset } );
+                    this.fetchData( this.props.query, {offset: this.props.offset, sort: this.props.sort } );
                 }
             }
 
@@ -87,7 +91,7 @@ export default function withESData( WrappedComponent ) {
                 console.log(fetchedData);
 
                 if (this.state.loading) {
-                    return (<Spin size="large" tip="Die Daten werden geladen." />);
+                    return (<div style={ {marginTop: 200} }><Spin size="large" tip="Die Daten werden geladen." /></div> );
                 } else {
                     return(
                         <WrappedComponent requestData={fetchedData} hitsCount={hitsCount} {...passthroughProps} />
