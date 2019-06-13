@@ -20,6 +20,7 @@ function fetchFromES( queryObj, optionObj ) {
     const fields = fields || '_all';
     const sort = options.sort || "";
     const from = options.offset || 0;
+    const queryObject = options.strQuery || queryObj;
 
     //console.log(view);
     /*client.ping({
@@ -47,7 +48,7 @@ function fetchFromES( queryObj, optionObj ) {
         from: from,
         body: {
             sort: [sortObj],
-            query: queryObj
+            query: queryObject
         }
     }).then( resp => this.setState({ data: resp.hits.hits, loading: false, hitsCount: resp.hits.total }), err => console.trace(err.message) )
 }
@@ -69,16 +70,16 @@ export default function withESData( WrappedComponent ) {
             componentDidMount() {
                 //console.log("hello from withESData componentDidMount()");
                 //there is no this.props.view
-                this.fetchData( this.props.query, {offset: this.props.offset, sort: this.props.sort } );
+                this.fetchData( this.props.query, {offset: this.props.offset, sort: this.props.sort, strQuery: this.props.strQuery } );
             }
 
             componentDidUpdate( prevProps ) {
                 console.log("offset:" + this.props.offset);
                 //if I want rerendering when offset is changed, I will have to include a comparison of the offset parameter
-                if ((JSON.stringify(this.props.query) !== JSON.stringify(prevProps.query))||(this.props.offset !== prevProps.offset)||(this.props.sort !== prevProps.sort)) {
+                if ((JSON.stringify(this.props.query) !== JSON.stringify(prevProps.query))||(this.props.offset !== prevProps.offset)||(this.props.sort !== prevProps.sort)||(this.props.strQuery !== prevProps.strQuery)) {
                     //console.log(JSON.stringify(this.props.query), JSON.stringify(prevProps.query) );
                     //there is no this.props.view
-                    this.fetchData( this.props.query, {offset: this.props.offset, sort: this.props.sort } );
+                    this.fetchData( this.props.query, {offset: this.props.offset, sort: this.props.sort, strQuery: this.props.strQuery } );
                 }
             }
 

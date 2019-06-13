@@ -47,7 +47,9 @@ function onChange(checkedValues) {
 function FacetSider( props ) {
 
     let selectValue = props.searchType;
+    //elasticsearch depended
     let queryObj = {match: { _all: { query: props.query.match._all.query, operator: props.query.match._all.operator} }};
+    let strQueryObj = { simple_query_string: { query: "", fields: ["_all"] } };
 
     return(
         <Sider>
@@ -78,9 +80,9 @@ function FacetSider( props ) {
                             onSearch={ value => {
                                         //if component is changed to a stateful component extending React.Component, use this.props.history.push(...)
                                         let cleanedInput = value.toLowerCase();
-                                        let queryObj = {match: { _all: { query: cleanedInput, operator: "or" } }};
+                                        let queryObj1 = {simple_query_string: { query: cleanedInput, fields: ["_all"] } };
                                         props.history.push('/prosearch');
-                                        props.updateQuery({ input: queryObj, type: selectValue});
+                                        props.updateQuery({ input: queryObj, strQueryObj: queryObj1, type: selectValue});
                                         //props.updateInput(value);
                                         //return console.log(value);
                                         } 
