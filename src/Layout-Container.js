@@ -34,7 +34,7 @@ export default class Layout_Container extends React.Component {
             messages: [],
             searchInput: "suche...",
             queryObject: { match: { _all: {query: '', operator: "or"} } },
-            stringQueryObject: { simple_query_string: {query:'', fields: ["_all"]} },
+            stringQueryObject: undefined/*{ simple_query_string: {query:'', fields: ["_all"]} }*/,
             offset: 0,
             sort: {},
             searchCollection: "preisausschreiben",
