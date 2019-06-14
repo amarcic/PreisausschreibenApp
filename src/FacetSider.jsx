@@ -48,7 +48,7 @@ function FacetSider( props ) {
 
     let selectValue = props.searchType;
     //elasticsearch depended
-    let queryObj = {match: { _all: { query: props.query.match._all.query, operator: props.query.match._all.operator} }};
+    let queryObj = {match: { _all: { query: /*props.query.match._all.query*/'', operator: /*props.query.match._all.operator*/"OR"} }};
     let strQueryObj = { simple_query_string: { query: "", fields: ["_all"] } };
 
     return(
@@ -68,8 +68,8 @@ function FacetSider( props ) {
                             } 
                         }
         />
-        <Radio.Group onChange={e => {queryObj.match._all.operator=e.target.value;props.updateQuery({ input: queryObj, type: selectValue});}} value={props.query.match._all.operator}><Radio value="or">OR</Radio><Radio value="and">AND</Radio></Radio.Group>
-        <Checkbox onChange={onChange}>Preisausschreiben</Checkbox>
+{/*        <Radio.Group onChange={e => {queryObj.match._all.operator=e.target.value;props.updateQuery({ input: queryObj, type: selectValue});}} value={props.query.match._all.operator}><Radio value="or">OR</Radio><Radio value="and">AND</Radio></Radio.Group>
+                    */}        <Checkbox onChange={onChange}>Preisausschreiben</Checkbox>
         <Dropdown overlay={<Menu mode="vertical"><Menu.Item><CheckboxGroup options={optionsParticipants} onChange={onChange} /></Menu.Item></Menu>}><span>Rollen <Icon type="down" /></span></Dropdown>
 
         <Menu mode="inline">

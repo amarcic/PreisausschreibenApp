@@ -46,9 +46,12 @@ function fetchFromES( queryObj, optionObj ) {
         index: index,
         type: 'contest',
         from: from,
-        body: {
-            sort: [sortObj],
-            query: queryObject
+        body: { query:
+            {nested: {
+                path: "beteiligte",
+                //sort: [sortObj],
+                query: queryObject
+            }}
         }
     }).then( resp => this.setState({ data: resp.hits.hits, loading: false, hitsCount: resp.hits.total }), err => console.trace(err.message) )
 }
