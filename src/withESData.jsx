@@ -46,12 +46,15 @@ function fetchFromES( queryObj, optionObj ) {
         index: index,
         type: 'contest',
         from: from,
-        body: { query:
-            {nested: {
-                path: "beteiligte",
-                //sort: [sortObj],
-                query: queryObject
-            }}
+        body: { 
+            sort: [sortObj],
+            query:
+                {nested: {
+                    //could use a variable that specifies the path when selected in FacetSider
+                    path: 'beteiligte',
+                    query: queryObject
+                }
+            }
         }
     }).then( resp => this.setState({ data: resp.hits.hits, loading: false, hitsCount: resp.hits.total }), err => console.trace(err.message) )
 }

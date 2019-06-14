@@ -33,7 +33,7 @@ export default class Layout_Container extends React.Component {
         this.state = {
             messages: [],
             searchInput: "suche...",
-            queryObject: { match: { "beteiligte.name": {query: 'ambroise', operator: "or"} } },
+            queryObject: { match: { "_all": {query: '', operator: "or"} } },
             stringQueryObject: undefined/*{ simple_query_string: {query:'', fields: ["_all"]} }*/,
             offset: 0,
             sort: {},
