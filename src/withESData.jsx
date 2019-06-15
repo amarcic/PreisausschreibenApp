@@ -56,12 +56,27 @@ function fetchFromES( queryObj, optionObj ) {
                         //filter: filterObject
                         //for testing purposes a fixed filter object is used below; delete after testing and use line above
                         filter: {
-                            nested: {
-                                path: "aufgaben",
-                                filter: {
-                                    term: { "aufgaben.aufgabentyp": "komposition" }
+                            and: [
+                                {
+                                    nested: {
+                                        path: "aufgaben",
+                                        filter: {
+                                            and: [
+                                                {
+                                                    term: { "aufgaben.aufgabentyp": "komposition" }
+                                                },
+                                                {
+                                                    term: { systematik: "kantate" }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    term: { schlagwoerter: "italien" }
                                 }
-                            }
+                            ]
+                            
                         }
                 }
             }
