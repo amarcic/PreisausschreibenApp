@@ -73,7 +73,29 @@ function fetchFromES( queryObj, optionObj ) {
                                     }
                                 },
                                 {
+                                    nested: {
+                                        path: "ereignisse",
+                                        filter: {
+                                            and: [
+                                                {
+                                                    term: { esCountry: "france" }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
                                     term: { schlagwoerter: "italien" }
+                                },
+                                {
+                                    term: { esPlacename: "paris" }
+                                }, {
+                                    range: {
+                                        esStart: {
+                                            from: "1825-01-01",
+                                            to: "1865-12-31"
+                                        }
+                                    }
                                 }
                             ]
                             
