@@ -80,7 +80,7 @@ function FacetSider( props ) {
                             onSearch={ value => {
                                         //if component is changed to a stateful component extending React.Component, use this.props.history.push(...)
                                         let cleanedInput = value.toLowerCase();
-                                        strQueryObj = {simple_query_string: { query: cleanedInput, fields: ["beteiligte.*"] } };
+                                        strQueryObj = {simple_query_string: { query: cleanedInput, fields: ["_all"] } };
                                         props.history.push('/prosearch');
                                         props.updateQuery({ input: queryObj, strQueryObj: strQueryObj, type: selectValue});
                                         //props.updateInput(value);

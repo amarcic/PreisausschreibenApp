@@ -20,6 +20,7 @@ function fetchFromES( queryObj, optionObj ) {
     const fields = fields || '_all';
     const sort = options.sort || "";
     const from = options.offset || 0;
+    const filterObject = options.filterObj || {};
     const queryObject = options.strQuery || queryObj;
 
     //console.log(view);
@@ -49,10 +50,19 @@ function fetchFromES( queryObj, optionObj ) {
         body: { 
             sort: [sortObj],
             query:
-                {nested: {
-                    //could use a variable that specifies the path when selected in FacetSider
-                    path: 'beteiligte',
-                    query: queryObject
+                {
+                    filtered: {
+                        query: queryObject,
+                        //filter: filterObject
+                        //for testing purposes a fixed filter object is used below; delete after testing and use line above
+                        filter: {
+                            nested: {
+                                path: "aufgaben",
+                                filter: {
+                                    term: { "aufgaben.aufgabentyp": "komposition" }
+                                }
+                            }
+                        }
                 }
             }
         }
