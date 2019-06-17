@@ -5,6 +5,48 @@ import { Layout, Menu, Input, Checkbox, Dropdown, Icon, Radio, Row, Col } from '
 import { filterOption } from 'rc-mentions/lib/util';
 
 //this should be a form?
+const filter = [
+    {
+        nested: {
+            path: "aufgaben",
+            filter: {
+                and: [
+                    {
+                        terms: { "aufgaben.aufgabentyp.raw": [ "zu vertonender Text", "Komposition"] }
+                    },
+                    {
+                        term: { systematik: "kantate" }
+                    }
+                ]
+            }
+        }
+    },
+    {
+        nested: {
+            path: "ereignisse",
+            filter: {
+                and: [
+                    {
+                        term: { esCountry: "france" }
+                    }
+                ]
+            }
+        }
+    },
+    {
+        term: { schlagwoerter: "italien" }
+    },
+    {
+        term: { esPlacename: "paris" }
+    }, {
+        range: {
+            esStart: {
+                from: "1825-01-01",
+                to: "1865-12-31"
+            }
+        }
+    }
+]
 
 const CheckboxGroup = Checkbox.Group;
 const { Sider } = Layout;
@@ -41,8 +83,36 @@ const menuRoles = (
     </Menu>
 );
 
+const taskTypes = (
+    <CheckboxGroup onChange={onChange}>
+        <Row>
+            <Col><Checkbox value="Komposition">Komposition</Checkbox></Col>
+            <Col><Checkbox value="Performance">Performance</Checkbox></Col>
+            <Col><Checkbox value="zu vertonender Text">zu vertonender Text</Checkbox></Col>
+            <Col><Checkbox value="Text über Musik">Text über Musik</Checkbox></Col>
+            <Col><Checkbox value="Sonstiges">Sonstiges</Checkbox></Col>
+        </Row>
+    </CheckboxGroup>
+);
+
 function onChange(checkedValues) {
-    console.log(checkedValues)
+    //since the variable taskTypeFilter exists only in the scope of the onChange function a new instance is 
+    //used in every call of the function. Thus only the current array from checkValues will be pushed into the
+    //"and" array.
+    let taskTypeFilter = {
+        nested: {
+            path: "aufgaben",
+            filter: {
+                and: [
+                    {
+                        term: { systematik: "kantate" }
+                    }
+                ]
+            }
+        }
+    }
+    taskTypeFilter.nested.filter.and.push( { terms: { "aufgaben.aufgabentyp.raw": checkedValues } } )
+    console.log(taskTypeFilter)
 }
 
 function handleSelect(e) {
@@ -76,27 +146,29 @@ function FacetSider( props ) {
                             } 
                         }
                     />*/}
-        <Input.Search 
-            size="large"
-            placeholder="Ihre Suche..."
-            onSearch={ value => {
-                        //if component is changed to a stateful component extending React.Component, use this.props.history.push(...)
-                        let cleanedInput = value.toLowerCase();
-                        strQueryObj = {simple_query_string: { query: cleanedInput, fields: ["_all"] } };
-                        props.history.push('/prosearch');
-                        props.updateQuery({ input: strQueryObj, strQueryObj: strQueryObj, type: selectValue});
-                        //props.updateInput(value);
-                        //return console.log(value);
-                        } 
-                    }
-        />
-        <Checkbox onChange={onChange}>Preisausschreiben</Checkbox>
-        <Dropdown overlay={<Menu mode="vertical"><Menu.Item><CheckboxGroup options={optionsParticipants} onChange={onChange} /></Menu.Item></Menu>}><span>Rollen <Icon type="down" /></span></Dropdown>
 
-        <Menu mode="inline">
-                    <Menu.Item key="1">
-                        
+        <Menu style={ {width: 256} } mode="inline">
+                    <Menu.Item>
+                        <Input.Search 
+                            size="large"
+                            placeholder="Ihre Suche..."
+                            onSearch={ value => {
+                                        //if component is changed to a stateful component extending React.Component, use this.props.history.push(...)
+                                        let cleanedInput = value.toLowerCase();
+                                        strQueryObj = {simple_query_string: { query: cleanedInput, fields: ["_all"] } };
+                                        props.history.push('/prosearch');
+                                        props.updateQuery({ input: strQueryObj, strQueryObj: strQueryObj, type: selectValue});
+                                        //props.updateInput(value);
+                                        //return console.log(value);
+                                        } 
+                                    }
+                        />
                     </Menu.Item>
+                    <Menu.Item>
+                    <Dropdown trigger={['click']} overlay={<Menu><Menu.Item>{taskTypes}</Menu.Item></Menu>}><span>Aufgabentypen<Icon type="down" /></span></Dropdown>
+
+                    </Menu.Item>
+                    <SubMenu key="subTaskTypes" title="Aufgabentypen"><Menu.Item style={{height: 150}} key="0">{taskTypes}</Menu.Item></SubMenu>
                     <Menu.Divider >o</Menu.Divider>
                     <Menu.Item>Name</Menu.Item>
                     <SubMenu key="subRole" title="Rolle" multiple="true" onClick={handleSelect}>
