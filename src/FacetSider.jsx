@@ -83,6 +83,17 @@ const menuRoles = (
     </Menu>
 );
 
+const searchFields = (
+    <CheckboxGroup onChange={onChange}>
+        <Row>
+            <Col><Checkbox value="beteiligte.name">Beteiligte</Checkbox></Col>
+            <Col><Checkbox value="aufgaben.spezigizierung">Aufgabenstellung</Checkbox></Col>
+            <Col><Checkbox value="formalia">Formalia</Checkbox></Col>
+            <Col><Checkbox value="quellen">Quellen</Checkbox></Col>
+        </Row>
+    </CheckboxGroup>
+);
+
 const taskTypes = (
     <CheckboxGroup onChange={onChange}>
         <Row>
@@ -163,9 +174,10 @@ function FacetSider( props ) {
                                         } 
                                     }
                         />
+                        <Icon type="question-circle" />
                     </Menu.Item>
                     <Menu.Item>
-                    <Dropdown trigger={['click']} overlay={<Menu><Menu.Item>{taskTypes}</Menu.Item></Menu>}><span>Aufgabentypen<Icon type="down" /></span></Dropdown>
+                    <Dropdown trigger={['click']} overlay={<Menu><Menu.Item>{searchFields}</Menu.Item></Menu>}><span>suchen nur in <Icon type="down" /></span></Dropdown>
 
                     </Menu.Item>
                     <SubMenu key="subTaskTypes" title="Aufgabentypen"><Menu.Item style={{height: 150}} key="0">{taskTypes}</Menu.Item></SubMenu>
