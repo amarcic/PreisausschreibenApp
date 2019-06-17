@@ -33,8 +33,8 @@ export default class Layout_Container extends React.Component {
         this.state = {
             messages: [],
             searchInput: "suche...",
-            queryObject: { match: { "_all": {query: '', operator: "or"} } },
-            stringQueryObject: undefined/*{ simple_query_string: {query:'', fields: ["_all"]} }*/,
+            //queryObject: { match: { "_all": {query: '', operator: "or"} } },
+            stringQueryObject: { simple_query_string: {query:'', fields: ["_all"]} },
             offset: 0,
             sort: {},
             searchCollection: "preisausschreiben",
@@ -59,7 +59,7 @@ export default class Layout_Container extends React.Component {
     updateQuery( value ) {
         console.log(this.state.sort);
         this.setState(
-            { queryObject: value.input, searchType: value.type, sort: value.sort, offset: value.offset, stringQueryObject: value.strQueryObj }
+            { /*queryObject: value.input,*/stringQueryObject: value.strQueryObj, searchType: value.type, sort: value.sort, offset: value.offset  }
         );
         console.log(this.state.sort);
     }
@@ -121,7 +121,7 @@ export default class Layout_Container extends React.Component {
                     <Route path="/index.html" exact component={LandingPage} />
                     <Route path="/dokumente/:docId" render={ (props) => {const DocViewSwitchWithPromise = withPromise( DocViewSwitch ); return(<ErrorBoundary><DocViewSwitchWithPromise query={props.match.params.docId} {...props}/></ErrorBoundary>);} } ></Route>
                     <Route path="/search" render={ (props) => <ErrorBoundary> <SearchPageWithPromise query={this.state.searchInput} collection={this.state.searchCollection} {...props} /> </ErrorBoundary> } />
-                    <Route path="/prosearch" render={ (props) => <ErrorBoundary> <SearchPageWithESData query={this.state.queryObject} strQuery={this.state.stringQueryObject} updateQuery={this.updateQuery} searchType={this.state.searchType} sort={this.state.sort} offset={this.state.offset} {...props} /> </ErrorBoundary> } />
+                    <Route path="/prosearch" render={ (props) => <ErrorBoundary> <SearchPageWithESData /*query={this.state.strinQueryObject}*/ strQuery={this.state.stringQueryObject} updateQuery={this.updateQuery} searchType={this.state.searchType} sort={this.state.sort} offset={this.state.offset} {...props} /> </ErrorBoundary> } />
                 </Row>
                 <Footer style={{textAlign: 'center'}}>
                     Musikalische Preisausschreiben ©2018

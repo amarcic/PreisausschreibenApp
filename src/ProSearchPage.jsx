@@ -72,7 +72,7 @@ export default function SearchPage( props ) {
                 </Breadcrumb>
 
                 <Row style={{marginTop: "50px"}}>
-                    <Col span={6}><span>Treffer: {/*props.query.match._all.query*/}{props.hitsCount?"("+props.hitsCount+")":"" }</span><FacetSider query={props.query} updateQuery={props.updateQuery} searchType={props.searchType} /></Col>
+                    <Col span={6}><span>Treffer: {/*props.query.match._all.query*/props.strQuery.simple_query_string.query}{props.hitsCount?"("+props.hitsCount+")":"" }</span><FacetSider query={props.strQuery} updateQuery={props.updateQuery} searchType={props.searchType} /></Col>
                     <Col span={18}>
 
                         <Table
@@ -80,8 +80,8 @@ export default function SearchPage( props ) {
                             columns={columns} 
                             dataSource={data} 
                             rowKey={ record => record._id }
-                            pagination={{ total: props.hitsCount, showTotal: total => total + ' Treffer', onChange: (page, pageSize) => props.updateQuery({ input: props.query, type: props.searchType, offset: (page-1)*pageSize}) }}
-                            onHeaderRow={ (column, index) => {return {onClick: event => props.updateQuery({ input: props.query, type: props.searchType, sort: {on: "esStart", order: "desc"}, offset: props.offset })}} }
+                            pagination={{ total: props.hitsCount, showTotal: total => total + ' Treffer', onChange: (page, pageSize) => props.updateQuery({ strQueryObj: props.strQuery, type: props.searchType, offset: (page-1)*pageSize}) }}
+                            onHeaderRow={ (column, index) => {return {onClick: event => props.updateQuery({ strQueryObj: props.strQuery, type: props.searchType, sort: {on: "esStart", order: "asc"}, offset: props.offset })}} }
                             //onRow={ (record) => {return { onClick: ()=>{alert("hello");} }; }  }
                             />
                     </Col>

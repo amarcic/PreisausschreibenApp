@@ -48,12 +48,13 @@ function FacetSider( props ) {
 
     let selectValue = props.searchType;
     //elasticsearch depended
-    let queryObj = {match: { _all: { query: /*props.query.match._all.query*/'', operator: /*props.query.match._all.operator*/"OR"} }};
-    let strQueryObj = { simple_query_string: { query: "", fields: ["_all"] } };
+    //let queryObj = {match: { _all: { query: /*props.query.match._all.query*/'', operator: /*props.query.match._all.operator*/"OR"} }};
+
+    let strQueryObj = { simple_query_string: { query: props.query.simple_query_string.query, fields: ["_all"] } };
 
     return(
         <Sider>
-            <Input.Search 
+            {/*<Input.Search 
                 size="large"
                 placeholder="Ihre Suche..."
                 onSearch={ value => {
@@ -67,6 +68,20 @@ function FacetSider( props ) {
                             //return console.log(value);
                             } 
                         }
+                    />*/}
+        <Input.Search 
+            size="large"
+            placeholder="Ihre Suche..."
+            onSearch={ value => {
+                        //if component is changed to a stateful component extending React.Component, use this.props.history.push(...)
+                        let cleanedInput = value.toLowerCase();
+                        strQueryObj = {simple_query_string: { query: cleanedInput, fields: ["_all"] } };
+                        props.history.push('/prosearch');
+                        props.updateQuery({ input: strQueryObj, strQueryObj: strQueryObj, type: selectValue});
+                        //props.updateInput(value);
+                        //return console.log(value);
+                        } 
+                    }
         />
 {/*        <Radio.Group onChange={e => {queryObj.match._all.operator=e.target.value;props.updateQuery({ input: queryObj, type: selectValue});}} value={props.query.match._all.operator}><Radio value="or">OR</Radio><Radio value="and">AND</Radio></Radio.Group>
                     */}        <Checkbox onChange={onChange}>Preisausschreiben</Checkbox>
@@ -74,22 +89,9 @@ function FacetSider( props ) {
 
         <Menu mode="inline">
                     <Menu.Item key="1">
-                        <Input.Search 
-                            size="large"
-                            placeholder="Ihre Suche..."
-                            onSearch={ value => {
-                                        //if component is changed to a stateful component extending React.Component, use this.props.history.push(...)
-                                        let cleanedInput = value.toLowerCase();
-                                        strQueryObj = {simple_query_string: { query: cleanedInput, fields: ["_all"] } };
-                                        props.history.push('/prosearch');
-                                        props.updateQuery({ input: queryObj, strQueryObj: strQueryObj, type: selectValue});
-                                        //props.updateInput(value);
-                                        //return console.log(value);
-                                        } 
-                                    }
-                        />
+                        
                     </Menu.Item>
-                    <Menu.Divider />
+                    <Menu.Divider >o</Menu.Divider>
                     <Menu.Item>Name</Menu.Item>
                     <SubMenu key="subRole" title="Rolle" multiple="true">
                         <Menu.Item key="0">TeilnehmerIn</Menu.Item>

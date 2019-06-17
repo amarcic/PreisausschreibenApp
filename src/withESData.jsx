@@ -12,7 +12,7 @@ let client = new elasticsearch.Client({
 });
 
 
-function fetchFromES( queryObj, optionObj ) {
+function fetchFromES( strQueryObj, optionObj ) {
 
     const options = optionObj || {};
     const index = 'couchdata3';
@@ -21,7 +21,7 @@ function fetchFromES( queryObj, optionObj ) {
     const sort = options.sort || "";
     const from = options.offset || 0;
     const filterObject = options.filterObj || {};
-    const queryObject = options.strQuery || queryObj;
+    const queryObject = strQueryObj;
 
     //console.log(view);
     /*client.ping({
@@ -63,7 +63,7 @@ function fetchFromES( queryObj, optionObj ) {
                                         filter: {
                                             and: [
                                                 {
-                                                    term: { "aufgaben.aufgabentyp": "komposition" }
+                                                    terms: { "aufgaben.aufgabentyp.raw": [ "zu vertonender Text", "Komposition"] }
                                                 },
                                                 {
                                                     term: { systematik: "kantate" }
@@ -123,16 +123,16 @@ export default function withESData( WrappedComponent ) {
             componentDidMount() {
                 //console.log("hello from withESData componentDidMount()");
                 //there is no this.props.view
-                this.fetchData( this.props.query, {offset: this.props.offset, sort: this.props.sort, strQuery: this.props.strQuery } );
+                this.fetchData( this.props.strQuery, {offset: this.props.offset, sort: this.props.sort/*, strQuery: this.props.strQuery*/ } );
             }
 
             componentDidUpdate( prevProps ) {
                 console.log("offset:" + this.props.offset);
                 //if I want rerendering when offset is changed, I will have to include a comparison of the offset parameter
-                if ((JSON.stringify(this.props.query) !== JSON.stringify(prevProps.query))||(this.props.offset !== prevProps.offset)||(this.props.sort !== prevProps.sort)||(this.props.strQuery !== prevProps.strQuery)) {
+                if ((JSON.stringify(this.props.strQuery) !== JSON.stringify(prevProps.strQuery))||(this.props.offset !== prevProps.offset)||(this.props.sort !== prevProps.sort)) {
                     //console.log(JSON.stringify(this.props.query), JSON.stringify(prevProps.query) );
                     //there is no this.props.view
-                    this.fetchData( this.props.query, {offset: this.props.offset, sort: this.props.sort, strQuery: this.props.strQuery } );
+                    this.fetchData( this.props.strQuery, {offset: this.props.offset, sort: this.props.sort/*, strQuery: this.props.strQuery*/ } );
                 }
             }
 
