@@ -2,6 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 
 import { Layout, Menu, Input, Checkbox, Dropdown, Icon, Radio, Row, Col } from 'antd';
+import { filterOption } from 'rc-mentions/lib/util';
 
 //this should be a form?
 
@@ -44,6 +45,10 @@ function onChange(checkedValues) {
     console.log(checkedValues)
 }
 
+function handleSelect(e) {
+    console.log(e.item.props.children);
+} 
+
 function FacetSider( props ) {
 
     let selectValue = props.searchType;
@@ -51,6 +56,8 @@ function FacetSider( props ) {
     //let queryObj = {match: { _all: { query: /*props.query.match._all.query*/'', operator: /*props.query.match._all.operator*/"OR"} }};
 
     let strQueryObj = { simple_query_string: { query: props.query.simple_query_string.query, fields: ["_all"] } };
+    
+    let filterObj = { filter: []}
 
     return(
         <Sider>
@@ -83,8 +90,7 @@ function FacetSider( props ) {
                         } 
                     }
         />
-{/*        <Radio.Group onChange={e => {queryObj.match._all.operator=e.target.value;props.updateQuery({ input: queryObj, type: selectValue});}} value={props.query.match._all.operator}><Radio value="or">OR</Radio><Radio value="and">AND</Radio></Radio.Group>
-                    */}        <Checkbox onChange={onChange}>Preisausschreiben</Checkbox>
+        <Checkbox onChange={onChange}>Preisausschreiben</Checkbox>
         <Dropdown overlay={<Menu mode="vertical"><Menu.Item><CheckboxGroup options={optionsParticipants} onChange={onChange} /></Menu.Item></Menu>}><span>Rollen <Icon type="down" /></span></Dropdown>
 
         <Menu mode="inline">
@@ -93,7 +99,7 @@ function FacetSider( props ) {
                     </Menu.Item>
                     <Menu.Divider >o</Menu.Divider>
                     <Menu.Item>Name</Menu.Item>
-                    <SubMenu key="subRole" title="Rolle" multiple="true">
+                    <SubMenu key="subRole" title="Rolle" multiple="true" onClick={handleSelect}>
                         <Menu.Item key="0">TeilnehmerIn</Menu.Item>
                         <Menu.Item key="1">Jurymitglied</Menu.Item>
                         <Menu.Item key="2">ausschreibende Institution/Person</Menu.Item>
