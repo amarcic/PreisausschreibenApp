@@ -80,6 +80,7 @@ export default function ContestPage( props ) {
             data.teilnehmerleistungen.forEach( leistung =>     { if (leistung.hasOwnProperty('teilnehmer')&&Array.isArray(leistung.teilnehmer))
                                                                     { leistung.teilnehmer.forEach( participantId => {
                                                                     let attendee = participants.find( participant => participant.identifier[0] === participantId );
+                                                                    //should check for the case that identifiers are not found among participants
                                                                     /*if ( attendee ) {
                                                                         attendee.leistungen? attendee.leistungen.push(leistung.beschreibung) : attendee.leistungen = [leistung.beschreibung];
                                                                         return attendee;

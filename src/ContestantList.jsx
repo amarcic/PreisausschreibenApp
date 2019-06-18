@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 export default function ContestantList( props ) {
 
     const contestants = props.contestants;
-    const comments = props.comments;
+    const comments = props.comments || [];
     const showDrawer = props.showDrawer;
 //    const RouteWithPromise = withPromise( RouteById );
 //    console.log("contestants: " + JSON.stringify(contestants.filter( cont => cont.kollaboration)) );

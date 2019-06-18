@@ -141,7 +141,7 @@ function FacetSider( props ) {
 
     let strQueryObj = { simple_query_string: { query: props.query.simple_query_string.query, fields: ["_all"] } };
     
-    let filterObj = { filter: []}
+    let filterArr = { filter: []}
 
     return(
         <Sider>
