@@ -20,7 +20,7 @@ function fetchFromES( strQueryObj, optionObj ) {
     const fields = fields || '_all';
     const sort = options.sort || "";
     const from = options.offset || 0;
-    const filterObject = options.filterObj || {};
+    const filterArray = options.filterArr || {};
     const queryObject = strQueryObj;
 
     //console.log(view);
@@ -56,7 +56,7 @@ function fetchFromES( strQueryObj, optionObj ) {
                         //filter: filterObject
                         //for testing purposes a fixed filter object is used below; delete after testing and use line above
                         filter: {
-                            and: [
+                            and: [{}/*
                                 {
                                     nested: {
                                         path: "aufgaben",
@@ -97,7 +97,7 @@ function fetchFromES( strQueryObj, optionObj ) {
                                         }
                                     }
                                 }
-                            ]
+                            */]
                             
                         }
                 }
@@ -123,16 +123,16 @@ export default function withESData( WrappedComponent ) {
             componentDidMount() {
                 //console.log("hello from withESData componentDidMount()");
                 //there is no this.props.view
-                this.fetchData( this.props.strQuery, {offset: this.props.offset, sort: this.props.sort/*, strQuery: this.props.strQuery*/ } );
+                this.fetchData( this.props.strQuery, {filterArr: this.props.filterArr, offset: this.props.offset, sort: this.props.sort/*, strQuery: this.props.strQuery*/ } );
             }
 
             componentDidUpdate( prevProps ) {
                 console.log("offset:" + this.props.offset);
                 //if I want rerendering when offset is changed, I will have to include a comparison of the offset parameter
-                if ((JSON.stringify(this.props.strQuery) !== JSON.stringify(prevProps.strQuery))||(this.props.offset !== prevProps.offset)||(this.props.sort !== prevProps.sort)) {
+                if ((JSON.stringify(this.props.strQuery) !== JSON.stringify(prevProps.strQuery))||(this.props.offset !== prevProps.offset)||(this.props.sort !== prevProps.sort)||(JSON.stringify(this.props.filterArr) !== JSON.stringify(prevProps.filterArr))) {
                     //console.log(JSON.stringify(this.props.query), JSON.stringify(prevProps.query) );
                     //there is no this.props.view
-                    this.fetchData( this.props.strQuery, {offset: this.props.offset, sort: this.props.sort/*, strQuery: this.props.strQuery*/ } );
+                    this.fetchData( this.props.strQuery, {filterArr: this.props.filterArr, offset: this.props.offset, sort: this.props.sort/*, strQuery: this.props.strQuery*/ } );
                 }
             }
 
