@@ -72,7 +72,7 @@ export default function SearchPage( props ) {
                 </Breadcrumb>
 
                 <Row style={{marginTop: "50px"}}>
-                    <Col span={6}><span>Treffer: {/*props.query.match._all.query*/props.strQuery.simple_query_string.query}{props.hitsCount?"("+props.hitsCount+")":"" }</span><FacetSider query={props.strQuery} updateQuery={props.updateQuery} searchType={props.searchType} /></Col>
+                    <Col span={6}><span>Treffer: {/*props.query.match._all.query*/props.strQuery.simple_query_string.query}{props.hitsCount?"("+props.hitsCount+")":"" }</span><FacetSider query={props.strQuery} filter={props.filterArr} updateQuery={props.updateQuery} searchType={props.searchType} /></Col>
                     <Col span={18}>
 
                         <Table

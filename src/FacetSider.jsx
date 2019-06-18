@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { Layout, Menu, Input, Checkbox, Dropdown, Icon, Radio, Row, Col } from 'antd';
 import { filterOption } from 'rc-mentions/lib/util';
 
-//this should be a form?
+//should this be a form?
 const filter = [
     {
         nested: {
@@ -47,6 +47,9 @@ const filter = [
         }
     }
 ]
+
+//if I want to feed it with props from state, this needs to be inside the function component;
+let filterObj = { filter: []}
 
 const CheckboxGroup = Checkbox.Group;
 const { Sider } = Layout;
