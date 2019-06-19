@@ -7,7 +7,7 @@ import elasticsearch from 'elasticsearch';
 import { Spin } from 'antd';
 
 let client = new elasticsearch.Client({
-    host: 'projects.cceh.uni-koeln.de:9200',
+    host: 'search.musical-competitions.uni-koeln.de:80',
     log: 'trace'
 });
 
