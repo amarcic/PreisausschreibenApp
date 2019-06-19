@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Layout, Breadcrumb, Menu, Table, Row, Col, Icon } from 'antd';
+import { withRouter } from 'react-router-dom';
 
 import dateHelper from './dateHelper';
 import FacetSider from './FacetSider';
@@ -15,11 +16,11 @@ const columnsPreisausschreiben = [
         dataIndex: '_source.esPlacename',
         key: '_source.esPlacename',
         // will have to check, if the unique keys generated when the array is mapped are used in a meaningful way (index for unique keys not recommended)
-        render: (text) => <span> {text} </span>,
+        render: (text) => <span> {text} </span>/*,
         sorter: (a, b) =>  {if ( a._source.esPlacename > b._source.esPlacename ) {return 1;} 
                                     if ( a._source.esPlacename < b._source.esPlacename ) {return -1;}
                                     return 0;},
-        sortDirection: ['descend', 'ascend']
+        sortDirection: ['descend', 'ascend']*/
     },
     {
         title: <span style={{ fontFamily: "'Source Sans Pro', sans"}} >Zeit</span>,
@@ -38,7 +39,7 @@ const columnsPreisausschreiben = [
         title: <span style={{ fontFamily: "'Source Sans Pro', sans"}} >Ausschreibung</span>,
         dataIndex: '_source.beteiligte',
         key: 'value.ausschreibung',
-        render: (text, record ) => <Link to={"/dokumente/" + record._id}> {text.filter( participant => participant.rolle.indexOf('ausschreibende Institution/Person')>-1 ).length>0? text.filter( participant => participant.rolle.indexOf('ausschreibende Institution/Person')>-1 ).map(participant => participant.name).join(", "): "unbekannt"} </Link>
+        render: (text, record ) => <span>{text.filter( participant => participant.rolle.indexOf('ausschreibende Institution/Person')>-1 ).length>0? text.filter( participant => participant.rolle.indexOf('ausschreibende Institution/Person')>-1 ).map(participant => participant.name).join(", "): "unbekannt"} </span>
     },
     {
         title: <span style={{ fontFamily: "'Source Sans Pro', sans"}} >Aufgaben</span>,
@@ -49,7 +50,7 @@ const columnsPreisausschreiben = [
     }
 ]
 
-export default function SearchPage( props ) {
+function ProSearchPage( props ) {
 
     let columns;
 
@@ -72,9 +73,12 @@ export default function SearchPage( props ) {
                 </Breadcrumb>
 
                 <Row style={{marginTop: "50px"}}>
-                    <Col span={6}><span>Treffer: {/*props.query.match._all.query*/props.strQuery.simple_query_string.query}{props.hitsCount?"("+props.hitsCount+")":"" }</span><FacetSider query={props.strQuery} filter={props.filterArr} updateQuery={props.updateQuery} searchType={props.searchType} /></Col>
+                    <Col span={6}>
+                        <span>Filter:</span>
+                        <FacetSider query={props.strQuery} filter={props.filterArr} updateQuery={props.updateQuery} searchType={props.searchType} />
+                    </Col>
                     <Col span={18}>
-
+                        <span>{/*props.strQuery.simple_query_string.query*/}{props.hitsCount?props.hitsCount+" Treffer": "Keine Treffer" }</span>
                         <Table
                             bodyStyle={{ backgroundColor: "#ffffff" }}
                             columns={columns} 
@@ -82,7 +86,7 @@ export default function SearchPage( props ) {
                             rowKey={ record => record._id }
                             pagination={{ total: props.hitsCount, showTotal: total => total + ' Treffer', onChange: (page, pageSize) => props.updateQuery({ strQueryObj: props.strQuery, type: props.searchType, offset: (page-1)*pageSize}) }}
                             onHeaderRow={ (column, index) => {return {onClick: event => props.updateQuery({ strQueryObj: props.strQuery, type: props.searchType, sort: {on: "esStart", order: "asc"}, offset: props.offset })}} }
-                            //onRow={ (record) => {return { onClick: ()=>{alert("hello");} }; }  }
+                            onRow={ (record) => {return { onClick: (event)=>{props.history.push('/dokumente/' + record._id);} }; }  }
                             />
                     </Col>
                 </Row>
@@ -90,3 +94,5 @@ export default function SearchPage( props ) {
         </Layout>
     );
 }
+
+export default withRouter( ProSearchPage );
