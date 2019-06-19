@@ -29,8 +29,8 @@ export default function DocViewSwitch( props ) {
             <Content>
                 <Breadcrumb>
                     <Breadcrumb.Item><Link to="/">Home</Link></Breadcrumb.Item>
-                    <Breadcrumb.Item><Link to="/search" >Suchergebnisse</Link></Breadcrumb.Item>
-                    <Breadcrumb.Item><Link to="/search"> {docData.docType} mit Id {docData._id} </Link></Breadcrumb.Item>
+                    <Breadcrumb.Item><Link to="/prosearch" >Suchergebnisse</Link></Breadcrumb.Item>
+                    <Breadcrumb.Item><Link to="/prosearch"> {docData.docType} mit Id {docData._id} </Link></Breadcrumb.Item>
                 </Breadcrumb>
                 <ResultComponent requestData={docData} />
             </Content>

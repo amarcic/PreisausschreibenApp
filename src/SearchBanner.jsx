@@ -27,8 +27,7 @@ export default function SearchBanner( props ) {
                 left: "50%",
                 transform: "translate(-50%, -50%)"
             }}>
-                <h1 style={{fontSize:40}}>Musikalische Preisausschreiben<br />1820 bis 1870</h1>
-                <h2>Grundriss, Datenbank und Bibliografie auf Grundlage von Musikperiodika</h2>
+                <span>Globale Volltextsuche in der Datenbank Musikalische Preisausschreiben 1820-1870.</span>
 
                 <SearchBox updateInput={props.updateInput} searchCollection={props.searchCollection} />
             </div>

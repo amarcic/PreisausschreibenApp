@@ -74,7 +74,11 @@ export default class Layout_Container extends React.Component {
                                                         float: 'left'
                                                     }}>
                         <Link to="/">Beta-Version Home</Link>
-                    </div>              
+                    </div>   
+                    {/*<div style={{fontFamily: "'Source Sans Pro', sans", letterSpacing: '0.04em', fontSize: '17px'}}>
+                            <span>Musikalische Preisausschreiben 1820 bis 1870</span><br />
+                            <span>Grundriss, Datenbank und Bibliografie auf Grundlage von Musikperiodika</span>
+                                                </div>      */}     
                     <Menu mode="horizontal" style={{ lineHeight: '78px', fontFamily: "'Source Sans Pro', sans", letterSpacing: '0.04em', fontSize: '17px', fontWeight: '40', float: 'right' }} theme="light" >
                         <SubMenu title={<span>Suche</span>} >
                         <Menu.Item key="1"><Link to="/prosearch">Preisausschreiben</Link></Menu.Item>
