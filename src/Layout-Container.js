@@ -81,10 +81,10 @@ export default class Layout_Container extends React.Component {
                                                 </div>      */}     
                     <Menu mode="horizontal" style={{ lineHeight: '78px', fontFamily: "'Source Sans Pro', sans", letterSpacing: '0.04em', fontSize: '17px', fontWeight: '40', float: 'right' }} theme="light" >
                         <SubMenu title={<span>Suche</span>} >
-                        <Menu.Item key="1"><Link to="/prosearch">Preisausschreiben</Link></Menu.Item>
-                        <Menu.Item key="2">Personen</Menu.Item>
+                        <Menu.Item key="1"><Link to="/prosearch">Preisausschreibensuche</Link></Menu.Item>
+                        {/*<Menu.Item key="2">Personen</Menu.Item>
                         <Menu.Item key="3">Körperschaften</Menu.Item>
-                        <Menu.Item key="4">Themen und Schlagworte</Menu.Item>
+                                            <Menu.Item key="4">Themen und Schlagworte</Menu.Item>*/}
                         </SubMenu>
                         <SubMenu title={<span>Forschung</span>} >
                             <Menu.Item key="5">Grundriss</Menu.Item>
@@ -129,6 +129,8 @@ export default class Layout_Container extends React.Component {
                     <Route path="/prosearch" render={ (props) => <ErrorBoundary> <SearchPageWithESData /*query={this.state.strinQueryObject}*/ strQuery={this.state.stringQueryObject} filterArr={this.filterArray} updateQuery={this.updateQuery} searchType={this.state.searchType} sort={this.state.sort} offset={this.state.offset} {...props} /> </ErrorBoundary> } />
                 </Row>
                 <Footer style={{textAlign: 'center'}}>
+                    <span>Musikalische Preisausschreiben 1820 bis 1870</span><br />
+                    <span>Grundriss, Datenbank und Bibliografie auf Grundlage von Musikperiodika</span><br />
                     Musikalische Preisausschreiben ©2018
                 </Footer>
 
