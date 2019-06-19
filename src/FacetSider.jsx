@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 
-import { Layout, Menu, Input, Checkbox, Dropdown, Icon, Radio, Row, Col } from 'antd';
+import { Layout, Menu, Input, Checkbox, Dropdown, Icon, Slider, Radio, Row, Col } from 'antd';
 import { filterOption } from 'rc-mentions/lib/util';
 
 //should this be a form?
@@ -199,6 +199,16 @@ function FacetSider( props ) {
                         <Menu.Item key="9">LehrerIn von TeilnehmerIn</Menu.Item>
                         <Menu.Item key="10">Sonstige</Menu.Item>                   
                     </SubMenu>
+                    <Menu.Divider />
+                    <Menu.Item style={{height: 150}}>
+                    <div>
+                        Zeitspanne<br />
+                        <Slider range marks={{0: "", 20: "1820", 70: "1870", 100: ""}} defaultValue={[20, 70]} tipFormatter={ value => `18${value}` } style={{marginTop:20}} />
+                    </div>
+                    </Menu.Item>
+                    
+                    
+                    
                     
         </Menu>
 
