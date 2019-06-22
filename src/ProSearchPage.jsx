@@ -75,7 +75,7 @@ function ProSearchPage( props ) {
                 <Row style={{marginTop: "50px"}}>
                     <Col span={6}>
                         <span>Filter:</span>
-                        <FacetSider query={props.strQuery} filter={props.filterArr} updateQuery={props.updateQuery} searchType={props.searchType} />
+                        <FacetSider query={props.strQuery} filterObj={props.filterObj} updateQuery={props.updateQuery} searchType={props.searchType} />
                     </Col>
                     <Col span={18}>
                         <span>{/*props.strQuery.simple_query_string.query*/}{props.hitsCount?props.hitsCount+" Treffer": "Keine Treffer" }</span>

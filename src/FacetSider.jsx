@@ -4,6 +4,36 @@ import { withRouter } from 'react-router-dom';
 import { Layout, Menu, Input, Checkbox, Dropdown, Icon, Slider, Radio, Row, Col } from 'antd';
 import { filterOption } from 'rc-mentions/lib/util';
 
+const countries = [
+    "Kingdom of the Netherlands",
+    "Kingdom of Belgium",
+    "Kingdom of Spain",
+    "France",
+    "Federal Republic of Germany",
+    "Hungary",
+    "Ireland",
+    "United Kingdom of Great Britain and Northern Ireland",
+    "Mexico",
+    "United States",
+    "Czechia",
+    "Repubblica Italiana",
+    "Republic of Austria",
+    "Republic of Croatia",
+    "People’s Democratic Republic of Algeria",
+    "România",
+    "Hellenic Republic",
+    "Switzerland",
+    "Republic of Poland",
+    "Russian Federation",
+    "Kingdom of Denmark",
+    "Republic of Slovenia",
+    "Grand Duchy of Luxembourg",
+    "Kingdom of Norway",
+    "Republic of Latvia",
+    "Federative Republic of Brazil",
+    "Kingdom of Sweden"
+  ];
+
 //should this be a form?
 const filter = [
     {
@@ -139,6 +169,7 @@ function onChange(checkedValues) {
     }
     taskTypeFilter.nested.filter.and.push( { terms: { "aufgaben.aufgabentyp.raw": checkedValues } } )
     console.log(taskTypeFilter)
+    
 }
 
 function handleSelect(e) {
@@ -153,7 +184,8 @@ function FacetSider( props ) {
 
     let strQueryObj = { simple_query_string: { query: props.query.simple_query_string.query, fields: ["_all"] } };
     
-    let filterArr = { filter: []}
+    let filter = props.filterObj;
+    console.log("hello: "+ filter);
 
     return(
         <Sider>
@@ -183,7 +215,7 @@ function FacetSider( props ) {
                                         let cleanedInput = value.toLowerCase();
                                         strQueryObj = {simple_query_string: { query: cleanedInput, fields: ["_all"] } };
                                         props.history.push('/prosearch');
-                                        props.updateQuery({ input: strQueryObj, strQueryObj: strQueryObj, type: selectValue});
+                                        props.updateQuery({ /*input: strQueryObj,*/ strQueryObj: strQueryObj, type: selectValue});
                                         //props.updateInput(value);
                                         //return console.log(value);
                                         } 
@@ -195,7 +227,7 @@ function FacetSider( props ) {
                     <Dropdown trigger={['click']} overlay={<Menu><Menu.Item>{searchFields}</Menu.Item></Menu>}><span>suchen nur in <Icon type="down" /></span></Dropdown>
 
                     </Menu.Item>
-                    <SubMenu key="subTaskTypes" title="Aufgabentypen"><Menu.Item style={{height: 150}} key="0">{taskTypes}</Menu.Item></SubMenu>
+                    <SubMenu key="subTaskTypes" title="Aufgabentypen"><Menu.Item style={{height: 150}} key="10">{taskTypes}</Menu.Item></SubMenu>
                     <Menu.Divider >o</Menu.Divider>
                     <Menu.Item>Name</Menu.Item>
                     <SubMenu key="subRole" title="Rolle" multiple="true" onClick={handleSelect}>
@@ -215,7 +247,7 @@ function FacetSider( props ) {
                     <Menu.Item>
                         Ort
                     </Menu.Item>
-                    <SubMenu key="subTaskTypes" title="Länder"><Menu.Item style={{height: 150}} key="0">{countries}</Menu.Item></SubMenu>
+                    <SubMenu key="subCountries" title="Länder"><Menu.Item style={{height: 150}} key="11">{countries}</Menu.Item></SubMenu>
                     <Menu.Divider />
                     <Menu.Item style={{height: 150}}>
                     <div>
