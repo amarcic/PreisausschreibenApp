@@ -14,7 +14,7 @@ export default function SearchBanner( props ) {
     return(
         <Layout style={{ 
             backgroundImage: 'url("collage.jpg")', 
-            height: "75vH", 
+            height: "40vH", 
             backgroundPosition: "center",
             backgroundSize: "cover" 
         }}>
@@ -23,9 +23,10 @@ export default function SearchBanner( props ) {
                 padding: "20px",
                 textAlign: "center",
                 position: "absolute",
-                top: "50%",
+                top: "99%",
                 left: "50%",
                 transform: "translate(-50%, -50%)"
+                
             }}>
                 <span>Globale Volltextsuche in der Datenbank Musikalische Preisausschreiben 1820-1870.</span>
 
