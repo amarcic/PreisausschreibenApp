@@ -13,10 +13,10 @@ function LandingPage( props ) {
                 <Content style={{ marginTop: "20px" }}>
                 <Row>
                 <Col>
-                    <Breadcrumb>
+                    {/*<Breadcrumb>
                         <Breadcrumb.Item><Link to="/">Home</Link></Breadcrumb.Item>
-                    </Breadcrumb>
-                    <div style={{ /*maxWidth: "1680px",*/ textAlign: "center", marginTop: 40, marginRight: "auto", marginLeft: "auto", width: 600 }}>
+                    </Breadcrumb>*/}
+                    <div style={{ /*maxWidth: "1680px",*/ textAlign: "center", marginTop: 60, marginRight: "auto", marginLeft: "auto", width: 600 }}>
                         Was finde ich hier? <br />
                         Die Datenbank enthält Einträge zu 1310 Preisausschreiben und basiert auf einem
                         Korpus zeitgenössischer Musikperiodika, die im Rahmen eines DFG-

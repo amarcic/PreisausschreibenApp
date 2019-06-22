@@ -2,9 +2,9 @@
 import React from 'react';
 import { Route, Link } from 'react-router-dom';
 
-import { Layout, Menu, Row, Col, Breadcrumb } from 'antd';
+import { Layout, Menu, Row } from 'antd';
 const { SubMenu } = Menu;
-const { Header, Content, Sider, Footer } = Layout;
+const { Header, Footer } = Layout;
 
 import LandingPage from './LandingPage';
 import AboutPage from './AboutPage';
