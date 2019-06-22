@@ -109,6 +109,18 @@ const taskTypes = (
     </CheckboxGroup>
 );
 
+const countries = (
+    <CheckboxGroup onChange={onChange}>
+        <Row>
+            <Col><Checkbox value="france">Frankreich</Checkbox></Col>
+            <Col><Checkbox value="belgium">Belgien</Checkbox></Col>
+            <Col><Checkbox value="italy">Italien</Checkbox></Col>
+            <Col><Checkbox value="netherlands">Niederlande</Checkbox></Col>
+            <Col><Checkbox value="Sonstiges">Sonstiges</Checkbox></Col>
+        </Row>
+    </CheckboxGroup>
+);
+
 function onChange(checkedValues) {
     //since the variable taskTypeFilter exists only in the scope of the onChange function a new instance is 
     //used in every call of the function. Thus only the current array from checkValues will be pushed into the
@@ -199,6 +211,11 @@ function FacetSider( props ) {
                         <Menu.Item key="9">LehrerIn von TeilnehmerIn</Menu.Item>
                         <Menu.Item key="10">Sonstige</Menu.Item>                   
                     </SubMenu>
+                    <Menu.Divider />
+                    <Menu.Item>
+                        Ort
+                    </Menu.Item>
+                    <SubMenu key="subTaskTypes" title="Länder"><Menu.Item style={{height: 150}} key="0">{countries}</Menu.Item></SubMenu>
                     <Menu.Divider />
                     <Menu.Item style={{height: 150}}>
                     <div>
