@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { Layout, Menu, Input, Checkbox, Dropdown, Icon, Slider, Radio, Row, Col } from 'antd';
 import { filterOption } from 'rc-mentions/lib/util';
 
-const countries = [
+const countriesArray = [
     "Kingdom of the Netherlands",
     "Kingdom of Belgium",
     "Kingdom of Spain",
@@ -168,8 +168,8 @@ function onChange(checkedValues) {
         }
     }
     taskTypeFilter.nested.filter.and.push( { terms: { "aufgaben.aufgabentyp.raw": checkedValues } } )
-    console.log(taskTypeFilter)
-    
+    return(taskTypeFilter);
+
 }
 
 function handleSelect(e) {
@@ -227,7 +227,11 @@ function FacetSider( props ) {
                     <Dropdown trigger={['click']} overlay={<Menu><Menu.Item>{searchFields}</Menu.Item></Menu>}><span>suchen nur in <Icon type="down" /></span></Dropdown>
 
                     </Menu.Item>
-                    <SubMenu key="subTaskTypes" title="Aufgabentypen"><Menu.Item style={{height: 150}} key="10">{taskTypes}</Menu.Item></SubMenu>
+                    <SubMenu key="subTaskTypes" title="Aufgabentypen">
+                        <Menu.Item style={{height: 150}} key="10">
+                            {taskTypes}
+                        </Menu.Item>
+                    </SubMenu>
                     <Menu.Divider >o</Menu.Divider>
                     <Menu.Item>Name</Menu.Item>
                     <SubMenu key="subRole" title="Rolle" multiple="true" onClick={handleSelect}>
