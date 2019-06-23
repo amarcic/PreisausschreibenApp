@@ -20,7 +20,7 @@ function fetchFromES( strQueryObj, optionObj ) {
     const fields = fields || '_all';
     const sort = options.sort || "";
     const from = options.offset || 0;
-    const filterObj = options.filterObj || {};
+    const filterObject = options.filterObj || {};
     const queryObject = strQueryObj;
 
     //console.log(view);
@@ -56,7 +56,7 @@ function fetchFromES( strQueryObj, optionObj ) {
                         //filter: filterObject
                         //for testing purposes a fixed filter object is used below; delete after testing and use line above
                         filter: {
-                            and: [{}/*
+                            and: [filterObject.taskTypes/*
                                 {
                                     nested: {
                                         path: "aufgaben",
@@ -129,8 +129,10 @@ export default function withESData( WrappedComponent ) {
             componentDidUpdate( prevProps ) {
                 console.log("offset:" + this.props.offset);
                 //if I want rerendering when offset is changed, I will have to include a comparison of the offset parameter
+                //same with other parameters/props
+
                 if ((JSON.stringify(this.props.strQuery) !== JSON.stringify(prevProps.strQuery))||(this.props.offset !== prevProps.offset)||(this.props.sort !== prevProps.sort)||(JSON.stringify(this.props.filterObj) !== JSON.stringify(prevProps.filterObj))) {
-                    //console.log(JSON.stringify(this.props.query), JSON.stringify(prevProps.query) );
+                    console.log(JSON.stringify(this.props.filterObj), JSON.stringify(prevProps.filterObj) );
                     //there is no this.props.view
                     this.fetchData( this.props.strQuery, {filterObj: this.props.filterObj, offset: this.props.offset, sort: this.props.sort/*, strQuery: this.props.strQuery*/ } );
                 }
@@ -140,7 +142,7 @@ export default function withESData( WrappedComponent ) {
                 const { hocProp, ...passthroughProps } = this.props;
                 const fetchedData = this.state.data;
                 const hitsCount = this.state.hitsCount;
-                const isLoading = this.state.loading;
+                //const isLoading = this.state.loading;
 
                 console.log(fetchedData);
 

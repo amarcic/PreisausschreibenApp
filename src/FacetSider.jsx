@@ -176,112 +176,141 @@ function handleSelect(e) {
     console.log(e.item.props.children);
 } 
 
-function FacetSider( props ) {
+class FacetSider extends React.Component {
 
-    let selectValue = props.searchType;
+    //let selectValue = props.searchType;
     //elasticsearch depended
-    //let queryObj = {match: { _all: { query: /*props.query.match._all.query*/'', operator: /*props.query.match._all.operator*/"OR"} }};
 
-    let strQueryObj = { simple_query_string: { query: props.query.simple_query_string.query, fields: ["_all"] } };
+    constructor( props ) {
+        super(props);
+        this.state = {
+            strQueryObj: { simple_query_string: { query: this.props.query.simple_query_string.query, fields: ["_all"] } },
+            filter: this.props.filterObj
+        }
+        
+        this.onChange = this.onChange.bind(this);
+    }
+
+    onChange(checkedValues) {
+        //since the variable taskTypeFilter exists only in the scope of the onChange function a new instance is 
+        //used in every call of the function. Thus only the current array from checkValues will be pushed into the
+        //"and" array.
+        let taskTypeFilter = {
+            nested: {
+                path: "aufgaben",
+                filter: {
+                    and: [
+                        /*{
+                            term: { systematik: "kantate" }
+                        }*/
+                    ]
+                }
+            }
+        }
+        console.log(checkedValues.length);
+        if ( checkedValues.length>0 ) {
+            taskTypeFilter.nested.filter.and.push( { terms: { "aufgaben.aufgabentyp.raw": checkedValues } } );
+        } else {
+            taskTypeFilter = {};
+        }
+        
+        let stFilter = this.state.filter;
+        stFilter.taskTypes=taskTypeFilter;
+        this.setState( { filter: stFilter } );
+        
+        this.props.updateQuery({ strQueryObj: this.state.strQueryObj, filterObj: this.state.filter, type: this.props.searchType});
+
     
-    let filter = props.filterObj;
-    console.log("hello: "+ filter);
+    }
 
-    return(
-        <Sider>
-            {/*<Input.Search 
-                size="large"
-                placeholder="Ihre Suche..."
-                onSearch={ value => {
-                            //if component is changed to a stateful component extending React.Component, use this.props.history.push(...)
-                            let cleanedInput = value.toLowerCase();
-                            queryObj.match._all.query=cleanedInput;
-                            //let queryObj = {match: { _all: { query: cleanedInput, operator: props.query.match._all.operator} }};
-                            props.history.push('/prosearch');
-                            props.updateQuery({ input: queryObj, type: selectValue});
-                            //props.updateInput(value);
-                            //return console.log(value);
-                            } 
-                        }
-                    />*/}
-
-        <Menu style={ {width: 256} } mode="inline">
-                    <Menu.Item>
-                        <Input.Search 
-                            size="large"
-                            placeholder="Ihre Suche..."
-                            onSearch={ value => {
-                                        //if component is changed to a stateful component extending React.Component, use this.props.history.push(...)
-                                        let cleanedInput = value.toLowerCase();
-                                        strQueryObj = {simple_query_string: { query: cleanedInput, fields: ["_all"] } };
-                                        props.history.push('/prosearch');
-                                        props.updateQuery({ /*input: strQueryObj,*/ strQueryObj: strQueryObj, type: selectValue});
-                                        //props.updateInput(value);
-                                        //return console.log(value);
-                                        } 
-                                    }
-                        />
-                        <Icon type="question-circle" />
-                    </Menu.Item>
-                    <Menu.Item>
-                    <Dropdown trigger={['click']} overlay={<Menu><Menu.Item>{searchFields}</Menu.Item></Menu>}><span>suchen nur in <Icon type="down" /></span></Dropdown>
-
-                    </Menu.Item>
-                    <SubMenu key="subTaskTypes" title="Aufgabentypen">
-                        <Menu.Item style={{height: 150}} key="10">
-                            {taskTypes}
+    render() {
+        console.log(this.state.filter);
+        return(
+            <Sider>
+            <Menu style={ {width: 256} } mode="inline">
+                        <Menu.Item>
+                            <Input.Search 
+                                size="large"
+                                placeholder="Ihre Suche..."
+                                onSearch={ value => {
+                                            //if component is changed to a stateful component extending React.Component, use this.props.history.push(...)
+                                            let cleanedInput = value.toLowerCase();
+                                            this.state.strQueryObj = {simple_query_string: { query: cleanedInput, fields: ["_all"] } };
+                                            this.props.history.push('/prosearch');
+                                            this.props.updateQuery({ strQueryObj: this.state.strQueryObj, filterObj: this.state.filter, type: this.props.searchType});
+                                            } 
+                                        }
+                            />
+                            <Icon type="question-circle" />
                         </Menu.Item>
+                        <Menu.Item>
+                        <Dropdown trigger={['click']} overlay={<Menu><Menu.Item>{searchFields}</Menu.Item></Menu>}><span>suchen nur in <Icon type="down" /></span></Dropdown>
+    
+                        </Menu.Item>
+                        <SubMenu key="subTaskTypes" title="Aufgabentypen">
+                            <Menu.Item style={{height: 150}} key="10">
+                                <CheckboxGroup onChange={this.onChange}>
+                                    <Row>
+                                        <Col><Checkbox value="Komposition">Komposition</Checkbox></Col>
+                                        <Col><Checkbox value="Performance">Performance</Checkbox></Col>
+                                        <Col><Checkbox value="zu vertonender Text">zu vertonender Text</Checkbox></Col>
+                                        <Col><Checkbox value="Text über Musik">Text über Musik</Checkbox></Col>
+                                        <Col><Checkbox value="Sonstiges">Sonstiges</Checkbox></Col>
+                                    </Row>
+                                </CheckboxGroup>
+                            </Menu.Item>
+                        </SubMenu>
+                        <Menu.Divider >o</Menu.Divider>
+                        <Menu.Item>Name</Menu.Item>
+                        <SubMenu key="subRole" title="Rolle" multiple="true" onClick={handleSelect}>
+                            <Menu.Item key="0">TeilnehmerIn</Menu.Item>
+                            <Menu.Item key="1">Jurymitglied</Menu.Item>
+                            <Menu.Item key="2">ausschreibende Institution/Person</Menu.Item>
+                            <Menu.Item key="3">OrganisatorIn/RepräsentantIn</Menu.Item>
+                            <Menu.Item key="4">InterpretIn</Menu.Item>
+                            <Menu.Item key="5">JournalistIn</Menu.Item>
+                            <Menu.Item key="6">KomponistIn/ArrangeurIn</Menu.Item>
+                            <Menu.Item key="7">AutorIn</Menu.Item>
+                            <Menu.Item key="8">MäzenIn</Menu.Item>
+                            <Menu.Item key="9">LehrerIn von TeilnehmerIn</Menu.Item>
+                            <Menu.Item key="10">Sonstige</Menu.Item>                   
+                        </SubMenu>
+                        <Menu.Divider />
+                        <Menu.Item>
+                            Ort
+                        </Menu.Item>
+                        <SubMenu key="subCountries" title="Länder"><Menu.Item style={{height: 150}} key="11">{countries}</Menu.Item></SubMenu>
+                        <Menu.Divider />
+                        <Menu.Item style={{height: 150}}>
+                        <div>
+                            Zeitspanne<br />
+                            <Slider range marks={{0: "", 20: "1820", 70: "1870", 100: ""}} defaultValue={[20, 70]} tipFormatter={ value => `18${value}` } style={{marginTop:20}} />
+                        </div>
+                        </Menu.Item>
+                        
+                        
+                        
+                        
+            </Menu>
+    
+                {/*<Menu theme="light" mode="inline" defaultOpenKeys={['sub1','sub2']}>
+                    <SubMenu key="sub1" title="Dokumenttypen">
+                        <Menu.Item key="1"><Checkbox onChange={onChange}>Preisausschreiben</Checkbox></Menu.Item>
+                        <Menu.Item key="2">Personen</Menu.Item>
+                        <Menu.Item key="3">Körperschaften</Menu.Item>
                     </SubMenu>
-                    <Menu.Divider >o</Menu.Divider>
-                    <Menu.Item>Name</Menu.Item>
-                    <SubMenu key="subRole" title="Rolle" multiple="true" onClick={handleSelect}>
-                        <Menu.Item key="0">TeilnehmerIn</Menu.Item>
-                        <Menu.Item key="1">Jurymitglied</Menu.Item>
-                        <Menu.Item key="2">ausschreibende Institution/Person</Menu.Item>
-                        <Menu.Item key="3">OrganisatorIn/RepräsentantIn</Menu.Item>
-                        <Menu.Item key="4">InterpretIn</Menu.Item>
-                        <Menu.Item key="5">JournalistIn</Menu.Item>
-                        <Menu.Item key="6">KomponistIn/ArrangeurIn</Menu.Item>
-                        <Menu.Item key="7">AutorIn</Menu.Item>
-                        <Menu.Item key="8">MäzenIn</Menu.Item>
-                        <Menu.Item key="9">LehrerIn von TeilnehmerIn</Menu.Item>
-                        <Menu.Item key="10">Sonstige</Menu.Item>                   
+                    <SubMenu key="sub2" title="Beteiligte">
+                        <Menu.Item key="4"><Checkbox onChange={onChange}>Name</Checkbox></Menu.Item>
+                        <Menu.Item key="5">Rolle </Menu.Item>
                     </SubMenu>
-                    <Menu.Divider />
-                    <Menu.Item>
-                        Ort
-                    </Menu.Item>
-                    <SubMenu key="subCountries" title="Länder"><Menu.Item style={{height: 150}} key="11">{countries}</Menu.Item></SubMenu>
-                    <Menu.Divider />
-                    <Menu.Item style={{height: 150}}>
-                    <div>
-                        Zeitspanne<br />
-                        <Slider range marks={{0: "", 20: "1820", 70: "1870", 100: ""}} defaultValue={[20, 70]} tipFormatter={ value => `18${value}` } style={{marginTop:20}} />
-                    </div>
-                    </Menu.Item>
-                    
-                    
-                    
-                    
-        </Menu>
-
-            {/*<Menu theme="light" mode="inline" defaultOpenKeys={['sub1','sub2']}>
-                <SubMenu key="sub1" title="Dokumenttypen">
-                    <Menu.Item key="1"><Checkbox onChange={onChange}>Preisausschreiben</Checkbox></Menu.Item>
-                    <Menu.Item key="2">Personen</Menu.Item>
-                    <Menu.Item key="3">Körperschaften</Menu.Item>
-                </SubMenu>
-                <SubMenu key="sub2" title="Beteiligte">
-                    <Menu.Item key="4"><Checkbox onChange={onChange}>Name</Checkbox></Menu.Item>
-                    <Menu.Item key="5">Rolle </Menu.Item>
-                </SubMenu>
-                <SubMenu key="sub3" title="Ort und Zeit" >
-
-                </SubMenu>
-                                </Menu>*/}
-        </Sider>
-
-    );
+                    <SubMenu key="sub3" title="Ort und Zeit" >
+    
+                    </SubMenu>
+                                    </Menu>*/}
+            </Sider>
+    
+        );
+    }
 }
 
 export default withRouter(FacetSider);

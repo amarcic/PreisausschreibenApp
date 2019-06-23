@@ -35,7 +35,7 @@ export default class Layout_Container extends React.Component {
             searchInput: "suche...",
             //queryObject: { match: { "_all": {query: '', operator: "or"} } },
             stringQueryObject: { simple_query_string: {query:'', fields: ["_all"]} },
-            filterObject: { taskTypes: [] },
+            filterObject: { taskTypes: {} },
             offset: 0,
             sort: {},
             searchCollection: "preisausschreiben",
@@ -62,7 +62,7 @@ export default class Layout_Container extends React.Component {
         this.setState(
             { /*queryObject: value.input,*/stringQueryObject: value.strQueryObj, filterObject: value.filterObj, searchType: value.type, sort: value.sort, offset: value.offset  }
         );
-        console.log(this.state.sort);
+        //console.log(this.state.sort);
     }
 
     render() {
