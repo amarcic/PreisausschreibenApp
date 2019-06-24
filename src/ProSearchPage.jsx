@@ -85,7 +85,7 @@ function ProSearchPage( props ) {
                             dataSource={data} 
                             rowKey={ record => record._id }
                             pagination={{ total: props.hitsCount, showTotal: total => total + ' Treffer', onChange: (page, pageSize) => props.updateQuery({ strQueryObj: props.strQuery, filterObj: props.filterObj, type: props.searchType, offset: (page-1)*pageSize}) }}
-                            onHeaderRow={ (column, index) => {return {onClick: event => props.updateQuery({ strQueryObj: props.strQuery, type: props.searchType, sort: {on: "esStart", order: "asc"}, offset: props.offset })}} }
+                            onHeaderRow={ (column, index) => {return {onClick: event => props.updateQuery({ strQueryObj: props.strQuery, filterObj: props.filterObj, type: props.searchType, sort: {on: "esStart", order: "asc"}, offset: props.offset })}} }
                             onRow={ (record) => {return { onClick: (event)=>{props.history.push('/dokumente/' + record._id);} }; }  }
                             />
                     </Col>
