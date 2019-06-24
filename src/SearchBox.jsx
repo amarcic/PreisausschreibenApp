@@ -12,10 +12,10 @@ function SearchBox( props ) {
         <Select defaultValue={props.searchCollection} 
             onChange={ value => selectValue = value }
             >
-            <Option value="preisausschreiben">Preisausschreiben</Option>
+            {/*<Option value="preisausschreiben">Preisausschreiben</Option>
             <Option value="personen">Personen</Option>
             <Option value="koerperschaften">Körperschaften</Option>
-           {/* <Option value="serien">Serien</Option>
+            <Option value="serien">Serien</Option>
             <Option value="unspezifisch">Sämtliche Daten</Option> */}
         </Select>
     );
