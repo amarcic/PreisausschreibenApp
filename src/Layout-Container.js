@@ -60,9 +60,8 @@ export default class Layout_Container extends React.Component {
     updateQuery( value ) {
         console.log(this.state.sort);
         this.setState(
-            { /*queryObject: value.input,*/stringQueryObject: value.strQueryObj, filterObject: value.filterObj, searchType: value.type, sort: value.sort, offset: value.offset  }
+            { stringQueryObject: value.strQueryObj, filterObject: value.filterObj, searchType: value.type, sort: value.sort, offset: value.offset }
         );
-        //console.log(this.state.sort);
     }
 
     render() {

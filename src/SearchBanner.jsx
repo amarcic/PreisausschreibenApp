@@ -13,7 +13,8 @@ export default function SearchBanner( props ) {
 
     return(
         <Layout style={{ 
-            backgroundImage: 'url("collage.jpg")',
+            //backgroundImage: 'url("collage.jpg")',
+            backgroundImage: 'url("/assets/collage.jpg")',
             height: "40vH",
             backgroundPosition: "center",
             backgroundSize: "cover" 

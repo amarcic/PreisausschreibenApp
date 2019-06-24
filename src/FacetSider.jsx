@@ -218,7 +218,7 @@ class FacetSider extends React.Component {
         stFilter.taskTypes=taskTypeFilter;
         this.setState( { filter: stFilter } );
         
-        this.props.updateQuery({ strQueryObj: this.state.strQueryObj, filterObj: this.state.filter, type: this.props.searchType});
+        //this.props.updateQuery({ strQueryObj: this.state.strQueryObj, filterObj: this.state.filter, type: this.props.searchType});
 
     
     }
@@ -236,7 +236,7 @@ class FacetSider extends React.Component {
                                             //if component is changed to a stateful component extending React.Component, use this.props.history.push(...)
                                             let cleanedInput = value.toLowerCase();
                                             this.state.strQueryObj = {simple_query_string: { query: cleanedInput, fields: ["_all"] } };
-                                            this.props.history.push('/prosearch');
+                                            //this.props.history.push('/prosearch');
                                             this.props.updateQuery({ strQueryObj: this.state.strQueryObj, filterObj: this.state.filter, type: this.props.searchType});
                                             } 
                                         }
