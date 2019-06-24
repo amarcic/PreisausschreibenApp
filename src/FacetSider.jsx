@@ -218,6 +218,7 @@ class FacetSider extends React.Component {
         stFilter.taskTypes=taskTypeFilter;
         this.setState( { filter: stFilter } );
         
+        //how does the state in layout-container get the changes without explicit use of updateQuery... because it does... somehow...
         //this.props.updateQuery({ strQueryObj: this.state.strQueryObj, filterObj: this.state.filter, type: this.props.searchType});
 
     
