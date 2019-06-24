@@ -117,18 +117,15 @@ const menuRoles = (
 );
 
 const searchFields = (
-    <CheckboxGroup onChange={onChange}>
         <Row>
             <Col><Checkbox value="beteiligte.name">Beteiligte</Checkbox></Col>
             <Col><Checkbox value="aufgaben.spezigizierung">Aufgabenstellung</Checkbox></Col>
             <Col><Checkbox value="formalia">Formalia</Checkbox></Col>
             <Col><Checkbox value="quellen">Quellen</Checkbox></Col>
         </Row>
-    </CheckboxGroup>
 );
 
 const taskTypes = (
-    <CheckboxGroup onChange={onChange}>
         <Row>
             <Col><Checkbox value="Komposition">Komposition</Checkbox></Col>
             <Col><Checkbox value="Performance">Performance</Checkbox></Col>
@@ -136,11 +133,9 @@ const taskTypes = (
             <Col><Checkbox value="Text über Musik">Text über Musik</Checkbox></Col>
             <Col><Checkbox value="Sonstiges">Sonstiges</Checkbox></Col>
         </Row>
-    </CheckboxGroup>
 );
 
 const countries = (
-    <CheckboxGroup onChange={onChange}>
         <Row>
             <Col><Checkbox value="france">Frankreich</Checkbox></Col>
             <Col><Checkbox value="belgium">Belgien</Checkbox></Col>
@@ -148,9 +143,9 @@ const countries = (
             <Col><Checkbox value="netherlands">Niederlande</Checkbox></Col>
             <Col><Checkbox value="Sonstiges">Sonstiges</Checkbox></Col>
         </Row>
-    </CheckboxGroup>
 );
 
+/*
 function onChange(checkedValues) {
     //since the variable taskTypeFilter exists only in the scope of the onChange function a new instance is 
     //used in every call of the function. Thus only the current array from checkValues will be pushed into the
@@ -170,7 +165,7 @@ function onChange(checkedValues) {
     taskTypeFilter.nested.filter.and.push( { terms: { "aufgaben.aufgabentyp.raw": checkedValues } } )
     return(taskTypeFilter);
 
-}
+}*/
 
 function handleSelect(e) {
     console.log(e.item.props.children);
@@ -207,7 +202,6 @@ class FacetSider extends React.Component {
                 }
             }
         }
-        console.log(checkedValues.length);
         if ( checkedValues.length>0 ) {
             taskTypeFilter.nested.filter.and.push( { terms: { "aufgaben.aufgabentyp.raw": checkedValues } } );
         } else {
@@ -219,7 +213,8 @@ class FacetSider extends React.Component {
         this.setState( { filter: stFilter } );
         
         //how does the state in layout-container get the changes without explicit use of updateQuery... because it does... somehow...
-        //this.props.updateQuery({ strQueryObj: this.state.strQueryObj, filterObj: this.state.filter, type: this.props.searchType});
+        //answer: it does not. it is just send there, whenever I update something else
+        this.props.updateQuery({ strQueryObj: this.state.strQueryObj, filterObj: this.state.filter, offset: this.props.offset, type: this.props.searchType});
 
     
     }
@@ -245,19 +240,13 @@ class FacetSider extends React.Component {
                             <Icon type="question-circle" />
                         </Menu.Item>
                         <Menu.Item>
-                        <Dropdown trigger={['click']} overlay={<Menu><Menu.Item>{searchFields}</Menu.Item></Menu>}><span>suchen nur in <Icon type="down" /></span></Dropdown>
+                        <Dropdown trigger={['click']} overlay={<Menu><Menu.Item><CheckboxGroup onChange={this.onChange} >{searchFields}</CheckboxGroup></Menu.Item></Menu>}><span>suchen nur in <Icon type="down" /></span></Dropdown>
     
                         </Menu.Item>
                         <SubMenu key="subTaskTypes" title="Aufgabentypen">
                             <Menu.Item style={{height: 150}} key="10">
                                 <CheckboxGroup onChange={this.onChange}>
-                                    <Row>
-                                        <Col><Checkbox value="Komposition">Komposition</Checkbox></Col>
-                                        <Col><Checkbox value="Performance">Performance</Checkbox></Col>
-                                        <Col><Checkbox value="zu vertonender Text">zu vertonender Text</Checkbox></Col>
-                                        <Col><Checkbox value="Text über Musik">Text über Musik</Checkbox></Col>
-                                        <Col><Checkbox value="Sonstiges">Sonstiges</Checkbox></Col>
-                                    </Row>
+                                        {taskTypes}
                                 </CheckboxGroup>
                             </Menu.Item>
                         </SubMenu>
@@ -280,7 +269,7 @@ class FacetSider extends React.Component {
                         <Menu.Item>
                             Ort
                         </Menu.Item>
-                        <SubMenu key="subCountries" title="Länder"><Menu.Item style={{height: 150}} key="11">{countries}</Menu.Item></SubMenu>
+                        <SubMenu key="subCountries" title="Länder"><Menu.Item style={{height: 150}} key="11"><CheckboxGroup onChange={this.onChange}>{countries}</CheckboxGroup></Menu.Item></SubMenu>
                         <Menu.Divider />
                         <Menu.Item style={{height: 150}}>
                         <div>
