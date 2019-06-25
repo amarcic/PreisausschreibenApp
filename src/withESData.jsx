@@ -20,6 +20,7 @@ function fetchFromES( strQueryObj, optionObj ) {
     const fields = fields || '_all';
     const sort = options.sort || "";
     const from = options.offset || 0;
+    const filterTaskTypes = options.filterTaskTypes || {};
     const filterObject = options.filterObj || {};
     const queryObject = strQueryObj;
 
@@ -34,9 +35,26 @@ function fetchFromES( strQueryObj, optionObj ) {
           console.log('All is well');
         }
       });*/
+
+    let taskTypeFilter = {
+        nested: {
+            path: "aufgaben",
+            filter: {
+                and: [
+                    /*{
+                        term: { systematik: "kantate" }
+                    }*/
+                ]
+            }
+        }
+    }
+    if ( filterTaskTypes.length>0 ) {
+        taskTypeFilter.nested.filter.and.push( { terms: { "aufgaben.aufgabentyp.raw": filterTaskTypes } } );
+    } else {
+        taskTypeFilter = {};
+    }
       
-      //sort does not work
-      console.log("sort:" + JSON.stringify(sort));
+      
       let sortObj = {};
       console.log("object key length: "+ Object.keys(sort).length)
       if (Object.keys(sort).length>0&&sort!=="") {
@@ -56,7 +74,7 @@ function fetchFromES( strQueryObj, optionObj ) {
                         //filter: filterObject
                         //for testing purposes a fixed filter object is used below; delete after testing and use line above
                         filter: {
-                            and: [filterObject.taskTypes/*
+                            and: [taskTypeFilter/*
                                 {
                                     nested: {
                                         path: "aufgaben",
@@ -123,14 +141,14 @@ export default function withESData( WrappedComponent ) {
             componentDidMount() {
                 //console.log("hello from withESData componentDidMount()");
                 //there is no this.props.view
-                this.fetchData( this.props.strQuery, {filterObj: this.props.filterObj, offset: this.props.offset, sort: this.props.sort/*, strQuery: this.props.strQuery*/ } );
+                this.fetchData( this.props.strQuery, {filterObj: this.props.filterObj, filterTaskTypes: this.props.filterTaskTypes, offset: this.props.offset, sort: this.props.sort/*, strQuery: this.props.strQuery*/ } );
             }
 
             componentDidUpdate( prevProps ) {
 
                 //there is something wrong here: prevProps.filterObj shows the current, not the previous props
                 //because of this the comparison below does not work
-                console.log("prevProps filterObj:" + JSON.stringify(prevProps.filterObj));
+                console.log("prevProps filterTaskTypes:" + JSON.stringify(prevProps.filterTaskTypes));
 
                 //if I want rerendering when offset is changed, I will have to include a comparison of the offset parameter
                 //same with other parameters/props
@@ -139,10 +157,11 @@ export default function withESData( WrappedComponent ) {
                         (JSON.stringify(this.props.strQuery) !== JSON.stringify(prevProps.strQuery))
                         ||(this.props.offset !== prevProps.offset)
                         ||(this.props.sort !== prevProps.sort)
-                        ||(JSON.stringify(this.props.filterObj) !== JSON.stringify(prevProps.filterObj))
+                        ||(JSON.stringify(this.props.filterTaskTypes) !== JSON.stringify(prevProps.filterTaskTypes))
+                        //||(JSON.stringify(this.props.filterObj) !== JSON.stringify(prevProps.filterObj))
                     ) {
-                    console.log(JSON.stringify(this.props.filterObj), JSON.stringify(prevProps.filterObj) );
-                    this.fetchData( this.props.strQuery, {filterObj: this.props.filterObj, offset: this.props.offset, sort: this.props.sort/*, strQuery: this.props.strQuery*/ } );
+                    console.log(this.props.filterTaskTypes, JSON.stringify(prevProps.filterTaskTypes) );
+                    this.fetchData( this.props.strQuery, {filterObj: this.props.filterObj, filterTaskTypes: this.props.filterTaskTypes, offset: this.props.offset, sort: this.props.sort/*, strQuery: this.props.strQuery*/ } );
                 }
             }
 

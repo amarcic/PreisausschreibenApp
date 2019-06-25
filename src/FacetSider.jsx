@@ -180,24 +180,23 @@ class FacetSider extends React.Component {
         super(props);
         this.state = {
             strQueryObj: { simple_query_string: { query: "", fields: ["_all"] } },
-            filter: { taskTypes: {} }
+            filter: {taskTypes: {}},
+            filterTaskTypes: []
         }
         
         this.onChange = this.onChange.bind(this);
+        this.onChangeTaskTypes = this.onChangeTaskTypes.bind(this);
     }
 
     onChange(checkedValues) {
         //since the variable taskTypeFilter exists only in the scope of the onChange function a new instance is 
         //used in every call of the function. Thus only the current array from checkValues will be pushed into the
         //"and" array.
-        let taskTypeFilter = {
+        /*let taskTypeFilter = {
             nested: {
                 path: "aufgaben",
                 filter: {
                     and: [
-                        /*{
-                            term: { systematik: "kantate" }
-                        }*/
                     ]
                 }
             }
@@ -206,19 +205,25 @@ class FacetSider extends React.Component {
             taskTypeFilter.nested.filter.and.push( { terms: { "aufgaben.aufgabentyp.raw": checkedValues } } );
         } else {
             taskTypeFilter = {};
-        }
+        }*/
         
         //let stFilter = this.state.filter;
         //const taskFilter = this.state.filter.taskTypes;
         //let stFilter = { taskTypes: {} };
         //stFilter.taskTypes=taskTypeFilter;
         //this.setState( { filter: { taskTypes: taskTypeFilter } } );
-        const filterState = this.state.filter;
+        /*const filterState = this.state.filter;
         let filter = filterState;
         filter.taskTypes = taskTypeFilter;
         this.setState( { filter: filter } );
         
         this.props.updateQuery({ strQueryObj: this.state.strQueryObj, filterObj: this.state.filter, offset: this.props.offset, type: this.props.searchType});
+    */}
+
+    onChangeTaskTypes(checkedValues) {
+        this.setState( {filterTaskTypes: checkedValues} )
+        this.props.updateQuery({ strQueryObj: this.state.strQueryObj, filterTaskTypes: checkedValues, filterObj: this.state.filter, offset: this.props.offset, type: this.props.searchType});
+
     }
 
     render() {
@@ -235,19 +240,19 @@ class FacetSider extends React.Component {
                                             let cleanedInput = value.toLowerCase();
                                             this.state.strQueryObj = {simple_query_string: { query: cleanedInput, fields: ["_all"] } };
                                             //this.props.history.push('/prosearch');
-                                            this.props.updateQuery({ strQueryObj: {simple_query_string: { query: cleanedInput, fields: ["_all"] } }, filterObj: this.state.filter, type: this.props.searchType});
+                                            this.props.updateQuery({ strQueryObj: {simple_query_string: { query: cleanedInput, fields: ["_all"] } }, filterObj: this.state.filter, filterTaskTypes: this.props.filterTaskTypes, type: this.props.searchType});
                                             } 
                                         }
                             />
                             <Icon type="question-circle" />
                         </Menu.Item>
                         <Menu.Item>
-                        <Dropdown trigger={['click']} overlay={<Menu><Menu.Item><CheckboxGroup onChange={this.onChange} >{searchFields}</CheckboxGroup></Menu.Item></Menu>}><span>suchen nur in <Icon type="down" /></span></Dropdown>
+                        <Dropdown trigger={['click']} overlay={<Menu><Menu.Item><CheckboxGroup onChange={this.onChange} value={this.props.filterTaskTypes} >{searchFields}</CheckboxGroup></Menu.Item></Menu>}><span>suchen nur in <Icon type="down" /></span></Dropdown>
     
                         </Menu.Item>
                         <SubMenu key="subTaskTypes" title="Aufgabentypen">
                             <Menu.Item style={{height: 150}} key="10">
-                                <CheckboxGroup onChange={this.onChange}>
+                                <CheckboxGroup onChange={this.onChangeTaskTypes}>
                                         {taskTypes}
                                 </CheckboxGroup>
                             </Menu.Item>
