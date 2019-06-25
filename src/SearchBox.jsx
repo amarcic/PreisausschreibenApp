@@ -24,15 +24,12 @@ function SearchBox( props ) {
         <Input.Search 
             size="large"
             placeholder="Ihre Suche..."
-            //addonBefore={selectBefore}
             //style={{ width: 500 }}
             onSearch={ value => {
                         //if component is changed to a stateful component extending React.Component, use this.props.history.push(...)
                         let cleanedInput = value.toLowerCase();
                         props.history.push('/search');
                         props.updateInput({ input: cleanedInput, collection: selectValue});
-                        //props.updateInput(value);
-                        //return console.log(value);
                         } 
                     }
         />

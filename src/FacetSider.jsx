@@ -181,11 +181,13 @@ class FacetSider extends React.Component {
         this.state = {
             strQueryObj: { simple_query_string: { query: "", fields: ["_all"] } },
             filter: {taskTypes: {}},
-            filterTaskTypes: []
+            filterTaskTypes: [],
+            filterTimeSpan: []
         }
         
         this.onChange = this.onChange.bind(this);
         this.onChangeTaskTypes = this.onChangeTaskTypes.bind(this);
+        this.onChangeTimeSpan = this.onChangeTimeSpan.bind(this);
     }
 
     onChange(checkedValues) {
@@ -222,8 +224,13 @@ class FacetSider extends React.Component {
 
     onChangeTaskTypes(checkedValues) {
         this.setState( {filterTaskTypes: checkedValues} )
-        this.props.updateQuery({ strQueryObj: this.state.strQueryObj, filterTaskTypes: checkedValues, filterObj: this.state.filter, offset: this.props.offset, type: this.props.searchType});
+        this.props.updateQuery({ strQueryObj: this.state.strQueryObj, filterTaskTypes: checkedValues, filterTimeSpan: this.state.filterTimeSpan, filterObj: this.state.filter, offset: this.props.offset, type: this.props.searchType});
 
+    }
+
+    onChangeTimeSpan(value) {
+        this.setState( {filterTimeSpan: value} )
+        this.props.updateQuery({ strQueryObj: this.state.strQueryObj, filterTimeSpan: value, filterTaskTypes: this.state.filterTaskTypes, filterObj: this.state.filter, offset: this.props.offset, type: this.props.searchType});
     }
 
     render() {
@@ -281,7 +288,7 @@ class FacetSider extends React.Component {
                         <Menu.Item style={{height: 150}}>
                         <div>
                             Zeitspanne<br />
-                            <Slider range marks={{0: "", 20: "1820", 70: "1870", 100: ""}} defaultValue={[20, 70]} tipFormatter={ value => `18${value}` } style={{marginTop:20}} />
+                            <Slider range marks={{0: "", 20: "1820", 70: "1870", 100: ""}} onAfterChange={this.onChangeTimeSpan} defaultValue={[20, 70]} tipFormatter={ value => `18${value}` } style={{marginTop:20}} />
                         </div>
                         </Menu.Item>
                         
