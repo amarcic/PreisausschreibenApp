@@ -130,7 +130,7 @@ export default function withESData( WrappedComponent ) {
 
                 //there is something wrong here: prevProps.filterObj shows the current, not the previous props
                 //because of this the comparison below does not work
-                console.log("filterObj:" + JSON.stringify(prevProps.filterObj));
+                console.log("prevProps filterObj:" + JSON.stringify(prevProps.filterObj));
 
                 //if I want rerendering when offset is changed, I will have to include a comparison of the offset parameter
                 //same with other parameters/props
@@ -141,7 +141,7 @@ export default function withESData( WrappedComponent ) {
                         ||(this.props.sort !== prevProps.sort)
                         ||(JSON.stringify(this.props.filterObj) !== JSON.stringify(prevProps.filterObj))
                     ) {
-                    //console.log(JSON.stringify(this.props.filterObj), JSON.stringify(prevProps.filterObj) );
+                    console.log(JSON.stringify(this.props.filterObj), JSON.stringify(prevProps.filterObj) );
                     this.fetchData( this.props.strQuery, {filterObj: this.props.filterObj, offset: this.props.offset, sort: this.props.sort/*, strQuery: this.props.strQuery*/ } );
                 }
             }

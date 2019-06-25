@@ -179,8 +179,8 @@ class FacetSider extends React.Component {
     constructor( props ) {
         super(props);
         this.state = {
-            strQueryObj: { simple_query_string: { query: this.props.query.simple_query_string.query, fields: ["_all"] } },
-            filter: this.props.filterObj
+            strQueryObj: { simple_query_string: { query: "", fields: ["_all"] } },
+            filter: { taskTypes: {} }
         }
         
         this.onChange = this.onChange.bind(this);
@@ -208,15 +208,17 @@ class FacetSider extends React.Component {
             taskTypeFilter = {};
         }
         
-        let stFilter = this.state.filter;
-        stFilter.taskTypes=taskTypeFilter;
-        this.setState( { filter: stFilter } );
+        //let stFilter = this.state.filter;
+        //const taskFilter = this.state.filter.taskTypes;
+        //let stFilter = { taskTypes: {} };
+        //stFilter.taskTypes=taskTypeFilter;
+        //this.setState( { filter: { taskTypes: taskTypeFilter } } );
+        const filterState = this.state.filter;
+        let filter = filterState;
+        filter.taskTypes = taskTypeFilter;
+        this.setState( { filter: filter } );
         
-        //how does the state in layout-container get the changes without explicit use of updateQuery... because it does... somehow...
-        //answer: it does not. it is just send there, whenever I update something else
         this.props.updateQuery({ strQueryObj: this.state.strQueryObj, filterObj: this.state.filter, offset: this.props.offset, type: this.props.searchType});
-
-    
     }
 
     render() {
@@ -233,7 +235,7 @@ class FacetSider extends React.Component {
                                             let cleanedInput = value.toLowerCase();
                                             this.state.strQueryObj = {simple_query_string: { query: cleanedInput, fields: ["_all"] } };
                                             //this.props.history.push('/prosearch');
-                                            this.props.updateQuery({ strQueryObj: this.state.strQueryObj, filterObj: this.state.filter, type: this.props.searchType});
+                                            this.props.updateQuery({ strQueryObj: {simple_query_string: { query: cleanedInput, fields: ["_all"] } }, filterObj: this.state.filter, type: this.props.searchType});
                                             } 
                                         }
                             />
