@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom';
 
 import dateHelper from './dateHelper';
 import FacetSider from './FacetSider';
+import EsSearchBox from './EsSearchBox';
 
 const { Content, Sider } = Layout;
 const { SubMenu } = Menu;
@@ -71,7 +72,11 @@ function ProSearchPage( props ) {
                     <Breadcrumb.Item><Link to="/">Home</Link></Breadcrumb.Item>
                     <Breadcrumb.Item><Link to="/search">Suchergebnisse</Link></Breadcrumb.Item>
                 </Breadcrumb>
-
+                {/*<Row>
+                    <Col>
+                        <EsSearchBox updateQuery={props.updateQuery} strQuery={props.strQuery} filterCountry={props.filterCountry} filterTaskTypes={props.filterTaskTypes} filterTimeSpan={props.filterTimeSpan} searchType={props.searchType} />
+                    </Col>
+                </Row>*/}
                 <Row style={{marginTop: "50px"}}>
                     <Col span={6}>
                         <span>Filter:</span>

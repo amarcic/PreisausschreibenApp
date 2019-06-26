@@ -211,13 +211,28 @@ class FacetSider extends React.Component {
 
     onChangeTaskTypes(checkedValues) {
         this.setState( {filterTaskTypes: checkedValues} )
-        this.props.updateQuery({ strQueryObj: this.state.strQueryObj, filterTaskTypes: checkedValues, filterTimeSpan: this.state.filterTimeSpan, /*filterObj: this.state.filter,*/ offset: this.props.offset, type: this.props.searchType});
+        this.props.updateQuery({ 
+            strQueryObj: this.state.strQueryObj, 
+            filterTaskTypes: checkedValues, 
+            filterTimeSpan: this.state.filterTimeSpan,
+            filterCountry: this.state.filterCountry, 
+            /*filterObj: this.state.filter,*/ 
+            offset: 0, 
+            type: this.props.searchType
+        });
 
     }
 
     onChangeTimeSpan(value) {
         this.setState( {filterTimeSpan: value} )
-        this.props.updateQuery({ strQueryObj: this.state.strQueryObj, filterTimeSpan: value, filterTaskTypes: this.state.filterTaskTypes, /*filterObj: this.state.filter,*/ offset: this.props.offset, type: this.props.searchType});
+        this.props.updateQuery({ 
+            strQueryObj: this.state.strQueryObj, 
+            filterTimeSpan: value, 
+            filterCountry: this.state.filterCountry,
+            filterTaskTypes: this.state.filterTaskTypes, 
+            /*filterObj: this.state.filter,*/ 
+            offset: 0, 
+            type: this.props.searchType});
     }
 
     onChangeFields(checkedValues) {
@@ -225,7 +240,15 @@ class FacetSider extends React.Component {
         const queryStr = this.state.strQueryObj.simple_query_string.query;
         console.log( "querystr: " + queryStr );
         let queryObj = { simple_query_string: {query: queryStr, fields: checkedValues} };
-        this.props.updateQuery({ strQueryObj: queryObj, /*filterObj: this.state.filter,*/ filterTaskTypes: this.props.filterTaskTypes, type: this.props.searchType});
+        this.props.updateQuery({ 
+            strQueryObj: queryObj, 
+            /*filterObj: this.state.filter,*/ 
+            filterTaskTypes: this.props.filterTaskTypes, 
+            filterCountry: this.props.filterCountry,
+            filterTimeSpan: this.props.filterCountry,
+            type: this.props.searchType,
+            offset: 0
+        });
     }
 
     onChangeCountries(checkedValues) {
@@ -238,16 +261,25 @@ class FacetSider extends React.Component {
         return(
             <Sider>
             <Menu style={ {width: 256} } mode="inline" defaultOpenKeys={['subTaskTypes', this.props.filterCountry&&this.props.filterCountry.length>0?'subCountries':'']}>
-                        <Menu.Item>
+                        <Menu.Item style= {{marginTop: 25, height: 50}}>
                             <Input.Search 
                                 size="large"
                                 placeholder="Ihre Suche..."
+                                 
                                 onSearch={ value => {
                                             //if component is changed to a stateful component extending React.Component, use this.props.history.push(...)
                                             let cleanedInput = value.toLowerCase();
                                             this.state.strQueryObj = {simple_query_string: { query: cleanedInput, fields: this.state.onFields } };
                                             //this.props.history.push('/prosearch');
-                                            this.props.updateQuery({ strQueryObj: {simple_query_string: { query: cleanedInput, fields: this.state.onFields } }, filterObj: this.state.filter, filterTaskTypes: this.props.filterTaskTypes, type: this.props.searchType});
+                                            this.props.updateQuery({ 
+                                                                    strQueryObj: {simple_query_string: { query: cleanedInput, fields: this.state.onFields } }, 
+                                                                    /*filterObj: this.state.filter,*/ 
+                                                                    filterTaskTypes: this.props.filterTaskTypes, 
+                                                                    filterCountry: this.props.filterCountry, 
+                                                                    filterTimeSpan: this.props.filterTimeSpan, 
+                                                                    type: this.props.searchType , 
+                                                                    offset: 0
+                                                                });
                                             } 
                                         }
                             />
