@@ -34,6 +34,38 @@ const countriesArray = [
     "Kingdom of Sweden"
   ];
 
+  const countries = (
+    <Row>
+        <Col><Checkbox value="Kingdom of the Netherlands">Niederlande</Checkbox></Col>
+        <Col><Checkbox value="Kingdom of Belgium">Belgien</Checkbox></Col>
+        <Col><Checkbox value="Kingdom of Spain">Spanien</Checkbox></Col>
+        <Col><Checkbox value="France">Frankreich</Checkbox></Col>
+        <Col><Checkbox value="Federal Republic of Germany">Deutschland</Checkbox></Col>
+        <Col><Checkbox value="Hungary">Ungarn</Checkbox></Col>
+        <Col><Checkbox value="Ireland">Irland</Checkbox></Col>
+        <Col><Checkbox value="United Kingdom of Great Britain and Northern Ireland">Vereinigtes Königreich</Checkbox></Col>
+        <Col><Checkbox value="Mexico">Mexiko</Checkbox></Col>
+        <Col><Checkbox value="United States">Vereinigte Staaten</Checkbox></Col>
+        <Col><Checkbox value="Czechia">Tschechien</Checkbox></Col>
+        <Col><Checkbox value="Repubblica Italiana">Italien</Checkbox></Col>
+        <Col><Checkbox value="Republic of Austria">Österreich</Checkbox></Col>
+        <Col><Checkbox value="Republic of Croatia">Kroatien</Checkbox></Col>
+        <Col><Checkbox value="People’s Democratic Republic of Algeria">Algerien</Checkbox></Col>
+        <Col><Checkbox value="România">Rumänien</Checkbox></Col>
+        <Col><Checkbox value="Hellenic Republic">Griechenland</Checkbox></Col>
+        <Col><Checkbox value="Switzerland">Schweiz</Checkbox></Col>
+        <Col><Checkbox value="Republic of Poland">Polen</Checkbox></Col>
+        <Col><Checkbox value="Russian Federation">Russland</Checkbox></Col>
+        <Col><Checkbox value="Kingdom of Denmark">Dänemark</Checkbox></Col>
+        <Col><Checkbox value="Republic of Slovenia">Slovenien</Checkbox></Col>
+        <Col><Checkbox value="Grand Duchy of Luxembourg">Luxemburg</Checkbox></Col>
+        <Col><Checkbox value="Kingdom of Norway">Norwegen</Checkbox></Col>
+        <Col><Checkbox value="Republic of Latvia">Lettland</Checkbox></Col>
+        <Col><Checkbox value="Federative Republic of Brazil">Brasilien</Checkbox></Col>  
+        <Col><Checkbox value="Kingdom of Sweden">Schweden</Checkbox></Col>     
+    </Row>
+);
+
 //should this be a form?
 const filter = [
     {
@@ -119,9 +151,11 @@ const menuRoles = (
 const searchFields = (
         <Row>
             <Col><Checkbox value="beteiligte.name">Beteiligte</Checkbox></Col>
-            <Col><Checkbox value="aufgaben.spezigizierung">Aufgabenstellung</Checkbox></Col>
+            <Col><Checkbox value="aufgaben.spezifizierung">Aufgabenstellung</Checkbox></Col>
+            <Col><Checkbox value="schlagwoerter">Tags</Checkbox></Col>
             <Col><Checkbox value="formalia">Formalia</Checkbox></Col>
             <Col><Checkbox value="quellen">Quellen</Checkbox></Col>
+            <Col><Checkbox value="_all">...zurücksetzen</Checkbox></Col>
         </Row>
 );
 
@@ -135,7 +169,7 @@ const taskTypes = (
         </Row>
 );
 
-const countries = (
+/*const countries = (
         <Row>
             <Col><Checkbox value="france">Frankreich</Checkbox></Col>
             <Col><Checkbox value="belgium">Belgien</Checkbox></Col>
@@ -143,29 +177,7 @@ const countries = (
             <Col><Checkbox value="netherlands">Niederlande</Checkbox></Col>
             <Col><Checkbox value="Sonstiges">Sonstiges</Checkbox></Col>
         </Row>
-);
-
-/*
-function onChange(checkedValues) {
-    //since the variable taskTypeFilter exists only in the scope of the onChange function a new instance is 
-    //used in every call of the function. Thus only the current array from checkValues will be pushed into the
-    //"and" array.
-    let taskTypeFilter = {
-        nested: {
-            path: "aufgaben",
-            filter: {
-                and: [
-                    {
-                        term: { systematik: "kantate" }
-                    }
-                ]
-            }
-        }
-    }
-    taskTypeFilter.nested.filter.and.push( { terms: { "aufgaben.aufgabentyp.raw": checkedValues } } )
-    return(taskTypeFilter);
-
-}*/
+);*/
 
 function handleSelect(e) {
     console.log(e.item.props.children);
@@ -182,12 +194,16 @@ class FacetSider extends React.Component {
             strQueryObj: { simple_query_string: { query: "", fields: ["_all"] } },
             filter: {taskTypes: {}},
             filterTaskTypes: [],
-            filterTimeSpan: [20,70]
+            filterTimeSpan: [20,70],
+            filterCountry: [],
+            onFields: ["_all"]
         }
         
         this.onChange = this.onChange.bind(this);
         this.onChangeTaskTypes = this.onChangeTaskTypes.bind(this);
         this.onChangeTimeSpan = this.onChangeTimeSpan.bind(this);
+        this.onChangeFields = this.onChangeFields.bind(this);
+        this.onChangeCountries = this.onChangeCountries.bind(this);
     }
 
     onChange(checkedValues) {
@@ -204,6 +220,19 @@ class FacetSider extends React.Component {
         this.props.updateQuery({ strQueryObj: this.state.strQueryObj, filterTimeSpan: value, filterTaskTypes: this.state.filterTaskTypes, filterObj: this.state.filter, offset: this.props.offset, type: this.props.searchType});
     }
 
+    onChangeFields(checkedValues) {
+        this.setState({onFields: checkedValues});
+        const queryStr = this.state.strQueryObj.simple_query_string.query;
+        console.log( "querystr: " + queryStr );
+        let queryObj = { simple_query_string: {query: queryStr, fields: checkedValues} };
+        this.props.updateQuery({ strQueryObj: queryObj, filterObj: this.state.filter, filterTaskTypes: this.props.filterTaskTypes, type: this.props.searchType});
+    }
+
+    onChangeCountries(checkedValues) {
+        this.setState( {filterCountry: checkedValues} )
+        this.props.updateQuery({ strQueryObj: this.state.strQueryObj, filterCountry: checkedValues, filterTimeSpan: this.state.filterTimeSpan, filterTaskTypes: this.state.filterTaskTypes, filterObj: this.state.filter, offset: this.props.offset, type: this.props.searchType});
+    }
+
     render() {
         console.log(this.state.filter);
         return(
@@ -216,16 +245,16 @@ class FacetSider extends React.Component {
                                 onSearch={ value => {
                                             //if component is changed to a stateful component extending React.Component, use this.props.history.push(...)
                                             let cleanedInput = value.toLowerCase();
-                                            this.state.strQueryObj = {simple_query_string: { query: cleanedInput, fields: ["_all"] } };
+                                            this.state.strQueryObj = {simple_query_string: { query: cleanedInput, fields: this.state.onFields } };
                                             //this.props.history.push('/prosearch');
-                                            this.props.updateQuery({ strQueryObj: {simple_query_string: { query: cleanedInput, fields: ["_all"] } }, filterObj: this.state.filter, filterTaskTypes: this.props.filterTaskTypes, type: this.props.searchType});
+                                            this.props.updateQuery({ strQueryObj: {simple_query_string: { query: cleanedInput, fields: this.state.onFields } }, filterObj: this.state.filter, filterTaskTypes: this.props.filterTaskTypes, type: this.props.searchType});
                                             } 
                                         }
                             />
                             <Icon type="question-circle" />
                         </Menu.Item>
                         <Menu.Item>
-                        <Dropdown trigger={['click']} overlay={<Menu><Menu.Item><CheckboxGroup onChange={this.onChange} value={this.props.filterTaskTypes} >{searchFields}</CheckboxGroup></Menu.Item></Menu>}><span>suchen nur in <Icon type="down" /></span></Dropdown>
+                        <Dropdown trigger={['click']} overlay={<Menu><Menu.Item><CheckboxGroup onChange={this.onChangeFields} value={this.props.filterTaskTypes} >{searchFields}</CheckboxGroup></Menu.Item></Menu>}><span>suchen nur in <Icon type="down" /></span></Dropdown>
     
                         </Menu.Item>
                         <SubMenu key="subTaskTypes" title="Aufgabentypen">
@@ -235,7 +264,7 @@ class FacetSider extends React.Component {
                                 </CheckboxGroup>
                             </Menu.Item>
                         </SubMenu>
-                        <Menu.Divider >o</Menu.Divider>
+                        {/*<Menu.Divider >o</Menu.Divider>
                         <Menu.Item>Name</Menu.Item>
                         <SubMenu key="subRole" title="Rolle" multiple="true" onClick={handleSelect}>
                             <Menu.Item key="0">TeilnehmerIn</Menu.Item>
@@ -249,19 +278,17 @@ class FacetSider extends React.Component {
                             <Menu.Item key="8">MäzenIn</Menu.Item>
                             <Menu.Item key="9">LehrerIn von TeilnehmerIn</Menu.Item>
                             <Menu.Item key="10">Sonstige</Menu.Item>                   
-                        </SubMenu>
+                        </SubMenu>*/}
                         <Menu.Divider />
-                        <Menu.Item>
-                            Ort
-                        </Menu.Item>
-                        <SubMenu key="subCountries" title="Länder"><Menu.Item style={{height: 150}} key="11"><CheckboxGroup onChange={this.onChange}>{countries}</CheckboxGroup></Menu.Item></SubMenu>
-                        <Menu.Divider />
-                        <Menu.Item style={{height: 150}}>
+                        <Menu.Item style={{height: 110}}>
                         <div>
                             Zeitspanne<br />
                             <Slider range marks={{0: "", 20: "1820", 70: "1870", 100: ""}} onAfterChange={this.onChangeTimeSpan} defaultValue={this.props.filterTimeSpan || [20,70] } tipFormatter={ value => `18${value}` } style={{marginTop:20}} />
                         </div>
                         </Menu.Item>
+                        <SubMenu key="subCountries" title="Länder"><Menu.Item style={{height: 750}} key="11"><CheckboxGroup onChange={this.onChangeCountries}>{countries}</CheckboxGroup></Menu.Item></SubMenu>
+                        <Menu.Divider />
+                        
                         
                         
                         

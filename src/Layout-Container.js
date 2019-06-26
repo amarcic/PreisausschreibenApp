@@ -37,7 +37,8 @@ export default class Layout_Container extends React.Component {
             stringQueryObject: { simple_query_string: {query:'', fields: ["_all"]} },
             filterObject: { taskTypes: {} },
             filterTaskTypes: [],
-            filterTimeSpan: ["20","70"],
+            filterTimeSpan: [20,70],
+            filterCountry: [],
             offset: 0,
             sort: {},
             searchCollection: "preisausschreiben",
@@ -62,7 +63,7 @@ export default class Layout_Container extends React.Component {
     updateQuery( value ) {
         console.log(this.state.sort);
         this.setState(
-            { stringQueryObject: value.strQueryObj, filterObject: value.filterObj, filterTimeSpan: value.filterTimeSpan, filterTaskTypes: value.filterTaskTypes, searchType: value.type, sort: value.sort, offset: value.offset }
+            { stringQueryObject: value.strQueryObj, filterObject: value.filterObj, filterTimeSpan: value.filterTimeSpan, filterCountry: value.filterCountry, filterTaskTypes: value.filterTaskTypes, searchType: value.type, sort: value.sort, offset: value.offset }
         );
     }
 
@@ -127,7 +128,7 @@ export default class Layout_Container extends React.Component {
                     <Route path="/index.html" exact component={LandingPage} />
                     <Route path="/dokumente/:docId" render={ (props) => {const DocViewSwitchWithPromise = withPromise( DocViewSwitch ); return(<ErrorBoundary><DocViewSwitchWithPromise query={props.match.params.docId} {...props}/></ErrorBoundary>);} } ></Route>
                     <Route path="/search" render={ (props) => <ErrorBoundary> <SearchPageWithPromise query={this.state.searchInput} collection={this.state.searchCollection} {...props} /> </ErrorBoundary> } />
-                    <Route path="/prosearch" render={ (props) => <ErrorBoundary> <SearchPageWithESData strQuery={this.state.stringQueryObject} filterObj={this.state.filterObject} filterTimeSpan={this.state.filterTimeSpan} filterTaskTypes={this.state.filterTaskTypes} updateQuery={this.updateQuery} searchType={this.state.searchType} sort={this.state.sort} offset={this.state.offset} {...props} /> </ErrorBoundary> } />
+                    <Route path="/prosearch" render={ (props) => <ErrorBoundary> <SearchPageWithESData strQuery={this.state.stringQueryObject} filterObj={this.state.filterObject} filterCountry={this.state.filterCountry} filterTimeSpan={this.state.filterTimeSpan} filterTaskTypes={this.state.filterTaskTypes} updateQuery={this.updateQuery} searchType={this.state.searchType} sort={this.state.sort} offset={this.state.offset} {...props} /> </ErrorBoundary> } />
                 </Row>
                 <Footer style={{textAlign: 'center', fontSize: 12}}>
                     <span>Musikalische Preisausschreiben 1820 bis 1870</span><br />

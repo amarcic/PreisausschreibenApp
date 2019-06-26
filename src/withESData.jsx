@@ -158,14 +158,14 @@ export default function withESData( WrappedComponent ) {
             componentDidMount() {
                 //console.log("hello from withESData componentDidMount()");
                 //there is no this.props.view
-                this.fetchData( this.props.strQuery, {filterObj: this.props.filterObj, filterTimeSpan: this.props.filterTimeSpan, filterTaskTypes: this.props.filterTaskTypes, offset: this.props.offset, sort: this.props.sort/*, strQuery: this.props.strQuery*/ } );
+                this.fetchData( this.props.strQuery, {filterObj: this.props.filterObj, filterCountry: this.props.filterCountry, filterTimeSpan: this.props.filterTimeSpan, filterTaskTypes: this.props.filterTaskTypes, offset: this.props.offset, sort: this.props.sort/*, strQuery: this.props.strQuery*/ } );
             }
 
             componentDidUpdate( prevProps ) {
 
                 //there is something wrong here: prevProps.filterObj shows the current, not the previous props
                 //because of this the comparison below does not work
-                console.log("prevProps filterTimeSpan:" + JSON.stringify(prevProps.filterTimeSpan));
+                console.log("prevProps filterCountry:" + JSON.stringify(prevProps.filterCountry));
 
                 //if I want rerendering when offset is changed, I will have to include a comparison of the offset parameter
                 //same with other parameters/props
@@ -175,11 +175,12 @@ export default function withESData( WrappedComponent ) {
                         ||(this.props.offset !== prevProps.offset)
                         ||(this.props.sort !== prevProps.sort)
                         ||(JSON.stringify(this.props.filterTimeSpan) !== JSON.stringify(prevProps.filterTimeSpan))
+                        ||(JSON.stringify(this.props.filterCountry) !== JSON.stringify(prevProps.filterCountry))
                         ||(JSON.stringify(this.props.filterTaskTypes) !== JSON.stringify(prevProps.filterTaskTypes))
                         //||(JSON.stringify(this.props.filterObj) !== JSON.stringify(prevProps.filterObj))
                     ) {
-                    console.log(this.props.filterTimeSpan, JSON.stringify(prevProps.filterTimeSpan) );
-                    this.fetchData( this.props.strQuery, {filterObj: this.props.filterObj, filterTimeSpan: this.props.filterTimeSpan, filterTaskTypes: this.props.filterTaskTypes, offset: this.props.offset, sort: this.props.sort/*, strQuery: this.props.strQuery*/ } );
+                    console.log(this.props.filterCountry, JSON.stringify(prevProps.filterCountry) );
+                    this.fetchData( this.props.strQuery, {filterObj: this.props.filterObj, filterCountry: this.props.filterCountry, filterTimeSpan: this.props.filterTimeSpan, filterTaskTypes: this.props.filterTaskTypes, offset: this.props.offset, sort: this.props.sort/*, strQuery: this.props.strQuery*/ } );
                 }
             }
 
