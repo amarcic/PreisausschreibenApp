@@ -75,7 +75,7 @@ function ProSearchPage( props ) {
                 <Row style={{marginTop: "50px"}}>
                     <Col span={6}>
                         <span>Filter:</span>
-                        <FacetSider query={props.strQuery} filterObj={props.filterObj} filterCountry={props.filterCountry} filterTimeSpan={props.filterTimeSpan} filterTaskTypes={props.filterTaskTypes} updateQuery={props.updateQuery} offset={props.offset} searchType={props.searchType} />
+                        <FacetSider query={props.strQuery} /*filterObj={props.filterObj}*/ filterCountry={props.filterCountry} filterTimeSpan={props.filterTimeSpan} filterTaskTypes={props.filterTaskTypes} updateQuery={props.updateQuery} offset={props.offset} searchType={props.searchType} />
                     </Col>
                     <Col span={18}>
                         <span>{props.hitsCount?props.hitsCount+" Treffer": "Keine Treffer" }</span>
@@ -84,8 +84,8 @@ function ProSearchPage( props ) {
                             columns={columns} 
                             dataSource={data} 
                             rowKey={ record => record._id }
-                            pagination={{ total: props.hitsCount, showTotal: total => total + ' Treffer', onChange: (page, pageSize) => props.updateQuery({ strQueryObj: props.strQuery, filterObj: props.filterObj, filterTimeSpan: props.filterTimeSpan, filterTaskTypes: props.filterTaskTypes, type: props.searchType, offset: (page-1)*pageSize}) }}
-                            onHeaderRow={ (column, index) => {return {onClick: event => props.updateQuery({ strQueryObj: props.strQuery, filterObj: props.filterObj,  filterTaskTypes: props.filterTaskTypes, filterTimeSpan: props.filterTimeSpan, type: props.searchType, sort: {on: "esStart", order: "asc"}, offset: props.offset })}} }
+                            pagination={{ total: props.hitsCount, showTotal: total => total + ' Treffer', onChange: (page, pageSize) => props.updateQuery({ strQueryObj: props.strQuery, /*filterObj: props.filterObj,*/filterCountry: props.filterCountry, filterTimeSpan: props.filterTimeSpan, filterTaskTypes: props.filterTaskTypes, type: props.searchType, offset: (page-1)*pageSize}) }}
+                            onHeaderRow={ (column, index) => {return {onClick: event => props.updateQuery({ strQueryObj: props.strQuery, /*filterObj: props.filterObj,*/ filterCountry: props.filterCountry, filterTaskTypes: props.filterTaskTypes, filterTimeSpan: props.filterTimeSpan, type: props.searchType, sort: {on: "esStart", order: "asc"}, offset: props.offset })}} }
                             onRow={ (record) => {return { onClick: (event)=>{props.history.push('/dokumente/' + record._id);} }; }  }
                             />
                     </Col>

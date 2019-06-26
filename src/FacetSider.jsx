@@ -36,33 +36,33 @@ const countriesArray = [
 
   const countries = (
     <Row>
-        <Col><Checkbox value="Kingdom of the Netherlands">Niederlande</Checkbox></Col>
-        <Col><Checkbox value="Kingdom of Belgium">Belgien</Checkbox></Col>
-        <Col><Checkbox value="Kingdom of Spain">Spanien</Checkbox></Col>
-        <Col><Checkbox value="France">Frankreich</Checkbox></Col>
-        <Col><Checkbox value="Federal Republic of Germany">Deutschland</Checkbox></Col>
+        <Col><Checkbox value="netherlands">Niederlande</Checkbox></Col>
+        <Col><Checkbox value="belgium">Belgien</Checkbox></Col>
+        <Col><Checkbox value="spain">Spanien</Checkbox></Col>
+        <Col><Checkbox value="france">Frankreich</Checkbox></Col>
+        <Col><Checkbox value="germany">Deutschland</Checkbox></Col>
         <Col><Checkbox value="Hungary">Ungarn</Checkbox></Col>
         <Col><Checkbox value="Ireland">Irland</Checkbox></Col>
-        <Col><Checkbox value="United Kingdom of Great Britain and Northern Ireland">Vereinigtes Königreich</Checkbox></Col>
-        <Col><Checkbox value="Mexico">Mexiko</Checkbox></Col>
-        <Col><Checkbox value="United States">Vereinigte Staaten</Checkbox></Col>
-        <Col><Checkbox value="Czechia">Tschechien</Checkbox></Col>
-        <Col><Checkbox value="Repubblica Italiana">Italien</Checkbox></Col>
-        <Col><Checkbox value="Republic of Austria">Österreich</Checkbox></Col>
-        <Col><Checkbox value="Republic of Croatia">Kroatien</Checkbox></Col>
-        <Col><Checkbox value="People’s Democratic Republic of Algeria">Algerien</Checkbox></Col>
-        <Col><Checkbox value="România">Rumänien</Checkbox></Col>
-        <Col><Checkbox value="Hellenic Republic">Griechenland</Checkbox></Col>
-        <Col><Checkbox value="Switzerland">Schweiz</Checkbox></Col>
-        <Col><Checkbox value="Republic of Poland">Polen</Checkbox></Col>
-        <Col><Checkbox value="Russian Federation">Russland</Checkbox></Col>
-        <Col><Checkbox value="Kingdom of Denmark">Dänemark</Checkbox></Col>
-        <Col><Checkbox value="Republic of Slovenia">Slovenien</Checkbox></Col>
-        <Col><Checkbox value="Grand Duchy of Luxembourg">Luxemburg</Checkbox></Col>
-        <Col><Checkbox value="Kingdom of Norway">Norwegen</Checkbox></Col>
-        <Col><Checkbox value="Republic of Latvia">Lettland</Checkbox></Col>
-        <Col><Checkbox value="Federative Republic of Brazil">Brasilien</Checkbox></Col>  
-        <Col><Checkbox value="Kingdom of Sweden">Schweden</Checkbox></Col>     
+        <Col><Checkbox value="britain">Vereinigtes Königreich</Checkbox></Col>
+        <Col><Checkbox value="mexico">Mexiko</Checkbox></Col>
+        <Col><Checkbox value="united States">Vereinigte Staaten</Checkbox></Col>
+        <Col><Checkbox value="czechia">Tschechien</Checkbox></Col>
+        <Col><Checkbox value="italiana">Italien</Checkbox></Col>
+        <Col><Checkbox value="austria">Österreich</Checkbox></Col>
+        <Col><Checkbox value="croatia">Kroatien</Checkbox></Col>
+        <Col><Checkbox value="algeria">Algerien</Checkbox></Col>
+        <Col><Checkbox value="românia">Rumänien</Checkbox></Col>
+        <Col><Checkbox value="hellenic">Griechenland</Checkbox></Col>
+        <Col><Checkbox value="switzerland">Schweiz</Checkbox></Col>
+        <Col><Checkbox value="poland">Polen</Checkbox></Col>
+        <Col><Checkbox value="russian">Russland</Checkbox></Col>
+        <Col><Checkbox value="denmark">Dänemark</Checkbox></Col>
+        <Col><Checkbox value="slovenia">Slovenien</Checkbox></Col>
+        <Col><Checkbox value="luxembourg">Luxemburg</Checkbox></Col>
+        <Col><Checkbox value="norway">Norwegen</Checkbox></Col>
+        <Col><Checkbox value="latvia">Lettland</Checkbox></Col>
+        <Col><Checkbox value="brazil">Brasilien</Checkbox></Col>  
+        <Col><Checkbox value="sweden">Schweden</Checkbox></Col>     
     </Row>
 );
 
@@ -211,13 +211,13 @@ class FacetSider extends React.Component {
 
     onChangeTaskTypes(checkedValues) {
         this.setState( {filterTaskTypes: checkedValues} )
-        this.props.updateQuery({ strQueryObj: this.state.strQueryObj, filterTaskTypes: checkedValues, filterTimeSpan: this.state.filterTimeSpan, filterObj: this.state.filter, offset: this.props.offset, type: this.props.searchType});
+        this.props.updateQuery({ strQueryObj: this.state.strQueryObj, filterTaskTypes: checkedValues, filterTimeSpan: this.state.filterTimeSpan, /*filterObj: this.state.filter,*/ offset: this.props.offset, type: this.props.searchType});
 
     }
 
     onChangeTimeSpan(value) {
         this.setState( {filterTimeSpan: value} )
-        this.props.updateQuery({ strQueryObj: this.state.strQueryObj, filterTimeSpan: value, filterTaskTypes: this.state.filterTaskTypes, filterObj: this.state.filter, offset: this.props.offset, type: this.props.searchType});
+        this.props.updateQuery({ strQueryObj: this.state.strQueryObj, filterTimeSpan: value, filterTaskTypes: this.state.filterTaskTypes, /*filterObj: this.state.filter,*/ offset: this.props.offset, type: this.props.searchType});
     }
 
     onChangeFields(checkedValues) {
@@ -225,19 +225,19 @@ class FacetSider extends React.Component {
         const queryStr = this.state.strQueryObj.simple_query_string.query;
         console.log( "querystr: " + queryStr );
         let queryObj = { simple_query_string: {query: queryStr, fields: checkedValues} };
-        this.props.updateQuery({ strQueryObj: queryObj, filterObj: this.state.filter, filterTaskTypes: this.props.filterTaskTypes, type: this.props.searchType});
+        this.props.updateQuery({ strQueryObj: queryObj, /*filterObj: this.state.filter,*/ filterTaskTypes: this.props.filterTaskTypes, type: this.props.searchType});
     }
 
     onChangeCountries(checkedValues) {
         this.setState( {filterCountry: checkedValues} )
-        this.props.updateQuery({ strQueryObj: this.state.strQueryObj, filterCountry: checkedValues, filterTimeSpan: this.state.filterTimeSpan, filterTaskTypes: this.state.filterTaskTypes, filterObj: this.state.filter, offset: this.props.offset, type: this.props.searchType});
+        this.props.updateQuery({ strQueryObj: this.state.strQueryObj, filterCountry: checkedValues, filterTimeSpan: this.state.filterTimeSpan, filterTaskTypes: this.state.filterTaskTypes, /*filterObj: this.state.filter,*/ offset: this.props.offset, type: this.props.searchType});
     }
 
     render() {
         console.log(this.state.filter);
         return(
             <Sider>
-            <Menu style={ {width: 256} } mode="inline" defaultOpenKeys={['subTaskTypes']}>
+            <Menu style={ {width: 256} } mode="inline" defaultOpenKeys={['subTaskTypes', this.props.filterCountry&&this.props.filterCountry.length>0?'subCountries':'']}>
                         <Menu.Item>
                             <Input.Search 
                                 size="large"
@@ -286,7 +286,7 @@ class FacetSider extends React.Component {
                             <Slider range marks={{0: "", 20: "1820", 70: "1870", 100: ""}} onAfterChange={this.onChangeTimeSpan} defaultValue={this.props.filterTimeSpan || [20,70] } tipFormatter={ value => `18${value}` } style={{marginTop:20}} />
                         </div>
                         </Menu.Item>
-                        <SubMenu key="subCountries" title="Länder"><Menu.Item style={{height: 750}} key="11"><CheckboxGroup onChange={this.onChangeCountries}>{countries}</CheckboxGroup></Menu.Item></SubMenu>
+                        <SubMenu key="subCountries" title="Länder"><Menu.Item style={{height: 750}} key="11"><CheckboxGroup onChange={this.onChangeCountries} defaultValue={this.props.filterCountry}>{countries}</CheckboxGroup></Menu.Item></SubMenu>
                         <Menu.Divider />
                         
                         

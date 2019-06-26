@@ -22,7 +22,8 @@ function fetchFromES( strQueryObj, optionObj ) {
     const from = options.offset || 0;
     const filterTimeSpan = options.filterTimeSpan || {};
     const filterTaskTypes = options.filterTaskTypes || {};
-    const filterObject = options.filterObj || {};
+    const filterCountry = options.filterCountry || {};
+    //const filterObject = options.filterObj || {};
     const queryObject = strQueryObj;
 
     //console.log(view);
@@ -58,8 +59,8 @@ function fetchFromES( strQueryObj, optionObj ) {
     let timeSpanFilter = {
         range: {
             esStart: {
-                from: "1825-01-01",
-                to: "1865-12-31"
+                from: "1801-01-01",
+                to: "1899-12-31"
             }
         }
     }
@@ -69,6 +70,25 @@ function fetchFromES( strQueryObj, optionObj ) {
         timeSpanFilter.range.esStart.to=(1800+filterTimeSpan[1]).toString()+"-12-31"
     } else {
         timeSpanFilter = {}
+    }
+
+    let countryFilter = {
+        nested: {
+            path: "ereignisse",
+            filter: {
+                and: [
+                    /*{
+                        term: { esCountry: "*" }
+                    }*/
+                ]
+            }
+        }
+    }
+
+    if ( filterCountry.length>0 ) {
+        countryFilter.nested.filter.and.push( { terms: { "esCountry": filterCountry } } );
+    } else {
+        countryFilter = {};
     }
       
       
@@ -91,7 +111,7 @@ function fetchFromES( strQueryObj, optionObj ) {
                         //filter: filterObject
                         //for testing purposes a fixed filter object is used below; delete after testing and use line above
                         filter: {
-                            and: [taskTypeFilter, timeSpanFilter/*
+                            and: [taskTypeFilter, timeSpanFilter, countryFilter/*
                                 {
                                     nested: {
                                         path: "aufgaben",
@@ -158,7 +178,7 @@ export default function withESData( WrappedComponent ) {
             componentDidMount() {
                 //console.log("hello from withESData componentDidMount()");
                 //there is no this.props.view
-                this.fetchData( this.props.strQuery, {filterObj: this.props.filterObj, filterCountry: this.props.filterCountry, filterTimeSpan: this.props.filterTimeSpan, filterTaskTypes: this.props.filterTaskTypes, offset: this.props.offset, sort: this.props.sort/*, strQuery: this.props.strQuery*/ } );
+                this.fetchData( this.props.strQuery, {/*filterObj: this.props.filterObj,*/ filterCountry: this.props.filterCountry, filterTimeSpan: this.props.filterTimeSpan, filterTaskTypes: this.props.filterTaskTypes, offset: this.props.offset, sort: this.props.sort/*, strQuery: this.props.strQuery*/ } );
             }
 
             componentDidUpdate( prevProps ) {
@@ -180,7 +200,7 @@ export default function withESData( WrappedComponent ) {
                         //||(JSON.stringify(this.props.filterObj) !== JSON.stringify(prevProps.filterObj))
                     ) {
                     console.log(this.props.filterCountry, JSON.stringify(prevProps.filterCountry) );
-                    this.fetchData( this.props.strQuery, {filterObj: this.props.filterObj, filterCountry: this.props.filterCountry, filterTimeSpan: this.props.filterTimeSpan, filterTaskTypes: this.props.filterTaskTypes, offset: this.props.offset, sort: this.props.sort/*, strQuery: this.props.strQuery*/ } );
+                    this.fetchData( this.props.strQuery, {/*filterObj: this.props.filterObj,*/ filterCountry: this.props.filterCountry, filterTimeSpan: this.props.filterTimeSpan, filterTaskTypes: this.props.filterTaskTypes, offset: this.props.offset, sort: this.props.sort/*, strQuery: this.props.strQuery*/ } );
                 }
             }
 

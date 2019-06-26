@@ -137,7 +137,8 @@ export default class ParticipantSegment extends React.Component {
             },
             {
                 title: "Wettbewerbskontext",
-                dataIndex: "wettbewerbskontext"
+                dataIndex: "wettbewerbskontext",
+                render: context => (<span>{context?context.join(", "):""}</span>)
             }
         ]
 
