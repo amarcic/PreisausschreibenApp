@@ -182,7 +182,7 @@ class FacetSider extends React.Component {
             strQueryObj: { simple_query_string: { query: "", fields: ["_all"] } },
             filter: {taskTypes: {}},
             filterTaskTypes: [],
-            filterTimeSpan: []
+            filterTimeSpan: [20,70]
         }
         
         this.onChange = this.onChange.bind(this);
@@ -191,36 +191,7 @@ class FacetSider extends React.Component {
     }
 
     onChange(checkedValues) {
-        //since the variable taskTypeFilter exists only in the scope of the onChange function a new instance is 
-        //used in every call of the function. Thus only the current array from checkValues will be pushed into the
-        //"and" array.
-        /*let taskTypeFilter = {
-            nested: {
-                path: "aufgaben",
-                filter: {
-                    and: [
-                    ]
-                }
-            }
-        }
-        if ( checkedValues.length>0 ) {
-            taskTypeFilter.nested.filter.and.push( { terms: { "aufgaben.aufgabentyp.raw": checkedValues } } );
-        } else {
-            taskTypeFilter = {};
-        }*/
-        
-        //let stFilter = this.state.filter;
-        //const taskFilter = this.state.filter.taskTypes;
-        //let stFilter = { taskTypes: {} };
-        //stFilter.taskTypes=taskTypeFilter;
-        //this.setState( { filter: { taskTypes: taskTypeFilter } } );
-        /*const filterState = this.state.filter;
-        let filter = filterState;
-        filter.taskTypes = taskTypeFilter;
-        this.setState( { filter: filter } );
-        
-        this.props.updateQuery({ strQueryObj: this.state.strQueryObj, filterObj: this.state.filter, offset: this.props.offset, type: this.props.searchType});
-    */}
+       /*can be deleted soon*/ }
 
     onChangeTaskTypes(checkedValues) {
         this.setState( {filterTaskTypes: checkedValues} )
@@ -237,7 +208,7 @@ class FacetSider extends React.Component {
         console.log(this.state.filter);
         return(
             <Sider>
-            <Menu style={ {width: 256} } mode="inline">
+            <Menu style={ {width: 256} } mode="inline" defaultOpenKeys={['subTaskTypes']}>
                         <Menu.Item>
                             <Input.Search 
                                 size="large"
@@ -259,7 +230,7 @@ class FacetSider extends React.Component {
                         </Menu.Item>
                         <SubMenu key="subTaskTypes" title="Aufgabentypen">
                             <Menu.Item style={{height: 150}} key="10">
-                                <CheckboxGroup onChange={this.onChangeTaskTypes}>
+                                <CheckboxGroup onChange={this.onChangeTaskTypes} defaultValue={this.props.filterTaskTypes} >
                                         {taskTypes}
                                 </CheckboxGroup>
                             </Menu.Item>
@@ -288,7 +259,7 @@ class FacetSider extends React.Component {
                         <Menu.Item style={{height: 150}}>
                         <div>
                             Zeitspanne<br />
-                            <Slider range marks={{0: "", 20: "1820", 70: "1870", 100: ""}} onAfterChange={this.onChangeTimeSpan} defaultValue={[20, 70]} tipFormatter={ value => `18${value}` } style={{marginTop:20}} />
+                            <Slider range marks={{0: "", 20: "1820", 70: "1870", 100: ""}} onAfterChange={this.onChangeTimeSpan} defaultValue={this.props.filterTimeSpan || [20,70] } tipFormatter={ value => `18${value}` } style={{marginTop:20}} />
                         </div>
                         </Menu.Item>
                         

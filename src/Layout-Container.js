@@ -37,7 +37,7 @@ export default class Layout_Container extends React.Component {
             stringQueryObject: { simple_query_string: {query:'', fields: ["_all"]} },
             filterObject: { taskTypes: {} },
             filterTaskTypes: [],
-            filterTimeSpan: ["00","99"],
+            filterTimeSpan: ["20","70"],
             offset: 0,
             sort: {},
             searchCollection: "preisausschreiben",
@@ -69,7 +69,7 @@ export default class Layout_Container extends React.Component {
     render() {
         return(
             <Layout>
-                <Header style={{borderBottom: '1px solid #E7EAEA' }} >
+                <Header>
                     <div className="header--title" style={{
                                                         width: '200px',
                                                         float: 'left'
@@ -80,7 +80,7 @@ export default class Layout_Container extends React.Component {
                             <span>Musikalische Preisausschreiben 1820 bis 1870</span><br />
                             <span>Grundriss, Datenbank und Bibliografie auf Grundlage von Musikperiodika</span>
                                                 </div>      */}     
-                    <Menu mode="horizontal" style={{ lineHeight: '78px', fontFamily: "'Source Sans Pro', sans", letterSpacing: '0.04em', fontSize: '17px', fontWeight: '40', float: 'right' }} theme="light" >
+                    <Menu mode="horizontal" style={{ lineHeight: '78px', letterSpacing: '0.04em', fontSize: '17px', float: 'right' }} theme="light" >
                         <SubMenu title={<span>Suche</span>} >
                         <Menu.Item key="1"><Link to="/prosearch">Preisausschreibensuche</Link></Menu.Item>
                         {/*<Menu.Item key="2">Personen</Menu.Item>
@@ -92,7 +92,7 @@ export default class Layout_Container extends React.Component {
                             <Menu.Item key="6">
                                 <Link to="/methodik">Methodik</Link>
                             </Menu.Item>
-                                                {/*<Menu.Item key="7"><Link to="/bibliographie">Bibliographie</Link></Menu.Item>*/}
+                            {/*<Menu.Item key="7"><Link to="/bibliographie">Bibliographie</Link></Menu.Item>*/}
                             <Menu.Item key="8"><Link to="/corpus">Korpus</Link></Menu.Item>
                             <Menu.Item key="9">Publikationen</Menu.Item>
                             <Menu.Item key="10">Visualisierungen und Analysen</Menu.Item>
@@ -121,7 +121,7 @@ export default class Layout_Container extends React.Component {
                             {/*<Route path="/bibliographie" component={BibliographyPage} />*/}
                             <Route path="/credits" component={CreditsPage} />
                 </Row >
-                <Row type="flex" justify="center" style={{ paddingLeft: "60px", paddingRight: "60px", paddingBottom: "120px"}}>
+                <Row type="flex" justify="center" style={{ paddingLeft: "60px", paddingRight: "60px", paddingBottom: "70px"}}>
                     <Route path="/" exact component={LandingPage} />
                     {/*below is just a quick hack to get to landing page, when opening the index.html in couchdb*/}
                     <Route path="/index.html" exact component={LandingPage} />
