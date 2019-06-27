@@ -20,18 +20,15 @@ export default function TaskTabs( props ) {
     tasks.forEach( task => !taskBySubComp[task.wettbewerbskontext]? taskBySubComp[task.wettbewerbskontext]=[{ aufgabentyp: task.aufgabentyp, spezifizierung: task.spezifizierung }] : taskBySubComp[task.wettbewerbskontext].push({ aufgabentyp: [task.aufgabentyp], spezifizierung: [task.spezifizierung] }) );
 
     return(
-        <div style={{marginTop: 50}} >
+        <div style={{backgroundColor: "white", border: "1px solid #E2E8F0"}} >
                 <Tabs>
                     {subcompetitions.map( (subcomp) =>
                         <TabPane tab={subcomp} key={subcomp}>
                             {taskBySubComp.hasOwnProperty(subcomp)&&
-                            <Tasks tasks={taskBySubComp[subcomp]} conditions={conditions.filter(condition=>condition.wettbewerbskontext===subcomp)} formalia={formalia} />}
+                            <Tasks tasks={taskBySubComp[subcomp]} conditions={conditions.filter(condition=>condition.wettbewerbskontext===subcomp)} /*formalia={formalia}*/ />}
 
                         </TabPane>    
-                    )}
-
-
-                    
+                    )}                    
                 </Tabs>
             </div>
 

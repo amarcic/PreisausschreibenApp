@@ -14,11 +14,12 @@ export default function EventSegment(props){
     const showDrawer = props.showDrawer;
 
         return(
-            <Row>
+            <Row style={{ color: "#4A5568"}}>
                 <h2>Ereignisse { comments && comments.length>0 ? <span style={{float: "right"}} ><Badge count={comments.length} ><Button type="normal" onClick={showDrawer} >Ergänzende Informationen</Button></Badge></span> : "" }</h2>
                 {events.map( (event,index) =>
-                    <Collapse bordered={false} key={index} >
+                    <Collapse bordered={false} key={index} style={{backgroundColor: "white", border: "1px solid #E2E8F0", borderRadius: "0"}}>
                         <Panel
+                            style={{border: "none"}}
                             header={
                                 <Row>
                                     <Col offset={0} span={5}>

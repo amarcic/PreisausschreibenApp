@@ -12,7 +12,7 @@ export default function Tasks( props ) {
     console.log(tasks);
 
     return(
-    <div>
+    <div style={{paddingBottom: 10, paddingTop: 10}}>
         <Row>
             <Col span={20} offset={1}>
                 <div>{tasks.map( (task, index) => <div key={index} > <Markdown>{task.spezifizierung + " (" + task.aufgabentyp + ")"}</Markdown><br /></div>  )}</div>

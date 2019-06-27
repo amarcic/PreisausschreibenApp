@@ -8,7 +8,7 @@ export default function Prerequisits( props ) {
     let showDrawer = props.showDrawer;
 
     return(
-        <Row>
+        <Row style={{ paddingLeft: "20px"}}>
             <List 
                 header={<h1>Teilnahmevoraussetzungen {comments && comments.length>0 ? <Button type="normal" onClick={showDrawer} >Kommentare</Button> : "" }</h1>}
                 dataSource={conditions}

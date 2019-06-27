@@ -145,8 +145,12 @@ export default class ParticipantSegment extends React.Component {
         return(
             
             <div>
-                <h2>Beteiligte { this.props.comments && this.props.comments.length>0 ? <span style={{float: "right"}} ><Badge count={this.props.comments.length} ><Button type="normal" onClick={this.props.showDrawer} >Ergänzende Informationen</Button></Badge></span> : "" }</h2>
-                <Table columns={columns} dataSource={this.props.participants} />
+                <h2 style={{ color: "#4A5568"}}>Beteiligte { this.props.comments && this.props.comments.length>0 ? <span style={{float: "right"}} ><Badge count={this.props.comments.length} ><Button type="normal" onClick={this.props.showDrawer} >Ergänzende Informationen</Button></Badge></span> : "" }</h2>
+                <Table 
+                    columns={columns} 
+                    dataSource={this.props.participants} 
+                    style={{ backgroundColor: "white", border: "1px solid #E2E8F0", borderRadius: "0" }} 
+                    />
                 { this.props.comments && this.props.comments.length>0 && <Drawer 
                     title="Ergänzende Informationen zu den Ereignissen"
                     placement="right"

@@ -7,7 +7,7 @@ export default function NumberOfParticipants( props ) {
 //    console.log(numOPart);
 
     return( 
-    <Row>
+    <Row style={{ padding: "20px"}}>
         <List
             header={<h3>TeilnehmerInnenzahl</h3>}
             dataSource={ numOPart }

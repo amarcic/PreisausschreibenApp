@@ -39,7 +39,7 @@ export default function AwardsList( props ) {
     console.log(comments);
 
     return(
-        <Row>
+        <Row style={{ padding: "20px"}}>
             {
                 awards.map( award => {
                     return( <List 

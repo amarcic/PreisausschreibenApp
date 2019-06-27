@@ -318,7 +318,7 @@ class FacetSider extends React.Component {
                             <Slider range marks={{0: "", 20: "1820", 70: "1870", 100: ""}} onAfterChange={this.onChangeTimeSpan} defaultValue={this.props.filterTimeSpan || [20,70] } tipFormatter={ value => `18${value}` } style={{marginTop:20}} />
                         </div>
                         </Menu.Item>
-                        <SubMenu key="subCountries" title="Länder"><Menu.Item style={{height: 750}} key="11"><CheckboxGroup onChange={this.onChangeCountries} defaultValue={this.props.filterCountry}>{countries}</CheckboxGroup></Menu.Item></SubMenu>
+                        <SubMenu key="subCountries" title="Länder"><Menu.Item style={{height: 680}} key="11"><CheckboxGroup onChange={this.onChangeCountries} defaultValue={this.props.filterCountry}>{countries}</CheckboxGroup></Menu.Item></SubMenu>
                         <Menu.Divider />
                         
                         

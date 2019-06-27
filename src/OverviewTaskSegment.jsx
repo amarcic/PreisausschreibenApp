@@ -23,10 +23,10 @@ export default function OverviewTaskSegment( props ) {
 
                 { props.subcompetitions
                             ? <div style={{marginTop: 50}}><h2 style={{ color: "#4A5568"}}>Aufgaben nach Teilwettbewerb</h2><TaskTabs tasks={props.tasks} subcompetitions={props.subcompetitions} conditions={props.conditions} formalia={props.formalia} /></div>
-                            : <div style={{marginTop: 50}}><h2 style={{ color: "#4A5568"}}>Aufgaben</h2><Tasks tasks={props.tasks} conditions={props.conditions} formalia={props.formalia} /></div> }
-                
+                            : <div style={{marginTop: 50}}><h2 style={{ color: "#4A5568"}}>Aufgaben</h2><div style={{backgroundColor: "white", border: "1px solid #E2E8F0"}}><Tasks tasks={props.tasks} conditions={props.conditions} formalia={props.formalia} /></div></div> }
+
                 { formalia && 
-                    <Collapse bordered={false}>
+                    <Collapse bordered={false} style={{marginTop: 5, border: "1px solid #E2E8F0"}}>
                         <Panel header={"Formalia"} >
                                 <Row>
                                     <Col span={20} offset={1}>
