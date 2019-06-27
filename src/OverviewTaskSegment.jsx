@@ -22,8 +22,8 @@ export default function OverviewTaskSegment( props ) {
                 { comments && comments.length>0 ? <span style={{float: "right"}} ><Badge count={comments.length} ><Button type="normal" onClick={showDrawer} >Ergänzende Informationen</Button></Badge></span> : "" }
 
                 { props.subcompetitions
-                            ? <div style={{marginTop: 50}}><h2>Aufgaben nach Teilwettbewerb</h2><TaskTabs tasks={props.tasks} subcompetitions={props.subcompetitions} conditions={props.conditions} formalia={props.formalia} /></div>
-                            : <div style={{marginTop: 50}}><h2>Aufgaben</h2><Tasks tasks={props.tasks} conditions={props.conditions} formalia={props.formalia} /></div> }
+                            ? <div style={{marginTop: 50}}><h2 style={{ color: "#4A5568"}}>Aufgaben nach Teilwettbewerb</h2><TaskTabs tasks={props.tasks} subcompetitions={props.subcompetitions} conditions={props.conditions} formalia={props.formalia} /></div>
+                            : <div style={{marginTop: 50}}><h2 style={{ color: "#4A5568"}}>Aufgaben</h2><Tasks tasks={props.tasks} conditions={props.conditions} formalia={props.formalia} /></div> }
                 
                 { formalia && 
                     <Collapse bordered={false}>

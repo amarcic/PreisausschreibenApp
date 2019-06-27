@@ -66,13 +66,13 @@ function ProSearchPage( props ) {
 
     return(
         <Layout>
-            <Content style={{ marginTop: "50px" }}>
+            <Content style={{ marginTop: "10px" }}>
             
-                <Breadcrumb>
+                {/*<Breadcrumb>
                     <Breadcrumb.Item><Link to="/">Home</Link></Breadcrumb.Item>
                     <Breadcrumb.Item><Link to="/search">Suchergebnisse</Link></Breadcrumb.Item>
                 </Breadcrumb>
-                {/*<Row>
+                <Row>
                     <Col>
                         <EsSearchBox updateQuery={props.updateQuery} strQuery={props.strQuery} filterCountry={props.filterCountry} filterTaskTypes={props.filterTaskTypes} filterTimeSpan={props.filterTimeSpan} searchType={props.searchType} />
                     </Col>

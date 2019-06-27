@@ -36,18 +36,16 @@ export default function OverviewSection( props ) {
     const uniqContTypes=[...new Set(contestTypes)];                                                                        
 
     return(
-    <div>
-        <Row>
+    <div style={{ paddingBottom: "30px"}}>
+        <Row style={{ borderBottom: "3px solid #38B2AC", paddingBottom: "30px" }}>
             <Col span={20} offset={0}>
                 <div>
-                <h3><p>
-                    <span>{ "Wettbewerb für " + niceJoinHelper(uniqContTypes) }</span><br />
-                    { tender.length>0 ? <span>{"Ausgeschrieben von: " + tender.join(", ")}<br /></span> : "" }
-                    { duration ? (duration[0]!==duration[1] ? <span>{duration[0] + " bis " + duration[1] }</span> : <span>{duration[0]}</span>) : ""}, {place ? place : ""} <br />
-                    { series ? <span>{ 'Teil der Serie: "' + series.serienBezeichnung + '"'  }<br /></span> : "" }
-                    { occasion ? <span>{ "Anlass: " + occasion }<br /></span> : "" }
-                    { pAmount&&pAmount.length>0 ? <span>{ "Zahl der TeilnehmerInnen: " + pAmount.map( amount => amount.anzahl ).join(", ") }</span> : "" }
-                    </p></h3>
+                    <h2 style={{ marginBottom: "0"}}>{ "Wettbewerb für " + niceJoinHelper(uniqContTypes) }</h2>
+                    <span style={{ color: "#4A5568"}}>{ tender.length>0 ? <span>{"Ausgeschrieben von: " + tender.join(", ")}<br /></span> : "" }</span>
+                    { duration ? (duration[0]!==duration[1] ? <span style={{ color: "#4A5568"}}>{duration[0] + " bis " + duration[1] }</span> : <span style={{ color: "#4A5568"}}>{duration[0]}</span>) : ""}, {place ? place : ""} <br />
+                    { series ? <span style={{ color: "#4A5568"}}>{ 'Teil der Serie: "' + series.serienBezeichnung + '"'  }<br /></span> : "" }
+                    { occasion ? <span style={{ color: "#4A5568"}}>{ "Anlass: " + occasion }<br /></span> : "" }
+                    { pAmount&&pAmount.length>0 ? <span style={{ color: "#4A5568"}}>{ "Zahl der TeilnehmerInnen: " + pAmount.map( amount => amount.anzahl ).join(", ") }</span> : "" }
                 </div>
             </Col>
         </Row>

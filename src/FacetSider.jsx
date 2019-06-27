@@ -36,33 +36,34 @@ const countriesArray = [
 
   const countries = (
     <Row>
-        <Col><Checkbox value="netherlands">Niederlande</Checkbox></Col>
-        <Col><Checkbox value="belgium">Belgien</Checkbox></Col>
-        <Col><Checkbox value="spain">Spanien</Checkbox></Col>
-        <Col><Checkbox value="france">Frankreich</Checkbox></Col>
-        <Col><Checkbox value="germany">Deutschland</Checkbox></Col>
-        <Col><Checkbox value="Hungary">Ungarn</Checkbox></Col>
-        <Col><Checkbox value="Ireland">Irland</Checkbox></Col>
-        <Col><Checkbox value="britain">Vereinigtes Königreich</Checkbox></Col>
-        <Col><Checkbox value="mexico">Mexiko</Checkbox></Col>
-        <Col><Checkbox value="united States">Vereinigte Staaten</Checkbox></Col>
-        <Col><Checkbox value="czechia">Tschechien</Checkbox></Col>
-        <Col><Checkbox value="italiana">Italien</Checkbox></Col>
-        <Col><Checkbox value="austria">Österreich</Checkbox></Col>
-        <Col><Checkbox value="croatia">Kroatien</Checkbox></Col>
         <Col><Checkbox value="algeria">Algerien</Checkbox></Col>
-        <Col><Checkbox value="românia">Rumänien</Checkbox></Col>
-        <Col><Checkbox value="hellenic">Griechenland</Checkbox></Col>
-        <Col><Checkbox value="switzerland">Schweiz</Checkbox></Col>
-        <Col><Checkbox value="poland">Polen</Checkbox></Col>
-        <Col><Checkbox value="russian">Russland</Checkbox></Col>
-        <Col><Checkbox value="denmark">Dänemark</Checkbox></Col>
-        <Col><Checkbox value="slovenia">Slovenien</Checkbox></Col>
-        <Col><Checkbox value="luxembourg">Luxemburg</Checkbox></Col>
-        <Col><Checkbox value="norway">Norwegen</Checkbox></Col>
-        <Col><Checkbox value="latvia">Lettland</Checkbox></Col>
+        <Col><Checkbox value="belgium">Belgien</Checkbox></Col>
         <Col><Checkbox value="brazil">Brasilien</Checkbox></Col>  
+        <Col><Checkbox value="denmark">Dänemark</Checkbox></Col>
+        <Col><Checkbox value="germany">Deutschland</Checkbox></Col>
+        <Col><Checkbox value="france">Frankreich</Checkbox></Col>
+        <Col><Checkbox value="hellenic">Griechenland</Checkbox></Col>
+        <Col><Checkbox value="ireland">Irland</Checkbox></Col>
+        <Col><Checkbox value="italiana">Italien</Checkbox></Col>
+        <Col><Checkbox value="croatia">Kroatien</Checkbox></Col>
+        <Col><Checkbox value="latvia">Lettland</Checkbox></Col>
+        <Col><Checkbox value="luxembourg">Luxemburg</Checkbox></Col>
+        <Col><Checkbox value="mexico">Mexiko</Checkbox></Col>
+        <Col><Checkbox value="netherlands">Niederlande</Checkbox></Col>
+        <Col><Checkbox value="norway">Norwegen</Checkbox></Col>
+        <Col><Checkbox value="austria">Österreich</Checkbox></Col>
+        <Col><Checkbox value="poland">Polen</Checkbox></Col>
+        <Col><Checkbox value="românia">Rumänien</Checkbox></Col>
+        <Col><Checkbox value="russian">Russland</Checkbox></Col>
+        <Col><Checkbox value="switzerland">Schweiz</Checkbox></Col>
         <Col><Checkbox value="sweden">Schweden</Checkbox></Col>     
+        <Col><Checkbox value="slovenia">Slovenien</Checkbox></Col>
+        <Col><Checkbox value="spain">Spanien</Checkbox></Col>
+        <Col><Checkbox value="czechia">Tschechien</Checkbox></Col>
+        <Col><Checkbox value="hungary">Ungarn</Checkbox></Col>
+        <Col><Checkbox value="britain">Vereinigtes Königreich</Checkbox></Col>
+        <Col><Checkbox value="states">Vereinigte Staaten</Checkbox></Col>
+ 
     </Row>
 );
 
@@ -257,15 +258,14 @@ class FacetSider extends React.Component {
     }
 
     render() {
-        console.log(this.state.filter);
         return(
             <Sider>
             <Menu style={ {width: 256} } mode="inline" defaultOpenKeys={['subTaskTypes', this.props.filterCountry&&this.props.filterCountry.length>0?'subCountries':'']}>
-                        <Menu.Item style= {{marginTop: 25, height: 50}}>
+                        <Menu.Item style= {{ height: 70}}>
                             <Input.Search 
                                 size="large"
                                 placeholder="Ihre Suche..."
-                                 
+                                style={{marginTop: 25}}
                                 onSearch={ value => {
                                             //if component is changed to a stateful component extending React.Component, use this.props.history.push(...)
                                             let cleanedInput = value.toLowerCase();

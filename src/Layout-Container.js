@@ -70,18 +70,18 @@ export default class Layout_Container extends React.Component {
     render() {
         return(
             <Layout>
-                <Header>
+                <Header style={{borderBottom: '1px solid #EDF2F7' }}>
                     <div className="header--title" style={{
                                                         width: '200px',
                                                         float: 'left'
                                                     }}>
-                        <Link to="/">Beta-Version Home</Link>
+                        <Link to="/"><img src={"/assets/logo.png"} height={"24px"} /></Link>
                     </div>   
                     {/*<div style={{fontFamily: "'Source Sans Pro', sans", letterSpacing: '0.04em', fontSize: '17px'}}>
                             <span>Musikalische Preisausschreiben 1820 bis 1870</span><br />
                             <span>Grundriss, Datenbank und Bibliografie auf Grundlage von Musikperiodika</span>
                                                 </div>      */}     
-                    <Menu mode="horizontal" style={{ lineHeight: '78px', letterSpacing: '0.04em', fontSize: '17px', float: 'right' }} theme="light" >
+                    <Menu mode="horizontal" style={{ lineHeight: '58px', letterSpacing: '0.04em', fontSize: '14px', color: '#4A5568', float: 'right' }}  >
                         <SubMenu title={<span>Suche</span>} >
                         <Menu.Item key="1"><Link to="/prosearch">Preisausschreibensuche</Link></Menu.Item>
                         {/*<Menu.Item key="2">Personen</Menu.Item>
