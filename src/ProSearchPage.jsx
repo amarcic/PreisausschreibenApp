@@ -1,14 +1,13 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { Layout, Breadcrumb, Menu, Table, Row, Col, Icon } from 'antd';
+import { Layout, Menu, Table, Row, Col } from 'antd';
 import { withRouter } from 'react-router-dom';
 
 import dateHelper from './dateHelper';
 import FacetSider from './FacetSider';
-import EsSearchBox from './EsSearchBox';
+import Markdown from 'markdown-to-jsx';
+//import EsSearchBox from './EsSearchBox';
 
-const { Content, Sider } = Layout;
-const { SubMenu } = Menu;
+const { Content } = Layout;
 
 //sorter for columns only sort through the currently displayed results. I should either use elasticsearch for sorting (so all results are sorted) or drop the function 
 const columnsPreisausschreiben = [
@@ -85,11 +84,12 @@ function ProSearchPage( props ) {
                     <Col span={18}>
                         <span>{props.hitsCount?props.hitsCount+" Treffer": "Keine Treffer" }</span>
                         <Table
-                            bodyStyle={{ backgroundColor: "#ffffff" }}
+                            //bodyStyle={{ backgroundColor: "#ffffff" }}#
+                            style={{ backgroundColor: "white", border: "1px solid #E2E8F0", borderRadius: "0" }} 
                             columns={columns} 
                             dataSource={data} 
                             rowKey={ record => record._id }
-                            pagination={{ total: props.hitsCount, showTotal: total => total + ' Treffer', onChange: (page, pageSize) => props.updateQuery({ strQueryObj: props.strQuery, /*filterObj: props.filterObj,*/filterCountry: props.filterCountry, filterTimeSpan: props.filterTimeSpan, filterTaskTypes: props.filterTaskTypes, type: props.searchType, offset: (page-1)*pageSize}) }}
+                            pagination={{ total: props.hitsCount, current: props.offset/10+1, showTotal: total => total + ' Treffer', onChange: (page, pageSize) => props.updateQuery({ strQueryObj: props.strQuery, /*filterObj: props.filterObj,*/filterCountry: props.filterCountry, filterTimeSpan: props.filterTimeSpan, filterTaskTypes: props.filterTaskTypes, type: props.searchType, offset: (page-1)*pageSize}) }}
                             onHeaderRow={ (column, index) => {return {onClick: event => props.updateQuery({ strQueryObj: props.strQuery, /*filterObj: props.filterObj,*/ filterCountry: props.filterCountry, filterTaskTypes: props.filterTaskTypes, filterTimeSpan: props.filterTimeSpan, type: props.searchType, sort: {on: "esStart", order: "asc"}, offset: props.offset })}} }
                             onRow={ (record) => {return { onClick: (event)=>{props.history.push('/dokumente/' + record._id);} }; }  }
                             />

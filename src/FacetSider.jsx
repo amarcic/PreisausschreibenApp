@@ -151,12 +151,12 @@ const menuRoles = (
 
 const searchFields = (
         <Row>
-            <Col><Checkbox value="beteiligte.name">Beteiligte</Checkbox></Col>
-            <Col><Checkbox value="aufgaben.spezifizierung">Aufgabenstellung</Checkbox></Col>
+            <Col><Checkbox value="beteiligte.name" disabled>Beteiligte</Checkbox></Col>
+            <Col><Checkbox value="aufgaben.spezifizierung" disabled>Aufgabenstellung</Checkbox></Col>
             <Col><Checkbox value="schlagwoerter">Tags</Checkbox></Col>
             <Col><Checkbox value="formalia">Formalia</Checkbox></Col>
-            <Col><Checkbox value="quellen">Quellen</Checkbox></Col>
-            <Col><Checkbox value="_all">...zurücksetzen</Checkbox></Col>
+            <Col><Checkbox value="quellen.quellenangabe">Quellen</Checkbox></Col>
+            {/*<Col><Checkbox value="_all">...allen Feldern</Checkbox></Col>*/}
         </Row>
 );
 
@@ -170,23 +170,8 @@ const taskTypes = (
         </Row>
 );
 
-/*const countries = (
-        <Row>
-            <Col><Checkbox value="france">Frankreich</Checkbox></Col>
-            <Col><Checkbox value="belgium">Belgien</Checkbox></Col>
-            <Col><Checkbox value="italy">Italien</Checkbox></Col>
-            <Col><Checkbox value="netherlands">Niederlande</Checkbox></Col>
-            <Col><Checkbox value="Sonstiges">Sonstiges</Checkbox></Col>
-        </Row>
-);*/
-
-function handleSelect(e) {
-    console.log(e.item.props.children);
-} 
-
 class FacetSider extends React.Component {
 
-    //let selectValue = props.searchType;
     //elasticsearch depended
 
     constructor( props ) {
@@ -238,7 +223,7 @@ class FacetSider extends React.Component {
 
     onChangeFields(checkedValues) {
         this.setState({onFields: checkedValues});
-        const queryStr = this.state.strQueryObj.simple_query_string.query;
+        const queryStr = this.props.query.simple_query_string.query;
         console.log( "querystr: " + queryStr );
         let queryObj = { simple_query_string: {query: queryStr, fields: checkedValues} };
         this.props.updateQuery({ 
@@ -260,11 +245,11 @@ class FacetSider extends React.Component {
     render() {
         return(
             <Sider>
-            <Menu style={ {width: 256} } mode="inline" defaultOpenKeys={['subTaskTypes', this.props.filterCountry&&this.props.filterCountry.length>0?'subCountries':'']}>
+            <Menu style={ {width: 256, border: "1px solid #E2E8F0"} } mode="inline" defaultOpenKeys={['subTaskTypes', this.props.filterCountry&&this.props.filterCountry.length>0?'subCountries':'']}>
                         <Menu.Item style= {{ height: 70}}>
                             <Input.Search 
                                 size="large"
-                                placeholder="Ihre Suche..."
+                                placeholder={this.props.query.simple_query_string.query}
                                 style={{marginTop: 25}}
                                 onSearch={ value => {
                                             //if component is changed to a stateful component extending React.Component, use this.props.history.push(...)
@@ -286,7 +271,7 @@ class FacetSider extends React.Component {
                             <Icon type="question-circle" />
                         </Menu.Item>
                         <Menu.Item>
-                        <Dropdown trigger={['click']} overlay={<Menu><Menu.Item><CheckboxGroup onChange={this.onChangeFields} value={this.props.filterTaskTypes} >{searchFields}</CheckboxGroup></Menu.Item></Menu>}><span>suchen nur in <Icon type="down" /></span></Dropdown>
+                        <Dropdown trigger={['click']} overlay={<Menu><Menu.Item><CheckboxGroup onChange={this.onChangeFields} defaultValue={this.props.query.simple_query_string.fields} >{searchFields}</CheckboxGroup></Menu.Item></Menu>}><span>suchen nur in <Icon type="down" /></span></Dropdown>
     
                         </Menu.Item>
                         <SubMenu key="subTaskTypes" title="Aufgabentypen">

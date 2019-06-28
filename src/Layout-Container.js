@@ -32,9 +32,9 @@ export default class Layout_Container extends React.Component {
         super();
         this.state = {
             messages: [],
-            searchInput: "suche...",
+            searchInput: "Ihre Suche...",
             //queryObject: { match: { "_all": {query: '', operator: "or"} } },
-            stringQueryObject: { simple_query_string: {query:'', fields: ["_all"]} },
+            stringQueryObject: { simple_query_string: {query:'Ihre Suche...', fields: ["_all"]} },
             //filterObject: { taskTypes: {} },
             filterTaskTypes: [],
             filterTimeSpan: [20,70],
