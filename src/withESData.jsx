@@ -6,8 +6,13 @@ import elasticsearch from 'elasticsearch';
 
 import { Spin } from 'antd';
 
+import * as packageJSON from '../package.json';
+
+console.log("couchdb: " +packageJSON.default.config.basename);
+
 let client = new elasticsearch.Client({
-    host: 'search.musical-competitions.uni-koeln.de:80',
+    host: packageJSON.default.config.elasticsearch,
+    //host: 'search.musical-competitions.uni-koeln.de:80',
     log: 'trace'
 });
 

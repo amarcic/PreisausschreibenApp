@@ -1,6 +1,9 @@
 import React from 'react';
 
-const api = "http://musical-competitions.uni-koeln.de/api/";
+import * as packageJSON from '../package.json';
+
+//const api = "http://musical-competitions.uni-koeln.de/api/";
+const api = packageJSON.default.config.couchdb;
 const requestOptions = {
         method: 'GET',
         headers: {

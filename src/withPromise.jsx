@@ -1,7 +1,10 @@
 import React from 'react';
 
-//const api = "http://134.95.80.232:5984/preisausschreiben/";
-const api = "http://musical-competitions.uni-koeln.de/api/";
+import * as packageJSON from '../package.json';
+
+   // const api = "http://musical-competitions.uni-koeln.de/api/";
+const api = packageJSON.default.config.couchdb;
+
 const requestOptions = {
         method: 'GET',
         headers: {
