@@ -23,7 +23,7 @@ import withESData from './withESData';
 import OnMethodsPage from './OnMethodsPage';
 import BibliographyPage from './BibliographyPage';
 
-const SearchPageWithPromise = withPromise( SearchPage );
+//const SearchPageWithPromise = withPromise( SearchPage );
 const SeriesPageWithPromise = withPromise( SeriesPage );
 const SearchPageWithESData = withESData( ProSearchPage );
 
@@ -111,11 +111,11 @@ export default class Layout_Container extends React.Component {
                 </Header>
 
                 <Row>
-                            <Route path="/" exact render={ (props) => <SearchBanner updateInput={this.updateInput} searchCollection={this.state.searchCollection} {...props} />  } />
+                            <Route path="/" exact render={ (props) => <SearchBanner updateQuery={this.updateQuery} searchType={this.state.searchType} {...props} />  } />
                             {/*below is just a quick hack to get to landing page, when opening the index.html in couchdb*/}
                             <Route path='/search' render={ (props) => <SearchRow updateInput={this.updateInput} searchCollection={this.state.searchCollection} {...props} /> } />
                             <Route path="/index.html" exact render={ (props) => <SearchBanner updateInput={this.updateInput} searchCollection={this.state.searchCollection} {...props} />  } />
-                            <Route path="/overview" render={ (props) => <ErrorBoundary><SeriesPageWithPromise query="none" collection="overview_competitions" {...props} /></ErrorBoundary> } />
+                            {/*<Route path="/overview" render={ (props) => <ErrorBoundary><SeriesPageWithPromise query="none" collection="overview_competitions" {...props} /></ErrorBoundary> } />*/}
                             <Route path="/about" component={AboutPage} />
                             <Route path="/methodik" component={OnMethodsPage} />
                             <Route path="/corpus" component={CorpusPage} />
@@ -127,7 +127,7 @@ export default class Layout_Container extends React.Component {
                     {/*below is just a quick hack to get to landing page, when opening the index.html in couchdb*/}
                     <Route path="/index.html" exact component={LandingPage} />
                     <Route path="/dokumente/:docId" render={ (props) => {const DocViewSwitchWithPromise = withPromise( DocViewSwitch ); return(<ErrorBoundary><DocViewSwitchWithPromise query={props.match.params.docId} {...props}/></ErrorBoundary>);} } ></Route>
-                    <Route path="/search" render={ (props) => <ErrorBoundary> <SearchPageWithPromise query={this.state.searchInput} collection={this.state.searchCollection} {...props} /> </ErrorBoundary> } />
+                    {/*<Route path="/search" render={ (props) => <ErrorBoundary> <SearchPageWithPromise query={this.state.searchInput} collection={this.state.searchCollection} {...props} /> </ErrorBoundary> } />*/}
                     <Route path="/prosearch" render={ (props) => <ErrorBoundary> <SearchPageWithESData strQuery={this.state.stringQueryObject} /*filterObj={this.state.filterObject}*/ filterCountry={this.state.filterCountry} filterTimeSpan={this.state.filterTimeSpan} filterTaskTypes={this.state.filterTaskTypes} updateQuery={this.updateQuery} searchType={this.state.searchType} sort={this.state.sort} offset={this.state.offset} {...props} /> </ErrorBoundary> } />
                 </Row>
                 <Footer style={{textAlign: 'center', fontSize: 12}}>

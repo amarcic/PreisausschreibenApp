@@ -15,24 +15,27 @@ const requestOptions = {
     };
 
 
-function fetchFromCouch( queryString, apiUrl, collection ) {
+function fetchFromCouch( queryString, apiUrl /*, collection*/ ) {
     
+    /*
     let selectView = "";
     switch( collection ) {
         case "preisausschreiben": selectView = "_design/preisausschreiben/_view/fulltext"; break;
         case "koerperschaften": selectView = "_design/preisausschreiben/_view/all_corporations"; break;
         case "personen": selectView = "_design/preisausschreiben/_view/all_persons"; break;
         case "serien": selectView = "_design/preisausschreiben/_view/all_series"; break;
-//        case "overview_competitions": selectView = "_design/preisausschreiben/_view/all_comps"; break;
     }
+    */
 
-    const apiViewSelect = apiUrl + selectView;
+    //const apiViewSelect = apiUrl + selectView;
 
-    const apiRequest = collection? apiViewSelect + '?startkey="' + queryString + '"&&endkey="' + queryString + '\ufff0"&&reduce=false': apiUrl + queryString;
-     
+    //const apiRequest = collection? apiViewSelect + '?startkey="' + queryString + '"&&endkey="' + queryString + '\ufff0"&&reduce=false': apiUrl + queryString;
+    
+    const apiRequest = apiUrl + queryString;
+
     fetch( apiRequest, requestOptions )
         .then( response => response.json() )
-        .then( data => collection? this.setState({ data: data.rows, loading: false }) : this.setState({ data: data, loading: false}) );
+        .then( data => /*collection? this.setState({ data: data.rows, loading: false }) :*/ this.setState({ data: data, loading: false}) );
            // this.setState( collection? { data: data.rows, loading: false } : { data: data } ) )
 
 }

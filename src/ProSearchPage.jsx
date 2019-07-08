@@ -89,7 +89,7 @@ function ProSearchPage( props ) {
                             columns={columns} 
                             dataSource={data} 
                             rowKey={ record => record._id }
-                            pagination={{ total: props.hitsCount, current: props.offset/10+1, showTotal: total => total + ' Treffer', onChange: (page, pageSize) => props.updateQuery({ strQueryObj: props.strQuery, /*filterObj: props.filterObj,*/filterCountry: props.filterCountry, filterTimeSpan: props.filterTimeSpan, filterTaskTypes: props.filterTaskTypes, type: props.searchType, offset: (page-1)*pageSize}) }}
+                            pagination={{ total: props.hitsCount, current: props.offset/10+1, showTotal: total => total + ' Treffer', onChange: (page, pageSize) => props.updateQuery({ strQueryObj: props.strQuery, /*filterObj: props.filterObj,*/filterCountry: props.filterCountry, filterTimeSpan: props.filterTimeSpan, filterTaskTypes: props.filterTaskTypes, type: props.searchType, sort: props.sort, offset: (page-1)*pageSize}) }}
                             onHeaderRow={ (column, index) => {return {onClick: event => props.updateQuery({ strQueryObj: props.strQuery, /*filterObj: props.filterObj,*/ filterCountry: props.filterCountry, filterTaskTypes: props.filterTaskTypes, filterTimeSpan: props.filterTimeSpan, type: props.searchType, sort: {on: "esStart", order: "asc"}, offset: props.offset })}} }
                             onRow={ (record) => {return { onClick: (event)=>{props.history.push('/dokumente/' + record._id);} }; }  }
                             />
