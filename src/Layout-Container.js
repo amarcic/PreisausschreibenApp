@@ -8,11 +8,10 @@ const { Header, Footer } = Layout;
 
 import LandingPage from './LandingPage';
 import AboutPage from './AboutPage';
-import SearchPage from './SearchPage';
 import ProSearchPage from './ProSearchPage';
 import SearchBanner from './SearchBanner';
 import SearchRow from './SearchRow';
-import SeriesPage from './SeriesPage';
+//import SeriesPage from './SeriesPage';
 import CorpusPage from './CorpusPage';
 import ErrorBoundary from './ErrorBoundary'
 import CreditsPage from './CreditsPage';
@@ -24,7 +23,7 @@ import OnMethodsPage from './OnMethodsPage';
 import BibliographyPage from './BibliographyPage';
 
 //const SearchPageWithPromise = withPromise( SearchPage );
-const SeriesPageWithPromise = withPromise( SeriesPage );
+//const SeriesPageWithPromise = withPromise( SeriesPage );
 const SearchPageWithESData = withESData( ProSearchPage );
 
 export default class Layout_Container extends React.Component {
