@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 
-import { Select, Icon, Input } from 'antd';
+import { Input } from 'antd';
 //const Option = Select.Option;
 
 
@@ -24,15 +24,16 @@ function EsSearchBox( props ) {
                         //if component is changed to a stateful component extending React.Component, use this.props.history.push(...)
                         let cleanedInput = value.toLowerCase();
                         //this.state.strQueryObj = {simple_query_string: { query: cleanedInput, fields: this.state.onFields } };
-                        props.history.push('/prosearch');
+                        
                         props.updateQuery({ 
                             strQueryObj: {simple_query_string: { query: cleanedInput, fields: ["_all"] } }, 
                             filterTaskTypes: []/*props.filterTaskTypes*/, 
                             filterCountry: []/*props.filterCountry*/, 
                             /*filterTimeSpan: [] props.filterTimeSpan,*/
                             type: props.searchType /*props.searchCollection*/});
+                        props.history.push('/prosearch');
                     } 
-                    }
+            }
         />
     );
 }
