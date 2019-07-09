@@ -1,6 +1,9 @@
 import React from 'react';
 
-const api = "http://musical-competitions.uni-koeln.de/api/";
+import * as packageJSON from '../package.json';
+
+//const api = "http://musical-competitions.uni-koeln.de/api/";
+const api = packageJSON.default.config.couchdb;
 const requestOptions = {
         method: 'GET',
         headers: {
@@ -70,7 +73,7 @@ export default function withLookup( WrappedComponent ) {
                 const isLoading = this.state.loading;
 
                 if (this.state.loading) {
-                    return (<p>your request is being fetched at this very moment</p>);
+                    return (<p>Daten werden geladen...</p>);
                 } else {
                     return(
                         <WrappedComponent requestData={fetchedData} {...passthroughProps} />

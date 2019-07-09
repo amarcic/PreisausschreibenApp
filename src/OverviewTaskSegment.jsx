@@ -1,5 +1,6 @@
 import React from 'react';
 import { Row, Col, Collapse, Drawer, Button, Badge, Tooltip } from 'antd';
+import Markdown from 'markdown-to-jsx';
 
 import OverviewSection from "./OverviewSection";
 import Tasks from './Tasks';
@@ -21,15 +22,15 @@ export default function OverviewTaskSegment( props ) {
                 { comments && comments.length>0 ? <span style={{float: "right"}} ><Badge count={comments.length} ><Button type="normal" onClick={showDrawer} >Ergänzende Informationen</Button></Badge></span> : "" }
 
                 { props.subcompetitions
-                            ? <div style={{marginTop: 50}}><h2>Aufgaben nach Teilwettbewerb</h2><TaskTabs tasks={props.tasks} subcompetitions={props.subcompetitions} conditions={props.conditions} formalia={props.formalia} /></div>
-                            : <div style={{marginTop: 50}}><h2>Aufgaben</h2><Tasks tasks={props.tasks} conditions={props.conditions} formalia={props.formalia} /></div> }
-                
+                            ? <div style={{marginTop: 50}}><h2 style={{ color: "#4A5568"}}>Aufgaben nach Teilwettbewerb</h2><TaskTabs tasks={props.tasks} subcompetitions={props.subcompetitions} conditions={props.conditions} formalia={props.formalia} /></div>
+                            : <div style={{marginTop: 50}}><h2 style={{ color: "#4A5568"}}>Aufgaben</h2><div style={{backgroundColor: "white", border: "1px solid #E2E8F0"}}><Tasks tasks={props.tasks} conditions={props.conditions} formalia={props.formalia} /></div></div> }
+
                 { formalia && 
-                    <Collapse bordered={false}>
+                    <Collapse bordered={false} style={{marginTop: 5, border: "1px solid #E2E8F0"}}>
                         <Panel header={"Formalia"} >
                                 <Row>
                                     <Col span={20} offset={1}>
-                                        {formalia}
+                                        <Markdown>{formalia}</Markdown>
                                     </Col>
                                 </Row>
                         </Panel>
@@ -44,7 +45,7 @@ export default function OverviewTaskSegment( props ) {
                         width="30%"
                         
                     >
-                        {comments.map( (comment, index) => <p key={index}>{comment.text}</p> )}
+                        {comments.map( (comment, index) => <p key={index}><Markdown>{comment.text}</Markdown></p> )}
                     </Drawer> }
             </Col>
         </Row>

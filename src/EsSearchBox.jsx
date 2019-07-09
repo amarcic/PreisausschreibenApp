@@ -1,56 +1,40 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+//import { withRouter } from 'react-router-dom';
 
 import { Select, Icon, Input } from 'antd';
-const Option = Select.Option;
+//const Option = Select.Option;
 
 
 function EsSearchBox( props ) {
-    let selectValue = /*props.searchCollection*/;
-    const selectBefore = (
-        // prop for default value: default value should be dynamic to reflect the current choice
-        <Select defaultValue={props.searchCollection} 
-            onChange={ value => selectValue = value }
-            >
-            <Option value="preisausschreiben">Preisausschreiben</Option>
-            <Option value="personen">Personen</Option>
-            <Option value="koerperschaften">Körperschaften</Option>
-           {/* <Option value="serien">Serien</Option>
-            <Option value="unspezifisch">Sämtliche Daten</Option> */}
-        </Select>
-    );
-
-    const selectAfter = (
-        // prop for default value: default value should be dynamic to reflect the current choice
-        <Select defaultValue={props.searchCollection} 
-            onChange={ value => selectValue = value }
-            >
-            <Option value="preisausschreiben">Preisausschreiben</Option>
-            <Option value="personen">Personen</Option>
-            <Option value="koerperschaften">Körperschaften</Option>
-           {/* <Option value="serien">Serien</Option>
-            <Option value="unspezifisch">Sämtliche Daten</Option> */}
-        </Select>
-    );
+    //let selectValue = props.searchCollection;
 
     return(
-        <Input.Search 
-            size="large"
-            placeholder="Ihre Suche..."
-            addonBefore={selectBefore}
-            addonAfter={selectAfter}
-            //style={{ width: 500 }}
+        <Input.Search
+            size="small"
+            placeholder="Suchbegriff (z.B. 'Rom', 'Paris', 'Beethoven')"
+            enterButton
+            //addonBefore={selectBefore}
+            style={{
+
+                width: 500,
+                backgroundColor: "#FBF7F7",
+                borderRadius: ".5rem"
+            }}
             onSearch={ value => {
                         //if component is changed to a stateful component extending React.Component, use this.props.history.push(...)
-                        let cleanedInput = value.toLowerCase().trim();
-                        props.history.push('/search');
-                        props.updateInput({ input: cleanedInput, collection: selectValue});
-                        //props.updateInput(value);
-                        //return console.log(value);
-                        } 
+                        let cleanedInput = value.toLowerCase();
+                        //this.state.strQueryObj = {simple_query_string: { query: cleanedInput, fields: this.state.onFields } };
+
+                        props.updateQuery({ 
+                            strQueryObj: {simple_query_string: { query: cleanedInput, fields: ["_all"] } }, 
+                            filterTaskTypes: props.filterTaskTypes, 
+                            filterCountry: props.filterCountry, 
+                            filterTimeSpan: props.filterTimeSpan, 
+                            type: props.searchType});
+                    } 
                     }
         />
     );
 }
 
-export default withRouter( EsSearchBox );
+export default EsSearchBox;

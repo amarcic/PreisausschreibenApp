@@ -19,14 +19,14 @@ export default function OnMethodsPage( props ) {
                             <h2>Methodik</h2>
                             <br />
                             <p> 
-                                Im Rahmen des DFG-Forschungsprojekts <Link to="/about">Musikalische Preisausschreiben 1820-
-                                1870</Link> wurden Musikzeitschriften in Hinblick auf das
-                                Projektthema ausgewertet und die vorgefundenen Informationen in einer Datenbank
-                                [Link] strukturiert in deutscher Sprache erfasst. Beiträge in diesen Zeitschriften, in
-                                denen auf das Thema allgemeiner, und nicht nur auf ein einzelnes
-                                Preisausschreiben, Bezug genommen wird, sind zusätzlich in einer entsprechenden
-                                <Link to="/bib">Bibliographie</Link> festgehalten. Die erhobenen Daten dienen
-                                schließlich als Grundlage eines historischen <Link to="/">Grundrisses</Link> zu
+                                Im Rahmen des DFG-Forschungsprojekts <Link to="/about">Musikalische Preisausschreiben 1820-1870</Link> wurden 
+                                Musikzeitschriften in Hinblick auf das
+                                Projektthema ausgewertet und die vorgefundenen Informationen in 
+                                einer <Link to="/prosearch">Datenbank</Link> strukturiert in deutscher Sprache erfasst. Beiträge in diesen 
+                                Zeitschriften, in denen auf das Thema allgemeiner, und nicht nur auf ein einzelnes
+                                Preisausschreiben, Bezug genommen wird, sind zusätzlich in einer 
+                                entsprechenden <Link to="/bib">Bibliographie</Link> festgehalten. Die erhobenen Daten 
+                                dienen schließlich als Grundlage eines historischen <Link to="/ ">Grundrisses</Link> zu
                                 musikalischen Preisausschreiben im 19. Jahrhundert.
                             </p>
                             <br />

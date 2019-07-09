@@ -19,7 +19,7 @@ export default function CompetingDisplay( props ) {
     console.log(numOfParticipants);
 
     return(
-        <div>
+        <div >
             { juryMembers.length>0 
                 && <MemberListJury juryMembers={juryMembers} />
             }

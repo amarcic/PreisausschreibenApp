@@ -13,11 +13,16 @@ function LandingPage( props ) {
                 <Content style={{ marginTop: "20px" }}>
                 <Row>
                 <Col>
-                    <Breadcrumb>
+                    {/*<Breadcrumb>
                         <Breadcrumb.Item><Link to="/">Home</Link></Breadcrumb.Item>
-                    </Breadcrumb>
-                    <div style={{ maxWidth: "1680px" }}>
-                        <Row gutter={24}>
+                    </Breadcrumb>*/}
+                    <div style={{ /*maxWidth: "1680px",*/ textAlign: "center", marginTop: 60, marginRight: "auto", marginLeft: "auto", width: 600 }}>
+                        Was finde ich hier? <br />
+                        Die Datenbank enthält Einträge zu 1310 Preisausschreiben und basiert auf einem
+                        Korpus zeitgenössischer Musikperiodika, die im Rahmen eines DFG-
+                        Forschungsprojektes an der Universität zu Köln von 2016 bis 2019 ausgewertet
+                        wurden.
+                        {/*<Row gutter={24}>
                             <Col span={8}>
                                 <Card hoverable cover={<img alt="Bücherstapel" src="/app/Preisausschreibenstapel.jpg"/>} onClick={ () => props.history.push('/overview') } bordered={false}  ><Meta title="Preisausschreibensuche" description="1100 Preisausschreiben" /></Card>
                             </Col>
@@ -39,7 +44,7 @@ function LandingPage( props ) {
                             <Col span={8}>
                                 <Card cover={<img src="http://via.placeholder.com/300x300"/>} hoverable onClick={ () => props.history.push('/overview') } bordered={false} ><Meta title="Visualisierungen und Analysen" description="Regionale Verteilung, Temporale Verteilung, etc." /></Card>
                             </Col>
-                        </Row>
+                        </Row>*/}
                     </div>
                     {/*<Layout>
                         <div>

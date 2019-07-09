@@ -7,11 +7,11 @@ const Panel = Collapse.Panel;
 export default function LabelSegment(props){
 
     const tags = props.tags;
-    const labels = props.labels
+    const labels = props.labels;
 
         return(
             <Row>
-                <h2>Schlagworte und historische Bezeichnungen</h2>
+                <h2 style={{ color: "#4A5568"}}>Schlagworte und historische Bezeichnungen</h2>
                 <Collapse>
                     <Panel header={ tags.length + " Schlagworte"}>
                         <Col offset={1}>

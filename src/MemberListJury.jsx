@@ -9,7 +9,7 @@ export default function MemberListJury (props) {
     //const comments = props.comments.map( comment => comment.text ).join('\n');
 
     return(
-        <Row>
+        <Row style={{ padding: "20px"}} >
             <List 
                 header={<h3>Jury { props.comments && props.comments.length>0 ? <Button type="normal" onClick={props.showDrawer} >Kommentare</Button> : "" }</h3>}
                 grid={{column: 2}}

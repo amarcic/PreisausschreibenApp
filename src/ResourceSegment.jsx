@@ -1,5 +1,6 @@
 import React from 'react';
 import { Row, Col, Collapse, List } from 'antd';
+import Markdown from 'markdown-to-jsx';
 
 const Panel = Collapse.Panel;
 
@@ -10,7 +11,7 @@ export default function ResourceSegment(props){
 
         return(
             <Row>
-                <h2>Quellen</h2>
+                <h2 style={{ color: "#4A5568"}}>Quellen</h2>
                 <Collapse>
                     <Panel header={ resources.length + " Quellen"}>
                         <List

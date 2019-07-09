@@ -51,11 +51,14 @@ export default function SubcompetitionTabs( props ) {
     //console.log(subcompParticipants);
 
     return(
-        <div style={{marginTop: 50}} >
-                <Tabs>
+        <div>
+                <Tabs style={{backgroundColor: "white", border: "1px solid #E2E8F0"}}>
                     {subcompetitions.map( (subcomp, index) => 
                         <TabPane tab={subcomp} key={subcomp}>
-                            <CompetingDisplay  participants={subcompParticipants[subcomp] || []} awards={awards.filter( award => award.wettbewerbskontext===subcomp )} numOfParticipants={numOfParticipants.filter( amount => amount.wettbewerbskontext===subcomp )} />
+                            <CompetingDisplay  
+                                participants={subcompParticipants[subcomp] || []}
+                                awards={awards.filter( award => award.wettbewerbskontext===subcomp )} 
+                                numOfParticipants={numOfParticipants.filter( amount => amount.wettbewerbskontext===subcomp )} />
                         </TabPane>
                     )}
                 </Tabs>

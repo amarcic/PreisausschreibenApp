@@ -1,5 +1,6 @@
 import React from 'react';
 import { Row, Col, Tooltip, Collapse, Drawer, Button, Badge } from 'antd';
+import Markdown from 'markdown-to-jsx';
 
 const Panel = Collapse.Panel;
 
@@ -13,11 +14,12 @@ export default function EventSegment(props){
     const showDrawer = props.showDrawer;
 
         return(
-            <Row>
+            <Row style={{ color: "#4A5568"}}>
                 <h2>Ereignisse { comments && comments.length>0 ? <span style={{float: "right"}} ><Badge count={comments.length} ><Button type="normal" onClick={showDrawer} >Ergänzende Informationen</Button></Badge></span> : "" }</h2>
                 {events.map( (event,index) =>
-                    <Collapse bordered={false} key={index} >
+                    <Collapse bordered={false} key={index} style={{backgroundColor: "white", border: "1px solid #E2E8F0", borderRadius: "0"}}>
                         <Panel
+                            style={{border: "none"}}
                             header={
                                 <Row>
                                     <Col offset={0} span={5}>
@@ -29,7 +31,7 @@ export default function EventSegment(props){
                                         </Tooltip>
                                     </Col>
                                     <Col>
-                                        {event.beschreibung ? event.beschreibung : event.ereignistyp }, <Tooltip title={ event.ort.ortszusatz ? event.ort.ortszusatz 
+                                        <Markdown>{event.beschreibung ? event.beschreibung : event.ereignistyp }</Markdown>, <Tooltip title={ event.ort.ortszusatz ? event.ort.ortszusatz 
                                             : "keine weiteren Angaben zum Ort" } >{event.ort.ortsname? event.ort.ortsname : ""}</Tooltip>
                                     </Col>
                                 </Row>}
@@ -52,7 +54,7 @@ export default function EventSegment(props){
                     width="30%"
                     
                 >
-                    {comments.map( (comment, index) => <p key={index}>{comment.text}</p> )}
+                    {comments.map( (comment, index) => <p key={index}><Markdown>{comment.text}</Markdown></p> )}
                 </Drawer>}
             </Row>
         );

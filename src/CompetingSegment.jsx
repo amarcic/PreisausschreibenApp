@@ -1,5 +1,6 @@
 import React from 'react';
 import { Row, Col, Collapse, Drawer, Button, Badge } from 'antd';
+import Markdown from 'markdown-to-jsx';
 
 import CompetingDisplay from './CompetingDisplay';
 import SubcompetitionTabs from './SubcompetitionTabs';
@@ -21,10 +22,10 @@ export default function CompetingSegment( props ) {
 
     return(
         <div>
-            <h2>Konkurrenzblock { comments && comments.length>0 ? <span style={{float: "right"}} ><Badge count={comments.length} ><Button type="normal" onClick={showDrawer} >Ergänzende Informationen</Button></Badge></span> : "" }</h2>
+            <h2 style={{ color: "#4A5568"}}>Konkurrenzblock { comments && comments.length>0 ? <span style={{float: "right"}} ><Badge count={comments.length} ><Button type="normal" onClick={showDrawer} >Ergänzende Informationen</Button></Badge></span> : "" }</h2>
             { subcompetitions && <SubcompetitionTabs subcompetitions={subcompetitions}  participants={ participants.filter( participant => participant.wettbewerbskontext ) } awards={awards} numOfParticipants={numOfParticipants} teilnehmerInnenzahl={numOfParticipants} /> }
             { !subcompetitions && 
-                <div style={{marginTop: 50}}>
+                <div style={{ border: "1px solid #E2E8F0", backgroundColor: "white"}}>
                     <CompetingDisplay participants={participants} numOfParticipants={numOfParticipants.filter( nop => !nop.hasOwnProperty("wettbewerbskontext") )} awards={awards} />
 
                 </div>
@@ -45,7 +46,7 @@ export default function CompetingSegment( props ) {
                         <Panel header={"weitere Teilnehmer"}>
                             <Row>
                                 <Col span={20} offset={1}>
-                                <ContestantList contestants={contestantNoContext} />
+                                    <ContestantList contestants={contestantNoContext} />
                                 </Col>
                             </Row>
                         </Panel>
@@ -61,7 +62,7 @@ export default function CompetingSegment( props ) {
                     width="30%"
                     
                 >
-                    {comments.map( (comment, index) => <p key={index}>{comment.text}</p> )}
+                    {comments.map( (comment, index) => <p key={index}><Markdown>{comment.text}</Markdown></p> )}
                 </Drawer>}
         </div>
     );

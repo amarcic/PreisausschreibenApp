@@ -8,13 +8,13 @@ import { Link } from 'react-router-dom';
 export default function ContestantList( props ) {
 
     const contestants = props.contestants;
-    const comments = props.comments;
+    const comments = props.comments || [];
     const showDrawer = props.showDrawer;
 //    const RouteWithPromise = withPromise( RouteById );
 //    console.log("contestants: " + JSON.stringify(contestants.filter( cont => cont.kollaboration)) );
 
     return (
-        <Row>
+        <Row style={{ padding: "20px"}}>
             <List 
                 header={<div><h3>Weitere <Tooltip title="Glossareintrag: Teilnehmer">TeilnehmerInnen</Tooltip> {comments && comments.length>0 ? <Button type="normal" onClick={showDrawer} >Kommentare</Button> : "" }</h3></div>}
                 grid={ {column: 2} }

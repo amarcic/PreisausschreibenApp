@@ -8,18 +8,18 @@ const { SubMenu } = Menu;
 // is this the right place for the columns definition? should it be inside the SearchPage function?
 const columnsPersonen = [
     {
-        title: <span style={{ fontFamily: "'Source Sans Pro', sans"}} >Nachname</span>,
+        title: <span>Nachname</span>,
         dataIndex: 'value.nachname',
         key: 'value.nachname',
         render: (text, record) => <Link to={"/dokumente/" + record.id}> {text} </Link>
     },
     {
-        title: <span style={{ fontFamily: "'Source Sans Pro', sans"}} >Vorname</span>,
+        title: <span>Vorname</span>,
         dataIndex: 'value.vorname',
         key: 'value.vorname'
     },
     {
-        title: <span style={{ fontFamily: "'Source Sans Pro', sans"}} >Alias</span>,
+        title: <span>Alias</span>,
         dataIndex: 'value.alias',
         key: 'value.alias'
         //render: (text, record) => record.value.name.alias? <ul>{ record.value.name.alias.map( alias => {<li>alias</li>} ) }</ul> : ""
@@ -28,20 +28,20 @@ const columnsPersonen = [
 
 const columnsPreisausschreiben = [
     {
-        title: <span style={{ fontFamily: "'Source Sans Pro', sans"}} >Ausschreibung</span>,
+        title: <span>Ausschreibung</span>,
         dataIndex: 'value.ausschreibung',
         key: 'value.ausschreibung',
         render: (text, record ) => <Link to={"/dokumente/" + record.id}> {text? text: "unbekannt"} </Link>
     },
     {
-        title: <span style={{ fontFamily: "'Source Sans Pro', sans"}} >Ereignisse</span>,
+        title: <span>Ereignisse</span>,
         dataIndex: 'value.ereignisse',
         key: 'value.ereignisse',
         // will have to check, if the unique keys generated when the array is mapped are used in a meaningful way (index for unique keys not recommended)
         render: (text, record) => <ul> {record.value.ereignisse.map( ( ereignis, i ) => <li key={i} >  {(ereignis.zeit? ereignis.zeit.datum : "") + ", " + ereignis.ereignistyp + ", " + ( ereignis.ort? ereignis.ort.ortsname : "" )} </li>)} </ul>
     },
     {
-        title: <span style={{ fontFamily: "'Source Sans Pro', sans"}} >Aufgaben</span>,
+        title: <span>Aufgaben</span>,
         dataIndex: 'value.aufgaben',
         key: 'value.aufgaben'
         /*render: (text, record) => <div>{record.value.aufgaben.split( "," ).join(", ")}</div>*/
@@ -88,6 +88,8 @@ export default function SearchPage( props ) {
     //can be taken out when using elasticsearch
     let dataIds = [];
     let dataUnique = [];
+
+    console.log(dataUnique);
 
     props.requestData ? data = props.requestData : data = [] ;
     

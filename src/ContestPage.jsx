@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Row, Col, List, Collapse, Divider, Alert } from 'antd';
+import { Row, Col, Divider, Alert } from 'antd';
 import EventSegment from './EventSegment';
 import withCommentContainer from './withCommentContainer';
 import OverviewTaskSegment from './OverviewTaskSegment';
@@ -10,7 +10,6 @@ import LabelSegment from './LabelSegment';
 import ResourceSegment from './ResourceSegment';
 import dateHelper from './dateHelper';
 
-const Panel = Collapse.Panel;
 const EventSegmentWithCommentContainer = withCommentContainer(EventSegment);
 const OverviewTaskSegmentWithCommentContainer = withCommentContainer(OverviewTaskSegment);
 const CompetingSegmentWithCommentContainer = withCommentContainer(CompetingSegment);
@@ -48,8 +47,6 @@ export default function ContestPage( props ) {
 
     const duration = [ (events[0].zeit.datum ? events[0].zeit.datum : events[0].zeit.von), (events[events.length-1].zeit.datum ? events[events.length-1].zeit.datum : events[events.length-1].zeit.von)];
     const place = data.ereignisse.find( event => event.ort.hasOwnProperty("ortsname")) ? data.ereignisse.find( event => event.ort.hasOwnProperty("ortsname") ).ort.ortsname : "Ort unbekannt"  ;
-
-    console.log( place );
     
     awards.forEach( award => 
         {
@@ -80,6 +77,7 @@ export default function ContestPage( props ) {
             data.teilnehmerleistungen.forEach( leistung =>     { if (leistung.hasOwnProperty('teilnehmer')&&Array.isArray(leistung.teilnehmer))
                                                                     { leistung.teilnehmer.forEach( participantId => {
                                                                     let attendee = participants.find( participant => participant.identifier[0] === participantId );
+                                                                    //should check for the case that identifiers are not found among participants
                                                                     /*if ( attendee ) {
                                                                         attendee.leistungen? attendee.leistungen.push(leistung.beschreibung) : attendee.leistungen = [leistung.beschreibung];
                                                                         return attendee;
@@ -109,28 +107,21 @@ export default function ContestPage( props ) {
             <OverviewTaskSegmentWithCommentContainer occasion={occasion} duration={duration} place={place} tender={tender} series={series} pAmount={numberOfParticipants} taskTypes={taskTypes} tasks={tasks} subcompetitions={subcompetitions} conditions={data.teilnahmevoraussetzungen} formalia={formalia} comments={comments.filter( comment => comment.thema==="Preisausschreiben allgemein" || comment.thema==="Aufgaben" || comment.thema==="Formalia" || comment.thema==="ausschreibende Institution/Person" || comment.thema==="Teilnahmevoraussetzungen" || comment.thema==="Ergaenzungen" )}  />       
         </div>
 
-        <Divider style={{marginTop: 50}}></Divider>
-
         <div style={{marginTop: 50}}>
                 <EventSegmentWithCommentContainer events={events} comments={comments.filter( comment => comment.thema==="Ereignisse" )} />
         </div>
 
-        <Divider style={{marginTop: 50}}></Divider>
-
         {data.reduzierteErfassung && <Alert message="Den angeführten Quellen zu diesem Wettbewerb lassen sich möglicherweise weitere Informationen entnehmen, die in der Datenbank bisher nicht erfasst wurden. Dies gilt für alle Wettbewerbe mit der Teilnahme von Gruppen wie z.B. Ensembles, Chören oder Orchestern." type="info" showIcon />}
+        
         
         <div style={{marginTop: 50}}>
             <CompetingSegmentWithCommentContainer participants={participants} awards={awards} subcompetitions={subcompetitions} numOfParticipants={data.teilnehmerInnenzahl} comments={comments.filter( comment => comment.thema==="PreisträgerInnen" || comment.thema==="Jury" || comment.thema==="Beurteilung" || comment.thema==="Auszeichnungen" || comment.thema==="PreisträgerInnen" || comment.thema==="TeilnehmerInnen" )} />
         </div>
-
-        <Divider style={{marginTop: 50}}></Divider>
         
         <div style={{marginTop: 50}}>
             <ParticipantSegmentWithCommentContainer participants={participants} comments={comments.filter( comment => comment.thema==="TeilnehmerInnen")} />
         </div>
         
-        <Divider style={{marginTop: 50}}></Divider>
-
         <div style={{marginTop: 50}} >
             <LabelSegment tags={keywords.concat(taskfields)} labels={data.bezeichnung} />
         </div>

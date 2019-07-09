@@ -1,0 +1,302 @@
+
+    {
+      "contest" : {
+        "properties" : {
+          "_rev" : {
+            "type" : "string"
+          },
+          "anlass" : {
+            "type" : "string"
+          },
+          "aufgaben" : {
+            "type" : "nested",
+            "properties" : {
+              "aufgabentyp" : {
+                "type" : "string",
+                "index": "analyzed",
+                "fields": {
+                    "raw": {"type": "string", "index": "not_analyzed"}
+                }
+              },
+              "spezifizierung" : {
+                "type" : "string"
+              },
+              "systematik" : {
+                "type" : "string",
+                "fields": {
+                    "raw": {"type": "string", "index": "not_analyzed"}
+                }
+              },
+              "wettbewerbskontext" : {
+                "type" : "string"
+              }
+            }
+          },
+          "auszeichnungen" : {
+            "type" : "nested",
+            "properties" : {
+              "auszeichnungsarten" : {
+                "type" : "string"
+              },
+              "platzierungen" : {
+                "type" : "nested",
+                "properties" : {
+                  "beschreibung" : {
+                    "type" : "string"
+                  },
+                  "platzierte" : {
+                    "type" : "string"
+                  },
+                  "rang" : {
+                    "type" : "string",
+                    "fields": {
+                        "raw": {"type": "string", "index": "not_analyzed"}
+                    }
+                  }
+                }
+              },
+              "wettbewerbskontext" : {
+                "type" : "string"
+              }
+            }
+          },
+          "beteiligte" : {
+            "type" : "nested",
+            "properties" : {
+              "anmerkung" : {
+                "type" : "string"
+              },
+              "identifier" : {
+                "type" : "string"
+              },
+              "kollaboration" : {
+                "type" : "string"
+              },
+              "name" : {
+                "type" : "string",
+                "fields": {
+                    "raw": {"type": "string", "index": "not_analyzed"}
+                }
+              },
+              "rolle" : {
+                "type" : "string",
+                "fields": {
+                    "raw": {"type": "string", "index": "not_analyzed"}
+                }
+              },
+              "wettbewerbskontext" : {
+                "type" : "string"
+              }
+            }
+          },
+          "bezeichnung" : {
+            "type" : "string"
+          },
+          "ereignisse" : {
+            "type" : "nested",
+            "properties" : {
+              "ausgefallen" : {
+                "type" : "boolean"
+              },
+              "beschreibung" : {
+                "type" : "string"
+              },
+              "ereignistyp" : {
+                "type" : "string",
+                "fields": {
+                    "raw": {"type": "string", "index": "not_analyzed"}
+                }
+              },
+              "ort" : {
+                "properties" : {
+                  "altName" : {
+                    "type" : "string",
+                    "fields": {
+                        "raw": {"type": "string", "index": "not_analyzed"}
+                    }
+                  },
+                  "esCountry" : {
+                    "type" : "string",
+                    "fields": {
+                        "raw": {"type": "string", "index": "not_analyzed"}
+                    }
+                  },
+                  "esGeoPoint" : {
+                    "type" : "geo_point"
+                  },
+                  "esGeonameId" : {
+                    "type" : "long"
+                  },
+                  "ortsname" : {
+                    "type" : "string",
+                    "fields": {
+                        "raw": {"type": "string", "index": "not_analyzed"}
+                    }
+                  },
+                  "ortszusatz" : {
+                    "type" : "string"
+                  }
+                }
+              },
+              "wettbewerbskontext" : {
+                "type" : "string"
+              },
+              "zeit" : {
+                "properties" : {
+                  "bis" : {
+                    "type" : "string"
+                  },
+                  "datum" : {
+                    "type" : "string"
+                  },
+                  "datumszusatz" : {
+                    "type" : "string"
+                  },
+                  "esDateRange" : {
+                    "properties" : {
+                      "end" : {
+                        "type" : "date",
+                        "format" : "dateOptionalTime"
+                      },
+                      "start" : {
+                        "type" : "date",
+                        "format" : "dateOptionalTime"
+                      }
+                    }
+                  },
+                  "von" : {
+                    "type" : "string"
+                  }
+                }
+              }
+            }
+          },
+          "ergaenzungen" : {
+            "type" : "string"
+          },
+          "esEnd" : {
+            "type" : "date",
+            "format" : "dateOptionalTime"
+          },
+          "esGeoP" : {
+            "type" : "geo_point"
+          },
+          "esPlacename" : {
+            "type" : "string",
+              "fields": {
+                  "raw": {"type": "string", "index": "not_analyzed"}
+              }
+          },
+          "esStart" : {
+            "type" : "date",
+            "format" : "dateOptionalTime"
+          },
+          "formalia" : {
+            "type" : "string"
+          },
+          "kommentare" : {
+            "properties" : {
+              "text" : {
+                "type" : "string"
+              },
+              "thema" : {
+                "type" : "string"
+              }
+            }
+          },
+          "notizen" : {
+            "properties" : {
+              "autorIn" : {
+                "type" : "string"
+              },
+              "datumLast" : {
+                "type" : "string"
+              },
+              "text" : {
+                "type" : "string"
+              }
+            }
+          },
+          "quellen" : {
+            "properties" : {
+              "korpus" : {
+                "type" : "boolean"
+              },
+              "quellenangabe" : {
+                "type" : "string"
+              }
+            }
+          },
+          "reduzierteErfassung" : {
+            "type" : "boolean"
+          },
+          "schlagwoerter" : {
+            "type" : "string",
+            "fields": {
+                "raw": {"type": "string", "index": "not_analyzed"}
+            }
+          },
+          "serienzuordnung" : {
+            "properties" : {
+              "serienBezeichnung" : {
+                "type" : "string",
+                "fields": {
+                    "raw": {"type": "string", "index": "not_analyzed"}
+                }
+              },
+              "serienId" : {
+                "type" : "string"
+              },
+              "serienNr" : {
+                "type" : "long"
+              }
+            }
+          },
+          "teilnahmevoraussetzungen" : {
+            "type": "nested",
+            "properties" : {
+              "beschreibung" : {
+                "type" : "string"
+              },
+              "kriterium" : {
+                "type" : "string"
+              },
+              "wettbewerbskontext" : {
+                "type" : "string"
+              }
+            }
+          },
+          "teilnehmerInnenzahl" : {
+            "properties" : {
+              "anmerkung" : {
+                "type" : "string"
+              },
+              "anzahl" : {
+                "type" : "long"
+              },
+              "wettbewerbskontext" : {
+                "type" : "string"
+              }
+            }
+          },
+          "teilnehmerleistungen" : {
+            "properties" : {
+              "beschreibung" : {
+                "type" : "string"
+              },
+              "teilnehmer" : {
+                "type" : "string"
+              }
+            }
+          },
+          "type" : {
+            "type" : "string"
+          },
+          "wettbewerbsgliederung" : {
+            "type" : "string"
+          }
+        }
+      }
+    }
+  
+

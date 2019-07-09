@@ -1,6 +1,7 @@
 import React from 'react';
 import { Table, Input, Button, Icon, Drawer, Badge } from 'antd';
 import { Link } from 'react-router-dom';
+import Markdown from 'markdown-to-jsx';
 
 export default class ParticipantSegment extends React.Component {
 
@@ -71,14 +72,19 @@ export default class ParticipantSegment extends React.Component {
             },
             {
                 title: "Anmerkung",
-                dataIndex: "anmerkung"
+                dataIndex: "anmerkung",
+                render: note => (
+                    <Markdown>
+                        {note ? note : ""}
+                    </Markdown>
+                )
             },
             {
                 title: "Rolle",
                 dataIndex: "rolle",
-                render: rolle => (
+                render: role => (
                     <span>
-                        {rolle.join(", ")}
+                        {role.join(", ")}
                     </span>
                 ),
                 filters: [
@@ -131,15 +137,20 @@ export default class ParticipantSegment extends React.Component {
             },
             {
                 title: "Wettbewerbskontext",
-                dataIndex: "wettbewerbskontext"
+                dataIndex: "wettbewerbskontext",
+                render: context => (<span>{context?context.join(", "):""}</span>)
             }
         ]
 
         return(
             
             <div>
-                <h2>Beteiligte { this.props.comments && this.props.comments.length>0 ? <span style={{float: "right"}} ><Badge count={this.props.comments.length} ><Button type="normal" onClick={this.props.showDrawer} >Ergänzende Informationen</Button></Badge></span> : "" }</h2>
-                <Table columns={columns} dataSource={this.props.participants} />
+                <h2 style={{ color: "#4A5568"}}>Beteiligte { this.props.comments && this.props.comments.length>0 ? <span style={{float: "right"}} ><Badge count={this.props.comments.length} ><Button type="normal" onClick={this.props.showDrawer} >Ergänzende Informationen</Button></Badge></span> : "" }</h2>
+                <Table 
+                    columns={columns} 
+                    dataSource={this.props.participants} 
+                    style={{ backgroundColor: "white", border: "1px solid #E2E8F0", borderRadius: "0" }} 
+                    />
                 { this.props.comments && this.props.comments.length>0 && <Drawer 
                     title="Ergänzende Informationen zu den Ereignissen"
                     placement="right"
@@ -149,7 +160,7 @@ export default class ParticipantSegment extends React.Component {
                     width="30%"
                     
                 >
-                    {this.props.comments.map( (comment, index) => <p key={index}>{comment.text}</p> )}
+                    {this.props.comments.map( (comment, index) => <p key={index}><Markdown>{comment.text}</Markdown></p> )}
                 </Drawer>}
             </div>
         );

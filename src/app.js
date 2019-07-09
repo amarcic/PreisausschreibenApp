@@ -6,13 +6,15 @@ import { BrowserRouter, Route, Link } from 'react-router-dom';
 import { LocaleProvider } from 'antd';
 import deDE from 'antd/lib/locale-provider/de_DE';
 
+import * as packageJSON from '../package.json';
+
 import Layout_Container from "./Layout-Container";
 
 console.log("it works!");
 const app = document.getElementById('root');
 
 ReactDOM.render(
-    <BrowserRouter basename="/app/" >
+    <BrowserRouter /*basename="/app/"*/ basename={packageJSON.default.config.react_router_basename}  >
         <LocaleProvider locale={deDE}>
             <Layout_Container/>
         </ LocaleProvider>
