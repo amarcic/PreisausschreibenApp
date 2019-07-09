@@ -3,6 +3,7 @@ import React from 'react';
 import { Layout } from 'antd';
 
 import SearchBox from './SearchBox';
+import EsSearchBox from './EsSearchBox';
 
 //absolute path for backgroundImage for 
 //backgroundImage: 'url("preisausschreiben/_design/intern/collage.jpg")',
@@ -47,7 +48,7 @@ export default function SearchBanner( props ) {
                 transform: "translate(-50%, -50%)"
                 
             }}>
-                <SearchBox updateInput={props.updateInput} searchCollection={props.searchCollection} />
+                <EsSearchBox updateQuery={props.updateQuery} searchType={props.searchType} />
             </div>
         </Layout>
     );

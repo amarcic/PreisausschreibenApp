@@ -22,7 +22,7 @@ function fetchFromCouch( queryString, apiUrl, view ) {
 //        case "directDoc": selectView = "preisausschreiben/"; break;
     }
 
-    const apiViewSelect = apiUrl +  selectView;
+    //const apiViewSelect = apiUrl +  selectView;
     //console.log("apireq: " + apiUrl + selectView );
     const apiRequest = apiUrl + selectView + '?key="' + queryString + '"';
     //view? apiViewSelect + '?startkey="' + queryString + '"&&endkey="' + queryString + '\ufff0"&&reduce=false': apiUrl + queryString;
