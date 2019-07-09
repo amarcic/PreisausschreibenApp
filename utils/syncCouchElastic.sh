@@ -2,11 +2,14 @@
 
 : ${ELASTIC:="http://projects.cceh.uni-koeln.de:9200"}
 INDEXNAME="couchdata3"
-: ${COUCH:="//dev.cceh.uni-koeln.de:5984"}
+
+: ${COUCH:="http://dev.cceh.uni-koeln.de:5984"}
 DATABASE="preisausschreiben"
 
 # sourcing enviroment variables
-. /var/local/playground/node/enable
+if [ -e /var/local/playground/node/enable ]; then
+  . /var/local/playground/node/enable
+fi
 
 # checking for old couch2elastic4sync config file
 if [ -e ./.couch2elastic4sync ]; then
@@ -17,67 +20,48 @@ if [ -e ./.couch2elastic4sync ]; then
   else
     echo "closing now"
     exit 1
-  fi 
+  fi
 fi
 
 # creating an elasticsearch index
 curl -XPUT "$ELASTIC/$INDEXNAME"
 
-# importing all data for series of musical competitions 
-
-INDEXTYPE="series"
-MAPPERFUNCTION="./mapfuncSeries.js"
-
-#defining mapping in elasticsearch for current index type
-#...
-
-echo "database=http:$COUCH/$DATABASE" >> ./.couch2elastic4sync
-echo "elasticsearch=$ELASTIC/$INDEXNAME/$INDEXTYPE" >> ./.couch2elastic4sync
-echo "mapper=$MAPPERFUNCTION" >> ./.couch2elastic4sync
-
-couch2elastic4sync --config=./.couch2elastic4sync load
-
-INDEXTYPE="person"
-MAPPERFUNCTION="./mapfuncPerson.js"
-
-rm ./.couch2elastic4sync
-
-echo "database=http:$COUCH/$DATABASE" >> ./.couch2elastic4sync
-echo "elasticsearch=$ELASTIC/$INDEXNAME/$INDEXTYPE" >> ./.couch2elastic4sync
-echo "mapper=$MAPPERFUNCTION" >> ./.couch2elastic4sync
-
-couch2elastic4sync --config=./.couch2elastic4sync load
-
-INDEXTYPE="corporation"
-MAPPERFUNCTION="./mapfuncCorp.js"
-
-rm ./.couch2elastic4sync
-
-echo "database=http:$COUCH/$DATABASE" >> ./.couch2elastic4sync
-echo "elasticsearch=$ELASTIC/$INDEXNAME/$INDEXTYPE" >> ./.couch2elastic4sync
-echo "mapper=$MAPPERFUNCTION" >> ./.couch2elastic4sync
-
-couch2elastic4sync --config=./.couch2elastic4sync load
-
-INDEXTYPE="contest"
-#mapperfunction1 is experimental; default is mapperfunction
-MAPPERFUNCTION="./mapperfunction2.js"
-
-# defining ElasticSearch mapping for contests 
-#the script works as intended but I should check if multiplication of subobject docs is correct
+# creating an elasticsearch entry mapping
 MAPPINGJSON=`cat ./mappingContest6.json| tr "\r" " "`
-
 curl -XPUT "$ELASTIC/$INDEXNAME/_mapping/$INDEXTYPE" -d"$MAPPINGJSON"
 
-rm ./.couch2elastic4sync
-
-echo "database=http:$COUCH/$DATABASE" >> ./.couch2elastic4sync
+# importing all data for series of musical competitions
+INDEXTYPE="series"
+MAPPERFUNCTION="./mapfuncSeries.js"
+echo "database=$COUCH/$DATABASE" >> ./.couch2elastic4sync
 echo "elasticsearch=$ELASTIC/$INDEXNAME/$INDEXTYPE" >> ./.couch2elastic4sync
 echo "mapper=$MAPPERFUNCTION" >> ./.couch2elastic4sync
-
 couch2elastic4sync --config=./.couch2elastic4sync load
-
 rm ./.couch2elastic4sync
 
+# importing all data for persons of musical competitions
+INDEXTYPE="person"
+MAPPERFUNCTION="./mapfuncPerson.js"
+echo "database=$COUCH/$DATABASE" >> ./.couch2elastic4sync
+echo "elasticsearch=$ELASTIC/$INDEXNAME/$INDEXTYPE" >> ./.couch2elastic4sync
+echo "mapper=$MAPPERFUNCTION" >> ./.couch2elastic4sync
+couch2elastic4sync --config=./.couch2elastic4sync load
+rm ./.couch2elastic4sync
 
+# importing all data for corporations of musical competitions
+INDEXTYPE="corporation"
+MAPPERFUNCTION="./mapfuncCorp.js"
+echo "database=$COUCH/$DATABASE" >> ./.couch2elastic4sync
+echo "elasticsearch=$ELASTIC/$INDEXNAME/$INDEXTYPE" >> ./.couch2elastic4sync
+echo "mapper=$MAPPERFUNCTION" >> ./.couch2elastic4sync
+couch2elastic4sync --config=./.couch2elastic4sync load
+rm ./.couch2elastic4sync
 
+# importing all data for contests of musical competitions
+INDEXTYPE="contest"
+MAPPERFUNCTION="./mapperfunction2.js"
+echo "database=$COUCH/$DATABASE" >> ./.couch2elastic4sync
+echo "elasticsearch=$ELASTIC/$INDEXNAME/$INDEXTYPE" >> ./.couch2elastic4sync
+echo "mapper=$MAPPERFUNCTION" >> ./.couch2elastic4sync
+couch2elastic4sync --config=./.couch2elastic4sync load
+rm ./.couch2elastic4sync
