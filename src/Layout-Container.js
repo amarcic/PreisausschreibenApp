@@ -144,13 +144,13 @@ export default class Layout_Container extends React.Component {
                             <div style={{textAlign: 'center', fontSize: 12}}>
                                 <span>Musikalische Preisausschreiben 1820 bis 1870</span><br />
                                 <span>Grundriss, Datenbank und Bibliografie auf Grundlage von Musikperiodika</span><br />
-                                Musikalische Preisausschreiben ©2018 | Universität zu Köln
+                                <span>Musikalische Preisausschreiben ©2018 | Universität zu Köln</span><br />
+                                Lizenziert unter <a href="https://creativecommons.org/licenses/by/4.0/">CC BY</a>
                             </div>
                         </Col>
                         <Col span={8}>
                             <div style={{marginLeft: '15px'}}>
-                                <Link to="/"><img src={"/assets/CCeH-Logo_transparent_w100.png"} height={"72px"} /></Link>
-
+                                <Link to="/"><img src={"/assets/CCeH-Logo_transparent_w100.png"} height={"60px"} /></Link>
                             </div>
                         </Col>
                     </Row>
