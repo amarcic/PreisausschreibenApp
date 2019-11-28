@@ -147,7 +147,9 @@ export default class Layout_Container extends React.Component {
                             </div>
                         </Col>
                         <Col span={8}>
-
+                            <div style={{marginLeft: '15px'}}>
+                                <Link to="/"><img src={"/assets/CCeH-Logo_transparent_w100.png"} height={"72px"} /></Link>
+                            </div>
                         </Col>
                     </Row>
                 </Footer>
