@@ -2,7 +2,7 @@
 import React from 'react';
 import { Route, Link } from 'react-router-dom';
 
-import { Layout, Menu, Row } from 'antd';
+import { Layout, Menu, Row, Col } from 'antd';
 const { SubMenu } = Menu;
 const { Header, Footer } = Layout;
 
@@ -129,10 +129,27 @@ export default class Layout_Container extends React.Component {
                     {/*<Route path="/search" render={ (props) => <ErrorBoundary> <SearchPageWithPromise query={this.state.searchInput} collection={this.state.searchCollection} {...props} /> </ErrorBoundary> } />*/}
                     <Route path="/prosearch" render={ (props) => <ErrorBoundary> <SearchPageWithESData strQuery={this.state.stringQueryObject} /*filterObj={this.state.filterObject}*/ filterCountry={this.state.filterCountry} filterTimeSpan={this.state.filterTimeSpan} filterTaskTypes={this.state.filterTaskTypes} updateQuery={this.updateQuery} searchType={this.state.searchType} sort={this.state.sort} offset={this.state.offset} {...props} /> </ErrorBoundary> } />
                 </Row>
-                <Footer style={{textAlign: 'center', fontSize: 12}}>
+                {/*<Footer style={{textAlign: 'center', fontSize: 12}}>
                     <span>Musikalische Preisausschreiben 1820 bis 1870</span><br />
                     <span>Grundriss, Datenbank und Bibliografie auf Grundlage von Musikperiodika</span><br />
                     Musikalische Preisausschreiben ©2018 | Universität zu Köln
+                </Footer>*/}
+                <Footer>
+                    <Row>
+                        <Col span={8}>
+                            <Link to="/"><img src={"/assets/dfg_logo_schriftzug_blau_foerderung_en.gif"} height={"72px"} /></Link>
+                        </Col>
+                        <Col span={8}>
+                            <div style={{textAlign: 'center', fontSize: 12}}>
+                                <span>Musikalische Preisausschreiben 1820 bis 1870</span><br />
+                                <span>Grundriss, Datenbank und Bibliografie auf Grundlage von Musikperiodika</span><br />
+                                Musikalische Preisausschreiben ©2018 | Universität zu Köln
+                            </div>
+                        </Col>
+                        <Col span={8}>
+
+                        </Col>
+                    </Row>
                 </Footer>
 
             </Layout>
