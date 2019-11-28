@@ -138,6 +138,7 @@ export default class Layout_Container extends React.Component {
                     <Row>
                         <Col span={8}>
                             <Link to="/"><img src={"/assets/dfg_logo_schriftzug_blau_foerderung_en.gif"} height={"72px"} /></Link>
+                            <Link to="/"><img src={"/assets/ContentUKLAN.jpg"} height={"72px"} /></Link>
                         </Col>
                         <Col span={8}>
                             <div style={{textAlign: 'center', fontSize: 12}}>
@@ -149,6 +150,7 @@ export default class Layout_Container extends React.Component {
                         <Col span={8}>
                             <div style={{marginLeft: '15px'}}>
                                 <Link to="/"><img src={"/assets/CCeH-Logo_transparent_w100.png"} height={"72px"} /></Link>
+
                             </div>
                         </Col>
                     </Row>
