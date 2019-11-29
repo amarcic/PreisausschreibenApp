@@ -81,12 +81,12 @@ export default class Layout_Container extends React.Component {
                             <span>Grundriss, Datenbank und Bibliografie auf Grundlage von Musikperiodika</span>
                                                 </div>      */}     
                     <Menu mode="horizontal" style={{ lineHeight: '58px', letterSpacing: '0.04em', fontSize: '14px', color: '#4A5568', float: 'right' }}  >
-                        <SubMenu title={<span>Suche</span>} >
+                        {/*<SubMenu title={<span>Suche</span>} >
                         <Menu.Item key="1"><Link to="/prosearch">Preisausschreibensuche</Link></Menu.Item>
-                        {/*<Menu.Item key="2">Personen</Menu.Item>
+                        <Menu.Item key="2">Personen</Menu.Item>
                         <Menu.Item key="3">Körperschaften</Menu.Item>
-                                            <Menu.Item key="4">Themen und Schlagworte</Menu.Item>*/}
-                        </SubMenu>
+                                            <Menu.Item key="4">Themen und Schlagworte</Menu.Item>
+                        </SubMenu>*/}
                         <SubMenu title={<span>Forschung</span>} >
                             <Menu.Item key="5">Grundriss</Menu.Item>
                             <Menu.Item key="6">
@@ -98,12 +98,12 @@ export default class Layout_Container extends React.Component {
                             <Menu.Item key="10">Visualisierungen und Analysen</Menu.Item>
                         </SubMenu>
                         <SubMenu title={<span>Über das Projekt</span>}>
-                            <Menu.Item key="11">
+                            {/*<Menu.Item key="11">
                                 <Link to="/about">Forschungsvorhaben</Link>
                             </Menu.Item>
-                            <Menu.Item key="12">Mitarbeiter</Menu.Item>
+                            <Menu.Item key="12">Mitarbeiter</Menu.Item>*/}
                             <Menu.Item key="13">
-                                <Link to="/credits">Credits</Link>
+                                <Link to="/credits">Beteiligte</Link>
                             </Menu.Item>
                         </SubMenu>
                     </Menu>

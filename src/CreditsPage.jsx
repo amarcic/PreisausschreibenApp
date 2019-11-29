@@ -10,7 +10,7 @@ export default function CreditsPage( props ) {
             <Content>
                 <Breadcrumb>
                     <Breadcrumb.Item><Link to="/">Home</Link></Breadcrumb.Item>
-                    <Breadcrumb.Item><Link to="/credits">Credits</Link></Breadcrumb.Item>
+                    <Breadcrumb.Item><Link to="/credits">Beteiligte</Link></Breadcrumb.Item>
                 </Breadcrumb>
 
                 <Layout>

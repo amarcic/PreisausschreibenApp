@@ -83,6 +83,7 @@ function ProSearchPage( props ) {
                     </Col>
                     <Col span={18}>
                         <span>{props.hitsCount?props.hitsCount+" Treffer": "Keine Treffer" }</span>
+                        {/*let's put the map here. should be closed by default, so rendering can start once it is opened*/}
                         <Table
                             //bodyStyle={{ backgroundColor: "#ffffff" }}#
                             style={{ backgroundColor: "white", border: "1px solid #E2E8F0", borderRadius: "0" }} 
