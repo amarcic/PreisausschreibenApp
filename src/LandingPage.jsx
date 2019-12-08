@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom';
 //import { withRouter } from '../../../AppData/Local/Microsoft/TypeScript/2.6/node_modules/@types/react-router';
 
 const { Content } = Layout;
-const { Meta } = Card;
+//const { Meta } = Card;
 
 function LandingPage( props ) {
     return(

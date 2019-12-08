@@ -138,5 +138,5 @@ export default function SearchPage( props ) {
                
             </Content>
         </Layout>
-    );*/
-}
+    );
+}*/

@@ -1,13 +1,15 @@
 import React from 'react';
-import { Layout, Menu, Table, Row, Col } from 'antd';
+import { Layout, Table, Row, Col, Collapse } from 'antd';
 import { withRouter } from 'react-router-dom';
 
 import dateHelper from './dateHelper';
 import FacetSider from './FacetSider';
-import Markdown from 'markdown-to-jsx';
+import ResultMap from "./ResultMap";
+//import Markdown from 'markdown-to-jsx';
 //import EsSearchBox from './EsSearchBox';
 
 const { Content } = Layout;
+const Panel = Collapse.Panel;
 
 //sorter for columns only sort through the currently displayed results. I should either use elasticsearch for sorting (so all results are sorted) or drop the function 
 const columnsPreisausschreiben = [
@@ -84,6 +86,11 @@ function ProSearchPage( props ) {
                     <Col span={18}>
                         <span>{props.hitsCount?props.hitsCount+" Treffer": "Keine Treffer" }</span>
                         {/*let's put the map here. should be closed by default, so rendering can start once it is opened*/}
+                        <Collapse>
+                            <Panel>
+                                <div style={{height: '400px', width: '800px'}}><ResultMap data={data.map( d => {return{ placename: d._source.esPlacename, coordinate: d._source.esGeoP }})} /></div>
+                            </Panel>
+                        </Collapse>
                         <Table
                             //bodyStyle={{ backgroundColor: "#ffffff" }}#
                             style={{ backgroundColor: "white", border: "1px solid #E2E8F0", borderRadius: "0" }} 

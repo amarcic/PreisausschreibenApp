@@ -59,9 +59,12 @@
     "babel-polyfill": "^6.26.0",
     "babel-runtime": "^6.26.0",
     "elasticsearch": "^16.5.0",
+    "geojson-world-map": "0.0.2",
+    "leaflet": "^1.6.0",
     "markdown-to-jsx": "^6.10.3",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
+    "react-leaflet": "^2.6.0",
     "react-router-dom": "^5.1.2"
   }
 }
