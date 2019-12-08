@@ -1,4 +1,4 @@
-import React from 'react';
+/*import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { Layout, Breadcrumb } from 'antd';
@@ -15,16 +15,12 @@ export default function ResultPage( { match } ) {
 
     let ResultComponent;
 
-    //console.log( match.params.docType );
-
     switch( match.params.docType ) {
         case "person": ResultComponent = PersonPage; break;
         case "preisausschreiben": ResultComponent = ContestPage; break;
         case "koerperschaft": ResultComponent = CorporatePage; break;
         case "serie": ResultComponent = SeriesPage; break;
     }
-    //console.log( ResultComponent );
-    //console.log( PersonPage );
 
     const DocViewWithPromise = withPromise( ResultComponent );
 
@@ -40,4 +36,4 @@ export default function ResultPage( { match } ) {
             </Content>
         </Layout>
     );
-}
+}*/

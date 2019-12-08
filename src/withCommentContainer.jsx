@@ -1,5 +1,4 @@
 import React from 'react';
-//import { Drawer } from 'antd';
 
 export default function withCommentContainer( WrappedComponent ) {
     return (
@@ -27,16 +26,6 @@ export default function withCommentContainer( WrappedComponent ) {
 
                 return( <div>
                     <WrappedComponent comments={comments} showDrawer={this.showDrawer} onClose={this.onClose} visible={this.state.visible} {...passthroughProps} />
-                    {/*<Drawer 
-                    title="Kommentare zur Jury"
-                    placement="right"
-                    closable={false}
-                    onClose={this.onClose}
-                    visible={this.visible}
-                    
-                    >
-                        {comments.map( comment => <p>{comment.text}</p> )}
-                    </Drawer>*/}
                 </div> );
             }
         }

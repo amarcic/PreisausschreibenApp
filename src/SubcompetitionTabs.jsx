@@ -10,11 +10,11 @@ import withCommentContainer from './withCommentContainer';
 import CompetingDisplay from './CompetingDisplay';
 
 const TabPane = Tabs.TabPane;
-
+/*
 const MemberListJuryWithCommentContainer = withCommentContainer(MemberListJury);
 const AwardsListWithCommentContainer = withCommentContainer(AwardsList);
 const ContestantListWithCommentContainer = withCommentContainer(ContestantList);
-
+*/
 
 export default function SubcompetitionTabs( props ) {
 
@@ -26,7 +26,7 @@ export default function SubcompetitionTabs( props ) {
     //const teilnehmerleistungen = props.teilnehmerleistungen;
     const teilnehmerInnenzahl = props.teilnehmerInnenzahl;
     const numOfParticipants = props.numOfParticipants || [];
-    const awardedParticipants = participants.filter( participant => participant.hasOwnProperty('ranks') );
+    //const awardedParticipants = participants.filter( participant => participant.hasOwnProperty('ranks') );
     const comments = props.comments || [];
     //let activeSubTab = props.activeSubTab;
 
@@ -48,7 +48,6 @@ export default function SubcompetitionTabs( props ) {
             );
         } 
     } );
-    //console.log(subcompParticipants);
 
     return(
         <div>
