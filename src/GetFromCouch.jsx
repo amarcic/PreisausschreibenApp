@@ -1,5 +1,5 @@
 //import React from 'react';
-
+/*
 import CouchDataStore from './CouchDataStore';
 
 export default function GetFromCouch( props ) {
@@ -15,4 +15,4 @@ export default function GetFromCouch( props ) {
     .then( response => response.json() )
     .then( data => { CouchDataStore.newQueryResult( data.rows[0].Key ); } )
 
-}
+}*/

@@ -19,12 +19,6 @@ export default function Prerequisits( props ) {
                             title={<span>{item.kriterium.join(", ")}</span>}
                             description={item.beschreibung}
                         />
-                        {/*<Col span={2} offset={1} >
-                            {item.kriterium.join(", ")}
-                        </Col>
-                        <Col span={18} offset={3}>
-                            {item.beschreibung}
-                        </Col>*/}
                     </List.Item>
                     </Col>
                 }

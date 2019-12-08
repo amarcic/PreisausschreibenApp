@@ -1,4 +1,4 @@
-import React from 'react';
+/*import React from 'react';
 
 import { Layout } from 'antd';
 
@@ -23,4 +23,4 @@ export default function SearchRow( props ) {
             </div>
         </Layout>
     );
-}
+}*/

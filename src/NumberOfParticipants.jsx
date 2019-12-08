@@ -4,7 +4,6 @@ import { Row, Col, List } from 'antd';
 export default function NumberOfParticipants( props ) {
 
     const numOPart = props.numOPart;
-//    console.log(numOPart);
 
     return( 
     <Row style={{ padding: "20px"}}>
