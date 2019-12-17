@@ -10,7 +10,8 @@ import LandingPage from './LandingPage';
 import AboutPage from './AboutPage';
 import ProSearchPage from './ProSearchPage';
 import SearchBanner from './SearchBanner';
-import SearchRow from './SearchRow';
+import GlossaryPage from "./GlossaryPage";
+//import SearchRow from './SearchRow';
 //import SeriesPage from './SeriesPage';
 import CorpusPage from './CorpusPage';
 import ErrorBoundary from './ErrorBoundary'
@@ -92,10 +93,11 @@ export default class Layout_Container extends React.Component {
                             <Menu.Item key="6">
                                 <Link to="/methodik">Methodik</Link>
                             </Menu.Item>
-                            {/*<Menu.Item key="7"><Link to="/bibliographie">Bibliographie</Link></Menu.Item>*/}
+                            <Menu.Item key="7"><Link to="/bibliographie">Bibliografie, 1820-1870</Link></Menu.Item>
                             <Menu.Item key="8"><Link to="/corpus">Korpus</Link></Menu.Item>
                             <Menu.Item key="9">Publikationen</Menu.Item>
-                            <Menu.Item key="10">Visualisierungen und Analysen</Menu.Item>
+                            <Menu.Item key="10"><Link to="/glossar">Glossar</Link></Menu.Item>
+                            {/*<Menu.Item key="10">Visualisierungen und Analysen</Menu.Item>*/}
                         </SubMenu>
                         <SubMenu title={<span>Über das Projekt</span>}>
                             {/*<Menu.Item key="11">
@@ -118,7 +120,8 @@ export default class Layout_Container extends React.Component {
                             <Route path="/about" component={AboutPage} />
                             <Route path="/methodik" component={OnMethodsPage} />
                             <Route path="/corpus" component={CorpusPage} />
-                            {/*<Route path="/bibliographie" component={BibliographyPage} />*/}
+                            <Route path="/glossar" component={GlossaryPage} />
+                            <Route path="/bibliographie" component={BibliographyPage} />
                             <Route path="/credits" component={CreditsPage} />
                 </Row >
                 <Row type="flex" justify="center" style={{ paddingLeft: "60px", paddingRight: "60px", paddingBottom: "70px"}}>

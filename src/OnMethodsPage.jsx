@@ -15,7 +15,7 @@ export default function OnMethodsPage( props ) {
             
                 <Layout style={{ marginTop: "20px", marginBottom: "20px" }}>
                     <Row>
-                        <Col offset={2}>
+                        <Col offset={2} style={{ maxWidth: "800px", marginLeft: "100px", marginRight: "100px"}}>
                             <h2>Methodik</h2>
                             <br />
                             <p> 

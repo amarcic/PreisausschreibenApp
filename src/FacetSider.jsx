@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { Layout, Menu, Input, Checkbox, Dropdown, Icon, Slider, Radio, Row, Col } from 'antd';
 import { filterOption } from 'rc-mentions/lib/util';
 
-const countriesArray = [
+/*const countriesArray = [
     "Kingdom of the Netherlands",
     "Kingdom of Belgium",
     "Kingdom of Spain",
@@ -32,7 +32,7 @@ const countriesArray = [
     "Republic of Latvia",
     "Federative Republic of Brazil",
     "Kingdom of Sweden"
-  ];
+  ];*/
 
   const countries = (
     <Row>
@@ -68,7 +68,7 @@ const countriesArray = [
 );
 
 //should this be a form?
-const filter = [
+/*const filter = [
     {
         nested: {
             path: "aufgaben",
@@ -109,7 +109,7 @@ const filter = [
             }
         }
     }
-]
+]*/
 
 //if I want to feed it with props from state, this needs to be inside the function component;
 let filterObj = { filter: []}
