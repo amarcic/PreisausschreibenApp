@@ -16,7 +16,7 @@ export default function OnMethodsPage( props ) {
                 <Layout style={{ marginTop: "20px", marginBottom: "20px" }}>
                     <Row>
                         <Col offset={2} style={{ maxWidth: "800px", marginLeft: "100px", marginRight: "100px"}}>
-                            <h2>Methodik</h2>
+                            <h1 style={{fontSize: "1.7rem"}}>Methodik</h1>
                             <br />
                             <p> 
                                 Im Rahmen des DFG-Forschungsprojekts <Link to="/about">Musikalische Preisausschreiben 1820-1870</Link> wurden 
@@ -30,7 +30,7 @@ export default function OnMethodsPage( props ) {
                                 musikalischen Preisausschreiben im 19. Jahrhundert.
                             </p>
                             <br />
-                            <h3>Quellenkorpus</h3>
+                            <h2>Quellenkorpus</h2>
                             <p>
                                 Das ausgewertete <Link to="/">Korpus</Link> besteht aus internationalen Musikperiodika,
                                 die innerhalb des Untersuchungszeitraums zwischen 1820 und 1870 erschienen
@@ -74,7 +74,7 @@ export default function OnMethodsPage( props ) {
                                 werden.
                             </p>
                             <br />
-                            <h3>Gegenstand</h3>
+                            <h2>Gegenstand</h2>
                             <p>
                                 Gegenstand der Auswertung sind alle öffentlich ausgeschriebenen und über einen
                                 regelhaften Wettbewerb zu erringenden Preise, die in der Aufgabenstellung einen
@@ -131,7 +131,7 @@ export default function OnMethodsPage( props ) {
                                 erbringende Leistungen gegeben wird anstatt, wie bei Preisausschreiben, der
                                 Honorierung einer bereits erbrachten Leistung.
                             </p>
-                            <h3>Datenschema</h3>
+                            <h2>Datenschema</h2>
                             <p>
                                 In der Datenbank sind umfassende Informationen zu musikbezogenen
                                 Preisausschreiben im Zeitraum 1820-1870 in strukturierter Weise erfasst, um

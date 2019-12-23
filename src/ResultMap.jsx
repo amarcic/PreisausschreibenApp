@@ -8,7 +8,7 @@ class ResultMap extends React.Component  {
     }
 
     render() {
-        console.log("daten sind hier"/*this.props.data*/);
+        console.log("daten sind hier");
         console.log(this.props.data);
 
         return (

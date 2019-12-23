@@ -16,8 +16,8 @@ export default function BibliographyPage( props ) {
             
                 <Layout style={{ marginTop: "20px", marginBottom: "20px" }}>
                 <div style={{ maxWidth: "800px", marginLeft: "100px", marginRight: "100px"}}>
-                    <h1><a id="0"></a>Schriften über musikalische Preisausschreiben, 1820-1870</h1>
-                    <h2><a id="2"></a>Bibliografie</h2>
+                    <h1 style={{fontSize: "1.7rem"}}><a id="0"></a>Schriften über musikalische Preisausschreiben, 1820-1870</h1>
+                    <h1 style={{fontSize: "1.7rem"}}><a id="2"></a>Bibliografie</h1>
                     <p id="line4">Die Bibliografie strebt an, alle Texte zu verzeichnen, die sich mit musikalischen Preisausschreiben befassen, im definierten Korpus vorkommen und nicht in der Datenbank bereits als Quelle genannt sind. Die Autorennamen wurden nicht angeglichen oder vervollständigt, sondern erscheinen wie in den Zeitschriften. Die Systematisierung soll die Orientierung erleichtern, stellt aber selbstverständlich nur eine mögliche Ordnung dar.</p>
                     <p id="line7"><b> Sinn und Zweck von Preisausschreiben </b></p>
                     <p id="line9">•   J. P. Schmidt, „Ueber den Nutzen musikalischer Preis-Aufgaben“, in: <em>Allgemeine musikalische Zeitung</em> 38/44 (2. November 1836), S. 717f.<br />

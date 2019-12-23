@@ -93,17 +93,17 @@ export default class Layout_Container extends React.Component {
                             <Menu.Item key="6">
                                 <Link to="/methodik">Methodik</Link>
                             </Menu.Item>
-                            <Menu.Item key="7"><Link to="/bibliographie">Bibliografie, 1820-1870</Link></Menu.Item>
-                            <Menu.Item key="8"><Link to="/corpus">Korpus</Link></Menu.Item>
-                            <Menu.Item key="9">Publikationen</Menu.Item>
+                            <Menu.Item key="7"><Link to="/bibliografie">Bibliografie, 1820-1870</Link></Menu.Item>
+                            <Menu.Item key="8"><Link to="/korpus">Korpus</Link></Menu.Item>
+                            {/*<Menu.Item key="9">Publikationen</Menu.Item>*/}
                             <Menu.Item key="10"><Link to="/glossar">Glossar</Link></Menu.Item>
                             {/*<Menu.Item key="10">Visualisierungen und Analysen</Menu.Item>*/}
                         </SubMenu>
                         <SubMenu title={<span>Über das Projekt</span>}>
-                            {/*<Menu.Item key="11">
-                                <Link to="/about">Forschungsvorhaben</Link>
+                            <Menu.Item key="11">
+                                <Link to="/about">Forschungsziel</Link>
                             </Menu.Item>
-                            <Menu.Item key="12">Mitarbeiter</Menu.Item>*/}
+                            {/*<Menu.Item key="12">Mitarbeiter</Menu.Item>*/}
                             <Menu.Item key="13">
                                 <Link to="/credits">Beteiligte</Link>
                             </Menu.Item>
@@ -119,9 +119,9 @@ export default class Layout_Container extends React.Component {
                             {/*<Route path="/overview" render={ (props) => <ErrorBoundary><SeriesPageWithPromise query="none" collection="overview_competitions" {...props} /></ErrorBoundary> } />*/}
                             <Route path="/about" component={AboutPage} />
                             <Route path="/methodik" component={OnMethodsPage} />
-                            <Route path="/corpus" component={CorpusPage} />
+                            <Route path="/korpus" component={CorpusPage} />
                             <Route path="/glossar" component={GlossaryPage} />
-                            <Route path="/bibliographie" component={BibliographyPage} />
+                            <Route path="/bibliografie" component={BibliographyPage} />
                             <Route path="/credits" component={CreditsPage} />
                 </Row >
                 <Row type="flex" justify="center" style={{ paddingLeft: "60px", paddingRight: "60px", paddingBottom: "70px"}}>
@@ -152,7 +152,7 @@ export default class Layout_Container extends React.Component {
                             </div>
                         </Col>
                         <Col span={8}>
-                            <div style={{marginLeft: '15px'}}>
+                            <div style={{/*marginLeft: '15px'*/position: 'absolute', left: "50%" }}>
                                 <Link to="/"><img src={"/assets/CCeH-Logo_transparent_w100.png"} height={"60px"} /></Link>
                             </div>
                         </Col>
