@@ -83,12 +83,6 @@ export default class Layout_Container extends React.Component {
                             <span>Grundriss, Datenbank und Bibliografie auf Grundlage von Musikperiodika</span>
                                                 </div>      */}     
                     <Menu mode="horizontal" style={{ lineHeight: '58px', letterSpacing: '0.04em', fontSize: '14px', color: '#4A5568', float: 'right' }}  >
-                        {/*<SubMenu title={<span>Suche</span>} >
-                        <Menu.Item key="1"><Link to="/prosearch">Preisausschreibensuche</Link></Menu.Item>
-                        <Menu.Item key="2">Personen</Menu.Item>
-                        <Menu.Item key="3">Körperschaften</Menu.Item>
-                                            <Menu.Item key="4">Themen und Schlagworte</Menu.Item>
-                        </SubMenu>*/}
                         <SubMenu title={<span>Forschung</span>} >
                             <Menu.Item key="5">Grundriss</Menu.Item>
                             <Menu.Item key="6">
@@ -152,7 +146,7 @@ export default class Layout_Container extends React.Component {
                             <div style={{textAlign: 'center', fontSize: 12}}>
                                 <span>Musikalische Preisausschreiben 1820 bis 1870</span><br />
                                 <span>Grundriss, Datenbank und Bibliografie auf Grundlage von Musikperiodika</span><br />
-                                <span>Musikalische Preisausschreiben ©2018 | Universität zu Köln</span><br />
+                                <span>Musikalische Preisausschreiben ©2020 | Universität zu Köln</span><br />
                                 Lizenziert unter <a href="https://creativecommons.org/licenses/by/4.0/">CC BY</a>
                             </div>
                         </Col>
