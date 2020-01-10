@@ -13,7 +13,7 @@ export default function LabelSegment(props){
             <Row>
                 <h2 style={{ color: "#4A5568"}}>Schlagworte und historische Bezeichnungen</h2>
                 <Collapse>
-                    <Panel header={ tags.length + " Schlagworte"}>
+                    <Panel header={ tags.length == 1 ? "1 Schlagwort" : tags.length + " Schlagwörter" }>
                         <Col offset={1}>
                             {tags.sort().join(", ")}
                             {/*still lowercase is sorted after uppercase, but should not be*/}

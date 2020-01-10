@@ -11,6 +11,7 @@ import AboutPage from './AboutPage';
 import ProSearchPage from './ProSearchPage';
 import SearchBanner from './SearchBanner';
 import GlossaryPage from "./GlossaryPage";
+import OnDataPage from "./OnDataPage";
 //import SearchRow from './SearchRow';
 //import SeriesPage from './SeriesPage';
 import CorpusPage from './CorpusPage';
@@ -107,6 +108,9 @@ export default class Layout_Container extends React.Component {
                             <Menu.Item key="13">
                                 <Link to="/credits">Beteiligte</Link>
                             </Menu.Item>
+                            <Menu.Item key="14">
+                                <Link to="/daten">Daten</Link>
+                            </Menu.Item>
                         </SubMenu>
                     </Menu>
                 </Header>
@@ -123,6 +127,7 @@ export default class Layout_Container extends React.Component {
                             <Route path="/glossar" component={GlossaryPage} />
                             <Route path="/bibliografie" component={BibliographyPage} />
                             <Route path="/credits" component={CreditsPage} />
+                            <Route path="/daten" component={OnDataPage} />
                 </Row >
                 <Row type="flex" justify="center" style={{ paddingLeft: "60px", paddingRight: "60px", paddingBottom: "70px"}}>
                     <Route path="/" exact component={LandingPage} />

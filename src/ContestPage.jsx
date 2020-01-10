@@ -18,7 +18,7 @@ const ParticipantSegmentWithCommentContainer = withCommentContainer(ParticipantS
 
 
 export default function ContestPage( props ) {
-    console.log( props.requestData );
+    //console.log( props.requestData );
 
     const data = props.requestData;
     // sort events by date; case that only value data.ereignisse.zeit.bis exists has been ignored (right now there are no such event objects in the data)
@@ -43,7 +43,7 @@ export default function ContestPage( props ) {
     let series;
     let numberOfParticipants;
 
-    console.log(events)
+    //console.log(events)
 
     const duration = [ (events[0].zeit.datum ? events[0].zeit.datum : events[0].zeit.von), (events[events.length-1].zeit.datum ? events[events.length-1].zeit.datum : events[events.length-1].zeit.von)];
     const place = data.ereignisse.find( event => event.ort.hasOwnProperty("ortsname")) ? data.ereignisse.find( event => event.ort.hasOwnProperty("ortsname") ).ort.ortsname : "Ort unbekannt"  ;
@@ -103,33 +103,33 @@ export default function ContestPage( props ) {
         <Row>
             <Col span={20} offset={2}> 
         
-        <div>
-            <OverviewTaskSegmentWithCommentContainer occasion={occasion} duration={duration} place={place} tender={tender} series={series} pAmount={numberOfParticipants} taskTypes={taskTypes} tasks={tasks} subcompetitions={subcompetitions} conditions={data.teilnahmevoraussetzungen} formalia={formalia} comments={comments.filter( comment => comment.thema==="Preisausschreiben allgemein" || comment.thema==="Aufgaben" || comment.thema==="Formalia" || comment.thema==="ausschreibende Institution/Person" || comment.thema==="Teilnahmevoraussetzungen" || comment.thema==="Ergaenzungen" )}  />       
-        </div>
+            <div>
+                <OverviewTaskSegmentWithCommentContainer occasion={occasion} duration={duration} place={place} tender={tender} series={series} pAmount={numberOfParticipants} taskTypes={taskTypes} tasks={tasks} subcompetitions={subcompetitions} conditions={data.teilnahmevoraussetzungen} formalia={formalia} comments={comments.filter( comment => comment.thema==="Preisausschreiben allgemein" || comment.thema==="Aufgaben" || comment.thema==="Formalia" || comment.thema==="ausschreibende Institution/Person" || comment.thema==="Teilnahmevoraussetzungen" || comment.thema==="Ergaenzungen" )}  />
+            </div>
 
-        <div style={{marginTop: 50}}>
-                <EventSegmentWithCommentContainer events={events} comments={comments.filter( comment => comment.thema==="Ereignisse" )} />
-        </div>
+            <div style={{marginTop: 50}}>
+                    <EventSegmentWithCommentContainer events={events} comments={comments.filter( comment => comment.thema==="Ereignisse" )} />
+            </div>
 
-        {data.reduzierteErfassung && <Alert message="Den angeführten Quellen zu diesem Wettbewerb lassen sich möglicherweise weitere Informationen entnehmen, die in der Datenbank bisher nicht erfasst wurden. Dies gilt für alle Wettbewerbe mit der Teilnahme von Gruppen wie z.B. Ensembles, Chören oder Orchestern." type="info" showIcon />}
-        
-        
-        <div style={{marginTop: 50}}>
-            <CompetingSegmentWithCommentContainer participants={participants} awards={awards} subcompetitions={subcompetitions} numOfParticipants={data.teilnehmerInnenzahl} comments={comments.filter( comment => comment.thema==="PreisträgerInnen" || comment.thema==="Jury" || comment.thema==="Beurteilung" || comment.thema==="Auszeichnungen" || comment.thema==="PreisträgerInnen" || comment.thema==="TeilnehmerInnen" )} />
-        </div>
-        
-        <div style={{marginTop: 50}}>
-            <ParticipantSegmentWithCommentContainer participants={participants} comments={comments.filter( comment => comment.thema==="TeilnehmerInnen")} />
-        </div>
-        
-        <div style={{marginTop: 50}} >
-            <LabelSegment tags={keywords.concat(taskfields)} labels={data.bezeichnung} />
-        </div>
+            {data.reduzierteErfassung && <Alert message="Den angeführten Quellen zu diesem Wettbewerb lassen sich möglicherweise weitere Informationen entnehmen, die in der Datenbank bisher nicht erfasst wurden. Dies gilt für alle Wettbewerbe mit der Teilnahme von Gruppen wie z.B. Ensembles, Chören oder Orchestern." type="info" showIcon />}
 
-        <div style={{marginTop: 50}}>
-            <ResourceSegment resources={resources} />
-        </div>
 
+            <div style={{marginTop: 50}}>
+                <CompetingSegmentWithCommentContainer participants={participants} awards={awards} subcompetitions={subcompetitions} numOfParticipants={data.teilnehmerInnenzahl} comments={comments.filter( comment => comment.thema==="PreisträgerInnen" || comment.thema==="Jury" || comment.thema==="Beurteilung" || comment.thema==="Auszeichnungen" || comment.thema==="PreisträgerInnen" || comment.thema==="TeilnehmerInnen" )} />
+            </div>
+
+            <div style={{marginTop: 50}}>
+                <ParticipantSegmentWithCommentContainer participants={participants} comments={comments.filter( comment => comment.thema==="TeilnehmerInnen")} />
+            </div>
+
+            <div style={{marginTop: 50}} >
+                <LabelSegment tags={keywords.concat(taskfields)} labels={data.bezeichnung} />
+            </div>
+
+            <div style={{marginTop: 50}}>
+                <ResourceSegment resources={resources} />
+            </div>
+            <p style={{marginTop:"20px"}}><a href={"http://musical-competitions.uni-koeln.de/api/" + data._id}>Datensatz zu diesem Preisausschreiben</a> (JSON)</p>
         </Col>
     </Row>
     </div>
