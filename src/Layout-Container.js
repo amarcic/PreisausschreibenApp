@@ -12,8 +12,6 @@ import ProSearchPage from './ProSearchPage';
 import SearchBanner from './SearchBanner';
 import GlossaryPage from "./GlossaryPage";
 import OnDataPage from "./OnDataPage";
-//import SearchRow from './SearchRow';
-//import SeriesPage from './SeriesPage';
 import CorpusPage from './CorpusPage';
 import ErrorBoundary from './ErrorBoundary'
 import CreditsPage from './CreditsPage';
@@ -24,8 +22,6 @@ import withESData from './withESData';
 import OnMethodsPage from './OnMethodsPage';
 import BibliographyPage from './BibliographyPage';
 
-//const SearchPageWithPromise = withPromise( SearchPage );
-//const SeriesPageWithPromise = withPromise( SeriesPage );
 const SearchPageWithESData = withESData( ProSearchPage );
 
 export default class Layout_Container extends React.Component {
@@ -131,11 +127,7 @@ export default class Layout_Container extends React.Component {
                     {/*<Route path="/search" render={ (props) => <ErrorBoundary> <SearchPageWithPromise query={this.state.searchInput} collection={this.state.searchCollection} {...props} /> </ErrorBoundary> } />*/}
                     <Route path="/prosearch" render={ (props) => <ErrorBoundary> <SearchPageWithESData strQuery={this.state.stringQueryObject} /*filterObj={this.state.filterObject}*/ filterCountry={this.state.filterCountry} filterTimeSpan={this.state.filterTimeSpan} filterTaskTypes={this.state.filterTaskTypes} updateQuery={this.updateQuery} searchType={this.state.searchType} sort={this.state.sort} offset={this.state.offset} {...props} /> </ErrorBoundary> } />
                 </Row>
-                {/*<Footer style={{textAlign: 'center', fontSize: 12}}>
-                    <span>Musikalische Preisausschreiben 1820 bis 1870</span><br />
-                    <span>Grundriss, Datenbank und Bibliografie auf Grundlage von Musikperiodika</span><br />
-                    Musikalische Preisausschreiben ©2018 | Universität zu Köln
-                </Footer>*/}
+
                 <Footer>
                     <Row>
                         <Col span={8}>

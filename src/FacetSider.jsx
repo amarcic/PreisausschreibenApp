@@ -151,12 +151,10 @@ const menuRoles = (
 
 const searchFields = (
         <Row>
-            <Col><Checkbox value="beteiligte.name" disabled>Beteiligte</Checkbox></Col>
-            <Col><Checkbox value="aufgaben.spezifizierung" disabled>Aufgabenstellung</Checkbox></Col>
-            <Col><Checkbox value="schlagwoerter">Tags</Checkbox></Col>
+            <Col><Checkbox value="esTaskDescription">Aufgabenstellung</Checkbox></Col>
+            <Col><Checkbox value="esTags">Tags</Checkbox></Col>
             <Col><Checkbox value="formalia">Formalia</Checkbox></Col>
             <Col><Checkbox value="quellen.quellenangabe">Quellen</Checkbox></Col>
-            {/*<Col><Checkbox value="_all">...allen Feldern</Checkbox></Col>*/}
         </Row>
 );
 

@@ -14,7 +14,7 @@ function LandingPage( props ) {
                 <Row>
                 <Col>
                     <div style={{ /*maxWidth: "1680px",*/ textAlign: "center", marginTop: 60, marginRight: "auto", marginLeft: "auto", width: 600 }}>
-                        Die Datenbank enthält Einträge zu 1341 musikbezogenen Preisausschreiben des 19. Jahrhunderts, die im Rahmen eines von der DFG geförderten Forschungsprojektes an der Universität zu Köln erfasst wurden.
+                        Die Datenbank enthält Einträge zu 1340 musikbezogenen Preisausschreiben des 19. Jahrhunderts, die im Rahmen eines von der DFG geförderten Forschungsprojektes an der Universität zu Köln erfasst wurden.
                     </div>
                 </Col>
                 </Row>

@@ -20,7 +20,8 @@ let client = new elasticsearch.Client({
 function fetchFromES( strQueryObj, optionObj ) {
 
     const options = optionObj || {};
-    const index = 'couchdata3';
+    //const index = 'couchdata3';
+    const index = 'preisausschreibendb';
     //const doctype = type || '_all';
     const fields = fields || '_all';
     const sort = options.sort || "";
@@ -215,7 +216,7 @@ export default function withESData( WrappedComponent ) {
                 const hitsCount = this.state.hitsCount;
                 //const isLoading = this.state.loading;
 
-                console.log(fetchedData);
+                //console.log(fetchedData);
 
                 if (this.state.loading) {
                     return (<div style={ {marginTop: 200} }><Spin size="large" tip="Die Daten werden geladen." /></div> );

@@ -16,7 +16,7 @@ export default function BibliographyPage( props ) {
             
                 <Layout style={{ marginTop: "20px", marginBottom: "20px" }}>
                 <div style={{ maxWidth: "800px", marginLeft: "100px", marginRight: "100px"}}>
-                    <h1 style={{fontSize: "1.7rem"}}><a id="0"></a>Schriften über musikalische Preisausschreiben, 1820-1870</h1>
+                    <h1 style={{fontSize: "1.7rem"}}><a id="0"></a>Schriften über musikalische Preisausschreiben, 1820-1870:</h1>
                     <h1 style={{fontSize: "1.7rem"}}><a id="2"></a>Bibliografie</h1>
                     <p id="line4">Die Bibliografie strebt an, alle Texte zu verzeichnen, die sich mit musikalischen Preisausschreiben befassen, im definierten Korpus vorkommen und nicht in der Datenbank bereits als Quelle genannt sind. Die Autorennamen wurden nicht angeglichen oder vervollständigt, sondern erscheinen wie in den Zeitschriften. Die Systematisierung soll die Orientierung erleichtern, stellt aber selbstverständlich nur eine mögliche Ordnung dar.</p>
                     <h3><a id="7"></a>Sinn und Zweck von Preisausschreiben</h3>
@@ -38,7 +38,6 @@ export default function BibliographyPage( props ) {
                     </li><li>[Anon.], „Der Musik-Verlag in Deutschland“, in: <i>Niederrheinische Musik-Zeitung</i> 4/10 (15. März 1856), S. 81f. [u. a. auch darüber, dass Kompositionspreisausschreiben das allgemeine Niveau musikalischer Kompositionen nicht heben würden].
                     </li><li>F. Brendel, „Statuten des Allgemeinen deutschen Musikvereins“, in: <i>Neue Zeitschrift für Musik</i> 53/11 (7. September 1860), S. 89f. [Kompositionspreisausschreiben hätten sich als weniger sinnvoll und ergiebig herausgestellt als musikhistorische Preisausschreiben.].
                     </li><li>[Anon.], „Society for the Encouragement of the Fine Arts“, in: <i>The Musical World</i> 38/1 (7. Januar 1860), S. 5-7 [Berichterstattung über die Vollversammlung der „Society for the Encouragement of the Fine Arts“: Wiedergabe der Diskussion über Preisausschreiben in den Künsten im Allgemeinen sowie in der Musik im Speziellen].
-                    </li><li>Alex T. Teetjen, „Prize for Stringed Quartets“, in: <i>The Musical World</i> 40/48 (29. November 1862), S. 765 [Wunsch nach einem Kompositionspreisausschreiben].
                     </li><li>Otto Beard, „o. T. Titel“, in: <i>The Musical World</i> 42/17 (23. Mai 1864), S. 264f. [Kritik an einem geplanten Preisausschreiben des neugegründeten College of Organists. Die Kritik enthält eine detaillierte Abhandlung über die Gestaltung von Preisausschreiben allgemein.].
                     </li><li>[Anon.], „Ueber Preis-Aufgaben“, in: <i>Neue Berliner Musikzeitung</i> 20/28 (11. Juli 1866), S. 219f.
                     </li><li>G. Roores, „o. T.“, in: <i>The Musical World</i> 44/29 (21. Juli 1866), S. 459f. [zu musikalischen Preisausschreiben und ihren Nutzen für MusikerInnen allgemein].
@@ -64,6 +63,7 @@ export default function BibliographyPage( props ) {
                     </li><li>L.D., „Vorschlag“, in: <i>Süddeutsche Musikzeitung</i> 1/10 (7. Juni 1852), S. 37 [Vorschlag für ein Preisausschreiben zur Musiktheorie].
                     </li><li>Ernest Lépine, „Projet. Audition périodique des œuvres des artistes vivants. Réponse aux réclamations de la Société Sainte-Cécile et de la Société des Jeunes-Artistes“, in: <i>Le Ménestrel</i> 22/7 (14. Januar 1855), S. 2f. [Bekräftigung der Idee eines nationalen Musikwettbewerbs].
                     </li><li>X., „Anregung zu einem allgemein deutschen Sänger-Concurs“, in: <i>Niederrheinische Musik-Zeitung</i> 6/31 (31. Juli 1858), S. 243f. [Ideen zu einem Gesangswettbewerb für SolistInnen].
+                    </li><li>Alex T. Teetjen, „Prize for Stringed Quartets“, in: <i>The Musical World</i> 40/48 (29. November 1862), S. 765 [Wunsch nach einem Kompositionspreisausschreiben].
                     </li><li>[Anon.], „‘Antigone’ at the Crystal Palace”, in: <i>The Musical Standard</i> 2/28 (15. September 1863), S. 53 [Wunsch nach einem musikalischen Preisausschreiben, an dem nur Engländer teilnehmen dürfen].
                     </li><li>[„Rusticus“], „Musical prizes. To the Editor of The Musical World“, in: <i>The Musical World</i> 41/15 (11. April 1863), S. 231 [Wunsch nach einem Kompositionspreisausschreiben].
                     </li><li>Roberts, Valentine, „Musical Prizes. To the Editor of the Musical World“, in: <i>The Musical World</i> 41/16 (18. April 1863), S. 246 [Wunsch nach einem Kompositionspreisausschreiben].

@@ -18,28 +18,32 @@ export default function OnMethodsPage( props ) {
                         <Col offset={2} style={{ maxWidth: "800px", marginLeft: "100px", marginRight: "100px"}}>
                             <h1 style={{fontSize: "1.7rem"}}>Methodik</h1>
                             <br />
-                            <p> 
-                                Im Rahmen des DFG-Forschungsprojekts <Link to="/about">Musikalische Preisausschreiben 1820-1870</Link> wurden 
-                                Musikzeitschriften in Hinblick auf das
-                                Projektthema ausgewertet und die vorgefundenen Informationen in 
-                                einer <Link to="/prosearch">Datenbank</Link> strukturiert in deutscher Sprache erfasst. Beiträge in diesen 
-                                Zeitschriften, in denen auf das Thema allgemeiner, und nicht nur auf ein einzelnes
-                                Preisausschreiben, Bezug genommen wird, sind zusätzlich in einer 
-                                entsprechenden <Link to="/bib">Bibliographie</Link> festgehalten. Die erhobenen Daten 
+                            <p>
+                                Im Rahmen des von Frank Hentschel gemeinsam mit Andreas Domann geleiteten und von der
+                                DFG geförderten Forschungsprojekts <i>Musikalische Preisausschreiben
+                                1820-1870: Grundriss, Datenbank und Bibliografie auf der Grundlage von
+                                Musikperiodika</i> wurden Musikzeitschriften ausgewertet, um eine grundlegende Übersicht
+                                über musikbezogene Preisausschreiben jener Jahre zu gewinnen. Die vorgefundenen
+                                Informationen wurden strukturiert und in einer <Link to="/prosearch">Datenbank</Link> in
+                                deutscher Sprache erfasst. Beiträge in diesen Zeitschriften, in denen auf das Thema
+                                in allgemeiner Weise Bezug genommen wird, sind zusätzlich in einer
+                                entsprechenden <Link to="/bibliografie">Bibliografie</Link> festgehalten. Die erhobenen Daten
                                 dienen schließlich als Grundlage eines historischen <Link to="/ ">Grundrisses</Link> zu
                                 musikalischen Preisausschreiben im 19. Jahrhundert.
                             </p>
                             <br />
                             <h2>Quellenkorpus</h2>
                             <p>
-                                Das ausgewertete <Link to="/">Korpus</Link> besteht aus internationalen Musikperiodika,
+                                Das ausgewertete Korpus besteht aus internationalen Musikperiodika,
                                 die innerhalb des Untersuchungszeitraums zwischen 1820 und 1870 erschienen
                                 sind. Dabei sind solche Zeitschriften berücksichtigt, von denen mindestens 12
                                 vollständige oder angebrochene Jahrgänge existierten, wobei Unterbrechungen der
                                 Herausgabe bis zu fünf Jahren akzeptiert werden. Beschränkt wird sich dabei auf
                                 Ausgaben, die zum Zeitpunkt des ersten Projektjahres 2016 in digitalisierter Form
-                                online verfügbar waren. Unter Musikperiodika werden hier Zeitschriften mit primärem
-                                Interesse an Musik verstanden, die unter anderem eine Funktion der
+                                online verfügbar waren (welche Zeitschriften
+                                und welche jeweiligen Ausgaben dies sind, ist in der <Link to="/korpus">Liste der
+                                Quellen</Link> genau festgehalten). Unter Musikperiodika werden hier Zeitschriften mit
+                                primärem Interesse an Musik verstanden, die unter anderem eine Funktion der
                                 Anzeigenschaltung, Nachrichtenvermittlung und kritischen Berichterstattung des
                                 Musiklebens für ein öffentliches Lesepublikum erfüllten. Für das Projekt sind nur
                                 Periodika mit einem allgemeinen Bezug zur Musik und entsprechender thematischer
@@ -82,7 +86,7 @@ export default function OnMethodsPage( props ) {
                                 Preisausschreiben für Komposition, Instrumentalspiel und Gesang, musikbezogenes
                                 Schrifttum, Libretti- und Liedtextdichtung, Instrumentenbau sowie andere Objekte
                                 und performative Leistungen. Dabei ist das Spektrum weder auf bestimmte
-                                Gattungen oder Stile, noch etwa auf professionelle oder laienhafte Musikausübung
+                                Gattungen oder Stile noch etwa auf professionelle oder laienhafte Musikausübung
                                 beschränkt. Um musikalische Preisausschreiben im engeren Sinne von anderen
                                 Formen der Konkurrenzaustragung beziehungsweise Auszeichnungs- und
                                 Belohnungspraktiken des 19. Jahrhunderts abgrenzen zu können, wurde auf
@@ -92,16 +96,13 @@ export default function OnMethodsPage( props ) {
                             </p>
                             <br />
                             <p>
-                                Zu 1) <u>Öffentliche Ausschreibung</u>: Der Wettbewerb muss für eine prinzipiell
-                                unbegrenzte Gruppe an Personen ausgeschrieben sein. Das schließt nicht aus, dass
-                                dennoch allgemeine Teilnahmebedingungen (wie eine bestimmte Nationalität, ein
-                                bestimmtes Alter o.ä.) gestellt werden. Im Umkehrschluss folgt aus diesem Kriterium,
-                                dass die Teilnahme aufgrund eigener Initiative (einer Anmeldung, Bewerbung,
-                                Einreichung o.ä.) zustande kommt. Förder- und Ehrenpreise, die an ausgewählte
+                                Zu 1) <u>Freiwillige Teilnahme</u>: Die Teilnahme am Wettbewerb ist freiwillig und
+                                geschieht aus Eigeninitiative der BewerberInnen (einer Anmeldung, Bewerbung,
+                                Einreichung o. ä.). Obligatorische Wettbewerbs- und Prüfungsverfahren im Rahmen der
+                                Ausbildung an musikalischen Schulen, Konservatorien etc. stellen somit grundsätzlich
+                                eine andere Form der Konkurrenzaustragung dar. Auch Förder- und Ehrenpreise, die an ausgewählte
                                 Personen ohne deren eigene Initiative vergeben wurden, sind nach dieser Definition
-                                keine Preisausschreiben. Auch obligatorische Wettbewerbs- und Prüfungsmodi für
-                                die feste Gruppe der Schülerschaft musikalischer Ausbildungsstätten stellen somit
-                                grundsätzlich eine andere Form der Konkurrenzaustragung dar.
+                                keine Preisausschreiben.
                             </p>
                             <br />
                             <p>
@@ -109,7 +110,7 @@ export default function OnMethodsPage( props ) {
                                 Wettbewerbsverfahren, das von einer dritten (ausschreibenden) Institution oder
                                 Person festgelegt beziehungsweise offiziell vertreten wird. Eine von dieser Institution
                                 oder Person eingesetzte Jury entscheidet über die Preisvergabe. Als Richtlinie für die
-                                TeilnehmerInnen ebenso wie für die Juroren muss eine hinreichend konkretisierte
+                                TeilnehmerInnen ebenso wie für die JurorInnen muss eine hinreichend konkretisierte
                                 Wettbewerbsaufgabe gestellt sein. Informelle Wettstreite jeglicher Art (etwa solche,
                                 die aus persönlichen Herausforderungen resultierten) sind nach diesem Kriterium
                                 von Preisausschreiben zu unterscheiden. Bei den Prämien für auf Industrie- und
@@ -261,7 +262,7 @@ export default function OnMethodsPage( props ) {
                                 <u>Verschlagwortung</u>: Jedes Preisausschreiben wurde, insoweit die Quellen die
                                 entsprechenden Informationen hergaben, unter drei Gesichtspunkten
                                 verschlagwortet. Dazu zählen erstens die in ihm enthaltene Aufgabenstellungen.
-                                Zweitens wurde, wenn bekannt, der konkrete Anlass oder auch entsprechend
+                                Zweitens wurden, wenn bekannt, der konkrete Anlass oder auch entsprechend
                                 explizite ideologische Intentionen und Beweggründe in Schlagworten festgehalten.
                                 Drittens wurde gegebenenfalls das soziale Milieu des Preisausschreibens insgesamt
                                 oder auch die gesellschaftliche Zugehörigkeit der ausschreibenden Institution/Person
