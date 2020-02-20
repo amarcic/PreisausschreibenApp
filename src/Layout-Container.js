@@ -13,6 +13,7 @@ import SearchBanner from './SearchBanner';
 import GlossaryPage from "./GlossaryPage";
 import OnDataPage from "./OnDataPage";
 import CorpusPage from './CorpusPage';
+import SearchInfoPage from "./SearchInfoPage";
 import ErrorBoundary from './ErrorBoundary'
 import CreditsPage from './CreditsPage';
 import DocViewSwitch from './DocViewSwitch';
@@ -87,7 +88,8 @@ export default class Layout_Container extends React.Component {
                             <Menu.Item key="7"><Link to="/bibliografie">Bibliografie, 1820-1870</Link></Menu.Item>
                             <Menu.Item key="8"><Link to="/korpus">Korpus</Link></Menu.Item>
                             {/*<Menu.Item key="9">Publikationen</Menu.Item>*/}
-                            <Menu.Item key="10"><Link to="/glossar">Glossar</Link></Menu.Item>
+                            <Menu.Item key="9"><Link to="/glossar">Glossar</Link></Menu.Item>
+                            <Menu.Item key="10"><Link to="/onsearch">Anleitung zur Suche</Link></Menu.Item>
                             {/*<Menu.Item key="10">Visualisierungen und Analysen</Menu.Item>*/}
                         </SubMenu>
                         <SubMenu title={<span>Über das Projekt</span>}>
@@ -118,6 +120,7 @@ export default class Layout_Container extends React.Component {
                             <Route path="/bibliografie" component={BibliographyPage} />
                             <Route path="/credits" component={CreditsPage} />
                             <Route path="/daten" component={OnDataPage} />
+                            <Route path="/onsearch" component={SearchInfoPage} />
                 </Row >
                 <Row type="flex" justify="center" style={{ paddingLeft: "60px", paddingRight: "60px", paddingBottom: "70px"}}>
                     <Route path="/" exact component={LandingPage} />

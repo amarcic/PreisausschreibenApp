@@ -1,38 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 
-import { Layout, Menu, Input, Checkbox, Dropdown, Icon, Slider, Radio, Row, Col } from 'antd';
-import { filterOption } from 'rc-mentions/lib/util';
-
-/*const countriesArray = [
-    "Kingdom of the Netherlands",
-    "Kingdom of Belgium",
-    "Kingdom of Spain",
-    "France",
-    "Federal Republic of Germany",
-    "Hungary",
-    "Ireland",
-    "United Kingdom of Great Britain and Northern Ireland",
-    "Mexico",
-    "United States",
-    "Czechia",
-    "Repubblica Italiana",
-    "Republic of Austria",
-    "Republic of Croatia",
-    "People’s Democratic Republic of Algeria",
-    "România",
-    "Hellenic Republic",
-    "Switzerland",
-    "Republic of Poland",
-    "Russian Federation",
-    "Kingdom of Denmark",
-    "Republic of Slovenia",
-    "Grand Duchy of Luxembourg",
-    "Kingdom of Norway",
-    "Republic of Latvia",
-    "Federative Republic of Brazil",
-    "Kingdom of Sweden"
-  ];*/
+import { Layout, Menu, Input, Checkbox, Dropdown, Icon, Slider, Row, Col, Popover } from 'antd';
 
   const countries = (
     <Row>
@@ -67,92 +36,14 @@ import { filterOption } from 'rc-mentions/lib/util';
     </Row>
 );
 
-//should this be a form?
-/*const filter = [
-    {
-        nested: {
-            path: "aufgaben",
-            filter: {
-                and: [
-                    {
-                        terms: { "aufgaben.aufgabentyp.raw": [ "zu vertonender Text", "Komposition"] }
-                    },
-                    {
-                        term: { systematik: "kantate" }
-                    }
-                ]
-            }
-        }
-    },
-    {
-        nested: {
-            path: "ereignisse",
-            filter: {
-                and: [
-                    {
-                        term: { esCountry: "france" }
-                    }
-                ]
-            }
-        }
-    },
-    {
-        term: { schlagwoerter: "italien" }
-    },
-    {
-        term: { esPlacename: "paris" }
-    }, {
-        range: {
-            esStart: {
-                from: "1825-01-01",
-                to: "1865-12-31"
-            }
-        }
-    }
-]*/
-
-//if I want to feed it with props from state, this needs to be inside the function component;
-let filterObj = { filter: []}
-
 const CheckboxGroup = Checkbox.Group;
 const { Sider } = Layout;
 const { SubMenu } = Menu;
 
-const optionsType = [ {label: "Preisausschreiben", value: "contest"}, {label: "Personen", value: "person"} ]
-const optionsParticipants = [ 
-                                {label: "TeilnehmerIn", value: "TeilnehmerIn"}, 
-                                {label: "Jurymitglied", value: "Jurymitglied"}, 
-                                {label: "ausschreibende Institution/Person", value: "ausschreibende Institution/Person"}, 
-                                {label: "OrganisatorIn/RepräsentantIn", value: "OrganisatorIn/RepräsentantIn"},
-                                {label: "InterpretIn", value: "InterpretIn"},
-                                {label: "JournalistIn", value: "JournalistIn"},
-                                {label: "KomponistIn/ArrangeurIn", value: "KomponistIn/ArrangeurIn"},
-                                {label: "AutorIn", value: "AutorIn"},
-                                {label: "MäzenIn", value: "MäzenIn"},
-                                {label: "LehrerIn von TeilnehmerIn", value: "LehrerIn von TeilnehmerIn"},
-                                {label: "Sonstige", value: "Sonstige"},
-                            ]
-
-const menuRoles = (
-    <Menu>
-        <Menu.Item key="0">TeilnehmerIn</Menu.Item>
-        <Menu.Item key="1">Jurymitglied</Menu.Item>
-        <Menu.Item key="2">ausschreibende Institution/Person</Menu.Item>
-        <Menu.Item key="3">OrganisatorIn/RepräsentantIn</Menu.Item>
-        <Menu.Item key="4">InterpretIn</Menu.Item>
-        <Menu.Item key="5">JournalistIn</Menu.Item>
-        <Menu.Item key="6">KomponistIn/ArrangeurIn</Menu.Item>
-        <Menu.Item key="7">AutorIn</Menu.Item>
-        <Menu.Item key="8">MäzenIn</Menu.Item>
-        <Menu.Item key="9">LehrerIn von TeilnehmerIn</Menu.Item>
-        <Menu.Item key="10">Sonstige</Menu.Item>
-    </Menu>
-);
-
 const searchFields = (
         <Row>
             <Col><Checkbox value="esTaskDescription">Aufgabenstellung</Checkbox></Col>
-            <Col><Checkbox value="esTags">Tags</Checkbox></Col>
+            <Col><Checkbox value="esTags">Schlagwörter</Checkbox></Col>
             <Col><Checkbox value="formalia">Formalia</Checkbox></Col>
             <Col><Checkbox value="quellen.quellenangabe">Quellen</Checkbox></Col>
         </Row>
@@ -169,8 +60,6 @@ const taskTypes = (
 );
 
 class FacetSider extends React.Component {
-
-    //elasticsearch depended
 
     constructor( props ) {
         super(props);
@@ -266,7 +155,7 @@ class FacetSider extends React.Component {
                                             } 
                                         }
                             />
-                            <Icon type="question-circle" />
+                            <Popover content="Anleitung zur Suche (z.B. Sonderzeichen) im Menü unter Forschung"><Icon type="question-circle" /></Popover>
                         </Menu.Item>
                         <Menu.Item>
                         <Dropdown trigger={['click']} overlay={<Menu><Menu.Item><CheckboxGroup onChange={this.onChangeFields} defaultValue={this.props.query.simple_query_string.fields} >{searchFields}</CheckboxGroup></Menu.Item></Menu>}><span>suchen nur in <Icon type="down" /></span></Dropdown>
@@ -279,21 +168,6 @@ class FacetSider extends React.Component {
                                 </CheckboxGroup>
                             </Menu.Item>
                         </SubMenu>
-                        {/*<Menu.Divider >o</Menu.Divider>
-                        <Menu.Item>Name</Menu.Item>
-                        <SubMenu key="subRole" title="Rolle" multiple="true" onClick={handleSelect}>
-                            <Menu.Item key="0">TeilnehmerIn</Menu.Item>
-                            <Menu.Item key="1">Jurymitglied</Menu.Item>
-                            <Menu.Item key="2">ausschreibende Institution/Person</Menu.Item>
-                            <Menu.Item key="3">OrganisatorIn/RepräsentantIn</Menu.Item>
-                            <Menu.Item key="4">InterpretIn</Menu.Item>
-                            <Menu.Item key="5">JournalistIn</Menu.Item>
-                            <Menu.Item key="6">KomponistIn/ArrangeurIn</Menu.Item>
-                            <Menu.Item key="7">AutorIn</Menu.Item>
-                            <Menu.Item key="8">MäzenIn</Menu.Item>
-                            <Menu.Item key="9">LehrerIn von TeilnehmerIn</Menu.Item>
-                            <Menu.Item key="10">Sonstige</Menu.Item>                   
-                        </SubMenu>*/}
                         <Menu.Divider />
                         <Menu.Item style={{height: 110}}>
                         <div>
