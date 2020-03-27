@@ -17,8 +17,7 @@ export default function ArticlePage( props ) {
                     <Row>
                         <Col offset={2} style={{ maxWidth: "800px", marginLeft: "100px", marginRight: "100px"}}>
                             <div>
-                                <h1 style={{fontSize: "1.7rem"}}>Forschungsziel</h1>
-                                <h1><a id="0"></a><strong>Musikalische Preisausschreiben 1820-1870</strong></h1>
+                                <h1 style={{fontSize: "1.7rem"}}><a id="0"></a><strong>Musikalische Preisausschreiben 1820-1870</strong></h1>
                                 <h2><a id="2"></a><strong>Ein historischer Grundriss</strong></h2>
                                 <p id="line6">Carola Bebermeier, Clemens Kreutzfeldt und Jonas Traudes</p>
                                 <p id="line8"><a href="LINK">Download: PDF-Datei</a>&nbsp;   &nbsp;   &nbsp;  || &nbsp;   &nbsp;  &nbsp;  <a href="#Zitiervorschlag">Zitiervorschlag</a><br />
@@ -614,7 +613,7 @@ export default function ArticlePage( props ) {
                                             <p id="line1673"><a name="Zitiervorschlag"> </a></p>
                                             <h2><a id="1675"></a>Zitiervorschlag</h2>
                                             <blockquote id="line1677">
-                                                <p id="line1678">Carola Bebermeier, Clemens Kreutzfeldt und Jonas Traudes: „Musikalische Preisausschreiben 1820-1870 Ein historischer Grundriss“, in: <em><a href="http://musical-competitions.uni-koeln.de/app/">Musikalische Preisausschreiben 1820-1870. Grundriss, Datenbank und Bibliografie auf Grundlage von Musikperiodika</a></em>, hrsg. von Frank Hentschel und Andreas Domann, Universität zu Köln 2020, &lt;[Dieser Link]&gt; . DOI: xxxxxxxxxxxxxxxxxxx.</p>
+                                                <p id="line1678">Carola Bebermeier, Clemens Kreutzfeldt und Jonas Traudes: „Musikalische Preisausschreiben 1820-1870 Ein historischer Grundriss“, in: <em><a href="http://musical-competitions.uni-koeln.de/app/">Musikalische Preisausschreiben 1820-1870. Grundriss, Datenbank und Bibliografie auf Grundlage von Musikperiodika</a></em>, hrsg. von Frank Hentschel und Andreas Domann, Universität zu Köln 2020, <a href="http://musical-competitions.uni-koeln.de/app/grundriss">musical-competitions.uni-koeln.de/app/grundriss</a>. DOI: xxxxxxxxxxxxxxxxxxx.</p>
                                             </blockquote>
                             </div>
                         </Col>

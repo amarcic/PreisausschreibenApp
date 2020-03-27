@@ -28,7 +28,7 @@ export default function OnMethodsPage( props ) {
                                 deutscher Sprache erfasst. Beiträge in diesen Zeitschriften, in denen auf das Thema
                                 in allgemeiner Weise Bezug genommen wird, sind zusätzlich in einer
                                 entsprechenden <Link to="/bibliografie">Bibliografie</Link> festgehalten. Die erhobenen Daten
-                                dienen schließlich als Grundlage eines historischen <Link to="/ ">Grundrisses</Link> zu
+                                dienen schließlich als Grundlage eines historischen <Link to="/grundriss">Grundrisses</Link> zu
                                 musikalischen Preisausschreiben im 19. Jahrhundert.
                             </p>
                             <br />
