@@ -22,6 +22,7 @@ import withPromise from './withPromise';
 import withESData from './withESData';
 import OnMethodsPage from './OnMethodsPage';
 import BibliographyPage from './BibliographyPage';
+import ArticlePage from "./ArticlePage";
 
 const SearchPageWithESData = withESData( ProSearchPage );
 
@@ -81,7 +82,7 @@ export default class Layout_Container extends React.Component {
                                                 </div>      */}     
                     <Menu mode="horizontal" style={{ lineHeight: '58px', letterSpacing: '0.04em', fontSize: '14px', color: '#4A5568', float: 'right' }}  >
                         <SubMenu title={<span>Forschung</span>} >
-                            <Menu.Item key="5">Grundriss</Menu.Item>
+                            <Menu.Item key="5"><Link to="/grundriss">Grundriss</Link></Menu.Item>
                             <Menu.Item key="6">
                                 <Link to="/methodik">Methodik</Link>
                             </Menu.Item>
@@ -121,6 +122,7 @@ export default class Layout_Container extends React.Component {
                             <Route path="/credits" component={CreditsPage} />
                             <Route path="/daten" component={OnDataPage} />
                             <Route path="/onsearch" component={SearchInfoPage} />
+                            <Route path="/grundriss" component={ArticlePage} />
                 </Row >
                 <Row type="flex" justify="center" style={{ paddingLeft: "60px", paddingRight: "60px", paddingBottom: "70px"}}>
                     <Route path="/" exact component={LandingPage} />
