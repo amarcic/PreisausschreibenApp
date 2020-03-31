@@ -157,10 +157,19 @@ class FacetSider extends React.Component {
                             />
                             <Popover content="Anleitung zur Suche (z.B. Sonderzeichen) im Menü unter Forschung"><Icon type="question-circle" /></Popover>
                         </Menu.Item>
-                        <Menu.Item>
-                        <Dropdown trigger={['click']} overlay={<Menu><Menu.Item><CheckboxGroup onChange={this.onChangeFields} defaultValue={this.props.query.simple_query_string.fields} >{searchFields}</CheckboxGroup></Menu.Item></Menu>}><span>suchen nur in <Icon type="down" /></span></Dropdown>
-    
-                        </Menu.Item>
+                        {/*<Menu.Item>
+                        <Dropdown trigger={['click']} overlay={<Menu><Menu.Item><CheckboxGroup onChange={this.onChangeFields} defaultValue={this.props.query.simple_query_string.fields} >{searchFields}</CheckboxGroup></Menu.Item></Menu>}><span>Rubriken<Icon type="down" /></span></Dropdown>
+
+                        </Menu.Item>*/}
+                        <SubMenu key="searchFields" title="Rubriken">
+                            <Menu>
+                                <Menu.Item style={{height: 110}}>
+                                    <CheckboxGroup onChange={this.onChangeFields} defaultValue={this.props.query.simple_query_string.fields} >
+                                        {searchFields}
+                                    </CheckboxGroup>
+                                </Menu.Item>
+                            </Menu>
+                        </SubMenu>
                         <SubMenu key="subTaskTypes" title="Aufgabentypen">
                             <Menu.Item style={{height: 150}} key="10">
                                 <CheckboxGroup onChange={this.onChangeTaskTypes} defaultValue={this.props.filterTaskTypes} >

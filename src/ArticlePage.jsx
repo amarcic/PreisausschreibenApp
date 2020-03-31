@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Layout, Breadcrumb, Row, Col } from 'antd';
 
+import './article.css';
+
 const { Content } = Layout;
 
 export default function ArticlePage( props ) {

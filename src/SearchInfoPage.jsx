@@ -54,7 +54,7 @@ export default function SearchInfoPage( props ) {
                                         NICHT &lt;Symphonie&gt;, also &lt;Beethoven&gt; UND &lt;NICHT Symphonie&gt; aufweisen,
                                         dann ist einzugeben &lt;Beethoven + -Symphonie&gt;. (Bitte an das + denken, denn sonst
                                         werden sämtliche Preisausschreiben angezeigt: &lt;Beethoven -Symphonie&gt; ruft alle
-                                        Ergebnisse auf, &lt;Beethoven&gt; oder &lt;NICHT Symphonie&gt; enthalten.
+                                        Ergebnisse auf, die &lt;Beethoven&gt; oder &lt;NICHT Symphonie&gt; enthalten.
                                     </li>
                                     <li>
                                         Durch „“ kann nach einer bestimmten Phrase gesucht werden, z. B. „im ungarischen
