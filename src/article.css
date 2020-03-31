@@ -1,7 +1,7 @@
-table, th, td {
+.table_article, .th_article, .td_article {
     border: 1px solid black;
 }
 
-table {
+.table_article {
     width: 100%
 }

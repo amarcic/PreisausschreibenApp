@@ -79,41 +79,41 @@ export default function ArticlePage( props ) {
                                     <h1><a id="117"></a>3. Akteur*innen musikbezogener Preisausschreiben <a name="Kap3"> </a></h1>
                                     <p id="line119">Im Folgenden wird der Fokus auf die Personen und Institutionen gelenkt, die in der Datenbank erfasst wurden. Im Anschluss an einige statistische Auswertungen wird auf diejenigen Personen / Institutionen eingegangen, die entweder besonders häufig in der Datenbank auftauchen oder zentrale Akteure für das Phänomen der Preisausschreiben waren.</p>
                                     <p id="line121">Werfen wir zu Beginn einen Blick auf die Geschlechterverteilung.<a href="#_ftn38">[38]</a><a name="_ftnref38"></a> Von den 3.078 Personen, die die Datenbank enthält,<a href="#_ftn39">[39]</a><a name="_ftnref39"></a> sind 2.875 männlichen und 203 weiblichen Geschlechts, was 93,4% bzw. 6,6% entspricht.<a href="#_ftn40">[40]</a><a name="_ftnref40"></a> Hier ist zu anmerken, dass die Herkunft der Akteur*innen* keinesfalls gleichmäßig über Europa verteilt lag: Mit insgesamt 110 weiblichen Beteiligten stammen über die Hälfte der Frauen aus dem anglo-amerikanischen Raum, gefolgt von <strong>[S. 19]</strong> Frankreich mit 66 und Belgien mit 21. In Italien waren drei weibliche Personen an Wettbewerben beteiligt und in Spanien, Griechenland und Deutschland jeweils nur eine. Zu den letztgenannten drei Ländern ist zu ergänzen, dass die Häufigkeit ihres Vorkommens in der Datenbank stark divergiert. Während in Spanien vier Wettbewerbe und in Griechenland nur ein Wettbewerb in den Quellen zu finden waren, waren im Gebiet des Deutschen Bundes Hinweise auf 179 Preisausschreiben aus dem Zeitraum von 1820 bis 1870 anzutreffen.<a href="#_ftn41">[41]</a><a name="_ftnref41"></a></p>
-                                    <table id="line123">
+                                    <table class="table_article" id="line123">
                                         <thead id="line123">
-                                        <tr id="line123">
-                                            <th id="line123"><strong>Region</strong></th>
-                                            <th id="line123"><strong>Anzahl</strong></th>
+                                        <tr class= "table_article" id="line123">
+                                            <th class="table_article" class= "table_article" id="line123"><strong>Region</strong></th>
+                                            <th class="table_article" class= "table_article" id="line123"><strong>Anzahl</strong></th>
                                         </tr>
                                         </thead>
                                         <tbody id="line125">
-                                        <tr>
-                                            <td>England/USA</td>
-                                            <td>110</td>
+                                        <tr class="table_article">
+                                            <td class="table_article">England/USA</td>
+                                            <td class="table_article">110</td>
                                         </tr>
                                         <tr>
-                                            <td>Frankreich</td>
-                                            <td>66</td>
+                                            <td class="table_article">Frankreich</td>
+                                            <td class="table_article">66</td>
                                         </tr>
                                         <tr>
-                                            <td>Belgien</td>
-                                            <td>21</td>
+                                            <td class="table_article">Belgien</td>
+                                            <td class="table_article">21</td>
                                         </tr>
                                         <tr>
-                                            <td>Italien</td>
-                                            <td>3</td>
+                                            <td class="table_article">Italien</td>
+                                            <td class="table_article">3</td>
                                         </tr>
                                         <tr>
-                                            <td>Spanien</td>
-                                            <td>1</td>
+                                            <td class="table_article">Spanien</td>
+                                            <td class="table_article">1</td>
                                         </tr>
                                         <tr>
-                                            <td>Griechenland</td>
-                                            <td>1</td>
+                                            <td class="table_article">Griechenland</td>
+                                            <td class="table_article">1</td>
                                         </tr>
                                         <tr>
-                                            <td>Deutscher Bund</td>
-                                            <td>1</td>
+                                            <td class="table_article">Deutscher Bund</td>
+                                            <td class="table_article">1</td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -186,123 +186,123 @@ export default function ArticlePage( props ) {
                                         <p id="line266">Sind diejenigen, welche das Urtheil fällen, Götter? Sind sie einem Irrthume unterworfen? Wie leicht wird nicht bei solchen Gelegenheiten einseitig, nach Vorurtheilen und schiefen individuellen Ansichten entschieden! […] Ferner bietet schon die Frage: Wer soll die Kunstrichter wählen? Fast unübersteigliche Schwierigkeiten. Noch mehr aber die Frage: Wer soll gewählt werden? <em>Blos</em> Künstler vom Fach – sie werden zu leicht einseitig urtheilen; <em>blos</em> Dilettanten – sie werden noch leichter einseitig; beide gemischt – wie soll die Mischung sein, um Parteilichkeiten zu vermeiden?<a href="#_ftn159">[159]</a><a name="_ftnref159"></a></p>
                                     </blockquote>
                                     <p id="line268">Diese Fragen formuliert 1836 der Autor eines in der <em>Allgemeine musikalischen Zeitung</em> publizierten Aufsatzes „Ueber den Nutzen musikalischer Preis-Aufgaben“, einem Plädoyer gegen die Ausrichtung von musikalischen Wettbewerben. Ein Blick auf die Beurteilungsinstanzen der musikalischen Wettbewerbslandschaft des 19. Jahrhunderts zeigt, dass diese zwar von männlichen Akteuren dominiert waren, aber sich darüber hinaus recht unterschiedlich konstituierten, und dass es auf die Fragen des Autors tatsächlich keine eindeutige zeitgenössische Antwort zu geben schien. Eine in dem Untersuchungszeitraum bei allen Arten von musikalischen Wettbewerben verhältnismäßig weit verbreitete Form war die Expertenjury. Sie kennzeichnete eine meist einstellige ungerade Anzahl von Preisrichtern. Anhand unseres Quellenkorpus lassen sich für 31% der dokumentierten Wettbewerbe<a href="#_ftn160">[160]</a><a name="_ftnref160"></a> Informationen über Jurymitglieder erfassen.</p>
-                                    <table id="line270">
+                                    <table class="table_article" id="line270">
                                         <thead id="line270">
-                                        <tr id="line270">
-                                            <th id="line270"></th>
-                                            <th id="line270">absolut</th>
-                                            <th id="line270">prozentual</th>
+                                        <tr class="table_article" id="line270">
+                                            <th class="table_article" class="table_article" id="line270"></th>
+                                            <th class="table_article" class="table_article" id="line270">absolut</th>
+                                            <th class="table_article" class="table_article" id="line270">prozentual</th>
                                         </tr>
                                         </thead>
                                         <tbody id="line272">
                                         <tr>
-                                            <td>Anzahl der erfassten Wettbewerbe bzw. Teilwettbewerbe</td>
-                                            <td>1.726</td>
-                                            <td>100%</td>
+                                            <td class="table_article">Anzahl der erfassten Wettbewerbe bzw. Teilwettbewerbe</td>
+                                            <td class="table_article">1.726</td>
+                                            <td class="table_article">100%</td>
                                         </tr>
                                         <tr>
-                                            <td>ohne Erfassung der Jury</td>
-                                            <td>1.191</td>
-                                            <td>69%</td>
+                                            <td class="table_article">ohne Erfassung der Jury</td>
+                                            <td class="table_article">1.191</td>
+                                            <td class="table_article">69%</td>
                                         </tr>
                                         <tr>
-                                            <td>mit Erfassung der Jury</td>
-                                            <td>535</td>
-                                            <td>31%</td>
+                                            <td class="table_article">mit Erfassung der Jury</td>
+                                            <td class="table_article">535</td>
+                                            <td class="table_article">31%</td>
                                         </tr>
                                         </tbody>
                                     </table>
                                     <p id="line276">Tabelle 2: Anzahl erfasster Preisausschreiben mit Informationen über Jurymitglieder</p>
                                     <p id="line278">Die Daten, die sich diesem knappen Drittel aller für unsere Untersuchung erfassten Wettbewerbe entnehmen lassen, sind allerdings nur unter Vorbehalt zu deuten. Denn es ist davon auszugehen, dass die überlieferte Berichterstattung der musikalischen Periodika häufig unvollständig ist. Es lässt sich jedoch relativ zuverlässig feststellen, dass die Juroren vornehmlich in ungerader Anzahl bei Wettbewerben vertreten waren, was darauf zurückzuführen ist, dass Pattsituationen vermieden werden sollten. <strong>[S. 46]</strong></p>
-                                    <table id="line280">
+                                    <table class="table_article" id="line280">
                                         <thead id="line280">
-                                        <tr id="line280">
-                                            <th id="line280">Anzahl der erfassten Jurymitglieder</th>
-                                            <th id="line280">1</th>
-                                            <th id="line280">2</th>
-                                            <th id="line280">3</th>
-                                            <th id="line280">4</th>
-                                            <th id="line280">5</th>
-                                            <th id="line280">6</th>
-                                            <th id="line280">7</th>
-                                            <th id="line280">8</th>
-                                            <th id="line280">9</th>
-                                            <th id="line280">&gt;10</th>
+                                        <tr class="table_article" id="line280">
+                                            <th class="table_article" id="line280">Anzahl der erfassten Jurymitglieder</th>
+                                            <th class="table_article" id="line280">1</th>
+                                            <th class="table_article" id="line280">2</th>
+                                            <th class="table_article" id="line280">3</th>
+                                            <th class="table_article" id="line280">4</th>
+                                            <th class="table_article" id="line280">5</th>
+                                            <th class="table_article" id="line280">6</th>
+                                            <th class="table_article" id="line280">7</th>
+                                            <th class="table_article" id="line280">8</th>
+                                            <th class="table_article" id="line280">9</th>
+                                            <th class="table_article" id="line280">&gt;10</th>
                                         </tr>
                                         </thead>
                                         <tbody id="line282">
                                         <tr>
-                                            <td>absolut</td>
-                                            <td>82</td>
-                                            <td>20</td>
-                                            <td>115</td>
-                                            <td>30</td>
-                                            <td>78</td>
-                                            <td>27</td>
-                                            <td>68</td>
-                                            <td>25</td>
-                                            <td>24</td>
-                                            <td>66</td>
+                                            <td class="table_article">absolut</td>
+                                            <td class="table_article">82</td>
+                                            <td class="table_article">20</td>
+                                            <td class="table_article">115</td>
+                                            <td class="table_article">30</td>
+                                            <td class="table_article">78</td>
+                                            <td class="table_article">27</td>
+                                            <td class="table_article">68</td>
+                                            <td class="table_article">25</td>
+                                            <td class="table_article">24</td>
+                                            <td class="table_article">66</td>
                                         </tr>
                                         <tr>
-                                            <td>prozentual</td>
-                                            <td><strong>15,33%</strong></td>
-                                            <td>3,74%</td>
-                                            <td><strong>21,50%</strong></td>
-                                            <td>5,61%</td>
-                                            <td><strong>14,58%</strong></td>
-                                            <td>5,05%</td>
-                                            <td><strong>12,71%</strong></td>
-                                            <td>4,67%</td>
-                                            <td>4,49%</td>
-                                            <td>12,34%</td>
+                                            <td class="table_article">prozentual</td>
+                                            <td class="table_article"><strong>15,33%</strong></td>
+                                            <td class="table_article">3,74%</td>
+                                            <td class="table_article"><strong>21,50%</strong></td>
+                                            <td class="table_article">5,61%</td>
+                                            <td class="table_article"><strong>14,58%</strong></td>
+                                            <td class="table_article">5,05%</td>
+                                            <td class="table_article"><strong>12,71%</strong></td>
+                                            <td class="table_article">4,67%</td>
+                                            <td class="table_article">4,49%</td>
+                                            <td class="table_article">12,34%</td>
                                         </tr>
                                         </tbody>
                                     </table>
                                     <p id="line285">Tabelle 3: Wettbewerbe mit Daten zur Jurybesetzung</p>
                                     <p id="line289">Die Statistik deutet zudem darauf hin, dass Jurys, die sich aus drei Personen zusammensetzten, weit verbreitet waren. Noch deutlicher wird dieses Ergebnis, wenn man sich die Zahlen ausschließlich im Kontext von Kompositionswettbewerben ansieht.</p>
-                                    <table id="line291">
+                                    <table class="table_article" id="line291">
                                         <thead id="line291">
-                                        <tr id="line291">
-                                            <th id="line291">Anzahl der erfassten Jurymitglieder</th>
-                                            <th id="line291">1</th>
-                                            <th id="line291">2</th>
-                                            <th id="line291">3</th>
-                                            <th id="line291">4</th>
-                                            <th id="line291">5</th>
-                                            <th id="line291">6</th>
-                                            <th id="line291">7</th>
-                                            <th id="line291">8</th>
-                                            <th id="line291">9</th>
-                                            <th id="line291">&gt;10</th>
+                                        <tr class="table_article" id="line291">
+                                            <th class="table_article" id="line291">Anzahl der erfassten Jurymitglieder</th>
+                                            <th class="table_article" id="line291">1</th>
+                                            <th class="table_article" id="line291">2</th>
+                                            <th class="table_article" id="line291">3</th>
+                                            <th class="table_article" id="line291">4</th>
+                                            <th class="table_article" id="line291">5</th>
+                                            <th class="table_article" id="line291">6</th>
+                                            <th class="table_article" id="line291">7</th>
+                                            <th class="table_article" id="line291">8</th>
+                                            <th class="table_article" id="line291">9</th>
+                                            <th class="table_article" id="line291">&gt;10</th>
                                         </tr>
                                         </thead>
                                         <tbody id="line293">
                                         <tr>
-                                            <td>absolut</td>
-                                            <td>32</td>
-                                            <td>4</td>
-                                            <td>82</td>
-                                            <td>18</td>
-                                            <td>25</td>
-                                            <td>9</td>
-                                            <td>34</td>
-                                            <td>13</td>
-                                            <td>15</td>
-                                            <td>35</td>
+                                            <td class="table_article">absolut</td>
+                                            <td class="table_article">32</td>
+                                            <td class="table_article">4</td>
+                                            <td class="table_article">82</td>
+                                            <td class="table_article">18</td>
+                                            <td class="table_article">25</td>
+                                            <td class="table_article">9</td>
+                                            <td class="table_article">34</td>
+                                            <td class="table_article">13</td>
+                                            <td class="table_article">15</td>
+                                            <td class="table_article">35</td>
                                         </tr>
                                         <tr>
-                                            <td>prozentual</td>
-                                            <td>11,99%</td>
-                                            <td>1,50%</td>
-                                            <td><strong>30,71%</strong></td>
-                                            <td>6,74%</td>
-                                            <td>9,36%</td>
-                                            <td>3,37%</td>
-                                            <td><strong>12,73%</strong></td>
-                                            <td>4,87%</td>
-                                            <td>5,62%</td>
-                                            <td><strong>13,11%</strong></td>
+                                            <td class="table_article">prozentual</td>
+                                            <td class="table_article">11,99%</td>
+                                            <td class="table_article">1,50%</td>
+                                            <td class="table_article"><strong>30,71%</strong></td>
+                                            <td class="table_article">6,74%</td>
+                                            <td class="table_article">9,36%</td>
+                                            <td class="table_article">3,37%</td>
+                                            <td class="table_article"><strong>12,73%</strong></td>
+                                            <td class="table_article">4,87%</td>
+                                            <td class="table_article">5,62%</td>
+                                            <td class="table_article"><strong>13,11%</strong></td>
                                         </tr>
                                         </tbody>
                                     </table>
