@@ -1,3 +1,11 @@
+blockquote {
+    margin-left: 20px;
+}
+
+blockquote p {
+    font-size: smaller;
+}
+
 .table_article, .th_article, .td_article {
     border: 1px solid black;
 }

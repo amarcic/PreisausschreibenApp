@@ -4,12 +4,17 @@ import { withRouter } from 'react-router-dom';
 
 import dateHelper from './dateHelper';
 import FacetSider from './FacetSider';
-import ResultMap from "./ResultMap";
+import MapResults from './MapResults';
+import withESDataMap from "./withESDataMap";
+import withESData from "./withESData";
+//import ResultMap from "./ResultMap";
 //import Markdown from 'markdown-to-jsx';
 //import EsSearchBox from './EsSearchBox';
 
 const { Content } = Layout;
 const Panel = Collapse.Panel;
+
+const MapWithESData = withESDataMap( MapResults );
 
 //sorter for columns only sort through the currently displayed results. I should either use elasticsearch for sorting (so all results are sorted) or drop the function 
 const columnsPreisausschreiben = [
@@ -88,7 +93,10 @@ function ProSearchPage( props ) {
                         {/*let's put the map here. should be closed by default, so rendering can start once it is opened*/}
                         <Collapse>
                             <Panel>
-                                <div style={{height: '400px', width: '800px'}}><ResultMap data={data.map( d => {return{ placename: d._source.esPlacename, coordinate: d._source.esGeoP }})} /></div>
+                                <div style={{height: '400px', width: '800px'}}>
+                                    <MapWithESData strQuery={props.strQuery} filterCountry={props.filterCountry} filterTimeSpan={props.filterTimeSpan} filterTaskTypes={props.filterTaskTypes} />
+                                    {/*<MapResults data={data.map( d => {return{ identifier: d._id, placename: d._source.esPlacename, coordinates: d._source.esGeoP }})} />*/}
+                                </div>
                             </Panel>
                         </Collapse>
                         <Table

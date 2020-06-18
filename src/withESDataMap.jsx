@@ -23,9 +23,10 @@ function fetchFromES( strQueryObj, optionObj ) {
     //const index = 'couchdata3';
     const index = 'preisausschreibendb';
     //const doctype = type || '_all';
-    const fields = fields || '_all';
-    const sort = options.sort || "";
-    const from = options.offset || 0;
+    //maybe I could have used withESData if I would
+    //const fields = fields || '_all';
+    //const sort = options.sort || "";
+    //const from = options.offset || 0;
     const filterTimeSpan = options.filterTimeSpan || {};
     const filterTaskTypes = options.filterTaskTypes || {};
     const filterCountry = options.filterCountry || {};
@@ -97,19 +98,21 @@ function fetchFromES( strQueryObj, optionObj ) {
         countryFilter = {};
     }
       
-      
+      /*
       let sortObj = {};
       console.log("object key length: "+ Object.keys(sort).length)
       if (Object.keys(sort).length>0&&sort!=="") {
           sortObj[sort.on] = {order: sort.order};
       }
+      */
 
       client.search({
         index: index,
         type: 'contest',
-        from: from,
         body: { 
-            sort: [sortObj],
+            //sort: [sortObj],
+            size: 1500,
+            fields: ["esPlacename", "esGeoP"],
             query:
                 {
                     filtered: {
@@ -143,7 +146,7 @@ export default function withESData( WrappedComponent ) {
             componentDidMount() {
                 //console.log("hello from withESData componentDidMount()");
                 //there is no this.props.view
-                this.fetchData( this.props.strQuery, {/*filterObj: this.props.filterObj,*/ filterCountry: this.props.filterCountry, filterTimeSpan: this.props.filterTimeSpan, filterTaskTypes: this.props.filterTaskTypes, offset: this.props.offset, sort: this.props.sort/*, strQuery: this.props.strQuery*/ } );
+                this.fetchData( this.props.strQuery, {/*filterObj: this.props.filterObj,*/ filterCountry: this.props.filterCountry, filterTimeSpan: this.props.filterTimeSpan, filterTaskTypes: this.props.filterTaskTypes, /*offset: this.props.offset, sort: this.props.sort, strQuery: this.props.strQuery*/ } );
             }
 
             componentDidUpdate( prevProps ) {
@@ -157,15 +160,15 @@ export default function withESData( WrappedComponent ) {
 
                 if (
                         (JSON.stringify(this.props.strQuery) !== JSON.stringify(prevProps.strQuery))
-                        ||(this.props.offset !== prevProps.offset)
-                        ||(this.props.sort !== prevProps.sort)
+                //        ||(this.props.offset !== prevProps.offset)
+                //        ||(this.props.sort !== prevProps.sort)
                         ||(JSON.stringify(this.props.filterTimeSpan) !== JSON.stringify(prevProps.filterTimeSpan))
                         ||(JSON.stringify(this.props.filterCountry) !== JSON.stringify(prevProps.filterCountry))
                         ||(JSON.stringify(this.props.filterTaskTypes) !== JSON.stringify(prevProps.filterTaskTypes))
                         //||(JSON.stringify(this.props.filterObj) !== JSON.stringify(prevProps.filterObj))
                     ) {
                     console.log(this.props.filterCountry, JSON.stringify(prevProps.filterCountry) );
-                    this.fetchData( this.props.strQuery, {/*filterObj: this.props.filterObj,*/ filterCountry: this.props.filterCountry, filterTimeSpan: this.props.filterTimeSpan, filterTaskTypes: this.props.filterTaskTypes, offset: this.props.offset, sort: this.props.sort/*, strQuery: this.props.strQuery*/ } );
+                    this.fetchData( this.props.strQuery, {/*filterObj: this.props.filterObj,*/ filterCountry: this.props.filterCountry, filterTimeSpan: this.props.filterTimeSpan, filterTaskTypes: this.props.filterTaskTypes, /*offset: this.props.offset, sort: this.props.sort, strQuery: this.props.strQuery*/ } );
                 }
             }
 
