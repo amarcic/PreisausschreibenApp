@@ -92,7 +92,7 @@ function ProSearchPage( props ) {
                         <span>{props.hitsCount?props.hitsCount+" Treffer": "Keine Treffer" }</span>
                         {/*let's put the map here. should be closed by default, so rendering can start once it is opened*/}
                         <Collapse>
-                            <Panel>
+                            <Panel header="Trefferübersicht auf Karte">
                                 <div style={{height: '400px', width: '800px'}}>
                                     <MapWithESData strQuery={props.strQuery} filterCountry={props.filterCountry} filterTimeSpan={props.filterTimeSpan} filterTaskTypes={props.filterTaskTypes} />
                                     {/*<MapResults data={data.map( d => {return{ identifier: d._id, placename: d._source.esPlacename, coordinates: d._source.esGeoP }})} />*/}

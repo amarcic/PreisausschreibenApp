@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Map as LeafletMap, TileLayer, Popup, Marker, GeoJSON } from 'react-leaflet';
 import MarkerClusterGroup from 'react-leaflet-markercluster';
-import 'react-leaflet-markercluster/dist/styles.min.css';
 
 const osmTiles = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 const osmAttr = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
@@ -15,11 +14,12 @@ class ResultMap extends React.Component  {
     }
 
     render() {
-        console.log("daten sind hier");
-        console.log(this.props.requestData);
+        //console.log("daten sind hier");
+        //console.log(this.props.requestData);
 
         return (
             <LeafletMap
+                //style={{height : '400px'}}
                 className="markercluster-map"
                 center={mapCenter}
                 zoom={zoomLevel}

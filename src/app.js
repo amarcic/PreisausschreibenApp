@@ -6,6 +6,7 @@ import { BrowserRouter, Route, Link } from 'react-router-dom';
 import { LocaleProvider } from 'antd';
 import deDE from 'antd/lib/locale-provider/de_DE';
 
+
 import * as packageJSON from '../package.json';
 
 import Layout_Container from "./Layout-Container";

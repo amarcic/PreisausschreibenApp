@@ -132,7 +132,7 @@ class FacetSider extends React.Component {
     render() {
         return(
             <Sider>
-            <Menu style={ {width: 256, border: "1px solid #E2E8F0"} } mode="inline" defaultOpenKeys={['subTaskTypes', this.props.filterCountry&&this.props.filterCountry.length>0?'subCountries':'']}>
+            <Menu style={ {width: 256, border: "1px solid #E2E8F0"} } mode="inline" defaultOpenKeys={[this.props.filterCountry&&this.props.filterCountry.length>0?'subCountries':'']}>
                         <Menu.Item style= {{ height: 70}}>
                             <Input.Search 
                                 size="large"
