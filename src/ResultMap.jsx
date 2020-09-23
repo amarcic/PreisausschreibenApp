@@ -1,4 +1,4 @@
-import React from 'react';
+/*import React from 'react';
 import { Map as LeafletMap, TileLayer, Popup, Marker, GeoJSON } from 'react-leaflet';
 import worldGeoJSON from 'geojson-world-map';
 
@@ -24,9 +24,9 @@ class ResultMap extends React.Component  {
                 animate={true}
                 easeLinearity={0.35}
             >
-                {/*<TileLayer
-                    url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
-                />*/}
+                //{<TileLayer
+                  //  url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
+                // />}
                 <GeoJSON
                     data={worldGeoJSON}
                     style={() => ({
@@ -46,4 +46,4 @@ class ResultMap extends React.Component  {
     }
 }
 
-export default ResultMap;
+export default ResultMap;*/
