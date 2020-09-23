@@ -118,7 +118,7 @@ class FacetSider extends React.Component {
             /*filterObj: this.state.filter,*/ 
             filterTaskTypes: this.props.filterTaskTypes, 
             filterCountry: this.props.filterCountry,
-            filterTimeSpan: this.props.filterCountry,
+            filterTimeSpan: this.props.filterTimeSpan,
             type: this.props.searchType,
             offset: 0
         });
