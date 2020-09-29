@@ -23,6 +23,7 @@ import withESData from './withESData';
 import OnMethodsPage from './OnMethodsPage';
 import BibliographyPage from './BibliographyPage';
 import ArticlePage from "./ArticlePage";
+import OnQuotation from "./OnQuotation";
 
 const SearchPageWithESData = withESData( ProSearchPage );
 
@@ -104,6 +105,9 @@ export default class Layout_Container extends React.Component {
                             <Menu.Item key="14">
                                 <Link to="/daten">Daten</Link>
                             </Menu.Item>
+                            <Menu.Item key="15">
+                                <Link to="/quotation">Zitiervorschlag und DOI</Link>
+                            </Menu.Item>
                         </SubMenu>
                     </Menu>
                 </Header>
@@ -123,6 +127,7 @@ export default class Layout_Container extends React.Component {
                             <Route path="/daten" component={OnDataPage} />
                             <Route path="/onsearch" component={SearchInfoPage} />
                             <Route path="/grundriss" component={ArticlePage} />
+                            <Route path="/quotation" component={OnQuotation} />
                 </Row >
                 <Row type="flex" justify="center" style={{ paddingLeft: "60px", paddingRight: "60px", paddingBottom: "70px"}}>
                     <Route path="/" exact component={LandingPage} />
@@ -144,7 +149,7 @@ export default class Layout_Container extends React.Component {
                                 <span>Musikalische Preisausschreiben 1820 bis 1870</span><br />
                                 <span>Grundriss, Datenbank und Bibliografie auf Grundlage von Musikperiodika</span><br />
                                 <span>Musikalische Preisausschreiben ©2020 | Universität zu Köln</span><br />
-                                Lizenziert unter <a href="https://creativecommons.org/licenses/by/4.0/">CC BY</a>
+                                DOI: 10.18716/MUS.PREIS.1820-70 | Lizenziert unter <a href="https://creativecommons.org/licenses/by/4.0/">CC BY</a>
                             </div>
                         </Col>
                         <Col span={8}>

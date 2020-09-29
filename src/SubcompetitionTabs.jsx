@@ -50,7 +50,6 @@ export default function SubcompetitionTabs( props ) {
     } );
 
     return(
-        <div>
                 <Tabs style={{backgroundColor: "white", border: "1px solid #E2E8F0"}}>
                     {subcompetitions.map( (subcomp, index) => 
                         <TabPane tab={subcomp} key={subcomp}>
@@ -61,7 +60,5 @@ export default function SubcompetitionTabs( props ) {
                         </TabPane>
                     )}
                 </Tabs>
-            </div>
-
     );
 }
