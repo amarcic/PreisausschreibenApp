@@ -76,7 +76,7 @@ export default function SearchInfoPage( props ) {
                                     <li>
                                         Suche mit Unschärfe ist auch bei Phrasen möglich. Hier signalisiert N die Anzahl von
                                         Wörtern, um die Phrasen voneinander abweichen dürfen. &lt;„Komposition eines
-                                        Voklastücks“~1&gt; findet auch &lt;Komposition eines vierstimmigen Vokalstücks&gt; und
+                                        Vokalstücks“~1&gt; findet auch &lt;Komposition eines vierstimmigen Vokalstücks&gt; und
                                         &lt;Komposition eines geistlichen Vokalstücks&gt; etc.
                                     </li>
                                     <li>

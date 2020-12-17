@@ -615,7 +615,7 @@ export default function ArticlePage( props ) {
                                             <p id="line1673"><a name="Zitiervorschlag"> </a></p>
                                             <h2><a id="1675"></a>Zitiervorschlag</h2>
                                             <blockquote id="line1677">
-                                                <p id="line1678">Carola Bebermeier, Clemens Kreutzfeldt und Jonas Traudes: „Musikalische Preisausschreiben 1820-1870 Ein historischer Grundriss“, in: <em><a href="http://musical-competitions.uni-koeln.de/app/">Musikalische Preisausschreiben 1820-1870. Grundriss, Datenbank und Bibliografie auf Grundlage von Musikperiodika</a></em>, hrsg. von Frank Hentschel und Andreas Domann, University of Cologne 2020, <a href="https://doi.org/10.18716/MUS.PREIS.1820-70">https://doi.org/10.18716/MUS.PREIS.1820-70</a>.</p>
+                                                <p id="line1678">Carola Bebermeier, Clemens Kreutzfeldt und Jonas Traudes: „Musikalische Preisausschreiben 1820-1870 Ein historischer Grundriss“, in: <em><a href="http://musical-competitions.uni-koeln.de/app/">Musikalische Preisausschreiben 1820-1870. Grundriss, Datenbank und Bibliografie auf Grundlage von Musikperiodika</a></em>, hrsg. von Frank Hentschel und Andreas Domann, University of Cologne 2020, &lt;<a href="https://doi.org/10.18716/MUS.PREIS.1820-70">https://doi.org/10.18716/MUS.PREIS.1820-70</a>&gt;.</p>
                                             </blockquote>
                             </div>
                         </Col>
