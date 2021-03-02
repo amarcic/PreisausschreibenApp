@@ -21,12 +21,11 @@
   },
   "homepage": "https://github.com/amarcic/PreisausschreibenApp#readme",
   "config": {
-    "couchdb": "http://musical-competitions.uni-koeln.de/api/",
+    "couchdb": "https://musical-competitions.uni-koeln.de/api/",
     "couchdb_version": "1.6.1",
-    "elasticsearch": "http://search.musical-competitions.uni-koeln.de",
+    "elasticsearch": "https://musical-competitions.uni-koeln.de/search",
     "elasticsearch_version": "1.7.6",
-    "react_router_basename": "/app",
-    "assets_path": "/assets"
+    "react_router_basename": "/app"
   },
   "devDependencies": {
     "@babel/core": "^7.10.2",
@@ -42,6 +41,7 @@
     "babel-loader": "^8.1.0",
     "babel-plugin-import": "^1.13.0",
     "compression-webpack-plugin": "^3.1.0",
+    "copy-webpack-plugin": "^5.1.1",
     "cross-env": "^6.0.3",
     "css-loader": "^3.6.0",
     "less": "^3.11.3",
