@@ -10,6 +10,8 @@ import LabelSegment from './LabelSegment';
 import ResourceSegment from './ResourceSegment';
 import dateHelper from './dateHelper';
 
+import * as packageJSON from '../package.json';
+
 const EventSegmentWithCommentContainer = withCommentContainer(EventSegment);
 const OverviewTaskSegmentWithCommentContainer = withCommentContainer(OverviewTaskSegment);
 const CompetingSegmentWithCommentContainer = withCommentContainer(CompetingSegment);
@@ -129,7 +131,7 @@ export default function ContestPage( props ) {
             <div style={{marginTop: 50}}>
                 <ResourceSegment resources={resources} />
             </div>
-            <p style={{marginTop:"20px"}}><a href={"http://musical-competitions.uni-koeln.de/api/" + data._id}>Datensatz zu diesem Preisausschreiben</a> (JSON)</p>
+            <p style={{marginTop:"20px"}}><a href={packageJSON.config.couchdb + data._id}>Datensatz zu diesem Preisausschreiben</a> (JSON)</p>
         </Col>
     </Row>
     </div>
