@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import {Layout, Breadcrumb, Row, Col} from 'antd';
 
+import * as packageJSON from '../package.json';
+
 const { Content } = Layout; 
 
 export default function OnDataPage( props ) {
@@ -18,7 +20,7 @@ export default function OnDataPage( props ) {
                         <Col offset={2} style={{ maxWidth: "800px", marginLeft: "100px", marginRight: "100px"}}>
                             <h1 style={{fontSize: "1.7rem"}}>Zitiervorschlag</h1>
                             <p>
-                                Hentschel, Frank / Domann, Andreas / Bebermeier, Carola / Kreutzfeldt, Clemens / Marčić, Aleksander / Traudes, Jonas: „<a href="http://musical-competitions.uni-koeln.de/app/index.html">Musikalische Preisausschreiben 1820-1870. Grundriss, Datenbank und Bibliografie auf Grundlage von Musikperiodika</a>, University of Cologne 2020, <a href="https://doi.org/10.18716/MUS.PREIS.1820-70">https://doi.org/10.18716/MUS.PREIS.1820-70</a>.
+                                Hentschel, Frank / Domann, Andreas / Bebermeier, Carola / Kreutzfeldt, Clemens / Marčić, Aleksander / Traudes, Jonas: „<a href={packageJSON.config.react_router_basename}>Musikalische Preisausschreiben 1820-1870. Grundriss, Datenbank und Bibliografie auf Grundlage von Musikperiodika</a>, University of Cologne 2020, <a href="https://doi.org/10.18716/MUS.PREIS.1820-70">https://doi.org/10.18716/MUS.PREIS.1820-70</a>.
                             </p>
                             <h1 style={{fontSize: "1.7rem"}}>DOI</h1>
                             <p>

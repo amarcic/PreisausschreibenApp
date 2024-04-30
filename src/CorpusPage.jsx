@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Layout, Breadcrumb } from 'antd';
 
+import * as packageJSON from '../package.json';
+
 const { Content } = Layout; 
 
 export default function CorpusPage( props ) {
@@ -16,7 +18,7 @@ export default function CorpusPage( props ) {
                 <Layout style={{ marginTop: "20px", marginBottom: "20px" }}>
                 <div style={{ maxWidth: "800px", marginLeft: "100px", marginRight: "100px"}}>
                     <h1 style={{fontSize: "1.7rem"}}><a id="0"></a>Zeitschriftenkorpus</h1>
-                    <p id="line2">Die folgende Übersicht verzeichnet sämtliche Zeitschriften, die für die Datenbank ausgewertet wurden. Die Auswahl erfolgte entsprechend den Erläuterungen über die <a href="http://musical-competitions.uni-koeln.de/app/methodik">Methodik</a>. Die Zeitschriften werden chronologisch aufgelistet. Zeitschriften, die aufgrund von Fusionen oder Umbenennungen als Einheit betrachtet wurden, werden als Block aufgeführt; die alphabetische Einordnung erfolgt nach der ältesten Bezeichnung.</p>
+                    <p id="line2">Die folgende Übersicht verzeichnet sämtliche Zeitschriften, die für die Datenbank ausgewertet wurden. Die Auswahl erfolgte entsprechend den Erläuterungen über die <a href={packageJSON.config.react_router_basename + "methodik"}>Methodik</a>. Die Zeitschriften werden chronologisch aufgelistet. Zeitschriften, die aufgrund von Fusionen oder Umbenennungen als Einheit betrachtet wurden, werden als Block aufgeführt; die alphabetische Einordnung erfolgt nach der ältesten Bezeichnung.</p>
                     <p id="line5"><b> Allgemeine musikalische Zeitung </b> (1798-1848, 1863-1882, Leipzig)<br />
                         Auswertung: 1820-1848, 1863-1870</p>
                     <p id="line8"><b> L’Art musical </b> (1860-1870, 1872-1894, Paris)<br />

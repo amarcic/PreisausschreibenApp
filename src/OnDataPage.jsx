@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import {Layout, Breadcrumb, Row, Col} from 'antd';
 
+import * as packageJSON from '../package.json';
+
 const { Content } = Layout; 
 
 export default function OnDataPage( props ) {
@@ -20,7 +22,7 @@ export default function OnDataPage( props ) {
                             <p>
                                 Die Projektdaten erhalten Sie unter folgendem Link:
                                 <ul>
-                                    <li><a href={"http://musical-competitions.uni-koeln.de/api/_all_docs/?include_docs=true"}>Projektdaten</a> (im JSON-Format)</li>
+                                    <li><a href={packageJSON.config.couchdb + "_all_docs/?include_docs=true"}>Projektdaten</a> (im JSON-Format)</li>
                                 </ul>
                             </p>
                         </Col>
