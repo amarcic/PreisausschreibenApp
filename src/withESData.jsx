@@ -11,7 +11,7 @@ import * as packageJSON from '../package.json';
 console.log("couchdb: " +packageJSON.default.config.basename);
 
 let client = new elasticsearch.Client({
-    host: packageJSON.default.config.elasticsearch,
+    host: new URL(packageJSON.default.config.elasticsearch, location).href,
     //host: 'search.musical-competitions.uni-koeln.de:80',
     log: 'trace'
 });
