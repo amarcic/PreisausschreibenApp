@@ -5589,13 +5589,9 @@
       }
     },
     "markdown-to-jsx": {
-      "version": "6.11.4",
-      "resolved": "https://registry.npmjs.org/markdown-to-jsx/-/markdown-to-jsx-6.11.4.tgz",
-      "integrity": "sha512-3lRCD5Sh+tfA52iGgfs/XZiw33f7fFX9Bn55aNnVNUd2GzLDkOWyKYYD8Yju2B1Vn+feiEdgJs8T6Tg0xNokPw==",
-      "requires": {
-        "prop-types": "^15.6.2",
-        "unquote": "^1.1.0"
-      }
+      "version": "7.4.0",
+      "resolved": "https://registry.npmjs.org/markdown-to-jsx/-/markdown-to-jsx-7.4.0.tgz",
+      "integrity": "sha512-zilc+MIkVVXPyTb4iIUTIz9yyqfcWjszGXnwF9K/aiBWcHXFcmdEMTkG01/oQhwSCH7SY1BnG6+ev5BzWmbPrg=="
     },
     "md5.js": {
       "version": "1.3.5",
@@ -8731,11 +8727,6 @@
       "resolved": "https://registry.npmjs.org/unpipe/-/unpipe-1.0.0.tgz",
       "integrity": "sha1-sr9O6FFKrmFltIF4KdIbLvSZBOw=",
       "dev": true
-    },
-    "unquote": {
-      "version": "1.1.1",
-      "resolved": "https://registry.npmjs.org/unquote/-/unquote-1.1.1.tgz",
-      "integrity": "sha1-j97XMk7G6IoP+LkF58CYzcCG1UQ="
     },
     "unset-value": {
       "version": "1.0.0",
